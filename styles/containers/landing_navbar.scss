@@ -130,15 +130,14 @@
   }
 
   .button-section {
+    @include flex-container(row, nowrap, center, center);
+    gap: 1rem;
     button {
-      margin-left: 1rem;
+      font-family: var(--font-roboto);
+      font-size: var(--font-11);
+      letter-spacing: 4px;
       padding: 0.5rem 1rem;
-      font-size: 1rem;
-      background: linear-gradient(
-        -90deg,
-        var(--homepage-violet),
-        var(--homepage-blue)
-      );
+
       color: #fff;
       border: 2px solid transparent;
       cursor: pointer;
@@ -147,17 +146,6 @@
       transition: background 0.3s ease, box-shadow 0.3s ease,
         transform 0.3s ease, border-color 0.3s ease;
 
-      &:hover {
-        background: linear-gradient(
-          -90deg,
-          hsl(303, 100%, 20%),
-          hsl(240, 100%, 28%)
-        );
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        transform: translateY(-3px);
-        border-color: #ffd700;
-        animation: pulse 1s infinite;
-      }
       @keyframes pulse {
         0% {
           transform: scale(1);
@@ -218,6 +206,38 @@
       &:hover::after {
         transform: scaleY(1);
         transform-origin: bottom;
+      }
+    }
+    .login-button {
+      background: linear-gradient(
+        -90deg,
+        var(--black-1),
+        var(--homepage-violet)
+      );
+      &:hover {
+        background: linear-gradient(
+          -90deg,
+          hsl(303, 100%, 20%),
+          hsl(240, 100%, 28%)
+        );
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        transform: translateY(-3px);
+        border-color: #ffd700;
+        animation: pulse 1s infinite;
+      }
+    }
+    .register-button {
+      background: linear-gradient(-90deg, var(--black-1), var(--homepage-blue));
+      &:hover {
+        background: linear-gradient(
+          -90deg,
+          hsl(303, 100%, 20%),
+          hsl(240, 100%, 28%)
+        );
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        transform: translateY(-3px);
+        border-color: #ffd700;
+        animation: pulse 1s infinite;
       }
     }
   }
