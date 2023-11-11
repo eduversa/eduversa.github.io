@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import Link from "next/link";
 function LandingNavbar() {
   return (
     <Fragment>
@@ -6,13 +7,16 @@ function LandingNavbar() {
         <nav>
           <ul>
             <li>
-              <a href="/sample">Home</a>
+              <Link href="/">Login</Link>
             </li>
             <li>
-              <a href="/about">About</a>
+              <Link href="/register">Register</Link>
             </li>
             <li>
-              <a href="/contact">Contact</a>
+              <Link href="/about">About</Link>
+            </li>
+            <li>
+              <Link href="/contact">Contact</Link>
             </li>
           </ul>
         </nav>

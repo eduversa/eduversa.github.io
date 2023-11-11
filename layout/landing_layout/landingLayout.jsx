@@ -1,9 +1,11 @@
-import { Fragment } from "react"
-function landingLayout({children}) {
-    return (
-        <Fragment>
-            {children}
-        </Fragment>
-    )
+import { Fragment } from "react";
+import { LandingNavbar } from "@/containers";
+function LandingLayout({ children }) {
+  return (
+    <Fragment>
+      <LandingNavbar></LandingNavbar>
+      {children}
+    </Fragment>
+  );
 }
-export default landingLayout
+export default LandingLayout;

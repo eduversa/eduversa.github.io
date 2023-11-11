@@ -1,8 +1,11 @@
 import { Fragment } from "react";
+import { LandingLayout } from "@/layout";
 function Register() {
   return (
     <Fragment>
-      <h1>Register</h1>
+      <LandingLayout>
+        <h1>Register</h1>
+      </LandingLayout>
     </Fragment>
   );
 }

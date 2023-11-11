@@ -1,8 +1,11 @@
 import { Fragment } from "react";
+import { LandingLayout } from "@/layout";
 function Login() {
   return (
     <Fragment>
-      <h1>Eduversa</h1>
+      <LandingLayout>
+        <h1>Eduversa</h1>
+      </LandingLayout>
     </Fragment>
   );
 }

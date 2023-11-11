@@ -1,8 +1,11 @@
 import { Fragment } from "react";
+import { LandingLayout } from "@/layout";
 function About() {
   return (
     <Fragment>
-      <h1>About</h1>
+      <LandingLayout>
+        <h1>About</h1>
+      </LandingLayout>
     </Fragment>
   );
 }
