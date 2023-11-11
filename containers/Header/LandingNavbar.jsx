@@ -17,12 +17,12 @@ function LandingNavbar() {
             <ul className="nav-list">
               <li className="nav-item">
                 <Link href="/about">
-                  <span>About US</span>
+                  <span>About Us</span>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link href="/contact">
-                  <span>Contact US</span>
+                  <span>Contact Us</span>
                 </Link>
               </li>
             </ul>

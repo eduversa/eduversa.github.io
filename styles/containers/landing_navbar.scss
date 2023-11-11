@@ -36,11 +36,13 @@
     z-index: -1;
     transform: scaleX(0);
     transform-origin: center;
-    transition: transform 1s ease;
+    transition: transform 1s ease-in-out;
+    transform: brightness(1.2);
   }
   &:hover::before,
   &:hover::after {
     transform: scaleX(1);
+    transform: brightness(1.2);
   }
   .logo {
     font-family: var(--font-elianto);
@@ -61,63 +63,66 @@
   .nav-section {
     ul {
       @include flex-container(row, nowrap, space-between, center);
-      gap: 1rem;
-    }
+      gap: 2rem;
+      .nav-item {
+        font-family: var(--font-tektur);
+        font-size: var(--font-10);
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        //! position relative important here
+        position: relative;
+        transition: color 0.3s ease, background-color 0.3s ease,
+          box-shadow 0.3s ease, transform 0.3s ease;
 
-    .nav-item {
-      font-family: var(--font-tektur);
-      // font-size: 1.2rem;
-      // position: relative;
-      transition: color 0.3s ease, background-color 0.3s ease,
-        box-shadow 0.3s ease, transform 0.3s ease;
+        a {
+          &:hover {
+            color: #ff5722;
+            background-color: rgba(156, 39, 176, 0.2);
+            box-shadow: 0 0 10px rgba(156, 39, 176, 0.3);
+            transform: translateY(-2px);
+          }
 
-      a {
-        &:hover {
-          color: #ff5722;
-          background-color: rgba(156, 39, 176, 0.2);
-          box-shadow: 0 0 10px rgba(156, 39, 176, 0.3);
-          transform: translateY(-2px);
-        }
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(
+              -90deg,
+              transparent,
+              #ff5722,
+              transparent
+            );
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+          }
 
-        &::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 2px;
-          background: linear-gradient(
-            -90deg,
-            transparent,
-            #ff5722,
-            transparent
-          );
-          transform: scaleX(0);
-          transition: transform 0.3s ease;
-        }
+          &:hover::after {
+            transform: scaleX(1);
+          }
 
-        &:hover::after {
-          transform: scaleX(1);
-        }
+          &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(
+              -90deg,
+              transparent,
+              #ff5722,
+              transparent
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+          }
 
-        &::before {
-          content: "";
-          position: absolute;
-          width: 100%;
-          height: 2px;
-          background: linear-gradient(
-            -90deg,
-            transparent,
-            #ff5722,
-            transparent
-          );
-          opacity: 0;
-          transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        &:hover::before {
-          opacity: 1;
-          transform: scaleX(1.5);
+          &:hover::before {
+            opacity: 1;
+            transform: scaleX(1.5);
+          }
         }
       }
     }
