@@ -1,4 +1,5 @@
 .navbar {
+  @include flex-container(row, nowrap, space-between, center);
   position: fixed;
   width: 100%;
   z-index: 1000;
@@ -9,15 +10,13 @@
   );
   color: var(--white);
   box-shadow: 0px 8px 20px -5px var(--black-shadow-1);
-  @include flex-container(row, nowrap, space-between, center);
-  padding: 1rem;
   transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
+  padding: 1rem;
   &:hover {
     background: linear-gradient(
       -90deg,
-      rgba(139, 0, 139, 0.8),
-      rgba(0, 0, 128, 0.8)
+      hsl(303, 100%, 20%),
+      hsl(240, 100%, 28%)
     );
     box-shadow: 0px 10px 25px -5px var(--black-shadow);
   }
