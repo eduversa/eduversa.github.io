@@ -7,6 +7,9 @@ function Login() {
       <LandingLayout>
         <div className="homepage">
           <LandingPage></LandingPage>
+          <div className="homepage-right">
+            <h1>Login</h1>
+          </div>
         </div>
       </LandingLayout>
     </Fragment>
