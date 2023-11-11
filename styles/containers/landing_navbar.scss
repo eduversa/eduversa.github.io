@@ -42,11 +42,10 @@
     transform: scaleX(1);
   }
   .logo {
-    // font-size: 1.5rem;
-    // font-weight: bold;
-    // margin-right: 1rem;
-    // position: relative;
-    // font-family: var(--font);
+    font-family: var(--font-elianto);
+    font-size: var(--font-7);
+    text-transform: uppercase;
+    letter-spacing: 4px;
     a {
       text-decoration: none;
       color: #fff;
