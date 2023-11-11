@@ -28,27 +28,10 @@
       color: #fff;
       display: flex;
       align-items: center;
-      transition: color 0.3s ease, text-shadow 0.3s ease,
-        background-color 0.3s ease, transform 0.3s ease;
-
-      &:hover {
-        color: #8ab6d6;
-        text-shadow: 0 0 10px rgba(138, 182, 214, 0.8);
-        background-color: rgba(138, 182, 214, 0.2);
-        transform: rotate(5deg);
-      }
-
+      transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
       .logo-text {
         margin-left: 0.5rem;
       }
-    }
-
-    &:hover {
-      background: linear-gradient(
-        -90deg,
-        hsl(303, 100%, 20%),
-        hsl(240, 100%, 28%)
-      );
     }
   }
 
@@ -57,32 +40,17 @@
       list-style: none;
       display: flex;
       gap: 1rem;
-
-      &:hover {
-        background: linear-gradient(
-          -90deg,
-          hsl(303, 100%, 20%),
-          hsl(240, 100%, 28%)
-        );
-      }
+      padding: 0;
     }
 
     .nav-item {
       font-size: 1.2rem;
-      transition: color 0.3s ease, background-color 0.3s ease,
-        box-shadow 0.3s ease, transform 0.3s ease;
+      transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 
       a {
         text-decoration: none;
         position: relative;
         overflow: hidden;
-
-        &:hover {
-          color: #8ab6d6;
-          background-color: rgba(138, 182, 214, 0.2);
-          box-shadow: 0 0 10px rgba(138, 182, 214, 0.3);
-          transform: translateY(-2px);
-        }
 
         &::after {
           content: "";
@@ -106,6 +74,9 @@
   }
 
   .button-section {
+    display: flex;
+    align-items: center;
+
     button {
       margin-left: 1rem;
       padding: 0.5rem 1rem;
