@@ -1,39 +1,54 @@
-// styles.scss
-
 .navbar {
-  background: linear-gradient(-90deg, hsl(303, 100%, 14%), hsl(240, 100%, 22%));
   position: fixed;
   width: 100%;
   z-index: 1000;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(
-    10px
-  ); // Adds a blur effect to the transparent background
-
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  transition: background 0.5s ease;
+  background: linear-gradient(-90deg, hsl(303, 100%, 14%), hsl(240, 100%, 22%));
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
 
+  &:hover {
+    background: linear-gradient(
+      -90deg,
+      hsl(303, 100%, 20%),
+      hsl(240, 100%, 28%)
+    );
+  }
+
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    margin-right: 1rem;
 
     a {
       text-decoration: none;
-      color: #fff; // Text color adjusted to work with the gradient
+      color: #fff;
       display: flex;
       align-items: center;
       transition: color 0.3s ease, text-shadow 0.3s ease,
         background-color 0.3s ease, transform 0.3s ease;
 
       &:hover {
-        color: #ffd700; // Adjusted hover color to gold
-        text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); // Gold text shadow on hover
-        background-color: rgba(255, 215, 0, 0.2); // Gold background on hover
+        color: #8ab6d6;
+        text-shadow: 0 0 10px rgba(138, 182, 214, 0.8);
+        background-color: rgba(138, 182, 214, 0.2);
         transform: rotate(5deg);
       }
+
+      .logo-text {
+        margin-left: 0.5rem;
+      }
+    }
+
+    &:hover {
+      background: linear-gradient(
+        -90deg,
+        hsl(303, 100%, 20%),
+        hsl(240, 100%, 28%)
+      );
     }
   }
 
@@ -42,6 +57,14 @@
       list-style: none;
       display: flex;
       gap: 1rem;
+
+      &:hover {
+        background: linear-gradient(
+          -90deg,
+          hsl(303, 100%, 20%),
+          hsl(240, 100%, 28%)
+        );
+      }
     }
 
     .nav-item {
@@ -51,14 +74,13 @@
 
       a {
         text-decoration: none;
-        color: #fff; // Text color adjusted to work with the gradient
         position: relative;
         overflow: hidden;
 
         &:hover {
-          color: #ffd700; // Adjusted hover color to gold
-          background-color: rgba(255, 215, 0, 0.2); // Gold background on hover
-          box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); // Gold box shadow on hover
+          color: #8ab6d6;
+          background-color: rgba(138, 182, 214, 0.2);
+          box-shadow: 0 0 10px rgba(138, 182, 214, 0.3);
           transform: translateY(-2px);
         }
 
@@ -69,7 +91,7 @@
           left: 0;
           width: 100%;
           height: 2px;
-          background-color: #ffd700; // Gold color for the underline
+          background-color: #8ab6d6;
           transform: scaleX(0);
           transform-origin: bottom right;
           transition: transform 0.3s ease;
@@ -88,12 +110,6 @@
       margin-left: 1rem;
       padding: 0.5rem 1rem;
       font-size: 1rem;
-      background: linear-gradient(
-        -90deg,
-        hsl(303, 100%, 14%),
-        hsl(240, 100%, 22%)
-      ); // Gradient background for the buttons
-      color: #fff;
       border: none;
       cursor: pointer;
       position: relative;
@@ -101,32 +117,17 @@
       transition: background 0.3s ease, box-shadow 0.3s ease,
         transform 0.3s ease;
 
-      &:hover {
-        background: linear-gradient(
-          -90deg,
-          hsl(303, 100%, 20%),
-          hsl(240, 100%, 28%)
-        ); // Adjusted gradient on hover
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        transform: translateY(-2px);
-        animation: pulse 1s infinite;
-      }
-
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
-        100% {
-          transform: scale(1);
-        }
+      &:focus {
+        outline: none;
       }
 
       a {
         text-decoration: none;
-        color: inherit;
+        color: #fff;
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 0.5rem 1rem;
       }
 
       &::before {
@@ -136,23 +137,43 @@
         left: 50%;
         width: 0;
         height: 100%;
-        background: linear-gradient(
-          -90deg,
-          hsl(303, 100%, 14%),
-          hsl(240, 100%, 22%)
-        ); // Gradient underline
         transform-origin: 100% 50%;
         transform: translate(-50%, -50%);
         z-index: -1;
         transition: width 0.3s ease;
       }
 
-      &:hover::before {
-        width: 100%;
-        transform-origin: 0% 50%;
+      &.login-button,
+      &.register-button {
+        background: linear-gradient(
+          -90deg,
+          hsl(303, 100%, 20%),
+          hsl(240, 100%, 28%)
+        );
+
+        &:hover {
+          background: linear-gradient(
+            -90deg,
+            hsl(303, 100%, 30%),
+            hsl(240, 100%, 38%)
+          );
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+          transform: translateY(-3px);
+          animation: pulse 1s infinite;
+        }
       }
     }
   }
 }
 
-// Add any additional styles as needed
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
