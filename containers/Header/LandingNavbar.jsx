@@ -1,9 +1,17 @@
 import { Fragment } from "react";
 import Link from "next/link";
+
 function LandingNavbar() {
+  const logoText = "eduversa";
+
   return (
     <Fragment>
       <header>
+        <div className="logo">
+          <Link href="/">
+            <a>{logoText && <span>{logoText}</span>}</a>
+          </Link>
+        </div>
         <nav>
           <ul>
             <li>
