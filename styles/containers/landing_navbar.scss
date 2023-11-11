@@ -20,6 +20,13 @@
     a {
       text-decoration: none;
       color: inherit;
+      display: flex;
+      align-items: center;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #3498db;
+      }
     }
   }
 
@@ -32,14 +39,14 @@
 
     .nav-item {
       font-size: 1.2rem;
+      transition: color 0.3s ease;
 
       a {
         text-decoration: none;
         color: #333;
-        transition: color 0.3s ease;
 
         &:hover {
-          color: #555;
+          color: #3498db;
         }
       }
     }
@@ -67,3 +74,5 @@
     }
   }
 }
+
+// Add any additional styles as needed
