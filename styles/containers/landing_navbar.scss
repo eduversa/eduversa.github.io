@@ -214,10 +214,10 @@
           hsl(303, 100%, 20%),
           hsl(240, 100%, 28%)
         );
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        transform: translateY(-3px);
+        box-shadow: 0px 8px 20px -5px var(--black-shadow);
+        transform: translateY(-2px);
         border-color: #ffd700;
-        animation: pulse 1s infinite;
+        animation: pulse 2s infinite;
       }
     }
     .register-button {
@@ -225,13 +225,13 @@
       &:hover {
         background: linear-gradient(
           -90deg,
-          hsl(303, 100%, 20%),
-          hsl(240, 100%, 28%)
+          hsl(240, 100%, 28%),
+          hsl(303, 100%, 20%)
         );
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        transform: translateY(-3px);
+        box-shadow: 0px 8px 20px -5px var(--black-shadow);
+        transform: translateY(-2px);
         border-color: #ffd700;
-        animation: pulse 1s infinite;
+        animation: pulse 2s infinite;
       }
     }
   }
