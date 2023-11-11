@@ -10,19 +10,19 @@ function LandingNavbar() {
         <nav className="navbar">
           <div className="logo">
             <Link href="/">
-              <a className="logo-link">{logoText && <span>{logoText}</span>}</a>
+              <span className="logo-text">{logoText}</span>
             </Link>
           </div>
           <div className="nav-section">
             <ul className="nav-list">
               <li className="nav-item">
                 <Link href="/about">
-                  <a>About US</a>
+                  <span>About US</span>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link href="/contact">
-                  <a>Contact US</a>
+                  <span>Contact US</span>
                 </Link>
               </li>
             </ul>
