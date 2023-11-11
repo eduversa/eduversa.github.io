@@ -7,24 +7,28 @@ function LandingNavbar() {
   return (
     <Fragment>
       <header>
-        <div className="logo">
-          <Link href="/">{logoText && <span>{logoText}</span>}</Link>
-        </div>
         <nav>
-          <ul>
-            <li>
+          <div className="logo">
+            <Link href="/">{logoText && <span>{logoText}</span>}</Link>
+          </div>
+          <div>
+            <ul>
+              <li>
+                <Link href="/about">About US</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contact US</Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <button>
               <Link href="/">Login</Link>
-            </li>
-            <li>
+            </button>
+            <button>
               <Link href="/register">Register</Link>
-            </li>
-            <li>
-              <Link href="/about">About</Link>
-            </li>
-            <li>
-              <Link href="/contact">Contact</Link>
-            </li>
-          </ul>
+            </button>
+          </div>
         </nav>
       </header>
     </Fragment>
