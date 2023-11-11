@@ -136,10 +136,9 @@
       font-family: var(--font-roboto);
       font-size: var(--font-11);
       letter-spacing: 4px;
-      padding: 0.5rem 1rem;
-
-      color: #fff;
-      border: 2px solid transparent;
+      padding: 0.6rem 1.2rem;
+      color: var(--white);
+      border: 1px solid transparent;
       cursor: pointer;
       position: relative;
       overflow: hidden;
@@ -156,11 +155,6 @@
         100% {
           transform: scale(1);
         }
-      }
-
-      a {
-        text-decoration: none;
-        color: inherit;
       }
       &::before {
         content: "";
