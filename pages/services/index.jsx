@@ -1,10 +1,10 @@
 import { Fragment } from "react";
-function Login() {
+function Services() {
   return (
     <Fragment>
-      <h1>Eduversa</h1>
+      <h1>Services</h1>
     </Fragment>
   );
 }
 
-export default Login;
+export default Services;
