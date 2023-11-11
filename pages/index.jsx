@@ -1,16 +1,11 @@
 import { Fragment } from "react";
 import { LandingLayout } from "@/layout";
-import LandingPage from "@/containers/landingPage/LadingPage";
+import { LandingPage } from "@/containers";
 function Login() {
   return (
     <Fragment>
       <LandingLayout>
-        <div className="homepage">
-          <LandingPage></LandingPage>
-          <div className="homepage-right">
-            <h1>Login</h1>
-          </div>
-        </div>
+        <h1>Login</h1>
       </LandingLayout>
     </Fragment>
   );

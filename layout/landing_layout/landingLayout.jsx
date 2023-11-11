@@ -1,10 +1,13 @@
 import { Fragment } from "react";
-import { LandingNavbar } from "@/containers";
+import { LandingNavbar, LandingPage } from "@/containers";
 function LandingLayout({ children }) {
   return (
     <Fragment>
       <LandingNavbar></LandingNavbar>
-      {children}
+      <div className="homepage">
+        <LandingPage></LandingPage>
+        <div className="homepage-right">{children}</div>
+      </div>
     </Fragment>
   );
 }
