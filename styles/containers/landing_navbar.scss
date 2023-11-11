@@ -9,41 +9,43 @@
   );
   color: var(--white);
   box-shadow: 0px 8px 20px -5px var(--black-shadow-1);
-  transition: background 0.5s ease, background-image 0.5s ease;
   @include flex-container(row, nowrap, space-between, center);
   padding: 1rem;
+  transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
   &:hover {
     background: linear-gradient(
       -90deg,
-      hsl(303, 100%, 20%),
-      hsl(240, 100%, 28%)
+      rgba(139, 0, 139, 0.8),
+      rgba(0, 0, 128, 0.8)
     );
     box-shadow: 0px 10px 25px -5px var(--black-shadow);
   }
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: linear-gradient(
-      -90deg,
-      var(--homepage-blue),
-      var(--homepage-violet)
-    );
-    z-index: -1;
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform 1s ease-in-out;
-    transform: brightness(1.2);
-  }
-  &:hover::before,
-  &:hover::after {
-    transform: scaleX(1);
-    transform: brightness(1.2);
-  }
+
+  // &::before,
+  // &::after {
+  //   content: "";
+  //   position: absolute;
+  //   top: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   left: 0;
+  //   background: linear-gradient(
+  //     -90deg,
+  //     var(--homepage-blue),
+  //     var(--homepage-violet)
+  //   );
+  //   z-index: -1;
+  //   transform: scaleX(0);
+  //   transform-origin: center;
+  //   transition: transform 1s ease-in-out;
+  //   transform: brightness(1.2);
+  // }
+  // &:hover::before,
+  // &:hover::after {
+  //   transform: scaleX(1);
+  //   transform: brightness(1.2);
+  // }
   .logo {
     font-family: var(--font-elianto);
     font-size: var(--font-7);
@@ -77,7 +79,7 @@
 
         a {
           &:hover {
-            color: #ff5722;
+            color: var(--orange);
             background-color: rgba(156, 39, 176, 0.2);
             box-shadow: 0 0 10px rgba(156, 39, 176, 0.3);
             transform: translateY(-2px);
@@ -93,7 +95,7 @@
             background: linear-gradient(
               -90deg,
               transparent,
-              #ff5722,
+              var(--orange),
               transparent
             );
             transform: scaleX(0);
@@ -112,7 +114,7 @@
             background: linear-gradient(
               -90deg,
               transparent,
-              #ff5722,
+              var(--orange),
               transparent
             );
             opacity: 0;
