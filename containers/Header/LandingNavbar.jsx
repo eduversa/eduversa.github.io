@@ -28,12 +28,12 @@ function LandingNavbar() {
             </ul>
           </div>
           <div className="button-section">
-            <button className="login-button">
-              <Link href="/">Login</Link>
-            </button>
-            <button className="register-button">
-              <Link href="/register">Register</Link>
-            </button>
+            <Link href="/">
+              <button className="login-button">Login</button>
+            </Link>
+            <Link href="/register">
+              <button className="register-button">Register</button>
+            </Link>
           </div>
         </nav>
       </header>
