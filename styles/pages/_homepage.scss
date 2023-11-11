@@ -66,16 +66,6 @@
       display: none;
     }
   }
-  //@ login box
-  &-right {
-    height: 100%;
-    width: 100%;
-    padding: 10vh 24px 24px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  //@ login box end
   &:before {
     content: "";
     display: block;
@@ -107,5 +97,14 @@
     @media (max-width: #{$breakpoint-tablet}) {
       transform: rotate(0deg) translateX(0px) translateY(0px);
     }
+  }
+  //@ Right Container
+  &-right {
+    height: 100%;
+    width: 100%;
+    padding: 10vh 24px 24px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

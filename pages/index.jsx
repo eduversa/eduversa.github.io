@@ -1,10 +1,13 @@
 import { Fragment } from "react";
 import { LandingLayout } from "@/layout";
+import LandingPage from "@/containers/landingPage/LadingPage";
 function Login() {
   return (
     <Fragment>
       <LandingLayout>
-        <h1>Eduversa</h1>
+        <div className="homepage">
+          <LandingPage></LandingPage>
+        </div>
       </LandingLayout>
     </Fragment>
   );
