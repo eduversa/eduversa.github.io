@@ -1,8 +1,11 @@
+// styles.scss
+
 .navbar {
   background-color: transparent;
   position: fixed;
   width: 100%;
   z-index: 1000;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 
   display: flex;
   justify-content: space-between;
@@ -12,6 +15,7 @@
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
+    margin-right: 1rem;
 
     a {
       text-decoration: none;
@@ -28,6 +32,16 @@
 
     .nav-item {
       font-size: 1.2rem;
+
+      a {
+        text-decoration: none;
+        color: #333;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #555;
+        }
+      }
     }
   }
 
@@ -36,6 +50,20 @@
       margin-left: 1rem;
       padding: 0.5rem 1rem;
       font-size: 1rem;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #2c81ba;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
     }
   }
 }
