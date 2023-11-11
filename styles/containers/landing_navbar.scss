@@ -7,6 +7,7 @@
     var(--homepage-violet),
     var(--homepage-blue)
   );
+  color: var(--white);
   box-shadow: 0px 8px 20px -5px var(--black-shadow-1);
   transition: background 0.5s ease, background-image 0.5s ease;
   @include flex-container(row, nowrap, space-between, center);
@@ -29,13 +30,13 @@
     left: 0;
     background: linear-gradient(
       -90deg,
-      var(--homepage-violet),
-      var(--homepage-blue)
+      var(--homepage-blue),
+      var(--homepage-violet)
     );
     z-index: -1;
     transform: scaleX(0);
     transform-origin: center;
-    transition: transform 0.3s ease;
+    transition: transform 1s ease;
   }
   &:hover::before,
   &:hover::after {
@@ -49,11 +50,12 @@
     transition: color 0.3s ease, text-shadow 0.3s ease,
       background-color 0.3s ease, transform 0.3s ease;
     a {
-      color: var(--white);
+      text-decoration: none;
+      color: inherit;
     }
     &:hover {
       transform: translateY(-2px);
-      text-shadow: 5px 10px 20px rgba(0, 0, 0, 0.9);
+      text-shadow: 5px 10px 20px var(--black-shadow);
     }
   }
   .nav-section {
@@ -61,22 +63,19 @@
       @include flex-container(row, nowrap, space-between, center);
       gap: 1rem;
     }
+
     .nav-item {
-      font-size: 1.2rem;
-      position: relative;
+      font-family: var(--font-tektur);
+      // font-size: 1.2rem;
+      // position: relative;
       transition: color 0.3s ease, background-color 0.3s ease,
         box-shadow 0.3s ease, transform 0.3s ease;
 
       a {
-        text-decoration: none;
-        color: #fff;
-        position: relative;
-        overflow: hidden;
-
         &:hover {
-          color: #ffd700;
-          background-color: rgba(255, 215, 0, 0.2);
-          box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+          color: #ff5722;
+          background-color: rgba(156, 39, 176, 0.2);
+          box-shadow: 0 0 10px rgba(156, 39, 176, 0.3);
           transform: translateY(-2px);
         }
 
@@ -90,15 +89,17 @@
           background: linear-gradient(
             -90deg,
             transparent,
-            #ffd700,
+            #ff5722,
             transparent
           );
           transform: scaleX(0);
           transition: transform 0.3s ease;
         }
+
         &:hover::after {
           transform: scaleX(1);
         }
+
         &::before {
           content: "";
           position: absolute;
@@ -107,12 +108,13 @@
           background: linear-gradient(
             -90deg,
             transparent,
-            #ffd700,
+            #ff5722,
             transparent
           );
           opacity: 0;
           transition: opacity 0.3s ease, transform 0.3s ease;
         }
+
         &:hover::before {
           opacity: 1;
           transform: scaleX(1.5);
