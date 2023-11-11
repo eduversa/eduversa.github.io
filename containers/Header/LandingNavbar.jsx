@@ -8,9 +8,7 @@ function LandingNavbar() {
     <Fragment>
       <header>
         <div className="logo">
-          <Link href="/">
-            <a>{logoText && <span>{logoText}</span>}</a>
-          </Link>
+          <Link href="/">{logoText && <span>{logoText}</span>}</Link>
         </div>
         <nav>
           <ul>
