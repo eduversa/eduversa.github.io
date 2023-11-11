@@ -1,18 +1,15 @@
 .navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
   background: linear-gradient(
     -90deg,
     var(--homepage-violet),
     var(--homepage-blue)
   );
-  position: fixed;
-  width: 100%;
-  z-index: 1000;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
+  box-shadow: 0px 8px 20px -5px rgba(0, 0, 0, 0.7);
   transition: background 0.5s ease, background-image 0.5s ease;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-container(row, nowrap, space-between, center);
   padding: 1rem;
   &:hover {
     background: linear-gradient(
@@ -20,6 +17,7 @@
       hsl(303, 100%, 20%),
       hsl(240, 100%, 28%)
     );
+    box-shadow: 0px 10px 25px -5px rgba(0, 0, 0, 0.9);
   }
   &::before,
   &::after {
