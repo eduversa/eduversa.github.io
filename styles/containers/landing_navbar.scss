@@ -360,10 +360,7 @@
     backdrop-filter: blur(10px);
     overflow: hidden;
     z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    @include flex-container(column, nowrap, center, center);
     transition: transform 0.3s ease-in-out;
     @media (max-width: $breakpoint-desktop-wide) {
     }
@@ -376,12 +373,6 @@
     @media (max-width: $breakpoint-phone) {
     }
     .mobile-nav-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
@@ -394,7 +385,6 @@
       }
       .mobile-nav-item {
         margin-bottom: 20px;
-        animation: fadeInUp 0.5s ease forwards;
         @media (max-width: $breakpoint-desktop-wide) {
         }
         @media (max-width: $breakpoint-desktop) {
@@ -431,16 +421,6 @@
           }
         }
       }
-    }
-  }
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
     }
   }
 }
