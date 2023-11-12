@@ -273,4 +273,34 @@
       }
     }
   }
+  .mobile-menu {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    background: var(--homepage-violet);
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+    .mobile-nav-list {
+      list-style: none;
+      padding: 0;
+
+      .mobile-nav-item {
+        margin-bottom: 10px;
+
+        a {
+          display: block;
+          text-decoration: none;
+          color: var(--white);
+          font-size: 18px;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: var(--yellow);
+          }
+        }
+      }
+    }
+  }
 }
