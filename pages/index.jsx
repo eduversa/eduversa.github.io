@@ -11,37 +11,43 @@ function Login() {
     console.log("Username:", username);
     console.log("Password:", password);
   };
+
   return (
     <Fragment>
       <LandingLayout>
-        <div>
+        <div className="login-container">
           <h2>Login</h2>
-          <form onSubmit={handleSubmit}>
-            <label>
+          <form className="login-form" onSubmit={handleSubmit}>
+            <label className="form-label">
               Username:
               <input
                 type="text"
                 placeholder="Enter your username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                className="form-input"
               />
             </label>
             <br />
-            <label>
+            <label className="form-label">
               Password:
               <input
                 type="password"
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="form-input"
               />
             </label>
             <br />
-            <button type="submit">Login</button>
+            <button type="submit" className="login-button">
+              Login
+            </button>
           </form>
         </div>
       </LandingLayout>
     </Fragment>
   );
 }
+
 export default Login;
