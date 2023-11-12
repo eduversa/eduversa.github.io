@@ -30,20 +30,18 @@
 
   .login-form {
     .form-label {
-      margin: 0 0 5% 0;
+      margin: 0 0 10% 0;
       @include flex-container(row, wrap, center, center);
       .input-icon {
-        // margin-right: 16px;
         filter: invert(1);
       }
       .form-input {
         padding: 18px;
-        margin: 12px 0;
         border: 2px solid rgba(255, 255, 255, 0.4);
         border-radius: 20px;
         background: rgba(255, 255, 255, 0.2);
-        color: #fff;
-        caret-color: #fff;
+        color: var(--white);
+        caret-color: var(--white);
         font-size: 1.4em;
         transition: border-color 0.3s ease-in-out,
           background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -61,7 +59,7 @@
     }
     .login-button {
       background: linear-gradient(to right, #667eea, #764ba2);
-      color: #fff;
+      color: var(--white);
       padding: 20px;
       border: none;
       border-radius: 20px;
