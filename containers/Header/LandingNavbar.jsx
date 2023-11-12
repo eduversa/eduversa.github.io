@@ -1,9 +1,9 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Link from "next/link";
 
 function LandingNavbar() {
   const logoText = "eduversa";
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <Fragment>
       <header>
@@ -34,6 +34,11 @@ function LandingNavbar() {
             <Link href="/register">
               <button className="register-button">Register</button>
             </Link>
+          </div>
+          <div className="menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <div className="menu-line"></div>
+            <div className="menu-line"></div>
+            <div className="menu-line"></div>
           </div>
         </nav>
       </header>
