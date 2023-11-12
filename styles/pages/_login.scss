@@ -60,7 +60,7 @@
       }
     }
     .login-button {
-      background: linear-gradient(to right, #667eea, #764ba2);
+      background: linear-gradient(to right, var(--blue-5), var(--purple));
       color: var(--white);
       padding: 20px;
       border: none;
@@ -71,7 +71,7 @@
         transform 0.3s ease-in-out;
 
       &:hover {
-        background: linear-gradient(to right, #764ba2, #667eea);
+        background: linear-gradient(to right, var(--purple), var(--blue-5));
         box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
         transform: scale(1.05);
       }
