@@ -11,10 +11,11 @@
   backdrop-filter: blur(10px); // Blur effect
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
   z-index: 5; // Set z-index
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.1);
   }
 
   h2 {
@@ -49,11 +50,12 @@
       caret-color: #fff;
       font-size: 0.9em;
       transition: border-color 0.3s ease-in-out,
-        background-color 0.3s ease-in-out;
+        background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
       &:focus {
         border-color: rgba(0, 123, 255, 0.8);
         background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
       }
 
       &::placeholder {
@@ -69,10 +71,11 @@
       border-radius: 5px;
       cursor: pointer;
       font-size: 1em;
-      transition: background-color 0.3s ease-in-out;
+      transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
       &:hover {
         background-color: rgba(0, 123, 255, 1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
     }
   }
