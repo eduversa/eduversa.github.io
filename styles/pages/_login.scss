@@ -1,5 +1,8 @@
 .login-container {
-  max-width: 400px;
+  width: 100%;
+  max-width: 370px;
+  height: 50%;
+  max-height: 500px;
   margin: 0 auto;
   padding: 30px;
   border-radius: 20px;
@@ -9,8 +12,7 @@
     0 5px 10px -5px var(--black-shadow-light);
   z-index: 5;
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  height: 50%;
-  @include flex-container(column, nowrap, center, center);
+  @include flex-container(column, nowrap, flex-start, center);
   &:hover {
     background-color: var(--white-shadow-light-1);
     box-shadow: 0 14px 28px -5px var(--black-shadow-light-2),
@@ -30,19 +32,19 @@
 
   .login-form {
     .form-label {
-      margin: 0 0 10% 0;
       @include flex-container(row, wrap, center, center);
+      margin: 7% 0 0 0;
+      gap: 10px;
       .input-icon {
         filter: invert(1);
       }
       .form-input {
         padding: 18px;
-        border: 2px solid rgba(255, 255, 255, 0.4);
+        border: 2px solid var(--white-shadow-light-3);
         border-radius: 20px;
-        background: rgba(255, 255, 255, 0.2);
+        background: var(--white-shadow-light-1);
         color: var(--white);
         caret-color: var(--white);
-        font-size: 1.4em;
         transition: border-color 0.3s ease-in-out,
           background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
