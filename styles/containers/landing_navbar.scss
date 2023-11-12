@@ -262,9 +262,10 @@
     }
     .login-button {
       background: linear-gradient(
-        -90deg,
-        hsl(240, 100%, 30%),
-        hsl(303, 100%, 30%)
+        -45deg,
+        hsl(240, 100%, 20%),
+        hsl(303, 100%, 20%),
+        hsl(240, 100%, 20%)
       );
       &:hover {
         background: linear-gradient(
@@ -280,9 +281,10 @@
     }
     .register-button {
       background: linear-gradient(
-        -90deg,
-        hsl(240, 100%, 30%),
-        hsl(303, 100%, 30%)
+        -45deg,
+        hsl(240, 100%, 20%),
+        hsl(303, 100%, 20%),
+        hsl(240, 100%, 20%)
       );
       &:hover {
         background: linear-gradient(
