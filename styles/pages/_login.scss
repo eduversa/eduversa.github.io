@@ -3,17 +3,17 @@
   margin: 0 auto;
   padding: 30px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--white-shadow-light);
   backdrop-filter: blur(10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px -5px var(--black-shadow-light-1),
+    0 5px 10px -5px var(--black-shadow-light);
   z-index: 5;
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3), 0 7px 14px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 14px 28px -5px rgba(0, 0, 0, 0.3),
+      0 7px 14px -5px rgba(0, 0, 0, 0.2);
   }
-
   h2 {
     margin-bottom: 20px;
     color: #fff;
