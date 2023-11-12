@@ -23,6 +23,7 @@ function Login() {
                 alt="Username"
                 height={20}
                 width={20}
+                className="input-icon"
               ></Image>
               <input
                 type="text"
@@ -32,13 +33,13 @@ function Login() {
                 className="form-input"
               />
             </label>
-            <br />
             <label className="form-label">
               <Image
                 src="/login/password.png"
                 alt="Password"
                 height={20}
                 width={20}
+                className="input-icon"
               ></Image>
               <input
                 type="password"

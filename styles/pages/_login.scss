@@ -9,12 +9,16 @@
     0 5px 10px -5px var(--black-shadow-light);
   z-index: 5;
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  height: 50%;
+  @include flex-container(column, nowrap, center, center);
   &:hover {
     background-color: var(--white-shadow-light-1);
     box-shadow: 0 14px 28px -5px var(--black-shadow-light-2),
       0 7px 14px -5px var(--black-shadow-light-1);
   }
+
   .login-heading {
+    margin: 0 0 5% 0;
     font-family: var(--font-playfair);
     font-size: var(--font-6);
     font-weight: 500;
@@ -25,46 +29,36 @@
   }
 
   .login-form {
-    display: flex;
-    flex-direction: column;
-
     .form-label {
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      font-size: 1.4em;
-      color: #fff;
-      opacity: 0.9;
-
+      margin: 0 0 5% 0;
+      @include flex-container(row, wrap, center, center);
       .input-icon {
-        margin-right: 16px;
+        // margin-right: 16px;
         filter: invert(1);
       }
-    }
+      .form-input {
+        padding: 18px;
+        margin: 12px 0;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        caret-color: #fff;
+        font-size: 1.4em;
+        transition: border-color 0.3s ease-in-out,
+          background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
-    .form-input {
-      padding: 18px;
-      margin: 12px 0;
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.2);
-      color: #fff;
-      caret-color: #fff;
-      font-size: 1.4em;
-      transition: border-color 0.3s ease-in-out,
-        background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        &:focus {
+          border-color: rgba(255, 255, 255, 0.6);
+          background-color: rgba(255, 255, 255, 0.3);
+          box-shadow: 0 0 18px rgba(255, 255, 255, 0.5);
+        }
 
-      &:focus {
-        border-color: rgba(255, 255, 255, 0.6);
-        background-color: rgba(255, 255, 255, 0.3);
-        box-shadow: 0 0 18px rgba(255, 255, 255, 0.5);
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.8);
+        }
       }
-
-      &::placeholder {
-        color: rgba(255, 255, 255, 0.8);
-      }
     }
-
     .login-button {
       background: linear-gradient(to right, #667eea, #764ba2);
       color: #fff;
