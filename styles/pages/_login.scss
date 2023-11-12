@@ -44,7 +44,7 @@
       padding: 10px;
       margin: 5px 0;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 5px;
+      border-radius: 15px; // Increased border-radius for a glassmorphic effect
       background: rgba(255, 255, 255, 0.1);
       color: #fff; // Adjust text color for better contrast
       caret-color: #fff;
@@ -68,14 +68,16 @@
       color: #fff;
       padding: 12px;
       border: none;
-      border-radius: 5px;
+      border-radius: 15px; // Increased border-radius for a glassmorphic effect
       cursor: pointer;
       font-size: 1em;
-      transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
+        transform 0.3s ease-in-out;
 
       &:hover {
         background-color: rgba(0, 123, 255, 1);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transform: scale(1.05); // Scale up on hover for a subtle effect
       }
     }
   }
