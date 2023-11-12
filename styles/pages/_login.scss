@@ -11,6 +11,11 @@
   backdrop-filter: blur(10px); // Blur effect
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
   z-index: 5; // Set z-index
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 
   h2 {
     margin-bottom: 20px;
@@ -43,6 +48,13 @@
       color: #fff; // Adjust text color for better contrast
       caret-color: #fff;
       font-size: 0.9em;
+      transition: border-color 0.3s ease-in-out,
+        background-color 0.3s ease-in-out;
+
+      &:focus {
+        border-color: rgba(0, 123, 255, 0.8);
+        background-color: rgba(255, 255, 255, 0.2);
+      }
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.5);
