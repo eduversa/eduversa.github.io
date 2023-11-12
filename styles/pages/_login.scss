@@ -10,9 +10,9 @@
   z-index: 5;
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   &:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 14px 28px -5px rgba(0, 0, 0, 0.3),
-      0 7px 14px -5px rgba(0, 0, 0, 0.2);
+    background-color: var(--white-shadow-light-1);
+    box-shadow: 0 14px 28px -5px var(--black-shadow-light-2),
+      0 7px 14px -5px var(--black-shadow-light-1);
   }
   h2 {
     margin-bottom: 20px;
