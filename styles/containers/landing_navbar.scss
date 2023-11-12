@@ -210,17 +210,7 @@
       }
       @media (max-width: $breakpoint-phone) {
       }
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
+
       &::before {
         content: "";
         position: absolute;
@@ -268,11 +258,7 @@
       }
     }
     .login-button {
-      background: linear-gradient(
-        -90deg,
-        var(--black-1),
-        var(--homepage-violet)
-      );
+      background: linear-gradient(-90deg, var(--orange), var(--blue-2));
       &:hover {
         background: linear-gradient(
           -90deg,
@@ -286,7 +272,7 @@
       }
     }
     .register-button {
-      background: linear-gradient(-90deg, var(--black-1), var(--homepage-blue));
+      background: linear-gradient(-90deg, var(--green-1), var(--homepage-blue));
       &:hover {
         background: linear-gradient(
           -90deg,
