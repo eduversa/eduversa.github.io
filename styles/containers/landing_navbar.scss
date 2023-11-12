@@ -239,4 +239,40 @@
       }
     }
   }
+  .menu {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 24px;
+    width: 30px;
+    padding: 5px;
+    margin-right: 10px;
+
+    .menu-line {
+      height: 3px;
+      width: 30px;
+      background-color: var(--white);
+      transition: transform 0.3s ease-in-out;
+
+      &:not(:last-child) {
+        margin-bottom: 5px;
+      }
+    }
+
+    // Rotate lines for open/close effect
+    &.open {
+      .menu-line:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .menu-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-line:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+    }
+  }
 }

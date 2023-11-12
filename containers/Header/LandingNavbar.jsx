@@ -35,7 +35,10 @@ function LandingNavbar() {
               <button className="register-button">Register</button>
             </Link>
           </div>
-          <div className="menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <div
+            className={`menu ${isMenuOpen ? "open" : ""}`}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
             <div className="menu-line"></div>
             <div className="menu-line"></div>
             <div className="menu-line"></div>
