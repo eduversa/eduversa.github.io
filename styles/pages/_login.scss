@@ -8,23 +8,23 @@
   padding: 30px;
   border-radius: 20px;
   background: linear-gradient(
-    to bottom right,
-    #396afc,
-    #2948ff
+    to right bottom,
+    #3498db,
+    #2980b9
   ); // Gradient background
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 5;
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
   &:hover {
-    background-color: rgba(41, 72, 255, 0.9);
+    background-color: #2980b9;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 6px 12px rgba(0, 0, 0, 0.2);
   }
 
   h2 {
     margin-bottom: 20px;
     color: #fff;
-    font-size: 1.8em;
+    font-size: 2em;
     text-align: center;
   }
 
@@ -36,9 +36,9 @@
       margin-bottom: 12px;
       display: flex;
       align-items: center;
-      font-size: 1em;
+      font-size: 1.2em;
       color: #fff;
-      opacity: 0.8;
+      opacity: 0.9;
 
       .input-icon {
         margin-right: 12px;
@@ -47,21 +47,21 @@
     }
 
     .form-input {
-      padding: 12px;
-      margin: 8px 0;
+      padding: 14px;
+      margin: 10px 0;
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 15px;
       background: rgba(255, 255, 255, 0.1);
       color: #fff;
       caret-color: #fff;
-      font-size: 1em;
+      font-size: 1.2em;
       transition: border-color 0.3s ease-in-out,
         background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
       &:focus {
-        border-color: #2948ff;
+        border-color: #2980b9;
         background-color: rgba(255, 255, 255, 0.2);
-        box-shadow: 0 0 12px rgba(41, 72, 255, 0.5);
+        box-shadow: 0 0 14px rgba(41, 128, 185, 0.6);
       }
 
       &::placeholder {
@@ -70,19 +70,19 @@
     }
 
     .login-button {
-      background-color: #2948ff;
+      background-color: #2980b9;
       color: #fff;
-      padding: 14px;
+      padding: 16px;
       border: none;
       border-radius: 15px;
       cursor: pointer;
-      font-size: 1.2em;
+      font-size: 1.4em;
       transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
         transform 0.3s ease-in-out;
 
       &:hover {
-        background-color: #396afc;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        background-color: #3498db;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
         transform: scale(1.05);
       }
     }
