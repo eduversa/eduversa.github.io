@@ -1,3 +1,7 @@
+// styles.scss
+
+// Add your global styles here if needed
+
 .login-container {
   max-width: 400px;
   margin: 0 auto;
@@ -6,10 +10,12 @@
   background: rgba(255, 255, 255, 0.1); // Frosted glass background
   backdrop-filter: blur(10px); // Blur effect
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
-  z-index: 5;
+  z-index: 5; // Set z-index
+
   h2 {
     margin-bottom: 20px;
     color: #fff; // Adjust text color for better contrast
+    font-size: 1.5em;
   }
 
   .login-form {
@@ -20,6 +26,8 @@
       margin-bottom: 10px;
       display: flex;
       align-items: center;
+      font-size: 0.9em;
+      color: #fff;
 
       .input-icon {
         margin-right: 10px;
@@ -27,13 +35,14 @@
     }
 
     .form-input {
-      padding: 8px;
+      padding: 10px;
       margin: 5px 0;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 3px;
+      border-radius: 5px;
       background: rgba(255, 255, 255, 0.1);
       color: #fff; // Adjust text color for better contrast
       caret-color: #fff;
+      font-size: 0.9em;
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.5);
@@ -43,11 +52,12 @@
     .login-button {
       background-color: rgba(0, 123, 255, 0.8);
       color: #fff;
-      padding: 10px;
+      padding: 12px;
       border: none;
-      border-radius: 3px;
+      border-radius: 5px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 1em;
+      transition: background-color 0.3s ease-in-out;
 
       &:hover {
         background-color: rgba(0, 123, 255, 1);
