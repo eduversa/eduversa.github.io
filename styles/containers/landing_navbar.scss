@@ -99,6 +99,7 @@
       @media (max-width: $breakpoint-large-tablet) {
       }
       @media (max-width: $breakpoint-tablet) {
+        display: none;
       }
       @media (max-width: $breakpoint-phone) {
       }
@@ -207,6 +208,7 @@
       @media (max-width: $breakpoint-large-tablet) {
       }
       @media (max-width: $breakpoint-tablet) {
+        display: none;
       }
       @media (max-width: $breakpoint-phone) {
       }
@@ -311,6 +313,7 @@
     @media (max-width: $breakpoint-large-tablet) {
     }
     @media (max-width: $breakpoint-tablet) {
+      display: block;
     }
     @media (max-width: $breakpoint-phone) {
     }
