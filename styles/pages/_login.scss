@@ -49,13 +49,13 @@
           background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
         &:focus {
-          border-color: rgba(255, 255, 255, 0.6);
-          background-color: rgba(255, 255, 255, 0.3);
-          box-shadow: 0 0 18px rgba(255, 255, 255, 0.5);
+          border-color: var(--white-shadow-2);
+          background-color: var(--white-shadow-light-2);
+          box-shadow: 0 0 18px var(--white-shadow-medium);
         }
 
         &::placeholder {
-          color: rgba(255, 255, 255, 0.8);
+          color: var(--white-shadow-0);
         }
       }
     }
