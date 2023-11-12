@@ -259,8 +259,6 @@
         margin-bottom: 5px;
       }
     }
-
-    // Rotate lines for open/close effect
     &.open {
       .menu-line:nth-child(1) {
         transform: rotate(-45deg) translate(-5px, 6px);
