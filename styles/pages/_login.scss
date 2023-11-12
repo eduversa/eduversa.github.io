@@ -8,16 +8,19 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.1);
   z-index: 5;
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3), 0 7px 14px rgba(0, 0, 0, 0.2);
   }
+
   h2 {
     margin-bottom: 20px;
     color: #fff;
     font-size: 2.5em;
     text-align: center;
   }
+
   .login-form {
     display: flex;
     flex-direction: column;
@@ -60,7 +63,7 @@
     }
 
     .login-button {
-      background: linear-gradient(to right, #6a8cb3, #4a69bb);
+      background: linear-gradient(to right, #667eea, #764ba2);
       color: #fff;
       padding: 20px;
       border: none;
@@ -71,7 +74,7 @@
         transform 0.3s ease-in-out;
 
       &:hover {
-        background: linear-gradient(to right, #4a69bb, #6a8cb3);
+        background: linear-gradient(to right, #764ba2, #667eea);
         box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
         transform: scale(1.05);
       }

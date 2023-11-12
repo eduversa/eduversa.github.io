@@ -24,7 +24,6 @@ function Login() {
                 height={20}
                 width={20}
               ></Image>
-              Username:
               <input
                 type="text"
                 placeholder="Enter your username"
@@ -41,7 +40,6 @@ function Login() {
                 height={20}
                 width={20}
               ></Image>
-              Password:
               <input
                 type="password"
                 placeholder="Enter your password"
