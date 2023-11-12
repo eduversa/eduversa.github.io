@@ -43,6 +43,37 @@ function LandingNavbar() {
             <div className="menu-line"></div>
             <div className="menu-line"></div>
           </div>
+          {isMenuOpen && (
+            <div className="mobile-menu">
+              <ul className="mobile-nav-list">
+                <li className="mobile-nav-item">
+                  <Link href="/">
+                    <span>Home</span>
+                  </Link>
+                </li>
+                <li className="mobile-nav-item">
+                  <Link href="/about">
+                    <span>About Us</span>
+                  </Link>
+                </li>
+                <li className="mobile-nav-item">
+                  <Link href="/contact">
+                    <span>Contact Us</span>
+                  </Link>
+                </li>
+                <li className="mobile-nav-item">
+                  <Link href="/">
+                    <span>Login</span>
+                  </Link>
+                </li>
+                <li className="mobile-nav-item">
+                  <Link href="/register">
+                    <span>Register</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          )}
         </nav>
       </header>
     </Fragment>
