@@ -1,33 +1,23 @@
-// styles.scss
-
-// Add your global styles here if needed
-
 .login-container {
   max-width: 400px;
   margin: 0 auto;
   padding: 30px;
   border-radius: 20px;
-  background: linear-gradient(
-    to right bottom,
-    #4a69bb,
-    #6a8cb3
-  ); // Gradient background
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.1);
   z-index: 5;
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
   &:hover {
-    background-color: #6a8cb3;
+    background-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3), 0 7px 14px rgba(0, 0, 0, 0.2);
   }
-
   h2 {
     margin-bottom: 20px;
     color: #fff;
     font-size: 2.5em;
     text-align: center;
   }
-
   .login-form {
     display: flex;
     flex-direction: column;
@@ -42,7 +32,7 @@
 
       .input-icon {
         margin-right: 16px;
-        filter: invert(1); // Invert icon color
+        filter: invert(1);
       }
     }
 
@@ -59,9 +49,9 @@
         background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
       &:focus {
-        border-color: #6a8cb3;
+        border-color: rgba(255, 255, 255, 0.6);
         background-color: rgba(255, 255, 255, 0.3);
-        box-shadow: 0 0 18px rgba(106, 140, 179, 0.6);
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.5);
       }
 
       &::placeholder {
@@ -70,18 +60,18 @@
     }
 
     .login-button {
-      background-color: #6a8cb3;
+      background: linear-gradient(to right, #6a8cb3, #4a69bb);
       color: #fff;
       padding: 20px;
       border: none;
       border-radius: 20px;
       cursor: pointer;
       font-size: 1.6em;
-      transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
+      transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
         transform 0.3s ease-in-out;
 
       &:hover {
-        background-color: #4a69bb;
+        background: linear-gradient(to right, #4a69bb, #6a8cb3);
         box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
         transform: scale(1.05);
       }
