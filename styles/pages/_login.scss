@@ -28,9 +28,11 @@
     overflow: hidden;
     z-index: 1;
     color: var(--white);
-    font-family: var(--font-oswald);
-    // font-size: 28px;
-    // margin-bottom: 20px;
+    font-family: var(--font-playfair);
+    font-size: var(--font-6);
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     &::before {
       content: "";
       display: block;
