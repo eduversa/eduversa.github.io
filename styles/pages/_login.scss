@@ -162,6 +162,62 @@
         animation: ripple 2s linear infinite;
       }
     }
+    .social-login {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0 20px 0;
+      p {
+        font-weight: 400;
+        font-family: var(--font-roboto);
+        letter-spacing: 1.5px;
+        font-size: var(--font-13);
+      }
+      .facebook,
+      .google {
+        font-size: 24px;
+        margin: 0 0 0 30px;
+        color: rgb(77, 77, 214);
+        cursor: pointer;
+        transition: color 0.3s;
+        &:hover {
+          color: #555;
+        }
+      }
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: white;
+      margin-top: 10px;
+
+      span {
+        font-weight: 400;
+        font-family: var(--font-roboto);
+        letter-spacing: 1px;
+        font-size: var(--font-15);
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+        .chick-to-register {
+          &:hover {
+            font-weight: 800;
+            background: linear-gradient(to right, #4caf50, #2ecc71);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: underline;
+          }
+        }
+      }
+      .forget-password {
+        &:hover {
+          color: red;
+        }
+      }
+    }
     @keyframes ripple {
       to {
         transform: scale(5);
