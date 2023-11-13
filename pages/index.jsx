@@ -23,25 +23,26 @@ function Login() {
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="username-input"
+                className="username__input"
               />
             </div>
-            <div className="input-group">
+            <div className="login__password">
               <Image
                 src="/login/password.png"
                 alt="username"
                 height={20}
                 width={20}
+                className="password__icon"
               ></Image>
               <input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="password-input"
+                className="password__input"
               />
             </div>
-            <button type="button" className="login-button">
+            <button type="button" className="login__button">
               Login
             </button>
           </form>
