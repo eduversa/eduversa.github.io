@@ -83,9 +83,8 @@
 
       input {
         padding: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.3); /* Slight border for contrast */
+        border: none; /* Remove default border */
         border-radius: 6px;
-        flex: 1;
         background: rgba(
           255,
           255,
@@ -94,11 +93,25 @@
         ); /* Slightly transparent white background for input */
         backdrop-filter: blur(8px); /* Blurring effect for input */
         color: #fff;
-        transition: border-color 0.3s, background 0.3s; /* Smooth transition on hover */
+        transition: background 0.3s, box-shadow 0.3s; /* Smooth transition on hover and focus */
+        width: 100%;
+        font-size: 16px;
+        outline: none;
 
-        &:focus {
-          outline: none;
-          border-color: #61dafb; /* Border color on focus */
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.7); /* Placeholder text color */
+        }
+      }
+
+      /* Border animation on focus */
+      &:focus-within {
+        .username-icon,
+        .password-icon {
+          filter: invert(1) drop-shadow(0 0 8px rgba(97, 218, 251, 0.8)); /* Add drop shadow on focus */
+        }
+
+        input {
+          box-shadow: 0 0 10px rgba(97, 218, 251, 0.8); /* Border animation on focus */
         }
       }
     }
@@ -129,30 +142,42 @@
       &::after {
         content: "";
         position: absolute;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, #007bff, #00ffcc);
-        border-radius: 12px;
-        opacity: 0.2; /* Adjust the opacity as needed */
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        opacity: 0.4; /* Adjust the opacity as needed */
         pointer-events: none; /* Ignore pointer events on pseudo-elements */
-        transition: opacity 0.3s, transform 0.5s; /* Smooth transition on hover */
-        transform: scale(0); /* Initial scale for the animation */
+        transform: scale(0);
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
       }
 
       &::before {
-        top: 0;
-        left: 0;
+        top: -25px;
+        left: -25px;
       }
 
       &::after {
-        bottom: 0;
-        right: 0;
+        bottom: -25px;
+        right: -25px;
       }
 
       &:hover::before,
       &:hover::after {
-        transform: scale(1); /* Scale up on hover */
+        transform: scale(1);
+        opacity: 0;
+      }
+
+      &::after {
+        animation: ripple 1s linear infinite; /* Pulsating animation */
       }
     }
+  }
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(2);
+    opacity: 0;
   }
 }
