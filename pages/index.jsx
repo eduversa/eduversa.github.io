@@ -63,7 +63,37 @@ function Login() {
               </button>
             </div>
             <div className="social-login">
-              <p>Login with:</p>
+              <span>Login with:</span>
+              <Image
+                src="/login/google.png"
+                alt="google"
+                height={25}
+                width={25}
+              ></Image>
+              <Image
+                src="/login/facebook.png"
+                alt="facebook"
+                height={25}
+                width={25}
+              ></Image>
+              <Image
+                src="/login/twitter.png"
+                alt="twitter"
+                height={25}
+                width={25}
+              ></Image>
+              <Image
+                src="/login/linkedin.png"
+                alt="linkedin"
+                height={25}
+                width={25}
+              ></Image>
+              <Image
+                src="/login/github.png"
+                alt="github"
+                height={25}
+                width={25}
+              ></Image>
             </div>
             <div className="options">
               <span className="forget-password">Forgot Password?</span>
