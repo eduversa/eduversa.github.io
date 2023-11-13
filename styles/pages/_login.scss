@@ -152,16 +152,25 @@
       }
 
       &::after {
-        animation: ripple 1s linear infinite;
+        animation: ripple 2s ease-in-out, rippleLeft 2s linear infinite;
+      }
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes rippleLeft {
+      to {
+        transform: scale(5) translateX(-100%);
+        opacity: 0;
       }
     }
   }
-  @keyframes ripple {
-    to {
-      transform: scale(1);
-      opacity: 0;
-    }
-  }
+
   @keyframes underlineAnimation {
     to {
       width: 20%;
