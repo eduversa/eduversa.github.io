@@ -70,7 +70,7 @@
     .login-username,
     .login-password {
       @include flex-container(row, nowrap, center, center);
-      gap: 10px;
+      gap: 5px;
       .username-icon,
       .password-icon {
         filter: invert(0);
@@ -121,6 +121,7 @@
       @include flex-container(column, nowrap, center, center);
       gap: 10px;
       span {
+        margin: 1% 0 0 0;
         font-family: var(--font-tektur);
         font-size: var(--font-11);
         letter-spacing: 2px;
@@ -148,11 +149,12 @@
       }
     }
     .login-button {
-      position: absolute;
+      position: relative;
       right: 10%;
+      left: 10%;
       width: 80%;
-      bottom: 10%;
       z-index: 1;
+      margin: 2% 0 0 0;
       padding: 15px 30px;
       background-color: rgba(0, 123, 255, 0.8);
       color: var(--white);
@@ -212,6 +214,8 @@
           opacity: 0;
         }
       }
+    }
+    .extra-options {
     }
   }
 }

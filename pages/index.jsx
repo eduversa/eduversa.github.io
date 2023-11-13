@@ -103,7 +103,7 @@ function Login() {
                 Login
               </button>
             </div>
-            <div className="extra-login-options">
+            <div className="extra-options">
               <span className="forget-password">Forgot Password?</span>
               <div className="register-container">
                 <span className="">New to universa?</span>
