@@ -7,19 +7,18 @@
   padding: 30px;
   background: var(--white-shadow-light);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--white-shadow-light);
+  border: 1px solid var(--white-shadow-light-1);
   border-radius: 12px;
-  box-shadow: 0 0 20px var(--black-shadow-light-1);
+  box-shadow: 0 0 5px var(--black-shadow-light-1);
   z-index: 5;
   overflow: hidden;
-  transition: background 0.3s ease-in-out, box-shadow 1s ease-in-out;
+  transition: background 1s ease-in-out, box-shadow 1s ease-in-out;
   &:hover {
     background: rgba(255, 255, 255, 0.15);
     .login-heading::before {
       width: 70%;
     }
-    box-shadow: 0 0 20px var(--white-shadow-light),
-      0 0 40px var(--black-shadow-light), 0 0 80px var(--black-shadow-light-3);
+    box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
   }
   .login-heading {
     position: relative;
@@ -134,7 +133,7 @@
           filter: invert(0);
           height: 40px;
           width: 40px;
-          transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+          transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
           border-radius: 20px;
           cursor: pointer;
           &:hover {
@@ -162,9 +161,8 @@
       border-radius: 6px;
       cursor: pointer;
       overflow: hidden;
-      transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out,
-        transform 0.5s ease-in-out, color 0.5s ease-in-out;
-
+      transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out,
+        background 0.5s ease-in-out;
       &:hover {
         background: linear-gradient(
           135deg,
@@ -172,8 +170,7 @@
           darken(#4caf50, 10%)
         );
         transform: translateY(1px);
-        color: var(--white);
-        box-shadow: 0px 8px 20px -10px var(--black-shadow-medium);
+        box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
       }
 
       &::before,
