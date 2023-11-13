@@ -86,8 +86,8 @@ function Register() {
             </div>
 
             <div className="login-prompt">
-              <span>Already have an account?</span>
-              <Link href="/login">
+              <span>Already Registered?</span>
+              <Link href="/">
                 <p className="login-link">Click here to Login</p>
               </Link>
             </div>
