@@ -232,11 +232,11 @@
         letter-spacing: 1px;
         font-weight: 400;
         transition: transform 0.5s ease-in-out, text-shadow 0.5s ease-in-out,
-          color 0.5s ease-in-out, letter-spacing 1s ease-in-out;
+          color 0.5s ease-in-out, letter-spacing 0.5s ease-in-out;
         &:hover {
           cursor: pointer;
           color: var(--red-2);
-          transform: translateY(1px) translateX(1px) scale(1.05);
+          transform: translateY(1px) translateX(-1px) scale(1.05);
           text-shadow: 0px 8px 20px var(--black-shadow);
           letter-spacing: 2px;
           font-weight: 500;
@@ -247,19 +247,23 @@
           font-family: var(--font-roboto);
           font-size: var(--font-12);
           letter-spacing: 2px;
-          font-weight: 400;
+          font-weight: 600;
+          color: var(--black-shadow);
         }
         p {
-          margin: 1% 0 0 0;
+          margin: 2% 0 0 0;
           font-family: var(--font-oswald);
           font-size: var(--font-13);
           text-transform: uppercase;
           letter-spacing: 2px;
           font-weight: 400;
-          color: var(--your-hover-color);
+          color: var(--white);
           cursor: pointer;
+          transition: color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+
           &:hover {
             text-decoration: underline;
+            color: var(--yellow);
           }
         }
       }
