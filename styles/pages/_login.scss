@@ -1,5 +1,4 @@
 .login-container {
-  //   position: relative;
   max-width: 400px;
   width: 100%;
   max-height: 500px;
@@ -50,13 +49,11 @@
   }
 
   .login-form {
-    position: relative;
+    @include flex-container(column, nowrap, center, none);
     z-index: 1;
-
     .login-username,
     .login-password {
-      position: relative;
-
+      @include flex-container(row, nowrap, center, center);
       .username-icon,
       .password-icon {
         margin-right: 10px;
@@ -93,7 +90,7 @@
     }
 
     .login-button {
-      position: relative;
+      //   position: relative;
       z-index: 1;
       padding: 12px;
       background-color: rgba(0, 123, 255, 0.8);
