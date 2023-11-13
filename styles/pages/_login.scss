@@ -1,11 +1,22 @@
+// styles/Login.scss
+
+// Import any global styles or variables here
+
 .login-container {
   max-width: 400px;
   margin: auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  background: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Semi-transparent white background for glass effect */
+  backdrop-filter: blur(10px); /* Blurring effect for glassmorphism */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Slight border for contrast */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 5; // Add z-index: 5 here
+  z-index: 5;
 
   .login-heading {
     text-align: center;
@@ -30,23 +41,37 @@
 
       input {
         padding: 10px;
-        border: 1px solid #ccc;
+        border: 1px solid rgba(255, 255, 255, 0.3); /* Slight border for contrast */
         border-radius: 4px;
         flex: 1;
+        background: rgba(
+          255,
+          255,
+          255,
+          0.1
+        ); /* Semi-transparent white background for input */
+        backdrop-filter: blur(5px); /* Blurring effect for input */
+        color: #fff; /* Text color */
       }
     }
 
     .login-button {
       padding: 10px;
-      background-color: #007bff;
+      background-color: rgba(
+        0,
+        123,
+        255,
+        0.7
+      ); /* Semi-transparent blue background for button */
       color: #fff;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-size: 16px;
+      transition: background-color 0.3s;
 
       &:hover {
-        background-color: #0056b3;
+        background-color: rgba(0, 123, 255, 0.9); /* Darker blue on hover */
       }
     }
   }
