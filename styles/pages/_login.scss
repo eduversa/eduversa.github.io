@@ -73,11 +73,15 @@
         color: var(--white);
         transition: background 0.3s, box-shadow 0.3s;
         width: 100%;
-        font-size: 16px;
+        // font-size: 16px;
         outline: none;
 
         &::placeholder {
-          color: rgba(255, 255, 255, 0.1);
+          color: var(--white-shadow-1);
+          font-family: var(--font-tektur);
+          font-size: var(--font-12);
+          letter-spacing: 3px;
+          font-weight: 400;
         }
       }
 
