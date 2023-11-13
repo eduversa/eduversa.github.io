@@ -102,14 +102,14 @@ function Login() {
                 ></Image>
               </div>
             </div>
-            <div className="options">
+            <div className="extra-login-options">
               <span className="forget-password">Forgot Password?</span>
-              <span>
-                <p className="new-to-universa">New to universa?</p>
-                <p className="chick-to-register">
-                  <Link href="/register">Click here to Register</Link>
-                </p>
-              </span>
+              <div className="register-container">
+                <span className="">New to universa?</span>
+                <Link href="/register">
+                  <p className="rerister-promt">Click here to Register</p>
+                </Link>
+              </div>
             </div>
           </form>
         </div>
