@@ -151,8 +151,12 @@
         opacity: 0;
       }
 
+      &::before {
+        animation: ripple 2s linear infinite;
+      }
+
       &::after {
-        animation: ripple 2s ease-in-out, rippleLeft 2s linear infinite;
+        animation: ripple 2s linear infinite;
       }
     }
 
@@ -163,17 +167,10 @@
       }
     }
 
-    @keyframes rippleLeft {
+    @keyframes underlineAnimation {
       to {
-        transform: scale(5) translateX(-100%);
-        opacity: 0;
+        width: 20%;
       }
-    }
-  }
-
-  @keyframes underlineAnimation {
-    to {
-      width: 20%;
     }
   }
 }
