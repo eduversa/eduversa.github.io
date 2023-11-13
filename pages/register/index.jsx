@@ -17,7 +17,7 @@ function Register() {
         <div className="register-container">
           <h2 className="register-heading">Register</h2>
           <h3 className="register-subheading">
-            Your Pathway to Academic Excellence: Register Now on Universa😉
+            Your Pathway to Academic Excellence: Register Now on Eduversa😉
           </h3>
           <form className="register-form" onSubmit={handleSubmit}>
             <div className="register-email">

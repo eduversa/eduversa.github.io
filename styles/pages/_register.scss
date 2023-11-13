@@ -26,9 +26,9 @@
     overflow: hidden;
     z-index: 1;
     color: var(--white);
-    font-family: var(--font-playfair);
+    font-family: var(--font-oswald);
     font-size: var(--font-7);
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: 3px;
     text-transform: uppercase;
     margin: 0 0 3% 0;
@@ -83,7 +83,7 @@
         letter-spacing: 3px;
         font-weight: 600;
         outline: none;
-        &:placeholder {
+        &::placeholder {
           color: var(--white-shadow-1);
           font-family: var(--font-tektur);
           font-size: var(--font-12);
@@ -138,7 +138,7 @@
       z-index: 1;
       margin: 5% 0 0 0;
       padding: 15px 30px;
-      background: linear-gradient(to right, #4caf50, #2ecc71);
+      background: linear-gradient(135deg, #e74c3c, #8e44ad);
       border: none;
       border-radius: 6px;
       cursor: pointer;
@@ -146,11 +146,7 @@
       transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out,
         background 0.5s ease-in-out;
       &:hover {
-        background: linear-gradient(
-          135deg,
-          darken(#2ecc71, 10%),
-          darken(#4caf50, 10%)
-        );
+        background: linear-gradient(135deg, #8e44ad, #e74c3c);
         transform: translateY(1px);
         box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
       }
@@ -209,8 +205,9 @@
       span {
         font-family: var(--font-roboto);
         font-size: var(--font-12);
-        letter-spacing: 1px;
-        font-weight: 400;
+        letter-spacing: 2px;
+        font-weight: 600;
+        color: var(--black);
         transition: text-shadow 0.5s ease-in-out;
         &:hover {
           cursor: pointer;
