@@ -231,6 +231,19 @@
           letter-spacing: 2px;
           font-weight: 400;
         }
+        p {
+          margin: 1% 0 0 0;
+          font-family: var(--font-oswald);
+          font-size: var(--font-13);
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          font-weight: 400;
+          color: var(--your-hover-color);
+          cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
     }
   }
