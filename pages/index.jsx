@@ -7,15 +7,16 @@ function Login() {
   return (
     <Fragment>
       <LandingLayout>
-        <div className="login-container">
-          <h2>Login</h2>
-          <form className="login-form">
-            <div className="input-group">
+        <div className="login">
+          <h2 className="login__heading">Login</h2>
+          <form className="login__form">
+            <div className="login__username">
               <Image
                 src="/login/username.png"
                 alt="username"
                 height={20}
                 width={20}
+                className="username__icon"
               ></Image>
               <input
                 type="text"
