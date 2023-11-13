@@ -8,7 +8,7 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Registering...", email);
+    // console.log("Registering...", email);
   };
 
   return (
