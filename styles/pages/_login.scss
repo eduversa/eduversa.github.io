@@ -40,7 +40,8 @@
     border-radius: 12px;
     opacity: 0.2; /* Adjust the opacity as needed */
     pointer-events: none; /* Ignore pointer events on pseudo-elements */
-    transition: opacity 0.3s; /* Smooth transition on hover */
+    transition: opacity 0.3s, transform 0.5s; /* Smooth transition on hover */
+    transform: scale(0); /* Initial scale for the animation */
   }
 
   &::before {
@@ -51,6 +52,11 @@
   &::after {
     bottom: 0;
     right: 0;
+  }
+
+  &:hover::before,
+  &:hover::after {
+    transform: scale(1); /* Scale up on hover */
   }
 
   .login-heading {
@@ -129,7 +135,8 @@
         border-radius: 12px;
         opacity: 0.2; /* Adjust the opacity as needed */
         pointer-events: none; /* Ignore pointer events on pseudo-elements */
-        transition: opacity 0.3s; /* Smooth transition on hover */
+        transition: opacity 0.3s, transform 0.5s; /* Smooth transition on hover */
+        transform: scale(0); /* Initial scale for the animation */
       }
 
       &::before {
@@ -140,6 +147,11 @@
       &::after {
         bottom: 0;
         right: 0;
+      }
+
+      &:hover::before,
+      &:hover::after {
+        transform: scale(1); /* Scale up on hover */
       }
     }
   }
