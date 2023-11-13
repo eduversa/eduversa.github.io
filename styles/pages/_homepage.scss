@@ -1,5 +1,5 @@
 .homepage {
-  position: relative;
+  // position: relative;
   overflow: hidden;
   height: 100vh;
   width: 100%;
@@ -26,9 +26,8 @@
   }
   &-left {
     @include flex-container(column, nowrap, center, flex-start);
-    margin-left: 5%;
     z-index: 5;
-    margin-bottom: 5%;
+    margin: 0 0 5% 5%;
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {
@@ -40,11 +39,11 @@
     @media (max-width: $breakpoint-phone) {
     }
     .company-name {
-      font-family: var(--font-oswald);
-      font-weight: 700;
-      font-size: var(--font-5);
-      margin-bottom: 20px;
-      letter-spacing: 3px;
+      font-family: var(--font-orbitron);
+      font-weight: 500;
+      letter-spacing: 2px;
+      font-size: var(--font-6);
+      margin: 0 0 3% 0;
       text-transform: uppercase;
       @media (max-width: $breakpoint-desktop-wide) {
       }
@@ -58,10 +57,12 @@
       }
     }
     .company-slogan {
-      font-family: var(--font-roboto);
+      font-family: var(--font-tektur);
       font-size: var(--font-7);
+      font-weight: 600;
+      letter-spacing: 4px;
       text-transform: uppercase;
-      background: linear-gradient(to right, var(--light-black-3), var(--white));
+      background: linear-gradient(135deg, var(--red-2), var(--yellow));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -79,7 +80,7 @@
 
     .typingEffect {
       h1 {
-        font-family: var(--font-oswald);
+        font-family: var(--font-orbitron);
         font-weight: 400;
         font-size: var(--font-10);
         letter-spacing: 3px;
