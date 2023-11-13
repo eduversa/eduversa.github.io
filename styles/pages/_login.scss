@@ -1,7 +1,7 @@
 .login-container {
   max-width: 450px;
   width: 100%;
-  max-height: 550px;
+  max-height: 600px;
   height: 100%;
   margin: 0 auto;
   padding: 30px;
@@ -229,8 +229,18 @@
       span {
         font-family: var(--font-roboto);
         font-size: var(--font-12);
-        letter-spacing: 2px;
+        letter-spacing: 1px;
         font-weight: 400;
+        transition: transform 0.5s ease-in-out, text-shadow 0.5s ease-in-out,
+          color 0.5s ease-in-out, letter-spacing 1s ease-in-out;
+        &:hover {
+          cursor: pointer;
+          color: var(--red-2);
+          transform: translateY(1px) translateX(1px) scale(1.05);
+          text-shadow: 0px 8px 20px var(--black-shadow);
+          letter-spacing: 2px;
+          font-weight: 500;
+        }
       }
       .register-container {
         span {
