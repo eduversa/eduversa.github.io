@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
   max-width: 450px;
   width: 100%;
   max-height: 600px;
@@ -15,12 +15,12 @@
   transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
   &:hover {
     background: rgba(255, 255, 255, 0.15);
-    .login-heading::before {
+    .register-heading::before {
       width: 70%;
     }
     box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
   }
-  .login-heading {
+  .register-heading {
     position: relative;
     text-align: center;
     overflow: hidden;
@@ -46,32 +46,23 @@
       animation: underlineAnimation 2s infinite alternate;
     }
   }
-  .login-subheading-container {
+  .register-subheading {
     text-align: center;
     margin: 0 0 3% 0;
-    .loginbox-heading {
-      font-family: var(--font-tektur);
-      font-size: var(--font-10);
-      font-weight: 400;
-      letter-spacing: 2px;
-    }
-    @keyframes underlineAnimation {
-      to {
-        width: 20%;
-      }
-    }
+    font-family: var(--font-tektur);
+    font-size: var(--font-10);
+    font-weight: 400;
+    letter-spacing: 2px;
   }
 
-  .login-form {
+  .register-form {
     @include flex-container(column, nowrap, none, none);
     z-index: 1;
     gap: 0px;
-    .login-username,
-    .login-password {
+    .register-email {
       @include flex-container(row, nowrap, center, center);
       gap: 5px;
-      .username-icon,
-      .password-icon {
+      .email-icon {
         filter: invert(0);
         position: relative;
         height: 40px;
@@ -92,8 +83,7 @@
         letter-spacing: 3px;
         font-weight: 600;
         outline: none;
-
-        &::placeholder {
+        &:placeholder {
           color: var(--white-shadow-1);
           font-family: var(--font-tektur);
           font-size: var(--font-12);
@@ -101,17 +91,8 @@
           font-weight: 400;
         }
       }
+    }
 
-      &:focus-within {
-        .username-icon,
-        .password-icon {
-          filter: invert(1);
-        }
-      }
-    }
-    .login-password {
-      margin: 5% 0 0% 0;
-    }
     .social-login {
       @include flex-container(column, nowrap, center, center);
       gap: 15px;
@@ -143,7 +124,8 @@
         }
       }
     }
-    .login-button {
+
+    .register-button {
       font-family: var(--font-elianto);
       font-size: var(--font-11);
       text-transform: uppercase;
@@ -196,7 +178,6 @@
         bottom: -25px;
         right: -25px;
       }
-      // ! important
       &:hover::before {
         top: 0px;
         left: -25px;
@@ -220,7 +201,8 @@
         }
       }
     }
-    .extra-options {
+
+    .login-prompt {
       @include flex-container(row, wrap, space-between, space-between);
       margin: 5% 0 0 0;
       span {
@@ -239,29 +221,20 @@
           font-weight: 500;
         }
       }
-      .register {
-        span {
-          font-family: var(--font-roboto);
-          font-size: var(--font-12);
-          letter-spacing: 2px;
-          font-weight: 600;
-          color: var(--black-shadow);
-        }
-        p {
-          margin: 2% 0 0 0;
-          font-family: var(--font-oswald);
-          font-size: var(--font-13);
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          font-weight: 400;
-          color: var(--white);
-          cursor: pointer;
-          transition: color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+      .login-link {
+        margin: 2% 0 0 0;
+        font-family: var(--font-oswald);
+        font-size: var(--font-13);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 400;
+        color: var(--white);
+        cursor: pointer;
+        transition: color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
 
-          &:hover {
-            text-decoration: underline;
-            color: var(--yellow);
-          }
+        &:hover {
+          text-decoration: underline;
+          color: var(--yellow);
         }
       }
     }

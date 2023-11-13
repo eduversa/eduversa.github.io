@@ -105,7 +105,7 @@ function Login() {
             </div>
             <div className="extra-options">
               <span className="forget-password">Forgot Password?</span>
-              <div className="register-container">
+              <div className="register">
                 <span>New to universa?</span>
                 <Link href="/register">
                   <p className="rerister-promt">Click here to Register</p>
