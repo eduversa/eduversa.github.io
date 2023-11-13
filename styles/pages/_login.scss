@@ -1,3 +1,5 @@
+// styles/Login.scss
+
 .login-container {
   position: relative;
   max-width: 400px;
@@ -16,7 +18,7 @@
     background: rgba(255, 255, 255, 0.15);
 
     .login-heading::before {
-      width: 100%; /* Reset width on hover to start the animation */
+      width: 0; /* Reset width on hover to start the animation */
     }
   }
 
@@ -32,7 +34,7 @@
     &::before {
       content: "";
       display: block;
-      width: 0;
+      width: 100%;
       height: 3px;
       background: linear-gradient(90deg, #00bcd4, #ff4081);
       position: absolute;
