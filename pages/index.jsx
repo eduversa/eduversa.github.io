@@ -50,9 +50,11 @@ function Login() {
                 className="password-input"
               />
             </div>
-            <button type="submit" className="login-button">
-              Login
-            </button>
+            <div className="button-container">
+              <button type="submit" className="login-button">
+                Login
+              </button>
+            </div>
           </form>
         </div>
       </LandingLayout>
