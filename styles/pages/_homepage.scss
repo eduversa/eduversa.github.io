@@ -39,10 +39,10 @@
     @media (max-width: $breakpoint-phone) {
     }
     .company-name {
-      font-family: var(--font-orbitron);
-      font-weight: 500;
-      letter-spacing: 2px;
+      font-family: var(--font-elianto);
+      letter-spacing: 3px;
       font-size: var(--font-6);
+      color: var(--white);
       margin: 0 0 3% 0;
       text-transform: uppercase;
       @media (max-width: $breakpoint-desktop-wide) {
@@ -57,12 +57,12 @@
       }
     }
     .company-slogan {
-      font-family: var(--font-tektur);
+      font-family: var(--font-russo);
       font-size: var(--font-7);
       font-weight: 600;
       letter-spacing: 4px;
       text-transform: uppercase;
-      background: linear-gradient(135deg, var(--red-2), var(--yellow));
+      background: linear-gradient(135deg, var(--green), var(--orange));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -80,13 +80,13 @@
 
     .typingEffect {
       h1 {
-        font-family: var(--font-orbitron);
-        font-weight: 400;
-        font-size: var(--font-10);
+        font-family: var(--font-source);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: var(--font-8);
         letter-spacing: 3px;
-        margin-bottom: 20px;
-        margin-top: 20px;
-        background: linear-gradient(to right, var(--white), var(--black));
+        margin: 20px 0 20px 0;
+        background: linear-gradient(135deg, var(--white), var(--white));
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -102,14 +102,12 @@
         }
       }
       h3 {
-        font-family: var(--font-oswald);
-        font-weight: 300;
+        font-family: var(--font-playfair);
+        font-weight: 400;
         font-size: var(--font-10);
         letter-spacing: 3px;
-        background: linear-gradient(to right, var(--white), var(--black));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
+        text-transform: uppercase;
+        color: white;
         @media (max-width: $breakpoint-desktop-wide) {
         }
         @media (max-width: $breakpoint-desktop) {
