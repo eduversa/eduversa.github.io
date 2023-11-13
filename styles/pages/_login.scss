@@ -1,8 +1,9 @@
-// styles/Login.scss
-
 .login-container {
-  position: relative;
+  //   position: relative;
   max-width: 400px;
+  width: 100%;
+  max-height: 500px;
+  height: 100%;
   margin: auto;
   padding: 20px;
   background: rgba(255, 255, 255, 0.1);
@@ -141,16 +142,15 @@
       }
     }
   }
-}
-
-@keyframes ripple {
-  to {
-    transform: scale(2);
-    opacity: 0;
+  @keyframes ripple {
+    to {
+      transform: scale(2);
+      opacity: 0;
+    }
   }
-}
-@keyframes underlineAnimation {
-  to {
-    width: 0;
+  @keyframes underlineAnimation {
+    to {
+      width: 0;
+    }
   }
 }
