@@ -7,42 +7,42 @@ function Login() {
   return (
     <Fragment>
       <LandingLayout>
-        <div className="login">
-          <h2 className="login__heading">Login</h2>
-          <form className="login__form">
-            <div className="login__username">
+        <div className="login-container">
+          <h2 className="login-heading">Login</h2>
+          <form className="login-form">
+            <div className="login-username">
               <Image
                 src="/login/username.png"
                 alt="username"
                 height={20}
                 width={20}
-                className="username__icon"
+                className="username-icon"
               ></Image>
               <input
                 type="text"
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="username__input"
+                className="username-input"
               />
             </div>
-            <div className="login__password">
+            <div className="login-password">
               <Image
                 src="/login/password.png"
                 alt="username"
                 height={20}
                 width={20}
-                className="password__icon"
+                className="password-icon"
               ></Image>
               <input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="password__input"
+                className="password-input"
               />
             </div>
-            <button type="button" className="login__button">
+            <button type="button" className="login-button">
               Login
             </button>
           </form>
