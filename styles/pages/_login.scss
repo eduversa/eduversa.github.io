@@ -51,12 +51,13 @@
   .login-form {
     @include flex-container(column, nowrap, center, none);
     z-index: 1;
+    gap: 20px;
     .login-username,
     .login-password {
       @include flex-container(row, nowrap, center, center);
+      gap: 10px;
       .username-icon,
       .password-icon {
-        margin-right: 10px;
         filter: invert(0);
         position: relative;
         height: 30px;
