@@ -57,11 +57,7 @@ function Login() {
                 className="password-input"
               />
             </div>
-            <div className="button-container">
-              <button type="submit" className="login-button">
-                Login
-              </button>
-            </div>
+
             <div className="social-login">
               <span>Login with:</span>
               <div className="images">
@@ -101,6 +97,11 @@ function Login() {
                   className="github-icon"
                 ></Image>
               </div>
+            </div>
+            <div className="button-container">
+              <button type="submit" className="login-button">
+                Login
+              </button>
             </div>
             <div className="extra-login-options">
               <span className="forget-password">Forgot Password?</span>
