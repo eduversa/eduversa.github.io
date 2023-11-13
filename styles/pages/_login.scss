@@ -10,18 +10,29 @@
     255,
     255,
     255,
-    0.2
-  ); /* Semi-transparent white background for glass effect */
+    0.1
+  ); /* Slightly transparent white background for glass effect */
   backdrop-filter: blur(10px); /* Blurring effect for glassmorphism */
   border: 1px solid rgba(255, 255, 255, 0.1); /* Slight border for contrast */
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   z-index: 5;
+  transition: background 0.3s; /* Smooth transition on hover */
+
+  &:hover {
+    background: rgba(
+      255,
+      255,
+      255,
+      0.15
+    ); /* Darker background on hover for more contrast */
+  }
 
   .login-heading {
     text-align: center;
-    font-size: 24px;
+    font-size: 28px;
     margin-bottom: 20px;
+    color: #fff;
   }
 
   .login-form {
@@ -37,41 +48,48 @@
       .username-icon,
       .password-icon {
         margin-right: 10px;
+        filter: invert(1); /* Invert the icon colors for better visibility */
       }
 
       input {
-        padding: 10px;
+        padding: 12px;
         border: 1px solid rgba(255, 255, 255, 0.3); /* Slight border for contrast */
-        border-radius: 4px;
+        border-radius: 6px;
         flex: 1;
         background: rgba(
           255,
           255,
           255,
           0.1
-        ); /* Semi-transparent white background for input */
-        backdrop-filter: blur(5px); /* Blurring effect for input */
-        color: #fff; /* Text color */
+        ); /* Slightly transparent white background for input */
+        backdrop-filter: blur(8px); /* Blurring effect for input */
+        color: #fff;
+        transition: border-color 0.3s, background 0.3s; /* Smooth transition on hover */
+
+        &:focus {
+          outline: none;
+          border-color: #61dafb; /* Border color on focus */
+        }
       }
     }
 
     .login-button {
-      padding: 10px;
+      padding: 12px;
       background-color: rgba(
         0,
         123,
         255,
-        0.7
+        0.8
       ); /* Semi-transparent blue background for button */
       color: #fff;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s;
+      font-size: 18px;
+      transition: background-color 0.3s; /* Smooth transition on hover */
 
       &:hover {
-        background-color: rgba(0, 123, 255, 0.9); /* Darker blue on hover */
+        background-color: rgba(0, 123, 255, 1); /* Darker blue on hover */
       }
     }
   }
