@@ -94,7 +94,7 @@
     }
 
     .login-button {
-      //   position: relative;
+      position: relative;
       z-index: 1;
       padding: 12px;
       background-color: rgba(0, 123, 255, 0.8);
@@ -104,10 +104,12 @@
       cursor: pointer;
       font-size: 18px;
       overflow: hidden;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
 
       &:hover {
         background-color: rgba(0, 123, 255, 1);
+        box-shadow: 0 0 10px rgba(97, 218, 251, 0.8);
+        color: var(--your-hover-color);
       }
 
       &::before,
@@ -147,7 +149,7 @@
   }
   @keyframes ripple {
     to {
-      transform: scale(2);
+      transform: scale(1);
       opacity: 0;
     }
   }

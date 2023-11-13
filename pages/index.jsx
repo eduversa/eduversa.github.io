@@ -1,24 +1,31 @@
 import { Fragment, useState } from "react";
 import { LandingLayout } from "@/layout";
 import Image from "next/image";
+
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add your login logic here
+    console.log("Logging in...", username, password);
+  };
+
   return (
     <Fragment>
       <LandingLayout>
         <div className="login-container">
           <h2 className="login-heading">Login</h2>
-          <form className="login-form">
+          <form className="login-form" onSubmit={handleSubmit}>
             <div className="login-username">
               <Image
                 src="/login/username.png"
                 alt="username"
                 height={20}
                 width={20}
-                layout="resposive"
                 className="username-icon"
-              ></Image>
+              />
               <input
                 type="text"
                 placeholder="Username"
@@ -34,8 +41,7 @@ function Login() {
                 height={20}
                 width={20}
                 className="password-icon"
-                layout="resposive"
-              ></Image>
+              />
               <input
                 type="password"
                 placeholder="Password"
@@ -44,7 +50,7 @@ function Login() {
                 className="password-input"
               />
             </div>
-            <button type="button" className="login-button">
+            <button type="submit" className="login-button">
               Login
             </button>
           </form>
@@ -53,4 +59,5 @@ function Login() {
     </Fragment>
   );
 }
+
 export default Login;
