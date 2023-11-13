@@ -57,7 +57,10 @@
       .username-icon,
       .password-icon {
         margin-right: 10px;
-        filter: invert(1);
+        filter: invert(0);
+        position: relative;
+        height: 30px;
+        width: 30px;
       }
 
       input {

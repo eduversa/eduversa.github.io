@@ -16,6 +16,7 @@ function Login() {
                 alt="username"
                 height={20}
                 width={20}
+                layout="resposive"
                 className="username-icon"
               ></Image>
               <input
@@ -33,6 +34,7 @@ function Login() {
                 height={20}
                 width={20}
                 className="password-icon"
+                layout="resposive"
               ></Image>
               <input
                 type="password"
