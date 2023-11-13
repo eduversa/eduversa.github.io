@@ -1,33 +1,19 @@
-// styles/Login.scss
-
-// Import any global styles or variables here
-
 .login-container {
   position: relative;
   max-width: 400px;
   margin: auto;
   padding: 20px;
-  background: rgba(
-    255,
-    255,
-    255,
-    0.1
-  ); /* Slightly transparent white background for glass effect */
-  backdrop-filter: blur(10px); /* Blurring effect for glassmorphism */
-  border: 1px solid rgba(255, 255, 255, 0.1); /* Slight border for contrast */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   z-index: 5;
-  overflow: hidden; /* Hide overflowing box shadows */
-  transition: background 0.3s; /* Smooth transition on hover */
+  overflow: hidden;
+  transition: background 0.3s;
 
   &:hover {
-    background: rgba(
-      255,
-      255,
-      255,
-      0.15
-    ); /* Darker background on hover for more contrast */
+    background: rgba(255, 255, 255, 0.15);
   }
 
   &::before,
@@ -38,10 +24,10 @@
     height: 100%;
     background: linear-gradient(45deg, #007bff, #00ffcc);
     border-radius: 12px;
-    opacity: 0.2; /* Adjust the opacity as needed */
-    pointer-events: none; /* Ignore pointer events on pseudo-elements */
-    transition: opacity 0.3s, transform 0.5s; /* Smooth transition on hover */
-    transform: scale(0); /* Initial scale for the animation */
+    opacity: 0.2;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.5s;
+    transform: scale(0);
   }
 
   &::before {
@@ -56,7 +42,7 @@
 
   &:hover::before,
   &:hover::after {
-    transform: scale(1); /* Scale up on hover */
+    transform: scale(1);
   }
 
   .login-heading {
@@ -64,7 +50,7 @@
     font-size: 28px;
     margin-bottom: 20px;
     color: #fff;
-    z-index: 1; /* Ensure the heading is above the pseudo-elements */
+    z-index: 1;
   }
 
   .login-form {
@@ -78,40 +64,34 @@
       .username-icon,
       .password-icon {
         margin-right: 10px;
-        filter: invert(1); /* Invert the icon colors for better visibility */
+        filter: invert(1);
       }
 
       input {
         padding: 12px;
-        border: none; /* Remove default border */
+        border: none;
         border-radius: 6px;
-        background: rgba(
-          255,
-          255,
-          255,
-          0.1
-        ); /* Slightly transparent white background for input */
-        backdrop-filter: blur(8px); /* Blurring effect for input */
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
         color: #fff;
-        transition: background 0.3s, box-shadow 0.3s; /* Smooth transition on hover and focus */
+        transition: background 0.3s, box-shadow 0.3s;
         width: 100%;
         font-size: 16px;
         outline: none;
 
         &::placeholder {
-          color: rgba(255, 255, 255, 0.7); /* Placeholder text color */
+          color: rgba(255, 255, 255, 0.7);
         }
       }
 
-      /* Border animation on focus */
       &:focus-within {
         .username-icon,
         .password-icon {
-          filter: invert(1) drop-shadow(0 0 8px rgba(97, 218, 251, 0.8)); /* Add drop shadow on focus */
+          filter: invert(1) drop-shadow(0 0 8px rgba(97, 218, 251, 0.8));
         }
 
         input {
-          box-shadow: 0 0 10px rgba(97, 218, 251, 0.8); /* Border animation on focus */
+          box-shadow: 0 0 10px rgba(97, 218, 251, 0.8);
         }
       }
     }
@@ -120,22 +100,17 @@
       position: relative;
       z-index: 1;
       padding: 12px;
-      background-color: rgba(
-        0,
-        123,
-        255,
-        0.8
-      ); /* Semi-transparent blue background for button */
+      background-color: rgba(0, 123, 255, 0.8);
       color: #fff;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       font-size: 18px;
       overflow: hidden;
-      transition: background-color 0.3s; /* Smooth transition on hover */
+      transition: background-color 0.3s;
 
       &:hover {
-        background-color: rgba(0, 123, 255, 1); /* Darker blue on hover */
+        background-color: rgba(0, 123, 255, 1);
       }
 
       &::before,
@@ -146,8 +121,8 @@
         height: 50px;
         background: rgba(255, 255, 255, 0.2);
         border-radius: 50%;
-        opacity: 0.4; /* Adjust the opacity as needed */
-        pointer-events: none; /* Ignore pointer events on pseudo-elements */
+        opacity: 0.4;
+        pointer-events: none;
         transform: scale(0);
         transition: transform 0.5s ease-out, opacity 0.5s ease-out;
       }
@@ -169,7 +144,7 @@
       }
 
       &::after {
-        animation: ripple 1s linear infinite; /* Pulsating animation */
+        animation: ripple 1s linear infinite;
       }
     }
   }
