@@ -1,46 +1,49 @@
-// Login.scss
-
-.login {
+.login-container {
   max-width: 400px;
   margin: auto;
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 5; // Add z-index: 5 here
 
-  &__heading {
-    font-size: 1.5rem;
+  .login-heading {
+    text-align: center;
+    font-size: 24px;
     margin-bottom: 20px;
   }
 
-  &__form {
+  .login-form {
     display: flex;
     flex-direction: column;
 
-    &__username,
-    &__password {
+    .login-username,
+    .login-password {
       display: flex;
       align-items: center;
       margin-bottom: 15px;
 
-      &__icon {
+      .username-icon,
+      .password-icon {
         margin-right: 10px;
       }
 
-      &__input {
+      input {
         padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        flex: 1;
       }
     }
 
-    &__button {
+    .login-button {
       padding: 10px;
       background-color: #007bff;
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 4px;
       cursor: pointer;
+      font-size: 16px;
 
       &:hover {
         background-color: #0056b3;

@@ -29,7 +29,7 @@ function Login() {
             <div className="login-password">
               <Image
                 src="/login/password.png"
-                alt="username"
+                alt="password"
                 height={20}
                 width={20}
                 className="password-icon"
