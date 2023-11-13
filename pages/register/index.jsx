@@ -17,12 +17,12 @@ function Register() {
         <div className="register-container">
           <h2 className="register-heading">Register</h2>
           <h3 className="register-subheading">
-            Join our academic community and start your journey 😉
+            Your Pathway to Academic Excellence: Register Now on Universa😉
           </h3>
           <form className="register-form" onSubmit={handleSubmit}>
             <div className="register-email">
               <Image
-                src="/register/email.png"
+                src="/register/gmail.png"
                 alt="email"
                 height={20}
                 width={20}
