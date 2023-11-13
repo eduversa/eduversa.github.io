@@ -173,10 +173,34 @@
       }
     }
     .social-login {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 20px 0 20px 0;
+      @include flex-container(column, nowrap, center, center);
+      gap: 10px;
+      span {
+        font-family: var(--font-tektur);
+        font-size: var(--font-11);
+        letter-spacing: 2px;
+        font-weight: 400;
+      }
+      .images {
+        @include flex-container(row, nowrap, center, center);
+        gap: 20px;
+        .google-icon,
+        .facebook-icon,
+        .twitter-icon,
+        .github-icon,
+        .linkedin-icon {
+          filter: invert(0);
+          height: 40px;
+          width: 40px;
+          transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+          border-radius: 20px;
+          cursor: pointer;
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 5px 10px 20px var(--black-shadow);
+          }
+        }
+      }
     }
 
     .options {

@@ -67,8 +67,8 @@
     font-size: var(--font-7);
     text-transform: uppercase;
     letter-spacing: 4px;
-    transition: color 0.3s ease, text-shadow 0.3s ease,
-      background-color 0.3s ease, transform 0.3s ease;
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out,
+      background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {
