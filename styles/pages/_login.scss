@@ -13,7 +13,7 @@
   box-shadow: 0 0 20px var(--black-shadow-light-1);
   z-index: 5;
   overflow: hidden;
-  transition: background 0.3s, box-shadow 0.5s;
+  transition: background 0.3s ease-in-out, box-shadow 1s ease-in-out;
   &:hover {
     background: rgba(255, 255, 255, 0.15);
     .login-heading::before {
@@ -33,11 +33,12 @@
     font-weight: 500;
     letter-spacing: 3px;
     text-transform: uppercase;
+    margin: 0 0 0 0;
     &::before {
       content: "";
       display: block;
       width: 50%;
-      height: 3px;
+      height: 5px;
       background: linear-gradient(90deg, #00bcd4, #ff4081);
       position: absolute;
       bottom: 0;
