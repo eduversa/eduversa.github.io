@@ -102,9 +102,6 @@
     .login-password {
       margin: 5% 0 0% 0;
     }
-    // .button-container {
-    //   position: absolute;
-    //   @include flex-container(row, nowrap, center, center);
     .login-button {
       position: absolute;
       right: 10%;
@@ -165,7 +162,6 @@
         animation: ripple 2s linear infinite;
       }
     }
-    // }
     @keyframes ripple {
       to {
         transform: scale(5);
