@@ -12,7 +12,7 @@
   box-shadow: 0 0 5px var(--black-shadow-light-1);
   z-index: 5;
   overflow: hidden;
-  transition: background 1s ease-in-out, box-shadow 1s ease-in-out;
+  transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
   &:hover {
     background: rgba(255, 255, 255, 0.15);
     .login-heading::before {
