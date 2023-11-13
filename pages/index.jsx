@@ -64,8 +64,6 @@ function Login() {
             </div>
             <div className="social-login">
               <p>Login with:</p>
-              <span className="facebook"></span>
-              <span className="google"></span>
             </div>
             <div className="options">
               <span className="forget-password">Forgot Password?</span>
