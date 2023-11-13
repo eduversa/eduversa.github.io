@@ -3,6 +3,7 @@
 // Import any global styles or variables here
 
 .login-container {
+  position: relative;
   max-width: 400px;
   margin: auto;
   padding: 20px;
@@ -17,6 +18,7 @@
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   z-index: 5;
+  overflow: hidden; /* Hide overflowing box shadows */
   transition: background 0.3s; /* Smooth transition on hover */
 
   &:hover {
@@ -28,22 +30,44 @@
     ); /* Darker background on hover for more contrast */
   }
 
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #007bff, #00ffcc);
+    border-radius: 12px;
+    opacity: 0.2; /* Adjust the opacity as needed */
+    pointer-events: none; /* Ignore pointer events on pseudo-elements */
+    transition: opacity 0.3s; /* Smooth transition on hover */
+  }
+
+  &::before {
+    top: 0;
+    left: 0;
+  }
+
+  &::after {
+    bottom: 0;
+    right: 0;
+  }
+
   .login-heading {
     text-align: center;
     font-size: 28px;
     margin-bottom: 20px;
     color: #fff;
+    z-index: 1; /* Ensure the heading is above the pseudo-elements */
   }
 
   .login-form {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    z-index: 1;
 
     .login-username,
     .login-password {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
+      position: relative;
 
       .username-icon,
       .password-icon {
@@ -74,6 +98,8 @@
     }
 
     .login-button {
+      position: relative;
+      z-index: 1;
       padding: 12px;
       background-color: rgba(
         0,
@@ -86,10 +112,34 @@
       border-radius: 6px;
       cursor: pointer;
       font-size: 18px;
+      overflow: hidden;
       transition: background-color 0.3s; /* Smooth transition on hover */
 
       &:hover {
         background-color: rgba(0, 123, 255, 1); /* Darker blue on hover */
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #007bff, #00ffcc);
+        border-radius: 12px;
+        opacity: 0.2; /* Adjust the opacity as needed */
+        pointer-events: none; /* Ignore pointer events on pseudo-elements */
+        transition: opacity 0.3s; /* Smooth transition on hover */
+      }
+
+      &::before {
+        top: 0;
+        left: 0;
+      }
+
+      &::after {
+        bottom: 0;
+        right: 0;
       }
     }
   }
