@@ -115,9 +115,9 @@
     }
     .social-login {
       @include flex-container(column, nowrap, center, center);
-      gap: 10px;
+      gap: 15px;
       span {
-        margin: 1% 0 0 0;
+        margin: 3% 0 0 0;
         font-family: var(--font-tektur);
         font-size: var(--font-11);
         letter-spacing: 2px;
@@ -145,22 +145,25 @@
       }
     }
     .login-button {
+      font-family: var(--font-elianto);
+      font-size: var(--font-11);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--black);
       position: relative;
       right: 10%;
       left: 10%;
       width: 80%;
       z-index: 1;
-      margin: 2% 0 0 0;
+      margin: 5% 0 0 0;
       padding: 15px 30px;
       background: linear-gradient(to right, #4caf50, #2ecc71);
-      color: var(--white);
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 18px;
       overflow: hidden;
       transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out,
-        transform 0.5s ease-in-out;
+        transform 0.5s ease-in-out, color 0.5s ease-in-out;
 
       &:hover {
         background: linear-gradient(
@@ -169,7 +172,8 @@
           darken(#4caf50, 10%)
         );
         transform: translateY(1px);
-        box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
+        color: var(--white);
+        box-shadow: 0px 8px 20px -10px var(--black-shadow-medium);
       }
 
       &::before,
