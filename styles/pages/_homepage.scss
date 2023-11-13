@@ -57,15 +57,16 @@
       }
     }
     .company-slogan {
-      font-family: var(--font-russo);
+      font-family: var(--font-orbitron);
       font-size: var(--font-7);
       font-weight: 600;
       letter-spacing: 4px;
       text-transform: uppercase;
-      background: linear-gradient(135deg, var(--green), var(--orange));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      // background: linear-gradient(to right, var(--white), var(--red));
+      // -webkit-background-clip: text;
+      // background-clip: text;
+      // color: transparent;
+      color: var(--white);
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
