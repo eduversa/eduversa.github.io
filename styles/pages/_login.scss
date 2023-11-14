@@ -14,8 +14,16 @@
   overflow: hidden;
   transition: background 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
   @media (max-width: $breakpoint-desktop-wide) {
+    margin: 8% 0 0 0;
+    max-width: 430px;
+    max-height: 570px;
+    padding: 30px;
   }
   @media (max-width: $breakpoint-desktop) {
+    margin: 9% 0 0 0;
+    max-width: 400px;
+    max-height: 530px;
+    padding: 25px;
   }
   @media (max-width: $breakpoint-large-tablet) {
     max-width: 400px;
