@@ -76,6 +76,7 @@
     @media (max-width: $breakpoint-large-tablet) {
     }
     @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-5);
     }
     @media (max-width: $breakpoint-phone) {
       font-size: var(--font-6);
