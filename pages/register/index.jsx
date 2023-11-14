@@ -23,7 +23,7 @@ function Register() {
       console.error("Error during registration:", error.message);
     }
   };
-
+  // yo debargha
   return (
     <Fragment>
       <LandingLayout>
