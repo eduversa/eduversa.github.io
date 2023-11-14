@@ -8,7 +8,6 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log("Logging in...", username, password);
   };
 
   return (
