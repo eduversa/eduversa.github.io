@@ -4,6 +4,9 @@ const loginUser = async (username, password) => {
   const apiUrl = `${apiBaseUrl}/account/auth`;
 
   try {
+    console.log("Login Function Called");
+    console.log("Username:", username);
+    console.log("Password:", password);
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
@@ -14,13 +17,13 @@ const loginUser = async (username, password) => {
         password: password,
       }),
     });
-    if (!response.ok) {
+    if (response.status === false) {
+      console.log(response);
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
+    console.log("Response:", response);
 
     const data = await response.json();
-    console.log("API Response:", data);
-
     return data;
   } catch (error) {
     console.error("Error during API call:", error);

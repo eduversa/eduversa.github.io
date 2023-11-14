@@ -13,6 +13,11 @@ function Register() {
 
     try {
       const registrationData = await registerUser(email);
+      if (registrationData.status === false) {
+        console.log("Registration data:", registrationData);
+        alert(registrationData.message);
+        return;
+      }
 
       console.log("Registration data:", registrationData);
       alert(
