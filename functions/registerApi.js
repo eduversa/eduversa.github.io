@@ -5,6 +5,7 @@ async function registerUser(email) {
 
   try {
     console.log("Registration Function Called");
+    console.log("Email:", email);
     const response = await fetch(apiUrl + endpoint, {
       method: "POST",
       headers: {
@@ -14,11 +15,11 @@ async function registerUser(email) {
     });
 
     if (!response.ok) {
+      console.log(response);
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
+    console.log("Response:", response);
     const data = await response.json();
-    console.log("Registration successful:", data);
     return data;
   } catch (error) {
     console.error("Error registering user:", error.message);

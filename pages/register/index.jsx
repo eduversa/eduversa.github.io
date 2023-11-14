@@ -1,12 +1,13 @@
 import { Fragment, useState } from "react";
-import { LandingLayout } from "@/layout";
-import { registerUser } from "@/functions";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { LandingLayout } from "@/layout";
+import { registerUser } from "@/functions";
 
 function Register() {
   const [email, setEmail] = useState("");
-
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -14,6 +15,10 @@ function Register() {
       const registrationData = await registerUser(email);
 
       console.log("Registration data:", registrationData);
+      alert(
+        "Registration Was Successful! Check Your Email For Login Credentials"
+      );
+      router.push("/");
     } catch (error) {
       console.error("Error during registration:", error.message);
     }
