@@ -6,11 +6,21 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Logging in...", username, password);
-  };
 
+    try {
+      const apiResponse = await loginUser(username, password);
+      if (apiResponse.status === false) {
+        console.log("Login data:", apiResponse);
+        alert(apiResponse.message);
+        return;
+      }
+      console.log("Login data:", apiResponse);
+    } catch (error) {
+      console.error("Error in login:", error);
+    }
+  };
   return (
     <Fragment>
       <LandingLayout>
