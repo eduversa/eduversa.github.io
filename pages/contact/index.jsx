@@ -4,7 +4,7 @@ function Contact() {
   return (
     <Fragment>
       <LandingLayout>
-        <h1>Contact</h1>
+        <h1 className="contactus-container">Coming Soon</h1>
       </LandingLayout>
     </Fragment>
   );

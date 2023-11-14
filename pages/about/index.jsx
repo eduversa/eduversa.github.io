@@ -4,7 +4,7 @@ function About() {
   return (
     <Fragment>
       <LandingLayout>
-        <h1>About</h1>
+        <h1 className="aboutus-container">Coming Soon</h1>
       </LandingLayout>
     </Fragment>
   );
