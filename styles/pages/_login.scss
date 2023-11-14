@@ -18,6 +18,9 @@
   @media (max-width: $breakpoint-desktop) {
   }
   @media (max-width: $breakpoint-large-tablet) {
+    max-width: 400px;
+    max-height: 550px;
+    padding: 25px;
   }
   @media (max-width: $breakpoint-tablet) {
   }
