@@ -4,6 +4,7 @@ async function registerUser(email) {
   const endpoint = "/account/";
 
   try {
+    console.log("Registration Function Called");
     const response = await fetch(apiUrl + endpoint, {
       method: "POST",
       headers: {

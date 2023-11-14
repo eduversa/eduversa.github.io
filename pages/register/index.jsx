@@ -1,14 +1,22 @@
 import { Fragment, useState } from "react";
 import { LandingLayout } from "@/layout";
+import { registerUser } from "@/functions";
 import Image from "next/image";
 import Link from "next/link";
 
 function Register() {
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Registering...", email);
+
+    try {
+      const registrationData = await registerUser(email);
+
+      console.log("Registration data:", registrationData);
+    } catch (error) {
+      console.error("Error during registration:", error.message);
+    }
   };
 
   return (
