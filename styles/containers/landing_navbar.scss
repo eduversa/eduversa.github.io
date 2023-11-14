@@ -72,6 +72,7 @@
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {
+      font-size: var(--font-8);
     }
     @media (max-width: $breakpoint-large-tablet) {
     }
@@ -117,6 +118,7 @@
         @media (max-width: $breakpoint-desktop-wide) {
         }
         @media (max-width: $breakpoint-desktop) {
+          font-size: var(--font-12);
         }
         @media (max-width: $breakpoint-large-tablet) {
         }
@@ -206,6 +208,7 @@
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
+        font-size: var(--font-12);
       }
       @media (max-width: $breakpoint-large-tablet) {
       }
