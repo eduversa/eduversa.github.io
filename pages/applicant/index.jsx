@@ -1,8 +1,10 @@
+import { Fragment } from "react";
+import { ApplicantLayout } from "@/layout";
 function ApplicantDashboard() {
   return (
-    <div>
-      <h1>Applicant Dashboard</h1>
-    </div>
+    <Fragment>
+      <ApplicantLayout></ApplicantLayout>
+    </Fragment>
   );
 }
 

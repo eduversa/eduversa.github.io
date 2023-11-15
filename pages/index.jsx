@@ -1,11 +1,14 @@
 import { Fragment, useState } from "react";
-import { LandingLayout } from "@/layout";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { LandingLayout } from "@/layout";
+import { loginUser } from "@/functions";
+
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -17,6 +20,7 @@ function Login() {
         return;
       }
       console.log("Login data:", apiResponse);
+      alert(apiResponse.message);
     } catch (error) {
       console.error("Error in login:", error);
     }
