@@ -20,6 +20,7 @@ function Login() {
         return;
       }
       console.log("Login data:", apiResponse);
+      alert(apiResponse.message);
     } catch (error) {
       console.error("Error in login:", error);
     }
