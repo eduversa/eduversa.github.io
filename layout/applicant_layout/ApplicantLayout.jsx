@@ -1,8 +1,9 @@
 import { Fragment } from "react";
+import { ApplicantNavbar } from "@/containers";
 function ApplicantLayout() {
   return (
     <Fragment>
-      <div></div>
+      <ApplicantNavbar />
     </Fragment>
   );
 }
