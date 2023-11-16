@@ -1,8 +1,8 @@
 .applicant-nav {
   position: relative;
-  color: #fff;
-  background: linear-gradient(180deg, #001f3f, #003366);
-  padding: 1.5rem 2rem;
+  color: var(--white);
+  background: linear-gradient(-180deg, #003366, var(--blue-2));
+  padding: 1rem 1.5rem;
   @include flex-container(row, nowrap, space-between, center);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease-in-out;
@@ -281,7 +281,7 @@
         @media (max-width: $breakpoint-phone) {
         }
         a {
-          color: #fff;
+          color: var(--white);
           text-decoration: none;
           font-weight: bold;
           font-size: 1.5rem;
