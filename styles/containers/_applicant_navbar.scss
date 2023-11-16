@@ -1,7 +1,7 @@
 // applicant-navbar.scss
 
 .applicant-nav {
-  background: linear-gradient(to right, #3498db, #6bb9f0);
+  background: linear-gradient(to right, #ff6b6b, #6b6b6b);
   color: #fff;
   padding: 1.5rem 2rem;
   display: flex;
@@ -20,7 +20,7 @@
       transition: transform 0.3s ease-in-out;
 
       &:hover {
-        transform: scale(1.1);
+        transform: rotate(10deg) scale(1.2);
       }
     }
   }
@@ -42,7 +42,7 @@
           transition: color 0.3s;
 
           &:hover {
-            color: #ffcc00;
+            color: #ff9f43;
           }
         }
       }
@@ -51,17 +51,17 @@
 
   .button-section {
     .logout-button {
-      background: #e74c3c;
+      background: #ff6b6b;
       color: #fff;
       border: none;
       padding: 0.8rem 1.5rem;
       cursor: pointer;
       font-size: 1.2rem;
-      border-radius: 8px;
+      border-radius: 12px;
       transition: background 0.3s;
 
       &:hover {
-        background: #c0392b;
+        background: #e74c3c;
       }
     }
   }
@@ -81,7 +81,7 @@
 
       &:hover {
         transform: scaleX(1.2);
-        background: #ffcc00;
+        background: #ff9f43;
       }
     }
   }
@@ -104,23 +104,23 @@
           transition: color 0.3s;
 
           &:hover {
-            color: #ffcc00;
+            color: #ff9f43;
           }
         }
       }
 
       .logout-button {
-        background: #e74c3c;
+        background: #ff6b6b;
         color: #fff;
         border: none;
         padding: 0.8rem 1.5rem;
         cursor: pointer;
         font-size: 1.2rem;
-        border-radius: 8px;
+        border-radius: 12px;
         transition: background 0.3s;
 
         &:hover {
-          background: #c0392b;
+          background: #e74c3c;
         }
       }
     }
@@ -137,9 +137,9 @@
       position: absolute;
       top: 80px;
       right: 20px;
-      background: linear-gradient(to right, #3498db, #6bb9f0);
+      background: linear-gradient(to right, #ff6b6b, #6b6b6b);
       padding: 2rem;
-      border-radius: 12px;
+      border-radius: 16px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 
       .mobile-nav-list {
