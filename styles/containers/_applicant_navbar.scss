@@ -11,6 +11,7 @@
   @media (max-width: $breakpoint-desktop) {
   }
   @media (max-width: $breakpoint-large-tablet) {
+    padding: 0.5rem 1rem;
   }
   @media (max-width: $breakpoint-tablet) {
   }
@@ -118,6 +119,7 @@
         @media (max-width: $breakpoint-desktop) {
         }
         @media (max-width: $breakpoint-large-tablet) {
+          margin: 0 1rem 0 0;
         }
         @media (max-width: $breakpoint-tablet) {
         }
@@ -141,6 +143,7 @@
           @media (max-width: $breakpoint-desktop) {
           }
           @media (max-width: $breakpoint-large-tablet) {
+            font-size: var(--font-12);
           }
           @media (max-width: $breakpoint-tablet) {
           }
