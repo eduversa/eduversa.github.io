@@ -68,7 +68,7 @@
       }
       &:hover {
         transform: scale(1.1);
-        // text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
         color: var(--white);
       }
 
@@ -98,7 +98,7 @@
     .nav-list {
       list-style: none;
       padding: 0;
-      display: flex;
+      @include flex-container(row, nowrap, flex-start, center);
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
@@ -111,7 +111,7 @@
       @media (max-width: $breakpoint-phone) {
       }
       .nav-item {
-        margin-right: 2rem;
+        margin: 0 2rem 0 0;
         @media (max-width: $breakpoint-desktop-wide) {
         }
         @media (max-width: $breakpoint-desktop) {
@@ -124,7 +124,7 @@
         }
         a {
           position: relative;
-          color: #ffc107;
+          color: var(--yellow-1);
           text-decoration: none;
           cursor: pointer;
           font-weight: bold;
@@ -182,7 +182,7 @@
     @media (max-width: $breakpoint-phone) {
     }
     .logout-button {
-      background: #ffc107;
+      background: var(--yellow-1);
       color: #001f3f;
       border: none;
       padding: 0.8rem 1.5rem;
@@ -321,7 +321,7 @@
       }
 
       .logout-button {
-        background: #ffc107;
+        background: var(--yellow-1);
         color: #001f3f;
         border: none;
         padding: 0.8rem 1.5rem;
