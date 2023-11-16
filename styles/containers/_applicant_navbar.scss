@@ -1,8 +1,8 @@
 // applicant-navbar.scss
 
 .applicant-nav {
-  background: linear-gradient(to right, #3498db, #6bb9f0);
-  color: #fff;
+  background: linear-gradient(to right, #2c3e50, #3498db);
+  color: #ecf0f1;
   padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -15,7 +15,7 @@
 
     .logo-text {
       cursor: pointer;
-      color: #fff;
+      color: #ecf0f1;
       text-decoration: none;
       transition: transform 0.3s ease-in-out;
 
@@ -35,10 +35,11 @@
         margin-right: 2rem;
 
         a {
-          color: #fff;
+          color: #ecf0f1;
           text-decoration: none;
           cursor: pointer;
           font-weight: bold;
+          font-size: 1.2rem;
           transition: color 0.3s;
 
           &:hover {
@@ -52,7 +53,7 @@
   .button-section {
     .logout-button {
       background: #e74c3c;
-      color: #fff;
+      color: #ecf0f1;
       border: none;
       padding: 0.8rem 1.5rem;
       cursor: pointer;
@@ -74,7 +75,7 @@
     .menu-line {
       height: 4px;
       width: 30px;
-      background: #fff;
+      background: #ecf0f1;
       margin: 6px 0;
       border-radius: 4px;
       transition: transform 0.3s, background 0.3s;
@@ -97,7 +98,7 @@
         margin-bottom: 2rem;
 
         a {
-          color: #fff;
+          color: #ecf0f1;
           text-decoration: none;
           font-weight: bold;
           font-size: 1.5rem;
@@ -111,7 +112,7 @@
 
       .logout-button {
         background: #e74c3c;
-        color: #fff;
+        color: #ecf0f1;
         border: none;
         padding: 0.8rem 1.5rem;
         cursor: pointer;
@@ -137,7 +138,7 @@
       position: absolute;
       top: 80px;
       right: 20px;
-      background: linear-gradient(to right, #3498db, #6bb9f0);
+      background: linear-gradient(to right, #2c3e50, #3498db);
       padding: 2rem;
       border-radius: 16px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
