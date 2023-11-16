@@ -3,27 +3,12 @@
   color: #fff;
   background: linear-gradient(to right, #001f3f, #003366);
   padding: 1.5rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  animation: fadeIn 1s forwards;
+  @include flex-container(row, nowrap, space-between, center);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease-in-out;
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 16px -5px rgba(0, 0, 0, 0.7);
   }
 
   .logo {
@@ -124,7 +109,7 @@
       transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
 
       &:hover {
-        background: #ffdb58; /* Lighter yellow on hover */
+        background: #ffdb58;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         transform: translateY(-2px);
       }
