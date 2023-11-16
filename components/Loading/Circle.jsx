@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-const LdsCircle = () => {
+const Circle = () => {
   return (
     <Fragment>
       <div className="lds-circle">
@@ -10,4 +10,4 @@ const LdsCircle = () => {
   );
 };
 
-export default LdsCircle;
+export default Circle;
