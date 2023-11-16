@@ -1,31 +1,45 @@
 .footer {
   position: relative;
-  background: linear-gradient(45deg, #3498db, #2c3e50);
-  padding: 50px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  color: #ecf0f1;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  border-radius: 15px;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-  border-top: 2px solid #1abc9c;
-  background-size: 150% 150%;
+  background: linear-gradient(
+    45deg,
+    var(--light-black-4),
+    var(--light-black-2),
+    var(--light-black-4)
+  );
+  padding: 1rem 1.2px;
+  @include flex-container(column, nowrap, center, center);
+  color: var(--white);
   overflow: hidden;
-
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  @media (max-width: $breakpoint-desktop-wide) {
+  }
+  @media (max-width: $breakpoint-desktop) {
+  }
+  @media (max-width: $breakpoint-large-tablet) {
+  }
+  @media (max-width: $breakpoint-tablet) {
+  }
+  @media (max-width: $breakpoint-phone) {
+  }
   .copyright {
-    flex-basis: 100%;
-    margin-bottom: 20px;
     position: relative;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-
-    p {
-      margin: 0;
-      font-size: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: var(--font-oswald);
+    font-size: var(--font-12);
+    letter-spacing: 2px;
+    margin: 0 0 0.5% 0;
+    @media (max-width: $breakpoint-desktop-wide) {
     }
-
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-11);
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     &::before,
     &::after {
       content: "";
@@ -34,7 +48,7 @@
       height: 2px;
       background-color: transparent;
       box-shadow: 0 0 5px rgba(26, 188, 156, 0);
-      transition: box-shadow 0.3s ease, background-color 0.3s ease;
+      transition: box-shadow 0.5s ease, background-color 0.5s ease;
     }
 
     &::before {
@@ -49,7 +63,7 @@
 
     &:hover::before,
     &:hover::after {
-      background-color: #1abc9c;
+      background-color: var(--green-3);
       box-shadow: 0 0 5px rgba(26, 188, 156, 1);
     }
   }
@@ -58,24 +72,40 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
+    @include flex-container(row, nowrap, center, center);
     gap: 20px;
-
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+      gap: 10px;
+    }
     .nav-links {
       position: relative;
 
       a {
-        text-decoration: none;
-        color: #ecf0f1;
-        font-size: 16px;
         transition: color 0.3s ease, border-radius 0.3s ease;
-
-        border-radius: 8px;
-
+        font-family: var(--font-roboto);
+        font-size: var(--font-12);
+        letter-spacing: 1px;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+          font-size: var(--font-11);
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         &:hover {
-          color: #1abc9c;
-          border-radius: 15px;
-          animation: pulsate 0.5s infinite;
+          color: var(--green-3);
         }
 
         &::before,
@@ -84,8 +114,8 @@
           position: absolute;
           width: 0%;
           height: 2px;
-          background-color: #1abc9c;
-          transition: width 0.3s ease;
+          background-color: var(--green-3);
+          transition: width 0.5s ease;
         }
 
         &::before {
@@ -101,29 +131,9 @@
         &:hover::before,
         &:hover::after {
           width: 100%;
-          animation: lineAnimation 0.5s forwards;
+          animation: lineAnimation 1s forwards;
         }
       }
-    }
-  }
-
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    background: linear-gradient(to right, #2c3e50, #3498db);
-    transform: translateY(-5px);
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
-  }
-
-  @keyframes pulsate {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-    100% {
-      transform: scale(1);
     }
   }
 
