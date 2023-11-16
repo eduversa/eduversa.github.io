@@ -202,53 +202,49 @@
     }
   }
 
-  @media (max-width: 768px) {
-    .nav-section,
-    .button-section {
-      display: none;
-    }
+  // @media (max-width: 768px) {
+  //   .nav-section,
+  //   .button-section {
+  //     display: none;
+  //   }
 
-    .mobile-menu {
-      display: block;
-      position: absolute;
-      top: 80px;
-      right: 20px;
-      background: linear-gradient(to right, #001f3f, #003366);
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+  //   .mobile-menu {
+  //     display: block;
+  //     position: absolute;
+  //     top: 80px;
+  //     right: 20px;
+  //     background: linear-gradient(to right, #001f3f, #003366);
+  //     padding: 2rem;
+  //     border-radius: 16px;
+  //     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  //     transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
 
-      &:hover {
-        background: linear-gradient(to right, #75b3ff, #3498db);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-        transform: translateY(-2px);
-      }
+  //     &:hover {
+  //       background: linear-gradient(to right, #75b3ff, #3498db);
+  //       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  //       transform: translateY(-2px);
+  //     }
 
-      .mobile-nav-list {
-        padding: 0;
-        list-style: none;
-      }
-    }
+  //     .mobile-nav-list {
+  //       padding: 0;
+  //       list-style: none;
+  //     }
+  //   }
 
-    .menu {
-      animation: pulse 1s infinite;
-    }
+  //   .menu {
+  //     animation: pulse 1s infinite;
+  //   }
 
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.1);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
+  //   @keyframes pulse {
+  //     0% {
+  //       transform: scale(1);
+  //     }
+  //     50% {
+  //       transform: scale(1.1);
+  //     }
+  //     100% {
+  //       transform: scale(1);
+  //     }
+  //   }
+  // }
 }
