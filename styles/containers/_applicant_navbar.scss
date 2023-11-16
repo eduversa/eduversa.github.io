@@ -70,7 +70,7 @@
       &:hover {
         transform: scale(1.1);
         text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
-        color: var(--yellow-2);
+        color: var(--blue-2);
       }
 
       &:active {
@@ -85,7 +85,7 @@
         transform: translateX(-50%);
         width: 0;
         height: 3px;
-        background-color: var(--yellow-7);
+        background-color: var(--blue-8);
         transition: width 0.3s ease-in-out;
       }
 
@@ -158,7 +158,7 @@
           }
 
           &:hover {
-            color: var(--blue-8);
+            color: var(--blue-2);
             &:before {
               width: 100%;
             }
@@ -187,7 +187,7 @@
     @media (max-width: $breakpoint-phone) {
     }
     .logout-button {
-      background: var(--yellow-1);
+      background: var(--red-2);
       color: #001f3f;
       border: none;
       padding: 0.8rem 1.5rem;
@@ -206,7 +206,7 @@
       @media (max-width: $breakpoint-phone) {
       }
       &:hover {
-        background: #ffdb58;
+        background: var(--red-5);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         transform: translateY(-2px);
       }
