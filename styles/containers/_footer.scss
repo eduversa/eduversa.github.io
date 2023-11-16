@@ -2,10 +2,7 @@
   position: relative;
   background: linear-gradient(45deg, #3498db, #2c3e50);
   padding: 50px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+  @include flex-container(column, nowrap, center, center);
   color: #ecf0f1;
   font-family: "Helvetica Neue", Arial, sans-serif;
   border-radius: 15px;
