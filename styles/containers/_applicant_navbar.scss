@@ -1,9 +1,7 @@
-// applicant-navbar.scss
-
 .applicant-nav {
   position: relative;
   color: #fff;
-  background-color: #3498db; /* Blue background color */
+  background: linear-gradient(to right, #001f3f, #003366);
   padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -36,13 +34,13 @@
 
     .logo-text {
       cursor: pointer;
-      color: #fff;
+      color: #ffc107;
       text-decoration: none;
       transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
 
       &:hover {
         transform: rotate(-5deg) scale(1.1);
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
       }
 
       &:active {
@@ -78,7 +76,7 @@
 
         a {
           position: relative;
-          color: #fff;
+          color: #ffc107;
           text-decoration: none;
           cursor: pointer;
           font-weight: bold;
@@ -116,8 +114,8 @@
 
   .button-section {
     .logout-button {
-      background: #297fb8; /* Darker blue for the button */
-      color: #fff;
+      background: #ffc107;
+      color: #001f3f;
       border: none;
       padding: 0.8rem 1.5rem;
       cursor: pointer;
@@ -126,7 +124,7 @@
       transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
 
       &:hover {
-        background: #1c6282; /* Darker blue on hover */
+        background: #ffdb58; /* Lighter yellow on hover */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         transform: translateY(-2px);
       }
@@ -145,7 +143,7 @@
     .menu-line {
       height: 4px;
       width: 30px;
-      background: #fff;
+      background: #ffc107;
       margin: 6px 0;
       border-radius: 4px;
       transition: transform 0.3s, background 0.3s;
@@ -182,8 +180,8 @@
       }
 
       .logout-button {
-        background: #297fb8; /* Darker blue for the button */
-        color: #fff;
+        background: #ffc107;
+        color: #001f3f;
         border: none;
         padding: 0.8rem 1.5rem;
         cursor: pointer;
@@ -192,7 +190,7 @@
         transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
 
         &:hover {
-          background: #1c6282; /* Darker blue on hover */
+          background: #ffdb58;
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
           transform: translateY(-2px);
         }
@@ -230,7 +228,7 @@
       position: absolute;
       top: 80px;
       right: 20px;
-      background: linear-gradient(to right, #3498db, #6ab0f3);
+      background: linear-gradient(to right, #001f3f, #003366);
       padding: 2rem;
       border-radius: 16px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -248,7 +246,6 @@
       }
     }
 
-    // Pulsating effect on the mobile menu button
     .menu {
       animation: pulse 1s infinite;
     }
@@ -266,7 +263,6 @@
     }
   }
 
-  // Smooth scroll effect
   html {
     scroll-behavior: smooth;
   }
