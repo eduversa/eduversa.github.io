@@ -2,6 +2,7 @@
   background-color: #3498db;
   color: white;
   padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
   .logo {
     font-size: 1.5rem;
@@ -12,6 +13,7 @@
       text-decoration: none;
       display: flex;
       align-items: center;
+      transition: color 0.3s;
 
       &:hover {
         color: #297fb8;
@@ -61,11 +63,12 @@
       padding: 10px 20px;
       border: 2px solid #fff;
       cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
+      transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 
       &:hover {
         background-color: #297fb8;
         color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       }
     }
   }
@@ -125,11 +128,12 @@
         padding: 10px 20px;
         border: 2px solid #fff;
         cursor: pointer;
-        transition: background-color 0.3s, color 0.3s;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 
         &:hover {
           background-color: #297fb8;
           color: white;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
       }
     }
