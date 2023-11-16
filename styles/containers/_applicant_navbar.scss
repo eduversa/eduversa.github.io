@@ -30,6 +30,11 @@
       .logo-icon {
         margin-right: 8px;
         font-size: 1.8rem;
+        transition: transform 0.3s;
+      }
+
+      &:hover .logo-icon {
+        transform: rotate(180deg);
       }
 
       &::before {
@@ -75,6 +80,11 @@
           .nav-icon {
             margin-right: 8px;
             font-size: 1.2rem;
+            transition: transform 0.3s;
+          }
+
+          &:hover .nav-icon {
+            transform: rotate(180deg);
           }
 
           &::after {
@@ -174,6 +184,11 @@
           .mobile-nav-icon {
             margin-right: 8px;
             font-size: 1.2rem;
+            transition: transform 0.3s;
+          }
+
+          &:hover .mobile-nav-icon {
+            transform: rotate(180deg);
           }
 
           &::after {
