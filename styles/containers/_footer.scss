@@ -1,38 +1,41 @@
-.footer-nav {
-  background: linear-gradient(-90deg, #808080, #000000);
+// Footer.scss
+
+.footer {
+  background: linear-gradient(-90deg, #808080, #000000); /* Gray to Black gradient */
+  color: white; /* Text color */
+  padding: 20px;
+  border: 2px solid #1F4E6D; /* Dark blue border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  border: 2px solid var(--homepage-deepblue);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
   .copyright {
     margin-bottom: 15px;
   }
 
-  .nav-links {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-top: 2px solid var(--homepage-deepblue);
-    padding-top: 15px;
-
-    span {
-      color: var(--homepage-deepblue);
-    }
-  }
-
-  .nav-list {
-    display: flex;
+  ul {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex; /* Display list items in a row */
 
     li {
-      margin-right: 15px;
+      margin-right: 15px; /* Add spacing between list items */
+      a {
+        color: #1F4E6D; /* Dark blue link color */
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &.nav-links {
+        /* Additional styling for list items with the 'nav-links' class */
+        font-weight: bold;
+      }
     }
   }
 }
