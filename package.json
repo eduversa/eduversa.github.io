@@ -12,10 +12,9 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npm run generate-sitemap",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "generate-sitemap": "node --experimental-modules ./sitemap.js"
+    "lint": "next lint"
   },
   "type": "module",
   "dependencies": {
@@ -23,6 +22,7 @@
     "next": "^13.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sharp": "^0.32.6",
     "sitemap": "^7.1.1"
   },
   "devDependencies": {
