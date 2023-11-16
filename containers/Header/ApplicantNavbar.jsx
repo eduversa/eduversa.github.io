@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { logoutApi } from "@/functions";
 import Contact from "@/pages/contact";
 function ApplicantNavbar() {
+  const router = useRouter();
   const logoText = "eduversa";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleLogout = async () => {
@@ -23,6 +24,7 @@ function ApplicantNavbar() {
       localStorage.removeItem("userid");
       localStorage.clear();
       alert(apiResponse.message);
+      router.push("/");
     } catch (error) {
       console.error("Logout error:", error.message);
     }
