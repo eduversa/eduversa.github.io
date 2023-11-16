@@ -280,16 +280,16 @@
   }
 
   .mobile-menu {
-    display: block;
     position: absolute;
     background: linear-gradient(to right, #001f3f, #003366);
     padding: 2rem;
+    top: var(--landing-nav-height);
+    right: 1%;
     border-radius: 16px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
 
     &:hover {
-      // background: linear-gradient(to right, var(--blue-8), #3498db);
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
       transform: translateY(-2px);
     }
@@ -300,7 +300,6 @@
     @media (max-width: $breakpoint-large-tablet) {
     }
     @media (max-width: $breakpoint-tablet) {
-      display: block;
       top: var(--landing-nav-height-tab);
       right: 1%;
     }
