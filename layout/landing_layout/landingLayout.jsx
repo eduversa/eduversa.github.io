@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Fragment, useEffect } from "react";
 import { LandingNavbar, LandingPage } from "@/containers";
-import Footer from "@/containers/Footer/Footer";
+
 import { useRouter } from "next/router";
 function LandingLayout({ children }) {
   const router = useRouter();
@@ -31,7 +31,7 @@ function LandingLayout({ children }) {
         <LandingPage></LandingPage>
         <div className="homepage-right">{children}</div>
       </div>
-    <Footer/>
+  
     </Fragment>
   );
 }
