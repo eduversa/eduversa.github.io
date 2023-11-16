@@ -6,7 +6,7 @@
     #3498db,
     #2c3e50
   ); // Gradient background
-  padding: 40px 20px;
+  padding: 50px 20px; // Increased padding
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,7 +15,10 @@
   font-family: "Helvetica Neue", Arial, sans-serif; // Change to your preferred font
   border-radius: 15px; // Rounded corners
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); // Subtle shadow
+  border-top: 2px solid #1abc9c; // Border at the top
+  background-size: 150% 150%; // For the subtle pattern
 
+  // Subtle background pattern
   .copyright {
     flex-basis: 100%;
     margin-bottom: 20px;
@@ -35,21 +38,56 @@
     gap: 20px;
 
     .nav-links {
+      position: relative;
+
       a {
         text-decoration: none;
         color: #ecf0f1;
         font-size: 16px;
-        transition: color 0.3s ease;
+        transition: color 0.3s ease, border-radius 0.3s ease;
+
+        // Rounded corners for links
+        border-radius: 8px;
 
         &:hover {
           color: #1abc9c; // Change to your preferred hover color
+          border-radius: 15px; // Larger border-radius on hover
+          animation: pulsate 0.5s infinite; // Pulsating effect on hover
+        }
+
+        // "Before" and "After" effect
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          width: 0%;
+          height: 2px;
+          background-color: #1abc9c; // Color for "Before" and "After" lines
+          transition: width 0.3s ease;
+        }
+
+        // "Before" line
+        &::before {
+          left: 0;
+          top: 0;
+        }
+
+        // "After" line
+        &::after {
+          right: 0;
+          bottom: 0;
+        }
+
+        &:hover::before,
+        &:hover::after {
+          width: 50%; // Expand lines on hover
         }
       }
     }
   }
 
   // Smooth background transition on hover
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     background: linear-gradient(
@@ -57,7 +95,20 @@
       #2c3e50,
       #3498db
     ); // Gradient change on hover
-    transform: translateY(-3px); // Move the footer slightly up on hover
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); // Slightly larger shadow on hover
+    transform: translateY(-5px); // Move the footer slightly up on hover
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2); // Slightly larger shadow on hover
+  }
+
+  // Keyframe animation for pulsating effect
+  @keyframes pulsate {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 }
