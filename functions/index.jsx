@@ -1,3 +1,3 @@
 export { default as registerUser } from "./registerApi";
 export { default as loginUser } from "./loginApi";
-export { default as logoutUser } from "./logoutApi";
+export { default as logoutApi } from "./logoutApi";
