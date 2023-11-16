@@ -1,12 +1,12 @@
 .applicant-nav {
-  background-color: #3498db;
+  background: linear-gradient(to right, #3498db, #3498db, #2980b9);
   color: white;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s;
+  transition: background 0.3s;
 
   &:hover {
-    background-color: #297fb8;
+    background: linear-gradient(to right, #297fb8, #297fb8, #236fa0);
   }
 
   .logo {
@@ -23,7 +23,7 @@
       transition: color 0.3s;
 
       &:hover {
-        color: #297fb8;
+        color: #f5f5f5;
       }
 
       .logo-icon {
@@ -68,7 +68,7 @@
           transition: color 0.3s;
 
           &:hover {
-            color: #297fb8;
+            color: #f5f5f5;
           }
 
           .nav-icon {
@@ -96,16 +96,16 @@
 
   .button-section {
     button {
-      background-color: #fff;
+      background: linear-gradient(to right, #fff, #f5f5f5);
       color: #3498db;
       padding: 10px 20px;
       border: 2px solid #fff;
       cursor: pointer;
-      transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
 
       &:hover {
-        background-color: #297fb8;
-        color: white;
+        background: linear-gradient(to right, #f5f5f5, #fff);
+        color: #3498db;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       }
 
@@ -137,14 +137,14 @@
 
     &.open {
       .menu-line {
-        background-color: #fff;
+        background-color: #f5f5f5;
       }
     }
 
     .menu-line {
       width: 30px;
       height: 3px;
-      background-color: #fff;
+      background-color: white;
       margin: 6px 0;
       transition: 0.4s;
     }
@@ -167,7 +167,7 @@
           transition: color 0.3s;
 
           &:hover {
-            color: #297fb8;
+            color: #f5f5f5;
           }
 
           .mobile-nav-icon {
@@ -192,16 +192,16 @@
       }
 
       .logout-button {
-        background-color: #fff;
+        background: linear-gradient(to right, #fff, #f5f5f5);
         color: #3498db;
         padding: 10px 20px;
         border: 2px solid #fff;
         cursor: pointer;
-        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        transition: background 0.3s, color 0.3s, box-shadow 0.3s;
 
         &:hover {
-          background-color: #297fb8;
-          color: white;
+          background: linear-gradient(to right, #f5f5f5, #fff);
+          color: #3498db;
           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
