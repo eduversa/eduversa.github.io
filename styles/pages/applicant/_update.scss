@@ -70,6 +70,7 @@
     @media (max-width: $breakpoint-large-tablet) {
     }
     @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-5);
     }
     @media (max-width: $breakpoint-phone) {
     }
@@ -99,6 +100,18 @@
         font-size: var(--font-9);
         text-align: center;
         padding: 1.5rem 0;
+
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+          font-size: var(--font-7);
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
       }
       &--content{
         .sub-heading {
@@ -152,7 +165,7 @@
           .btn {
             margin: 1rem 1rem 2rem 1rem;
             border: 1px white solid;
-            font-size: 1.2rem;
+            font-size: var(--font-11);
             background: hsl(235, 17%, 26%);
             color: #fff;
             padding: 1rem 2rem;
@@ -165,10 +178,10 @@
             @media (max-width: $breakpoint-desktop) {
             }
             @media (max-width: $breakpoint-large-tablet) {
-              // margin: ;
               padding: 0.75rem 1.5rem;
             }
             @media (max-width: $breakpoint-tablet) {
+              margin: 1rem 0.5rem 1rem;
               padding: 0.5rem 1rem;
             }
             @media (max-width: $breakpoint-phone) {
@@ -191,28 +204,3 @@
   }
 
 }
-
-/* responsive design */
-
-// @media (max-width: 999px) {
-//   .form-container {
-//     padding: 2rem 2.5rem;
-//   }
-//   .form-content {
-//     width: 100%;
-//   }
-//   .grid-col-3 {
-//     grid-template-columns: 1fr;
-//   }
-
-//   .grid-col-2 {
-//     grid-template-columns: 1fr;
-//   }
-// }
-
-// @media (max-width: 600px) {
-//   .form-container {
-//     padding: 2rem 1.5rem;
-//   }
-// }
-
