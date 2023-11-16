@@ -1,17 +1,26 @@
 .footer {
+  z-index: -1;
   position: relative;
-  background: linear-gradient(45deg, #3498db, #2c3e50);
+  background: linear-gradient(
+    45deg,
+    var(--light-black-4),
+    var(--light-black-2),
+    var(--light-black-4)
+  );
   padding: 1rem 1.2px;
   @include flex-container(column, nowrap, center, center);
   color: var(--white);
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: background 1s ease-in-out, background-color 1s ease-in-out,
-    transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
-  &:hover {
-    background-color: linear-gradient(to right, #2c3e50, #3498db);
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  @media (max-width: $breakpoint-desktop-wide) {
+  }
+  @media (max-width: $breakpoint-desktop) {
+  }
+  @media (max-width: $breakpoint-large-tablet) {
+  }
+  @media (max-width: $breakpoint-tablet) {
+  }
+  @media (max-width: $breakpoint-phone) {
   }
   .copyright {
     position: relative;
@@ -21,6 +30,17 @@
     font-size: var(--font-12);
     letter-spacing: 2px;
     margin: 0 0 0.5% 0;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-11);
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     &::before,
     &::after {
       content: "";
@@ -44,7 +64,7 @@
 
     &:hover::before,
     &:hover::after {
-      background-color: #1abc9c;
+      background-color: var(--green-3);
       box-shadow: 0 0 5px rgba(26, 188, 156, 1);
     }
   }
@@ -55,16 +75,38 @@
     margin: 0;
     @include flex-container(row, nowrap, center, center);
     gap: 20px;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+      gap: 10px;
+    }
     .nav-links {
       position: relative;
 
       a {
         transition: color 0.3s ease, border-radius 0.3s ease;
-        font-family: var(--font-playfair);
+        font-family: var(--font-roboto);
         font-size: var(--font-12);
         letter-spacing: 1px;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+          font-size: var(--font-11);
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         &:hover {
-          color: #1abc9c;
+          color: var(--green-3);
         }
 
         &::before,
@@ -73,8 +115,8 @@
           position: absolute;
           width: 0%;
           height: 2px;
-          background-color: #1abc9c;
-          transition: width 0.3s ease;
+          background-color: var(--green-3);
+          transition: width 0.5s ease;
         }
 
         &::before {
@@ -90,7 +132,7 @@
         &:hover::before,
         &:hover::after {
           width: 100%;
-          animation: lineAnimation 0.5s forwards;
+          animation: lineAnimation 1s forwards;
         }
       }
     }
