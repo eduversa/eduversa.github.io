@@ -11,8 +11,9 @@ function ApplicantLayout() {
     console.log("UserType", userType);
     if (!authToken) {
       router.push("/");
-    } else if (userType === "applicant") {
-      router.push("/applicant");
+      if (userType !== "applicant") {
+        localStorage.removeItem("authToken");
+      }
     }
   }, []);
   return (
