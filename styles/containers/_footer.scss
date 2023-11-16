@@ -1,7 +1,12 @@
 // Footer.scss
 
 .footer {
-  background: linear-gradient(-90deg, #808080, #000000);
+  background: #283048;
+background: -webkit-linear-gradient(to right, #859398, #283048); 
+background: linear-gradient(to right, #859398, #283048); 
+
+
+
   color: white; /* Text color */
   padding: 20px;
   border: 2px solid #1F4E6D; 
@@ -21,10 +26,12 @@
     padding: 0;
     display: flex;
 
+   
+
     li {
       margin-right: 15px; 
       a {
-        color: #1F4E6D;
+        color: black;
         text-decoration: none;
 
         &:hover {
@@ -37,6 +44,16 @@
        
         font-weight: bold;
       }
+      
     }
   }
+  @media (max-width:432px) {
+    ul {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
 }
+
+
