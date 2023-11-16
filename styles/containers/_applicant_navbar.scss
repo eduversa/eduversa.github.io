@@ -36,9 +36,13 @@
   }
   .logo {
     position: relative;
-    font-size: 2.5rem;
-    font-weight: bold;
     z-index: 1;
+    // font-size: 2.5rem;
+    // font-weight: bold;
+    font-family: var(--font-elianto);
+    font-size: var(--font-8);
+    text-transform: uppercase;
+
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {
