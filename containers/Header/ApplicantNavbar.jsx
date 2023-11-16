@@ -83,7 +83,9 @@ function ApplicantNavbar() {
                   </li>
                 ))}
                 <li className="mobile-nav-item">
-                  <button className="logout-button">Logout</button>
+                  <button className="logout-button" onClick={handleLogout}>
+                    Logout
+                  </button>
                 </li>
               </ul>
             </div>

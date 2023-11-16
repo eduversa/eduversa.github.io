@@ -281,8 +281,8 @@
 
   .mobile-menu {
     position: absolute;
-    background: linear-gradient(to right, var(--blue-9), var(--blue-10));
-    padding: 2rem;
+    background: linear-gradient(180deg, var(--blue-9), var(--blue-10));
+    padding: 1.5rem;
     top: var(--landing-nav-height);
     right: 1%;
     border-radius: 16px;
@@ -300,6 +300,7 @@
     @media (max-width: $breakpoint-phone) {
       top: var(--landing-nav-height-phone);
       right: 1%;
+      padding: 1rem;
     }
     .mobile-nav-list {
       @include flex-container(column, nowrap, center, center);
@@ -330,7 +331,7 @@
         a {
           color: var(--white);
           font-family: var(--font-tektur);
-          font-size: var(--font-7);
+          font-size: var(--font-8);
           letter-spacing: 2px;
           transition: color 0.3s, transform 0.3s;
           @media (max-width: $breakpoint-desktop-wide) {
@@ -344,7 +345,6 @@
           @media (max-width: $breakpoint-phone) {
           }
           &:hover {
-            text-decoration: overline;
             color: var(--blue-8);
             transform: translateY(-2px);
           }
