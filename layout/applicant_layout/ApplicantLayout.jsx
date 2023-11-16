@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
-import { ApplicantNavbar } from "@/containers";
-import Footer from "@/containers/Footer/Footer";
+import { ApplicantNavbar, Footer } from "@/containers";
 function ApplicantLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
@@ -21,7 +20,7 @@ function ApplicantLayout({ children }) {
     <Fragment>
       <ApplicantNavbar />
       {children}
-      <Footer/>
+      <Footer />
     </Fragment>
   );
 }

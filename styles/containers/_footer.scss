@@ -1,41 +1,125 @@
-// Footer.scss
-
 .footer {
-  background: linear-gradient(-90deg, #808080, #000000); /* Gray to Black gradient */
-  color: white; /* Text color */
-  padding: 20px;
-  border: 2px solid #1F4E6D; /* Dark blue border */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  background: linear-gradient(45deg, #3498db, #2c3e50);
+  padding: 1rem 1.2px;
+  @include flex-container(column, nowrap, center, center);
+  color: #ecf0f1;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  border-top: 2px solid #1abc9c;
+  overflow: hidden;
+  transition: background 1s ease-in-out, background-color 1s ease-in-out,
+    transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
+  &:hover {
+    background-color: linear-gradient(to right, #2c3e50, #3498db);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+  }
   .copyright {
-    margin-bottom: 15px;
+    position: relative;
+    text-align: center;
+    font-family: var(--font-tektur);
+    font-size: var(--font-12);
+    text-transform: uppercase;
+    margin: 0 0 0.5% 0;
+    transition: opacity 0.3s ease;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: transparent;
+      box-shadow: 0 0 5px rgba(26, 188, 156, 0);
+      transition: box-shadow 0.3s ease, background-color 0.3s ease;
+    }
+
+    &::before {
+      left: 0;
+      top: 0;
+    }
+
+    &::after {
+      right: 0;
+      bottom: 0;
+    }
+
+    &:hover::before,
+    &:hover::after {
+      background-color: #1abc9c;
+      box-shadow: 0 0 5px rgba(26, 188, 156, 1);
+    }
   }
 
   ul {
     list-style: none;
-    margin: 0;
     padding: 0;
-    display: flex; /* Display list items in a row */
+    margin: 0;
+    display: flex;
+    gap: 20px;
 
-    li {
-      margin-right: 15px; /* Add spacing between list items */
+    .nav-links {
+      position: relative;
+
       a {
-        color: #1F4E6D; /* Dark blue link color */
         text-decoration: none;
+        color: #ecf0f1;
+        font-size: 16px;
+        transition: color 0.3s ease, border-radius 0.3s ease;
+
+        border-radius: 8px;
 
         &:hover {
-          text-decoration: underline;
+          color: #1abc9c;
+          border-radius: 15px;
+          animation: pulsate 0.5s infinite;
+        }
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          width: 0%;
+          height: 2px;
+          background-color: #1abc9c;
+          transition: width 0.3s ease;
+        }
+
+        &::before {
+          left: 0;
+          top: 0;
+        }
+
+        &::after {
+          right: 0;
+          bottom: 0;
+        }
+
+        &:hover::before,
+        &:hover::after {
+          width: 100%;
+          animation: lineAnimation 0.5s forwards;
         }
       }
+    }
+  }
 
-      &.nav-links {
-        /* Additional styling for list items with the 'nav-links' class */
-        font-weight: bold;
-      }
+  @keyframes pulsate {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes lineAnimation {
+    to {
+      transform: scaleX(0);
     }
   }
 }
