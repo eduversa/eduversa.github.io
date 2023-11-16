@@ -1,10 +1,10 @@
 // Footer.scss
 
 .footer {
-  background: linear-gradient(-90deg, #808080, #000000); /* Gray to Black gradient */
+  background: linear-gradient(-90deg, #808080, #000000);
   color: white; /* Text color */
   padding: 20px;
-  border: 2px solid #1F4E6D; /* Dark blue border */
+  border: 2px solid #1F4E6D; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
@@ -19,21 +19,22 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex; /* Display list items in a row */
+    display: flex;
 
     li {
-      margin-right: 15px; /* Add spacing between list items */
+      margin-right: 15px; 
       a {
-        color: #1F4E6D; /* Dark blue link color */
+        color: #1F4E6D;
         text-decoration: none;
 
         &:hover {
           text-decoration: underline;
+          color: #fff;
         }
       }
 
       &.nav-links {
-        /* Additional styling for list items with the 'nav-links' class */
+       
         font-weight: bold;
       }
     }

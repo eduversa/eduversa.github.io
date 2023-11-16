@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-
+import Link from "next/link";
 const Footer = () => {
   const [userType, setUserType] = useState(null);
 
@@ -30,25 +30,25 @@ const Footer = () => {
 
   return (
     <Fragment>
-    <footer className='footer'>
-     
-    <div className="copyright">
-            <p>&copy; {year} Eduversa. All Rights Reserved.</p>
-          </div>
-      <ul>
-        {userFooterLinks ? (
-          userFooterLinks.map((link, index) => (
-            <li className= "nav-links" key={index}>
-              <a href={link.href}>{link.label}</a>
-            </li>
-          ))
-        ) : (
-          <li>User type &apos;{userType}&apos; not found in footerContent</li>
-        )}
-      </ul>
-    </footer>
+      <footer className='footer'>
+        <div className="copyright">
+          <p>&copy; {year} Eduversa. All Rights Reserved.</p>
+        </div>
+        <ul>
+          {userFooterLinks ? (
+            userFooterLinks.map((link, index) => (
+              <li className="nav-links" key={index}>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          ) : (
+            <li>User type &apos;{userType}&apos; not found in footerContent</li>
+          )}
+        </ul>
+      </footer>
     </Fragment>
   );
+  
 };
 
 export default Footer;
