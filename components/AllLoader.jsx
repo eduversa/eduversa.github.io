@@ -13,8 +13,35 @@ import {
   Roller,
   Spinner,
 } from ".";
+
+const loaderComponents = [
+  Circle,
+  Default,
+  DualRing,
+  Ellipsis,
+  Facebook,
+  Grid,
+  Heart,
+  Hourglass,
+  Ring,
+  Ripple,
+  Roller,
+  Spinner,
+];
+
+function getRandomLoaderComponent() {
+  const randomIndex = Math.floor(Math.random() * loaderComponents.length);
+  return loaderComponents[randomIndex];
+}
+
 function AllLoader() {
-  return <Fragment></Fragment>;
+  const RandomLoader = getRandomLoaderComponent();
+
+  return (
+    <Fragment>
+      <RandomLoader />
+    </Fragment>
+  );
 }
 
 export default AllLoader;
