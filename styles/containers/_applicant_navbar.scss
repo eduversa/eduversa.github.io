@@ -10,9 +10,16 @@
     a {
       color: white;
       text-decoration: none;
+      display: flex;
+      align-items: center;
 
       &:hover {
         color: #297fb8;
+      }
+
+      .logo-icon {
+        margin-right: 8px;
+        font-size: 1.8rem;
       }
     }
   }
@@ -30,9 +37,16 @@
         a {
           color: white;
           text-decoration: none;
+          display: flex;
+          align-items: center;
 
           &:hover {
             color: #297fb8;
+          }
+
+          .nav-icon {
+            margin-right: 8px;
+            font-size: 1.2rem;
           }
         }
       }
@@ -43,7 +57,7 @@
     button {
       background-color: #fff;
       color: #3498db;
-      padding: 8px 16px;
+      padding: 10px 20px;
       border: 2px solid #fff;
       cursor: pointer;
       transition: background-color 0.3s, color 0.3s;
@@ -88,9 +102,16 @@
         a {
           color: white;
           text-decoration: none;
+          display: flex;
+          align-items: center;
 
           &:hover {
             color: #297fb8;
+          }
+
+          .mobile-nav-icon {
+            margin-right: 8px;
+            font-size: 1.2rem;
           }
         }
       }
@@ -98,7 +119,7 @@
       .logout-button {
         background-color: #fff;
         color: #3498db;
-        padding: 8px 16px;
+        padding: 10px 20px;
         border: 2px solid #fff;
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s;
