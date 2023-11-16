@@ -1,14 +1,19 @@
 import React, { Fragment, useState } from "react";
+import Link from "next/link";
 
 function ApplicantNavbar() {
   const logoText = "eduversa";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
-    { label: "Dashboard", className: "nav-item" },
-    { label: "Update Profile", className: "nav-item" },
-    { label: "About Us", className: "nav-item" },
-    { label: "Contact Us", className: "nav-item" },
+    { label: "Dashboard", className: "nav-item", src: "/applicant" },
+    {
+      label: "Update Profile",
+      className: "nav-item",
+      src: "/applicant/update",
+    },
+    { label: "About Us", className: "nav-item", src: "/applicant/about" },
+    { label: "Contact Us", className: "nav-item", src: "/applicant/contact" },
   ];
 
   return (
@@ -22,7 +27,9 @@ function ApplicantNavbar() {
             <ul className="nav-list">
               {menuItems.map((item, index) => (
                 <li key={index} className={item.className}>
-                  <span>{item.label}</span>
+                  <Link href={item.src}>
+                    <span>{item.label}</span>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -43,7 +50,9 @@ function ApplicantNavbar() {
               <ul className="mobile-nav-list">
                 {menuItems.map((item, index) => (
                   <li key={index} className="mobile-nav-item">
-                    <span>{item.label}</span>
+                    <Link href={item.src}>
+                      <span>{item.label}</span>
+                    </Link>
                   </li>
                 ))}
                 <li className="mobile-nav-item">

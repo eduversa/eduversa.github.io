@@ -1,0 +1,97 @@
+.applicant-nav {
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: 20px;
+  }
+
+  .nav-section {
+    ul {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+
+      .nav-item {
+        margin-right: 20px;
+        cursor: pointer;
+
+        &:hover {
+          color: #297fb8;
+        }
+      }
+    }
+  }
+
+  .button-section {
+    button {
+      background-color: #fff;
+      color: #3498db;
+      padding: 8px 16px;
+      border: 2px solid #fff;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+
+      &:hover {
+        background-color: #297fb8;
+        color: white;
+      }
+    }
+  }
+
+  .menu {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+
+    &.open {
+      .menu-line {
+        background-color: #fff;
+      }
+    }
+
+    .menu-line {
+      width: 30px;
+      height: 3px;
+      background-color: #fff;
+      margin: 6px 0;
+      transition: 0.4s;
+    }
+  }
+
+  .mobile-menu {
+    ul {
+      list-style-type: none;
+      padding: 0;
+
+      .mobile-nav-item {
+        margin-bottom: 10px;
+
+        span {
+          cursor: pointer;
+          &:hover {
+            color: #297fb8;
+          }
+        }
+      }
+
+      .logout-button {
+        background-color: #fff;
+        color: #3498db;
+        padding: 8px 16px;
+        border: 2px solid #fff;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+
+        &:hover {
+          background-color: #297fb8;
+          color: white;
+        }
+      }
+    }
+  }
+}
