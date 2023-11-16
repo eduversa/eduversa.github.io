@@ -1,11 +1,11 @@
 .applicant-nav {
-  background-color: #f4f4f4;
+  background-color: #3498db;
+  color: white;
   padding: 10px;
-
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #333;
+    margin-right: 20px;
   }
 
   .nav-section {
@@ -19,7 +19,7 @@
         cursor: pointer;
 
         &:hover {
-          color: #ddd;
+          color: #297fb8;
         }
       }
     }
@@ -27,14 +27,16 @@
 
   .button-section {
     button {
-      background-color: #3498db;
-      color: white;
+      background-color: #fff;
+      color: #3498db;
       padding: 8px 16px;
-      border: none;
+      border: 2px solid #fff;
       cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
 
       &:hover {
-        background-color: #2980b9;
+        background-color: #297fb8;
+        color: white;
       }
     }
   }
@@ -48,14 +50,14 @@
 
     &.open {
       .menu-line {
-        background-color: #333;
+        background-color: #fff;
       }
     }
 
     .menu-line {
       width: 30px;
       height: 3px;
-      background-color: #333;
+      background-color: #fff;
       margin: 6px 0;
       transition: 0.4s;
     }
@@ -72,20 +74,22 @@
         span {
           cursor: pointer;
           &:hover {
-            color: #ddd;
+            color: #297fb8;
           }
         }
       }
 
       .logout-button {
-        background-color: #3498db;
-        color: white;
+        background-color: #fff;
+        color: #3498db;
         padding: 8px 16px;
-        border: none;
+        border: 2px solid #fff;
         cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
 
         &:hover {
-          background-color: #2980b9;
+          background-color: #297fb8;
+          color: white;
         }
       }
     }
