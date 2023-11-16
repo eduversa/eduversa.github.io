@@ -1,13 +1,11 @@
-// applicant-navbar.scss
-
 .applicant-nav {
-  background: linear-gradient(to right, #2c3e50, #3498db);
-  color: #ecf0f1;
+  background: linear-gradient(to right, #3498db, #6ab0f3);
+  color: #fff;
   padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
   .logo {
     font-size: 2.5rem;
@@ -15,12 +13,12 @@
 
     .logo-text {
       cursor: pointer;
-      color: #ecf0f1;
+      color: #fff;
       text-decoration: none;
       transition: transform 0.3s ease-in-out;
 
       &:hover {
-        transform: scale(1.1);
+        transform: rotate(-5deg) scale(1.1);
       }
     }
   }
@@ -35,7 +33,7 @@
         margin-right: 2rem;
 
         a {
-          color: #ecf0f1;
+          color: #fff;
           text-decoration: none;
           cursor: pointer;
           font-weight: bold;
@@ -43,7 +41,7 @@
           transition: color 0.3s;
 
           &:hover {
-            color: #3498db;
+            color: #75b3ff;
           }
         }
       }
@@ -52,8 +50,8 @@
 
   .button-section {
     .logout-button {
-      background: #e74c3c;
-      color: #ecf0f1;
+      background: #3498db;
+      color: #fff;
       border: none;
       padding: 0.8rem 1.5rem;
       cursor: pointer;
@@ -62,7 +60,7 @@
       transition: background 0.3s;
 
       &:hover {
-        background: #c0392b;
+        background: #5dade2;
       }
     }
   }
@@ -75,14 +73,14 @@
     .menu-line {
       height: 4px;
       width: 30px;
-      background: #ecf0f1;
+      background: #fff;
       margin: 6px 0;
       border-radius: 4px;
       transition: transform 0.3s, background 0.3s;
 
       &:hover {
         transform: scaleX(1.2);
-        background: #3498db;
+        background: #75b3ff;
       }
     }
   }
@@ -98,21 +96,21 @@
         margin-bottom: 2rem;
 
         a {
-          color: #ecf0f1;
+          color: #fff;
           text-decoration: none;
           font-weight: bold;
           font-size: 1.5rem;
           transition: color 0.3s;
 
           &:hover {
-            color: #3498db;
+            color: #75b3ff;
           }
         }
       }
 
       .logout-button {
-        background: #e74c3c;
-        color: #ecf0f1;
+        background: #3498db;
+        color: #fff;
         border: none;
         padding: 0.8rem 1.5rem;
         cursor: pointer;
@@ -121,7 +119,7 @@
         transition: background 0.3s;
 
         &:hover {
-          background: #c0392b;
+          background: #5dade2;
         }
       }
     }
@@ -138,7 +136,7 @@
       position: absolute;
       top: 80px;
       right: 20px;
-      background: linear-gradient(to right, #2c3e50, #3498db);
+      background: linear-gradient(to right, #3498db, #6ab0f3);
       padding: 2rem;
       border-radius: 16px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
