@@ -1,5 +1,5 @@
-import { createSitemap } from "sitemap";
-import fs from "fs";
+const pkg = require("sitemap");
+const { createSitemap } = pkg;
 
 function generateSitemap() {
   console.log("Generating sitemap...");
@@ -8,7 +8,7 @@ function generateSitemap() {
   const staticRoutes = ["/", "/about", "/contact", "/register", "/login"];
   const allRoutes = [...staticRoutes];
 
-  const sitemap = createSitemap({
+  const sitemap = pkg.createSitemap({
     hostname: baseUrl,
     cacheTime: 600000,
     urls: allRoutes.map((route) => ({
@@ -21,11 +21,11 @@ function generateSitemap() {
   const filePath = "./public/sitemap.xml";
 
   try {
-    fs.writeFileSync(filePath, sitemap.toString());
+    pkg.writeFileSync(filePath, sitemap.toString());
     console.log("Sitemap successfully written to:", filePath);
   } catch (error) {
     console.error("Error writing sitemap:", error);
   }
 }
 
-export default generateSitemap;
+generateSitemap();
