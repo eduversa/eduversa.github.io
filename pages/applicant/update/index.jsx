@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { ApplicantLayout } from "@/layout";
-function ApplicantDashboard() {
+function UpdateApplicant() {
   return (
     <Fragment>
       <ApplicantLayout></ApplicantLayout>
@@ -8,4 +8,4 @@ function ApplicantDashboard() {
   );
 }
 
-export default ApplicantDashboard;
+export default UpdateApplicant;

@@ -20,6 +20,26 @@ function Login() {
         return;
       }
       console.log("Login data:", apiResponse);
+      localStorage.setItem("authToken", apiResponse.authToken);
+      localStorage.setItem("email", apiResponse.data.email);
+      localStorage.setItem("userType", apiResponse.data.type);
+      localStorage.setItem("userid", apiResponse.data.user_id);
+      console.log("AuthToken", localStorage.getItem("authToken"));
+      console.log("Email", localStorage.getItem("email"));
+      console.log("UserType", localStorage.getItem("userType"));
+      console.log("UserId", localStorage.getItem("userid"));
+      if (apiResponse.data.type === "applicant") {
+        router.push("/applicant");
+      } else if (apiResponse.data.type === "student") {
+        alert("Student is not ready yet");
+      } else if (apiResponse.data.type === "faculty") {
+        alert("Faculty is not ready yet");
+      } else if (apiResponse.data.type === "admin") {
+        alert("Admin is not ready yet");
+      } else {
+        alert("Invalid User Type");
+      }
+      alert(apiResponse.message);
     } catch (error) {
       console.error("Error in login:", error);
     }
