@@ -124,11 +124,14 @@
         }
         a {
           position: relative;
-          color: var(--yellow-1);
           text-decoration: none;
           cursor: pointer;
-          font-weight: bold;
-          font-size: 1.2rem;
+          color: var(--yellow-1);
+          font-family: var(--font-tektur);
+          font-size: var(--font-11);
+          font-weight: 400;
+          text-transform: uppercase;
+          letter-spacing: 2px;
           transition: color 0.3s, transform 0.3s, background 0.3s,
             box-shadow 0.3s;
           @media (max-width: $breakpoint-desktop-wide) {
