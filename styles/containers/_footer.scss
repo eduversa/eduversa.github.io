@@ -60,7 +60,7 @@
 
       a {
         transition: color 0.3s ease, border-radius 0.3s ease;
-        font-family: var(--font-playfair);
+        font-family: var(--font-roboto);
         font-size: var(--font-12);
         letter-spacing: 1px;
         &:hover {
@@ -74,7 +74,7 @@
           width: 0%;
           height: 2px;
           background-color: #1abc9c;
-          transition: width 0.3s ease;
+          transition: width 0.5s ease;
         }
 
         &::before {
@@ -90,7 +90,7 @@
         &:hover::before,
         &:hover::after {
           width: 100%;
-          animation: lineAnimation 0.5s forwards;
+          animation: lineAnimation 1s forwards;
         }
       }
     }
