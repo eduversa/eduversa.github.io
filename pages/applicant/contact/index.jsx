@@ -1,10 +1,11 @@
 import { Fragment } from "react";
 import { ApplicantLayout } from "@/layout";
+import { ContactUs } from "@/containers";
 function ApplicantContactUs() {
   return (
     <Fragment>
       <ApplicantLayout>
-        <h1>Contact Us Coming Soon</h1>
+        <ContactUs></ContactUs>
       </ApplicantLayout>
     </Fragment>
   );
