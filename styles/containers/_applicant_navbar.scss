@@ -1,7 +1,7 @@
 // applicant-navbar.scss
 
 .applicant-nav {
-  background: linear-gradient(to right, #ff6b6b, #6b6b6b);
+  background: linear-gradient(to right, #3498db, #6bb9f0);
   color: #fff;
   padding: 1.5rem 2rem;
   display: flex;
@@ -20,7 +20,7 @@
       transition: transform 0.3s ease-in-out;
 
       &:hover {
-        transform: rotate(10deg) scale(1.2);
+        transform: scale(1.1);
       }
     }
   }
@@ -42,7 +42,7 @@
           transition: color 0.3s;
 
           &:hover {
-            color: #ff9f43;
+            color: #3498db;
           }
         }
       }
@@ -51,7 +51,7 @@
 
   .button-section {
     .logout-button {
-      background: #ff6b6b;
+      background: #e74c3c;
       color: #fff;
       border: none;
       padding: 0.8rem 1.5rem;
@@ -61,7 +61,7 @@
       transition: background 0.3s;
 
       &:hover {
-        background: #e74c3c;
+        background: #c0392b;
       }
     }
   }
@@ -81,7 +81,7 @@
 
       &:hover {
         transform: scaleX(1.2);
-        background: #ff9f43;
+        background: #3498db;
       }
     }
   }
@@ -104,13 +104,13 @@
           transition: color 0.3s;
 
           &:hover {
-            color: #ff9f43;
+            color: #3498db;
           }
         }
       }
 
       .logout-button {
-        background: #ff6b6b;
+        background: #e74c3c;
         color: #fff;
         border: none;
         padding: 0.8rem 1.5rem;
@@ -120,7 +120,7 @@
         transition: background 0.3s;
 
         &:hover {
-          background: #e74c3c;
+          background: #c0392b;
         }
       }
     }
@@ -137,7 +137,7 @@
       position: absolute;
       top: 80px;
       right: 20px;
-      background: linear-gradient(to right, #ff6b6b, #6b6b6b);
+      background: linear-gradient(to right, #3498db, #6bb9f0);
       padding: 2rem;
       border-radius: 16px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
