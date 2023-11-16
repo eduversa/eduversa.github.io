@@ -36,6 +36,7 @@
     @media (max-width: $breakpoint-large-tablet) {
     }
     @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-11);
     }
     @media (max-width: $breakpoint-phone) {
     }
@@ -82,6 +83,7 @@
     @media (max-width: $breakpoint-tablet) {
     }
     @media (max-width: $breakpoint-phone) {
+      gap: 10px;
     }
     .nav-links {
       position: relative;
@@ -98,6 +100,7 @@
         @media (max-width: $breakpoint-large-tablet) {
         }
         @media (max-width: $breakpoint-tablet) {
+          font-size: var(--font-11);
         }
         @media (max-width: $breakpoint-phone) {
         }
