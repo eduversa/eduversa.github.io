@@ -1,7 +1,11 @@
 // Footer Styles
 
 .footer {
-  background-color: #2c3e50; // Change to your preferred background color
+  background: linear-gradient(
+    to right,
+    #3498db,
+    #2c3e50
+  ); // Gradient background
   padding: 40px 20px;
   display: flex;
   justify-content: space-between;
@@ -9,6 +13,7 @@
   flex-wrap: wrap;
   color: #ecf0f1; // Change to your preferred text color
   font-family: "Helvetica Neue", Arial, sans-serif; // Change to your preferred font
+  border-radius: 15px; // Rounded corners
 
   .copyright {
     flex-basis: 100%;
@@ -36,12 +41,21 @@
         transition: color 0.3s ease;
 
         &:hover {
-          color: #3498db; // Change to your preferred hover color
+          color: #1abc9c; // Change to your preferred hover color
         }
       }
     }
   }
 
   // Add a subtle box shadow for elegance
-  box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease; // Smooth background transition
+
+  &:hover {
+    background: linear-gradient(
+      to right,
+      #2c3e50,
+      #3498db
+    ); // Gradient change on hover
+  }
 }
