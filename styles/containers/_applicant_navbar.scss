@@ -1,104 +1,40 @@
-.applicant-nav {
-  background: linear-gradient(to right, #3498db, #3498db, #2980b9);
-  color: white;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: background 0.3s, box-shadow 0.3s;
+// applicant-navbar.scss
 
-  &:hover {
-    background: linear-gradient(to right, #297fb8, #297fb8, #236fa0);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
+.applicant-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #fff; // Set your desired background color
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Add a subtle box shadow
 
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    margin-right: 20px;
-    position: relative;
 
-    a {
-      color: white;
+    .logo-text {
+      cursor: pointer;
+      color: #333; // Set your desired text color
       text-decoration: none;
-      display: flex;
-      align-items: center;
-      transition: color 0.3s;
-
-      &:hover {
-        color: #f5f5f5;
-      }
-
-      .logo-icon {
-        margin-right: 8px;
-        font-size: 1.8rem;
-        transition: transform 0.3s;
-      }
-
-      &:hover .logo-icon {
-        transform: rotate(180deg);
-      }
-
-      &::before {
-        content: "";
-        position: absolute;
-        height: 100%;
-        width: 2px;
-        background-color: white;
-        left: -10px;
-        opacity: 0;
-        transition: opacity 0.3s, left 0.3s;
-      }
-
-      &:hover::before {
-        opacity: 1;
-        left: -5px;
-      }
     }
   }
 
   .nav-section {
-    ul {
-      list-style-type: none;
+    .nav-list {
+      list-style: none;
       padding: 0;
       display: flex;
 
       .nav-item {
-        margin-right: 20px;
-        cursor: pointer;
+        margin-right: 1rem;
 
         a {
-          color: white;
+          color: #333; // Set your desired text color
           text-decoration: none;
-          display: flex;
-          align-items: center;
-          position: relative;
-          transition: color 0.3s;
+          cursor: pointer;
 
           &:hover {
-            color: #f5f5f5;
-          }
-
-          .nav-icon {
-            margin-right: 8px;
-            font-size: 1.2rem;
-            transition: transform 0.3s;
-          }
-
-          &:hover .nav-icon {
-            transform: rotate(180deg);
-          }
-
-          &::after {
-            content: "";
-            position: absolute;
-            height: 2px;
-            width: 0;
-            background-color: white;
-            bottom: -5px;
-            transition: width 0.3s;
-          }
-
-          &:hover::after {
-            width: 100%;
+            text-decoration: underline;
           }
         }
       }
@@ -106,137 +42,55 @@
   }
 
   .button-section {
-    button {
-      background: linear-gradient(to right, #fff, #f5f5f5);
-      color: #3498db;
-      padding: 10px 20px;
-      border: 2px solid #fff;
+    .logout-button {
+      background-color: #ff5733; // Set your desired button color
+      color: #fff; // Set your desired text color
+      border: none;
+      padding: 0.5rem 1rem;
       cursor: pointer;
-      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      font-size: 1rem;
+      border-radius: 4px;
 
       &:hover {
-        background: linear-gradient(to right, #f5f5f5, #fff);
-        color: #3498db;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      }
-
-      &::before {
-        content: "";
-        position: absolute;
-        height: 100%;
-        width: 2px;
-        background-color: #3498db;
-        left: -10px;
-        opacity: 0;
-        transition: opacity 0.3s, left 0.3s;
-      }
-
-      &:hover::before {
-        opacity: 1;
-        left: -5px;
+        background-color: #e6462d; // Set your desired hover color
       }
     }
   }
 
   .menu {
+    display: none; // Hide the menu by default on larger screens
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: auto;
-    transition: transform 0.3s;
+
+    // Your menu icon styling here...
 
     &.open {
-      .menu-line {
-        background-color: #f5f5f5;
-      }
-    }
-
-    .menu-line {
-      width: 30px;
-      height: 3px;
-      background-color: white;
-      margin: 6px 0;
-      transition: 0.4s;
+      // Your open menu styling here...
     }
   }
 
   .mobile-menu {
-    ul {
-      list-style-type: none;
-      padding: 0;
+    display: none; // Hide the mobile menu by default
 
-      .mobile-nav-item {
-        margin-bottom: 10px;
+    // Your mobile menu styling here...
+  }
 
-        a {
-          color: white;
-          text-decoration: none;
-          display: flex;
-          align-items: center;
-          position: relative;
-          transition: color 0.3s;
+  @media (max-width: 768px) {
+    // Show the menu icon and hide the regular menu on smaller screens
+    .nav-section {
+      display: none;
+    }
 
-          &:hover {
-            color: #f5f5f5;
-          }
+    .button-section {
+      display: none;
+    }
 
-          .mobile-nav-icon {
-            margin-right: 8px;
-            font-size: 1.2rem;
-            transition: transform 0.3s;
-          }
+    .menu {
+      display: flex;
+      flex-direction: column;
+    }
 
-          &:hover .mobile-nav-icon {
-            transform: rotate(180deg);
-          }
-
-          &::after {
-            content: "";
-            position: absolute;
-            height: 2px;
-            width: 0;
-            background-color: white;
-            bottom: -5px;
-            transition: width 0.3s;
-          }
-
-          &:hover::after {
-            width: 100%;
-          }
-        }
-      }
-
-      .logout-button {
-        background: linear-gradient(to right, #fff, #f5f5f5);
-        color: #3498db;
-        padding: 10px 20px;
-        border: 2px solid #fff;
-        cursor: pointer;
-        transition: background 0.3s, color 0.3s, box-shadow 0.3s;
-
-        &:hover {
-          background: linear-gradient(to right, #f5f5f5, #fff);
-          color: #3498db;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        &::before {
-          content: "";
-          position: absolute;
-          height: 100%;
-          width: 2px;
-          background-color: #3498db;
-          left: -10px;
-          opacity: 0;
-          transition: opacity 0.3s, left 0.3s;
-        }
-
-        &:hover::before {
-          opacity: 1;
-          left: -5px;
-        }
-      }
+    .mobile-menu {
+      display: block; // Show the mobile menu
     }
   }
 }
