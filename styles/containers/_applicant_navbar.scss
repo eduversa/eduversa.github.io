@@ -6,7 +6,16 @@
   @include flex-container(row, nowrap, space-between, center);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease-in-out;
-
+  @media (max-width: $breakpoint-desktop-wide) {
+  }
+  @media (max-width: $breakpoint-desktop) {
+  }
+  @media (max-width: $breakpoint-large-tablet) {
+  }
+  @media (max-width: $breakpoint-tablet) {
+  }
+  @media (max-width: $breakpoint-phone) {
+  }
   &:hover {
     box-shadow: 0 8px 16px -5px rgba(0, 0, 0, 0.7);
   }
@@ -16,13 +25,31 @@
     font-size: 2.5rem;
     font-weight: bold;
     z-index: 1;
-
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .logo-text {
       cursor: pointer;
       color: #ffc107;
       text-decoration: none;
       transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
-
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
         transform: rotate(-5deg) scale(1.1);
         text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
@@ -55,10 +82,28 @@
       list-style: none;
       padding: 0;
       display: flex;
-
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       .nav-item {
         margin-right: 2rem;
-
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         a {
           position: relative;
           color: #ffc107;
@@ -68,7 +113,16 @@
           font-size: 1.2rem;
           transition: color 0.3s, transform 0.3s, background 0.3s,
             box-shadow 0.3s;
-
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
           &:before {
             content: "";
             position: absolute;
@@ -107,7 +161,16 @@
       font-size: 1.2rem;
       border-radius: 12px;
       transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
-
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
         background: #ffdb58;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -124,7 +187,16 @@
     display: flex;
     flex-direction: column;
     cursor: pointer;
-
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .menu-line {
       height: 4px;
       width: 30px;
@@ -132,7 +204,16 @@
       margin: 6px 0;
       border-radius: 4px;
       transition: transform 0.3s, background 0.3s;
-
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
         transform: scaleX(1.2);
         background: #75b3ff;
@@ -142,21 +223,57 @@
 
   .mobile-menu {
     display: none;
-
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .mobile-nav-list {
       padding: 0;
       list-style: none;
-
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       .mobile-nav-item {
         margin-bottom: 2rem;
-
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         a {
           color: #fff;
           text-decoration: none;
           font-weight: bold;
           font-size: 1.5rem;
           transition: color 0.3s, transform 0.3s;
-
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
           &:hover {
             color: #75b3ff;
             transform: translateY(-2px);
@@ -173,7 +290,16 @@
         font-size: 1.2rem;
         border-radius: 12px;
         transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
-
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         &:hover {
           background: #ffdb58;
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
