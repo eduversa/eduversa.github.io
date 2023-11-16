@@ -15,10 +15,13 @@ function ApplicantNavbar() {
                 <span>Dashboard</span>
               </li>
               <li className="nav-item">
-                <span>Profile</span>
+                <span>Update Profile</span>
               </li>
               <li className="nav-item">
-                <span>Settings</span>
+                <span>About Us</span>
+              </li>
+              <li className="nav-item">
+                <span>Contact Us</span>
               </li>
             </ul>
           </div>
