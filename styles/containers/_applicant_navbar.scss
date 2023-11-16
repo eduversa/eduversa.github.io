@@ -351,13 +351,17 @@
       }
 
       .logout-button {
-        background: var(--yellow-1);
-        color: var(--blue-9);
-        border: none;
-        padding: 0.8rem 1.5rem;
+        border: 1px solid transparent;
         cursor: pointer;
-        font-size: 1.2rem;
+        background: var(--red-2);
+        font-family: var(--font-roboto);
+        font-size: var(--font-8);
+        letter-spacing: 2px;
+        padding: 0.6rem 1.2rem;
+        overflow: hidden;
+        font-weight: 500;
         border-radius: 12px;
+        box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
         transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
         @media (max-width: $breakpoint-desktop-wide) {
         }
@@ -369,12 +373,6 @@
         }
         @media (max-width: $breakpoint-phone) {
         }
-        &:hover {
-          background: #ffdb58;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-          transform: translateY(-2px);
-        }
-
         &:active {
           transform: scale(0.95);
         }
@@ -396,50 +394,4 @@
       transform: translateY(0);
     }
   }
-
-  // @media (max-width: 768px) {
-  //   .nav-section,
-  //   .button-section {
-  //     display: none;
-  //   }
-
-  //   .mobile-menu {
-  //     display: block;
-  //     position: absolute;
-  //     top: 80px;
-  //     right: 20px;
-  //     background: linear-gradient(to right, var(--blue-9), var(--blue-10));
-  //     padding: 2rem;
-  //     border-radius: 16px;
-  //     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  //     transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
-
-  //     &:hover {
-  //       background: linear-gradient(to right, var(--blue-8), #3498db);
-  //       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  //       transform: translateY(-2px);
-  //     }
-
-  //     .mobile-nav-list {
-  //       padding: 0;
-  //       list-style: none;
-  //     }
-  //   }
-
-  //   .menu {
-  //     animation: pulse 1s infinite;
-  //   }
-
-  //   @keyframes pulse {
-  //     0% {
-  //       transform: scale(1);
-  //     }
-  //     50% {
-  //       transform: scale(1.1);
-  //     }
-  //     100% {
-  //       transform: scale(1);
-  //     }
-  //   }
-  // }
 }
