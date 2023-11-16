@@ -38,7 +38,7 @@ const Footer = () => {
           {userFooterLinks ? (
             userFooterLinks.map((link, index) => (
               <li className="nav-links" key={index}>
-                <a href={link.href}>{link.label}</a>
+                <Link href={link.href}>{link.label}</Link>
               </li>
             ))
           ) : (
