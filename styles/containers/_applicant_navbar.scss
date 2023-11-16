@@ -1,31 +1,85 @@
 .applicant-nav {
+  --landing-nav-height: 70px;
+  --landing-nav-height-tab: 60px;
+  --landing-nav-height-phone: 50px;
+  height: var(--landing-nav-height);
   position: relative;
-  color: #fff;
-  background: linear-gradient(to right, #001f3f, #003366);
-  padding: 1.5rem 2rem;
+  color: var(--white);
+  padding: 1rem 1.5rem;
   @include flex-container(row, nowrap, space-between, center);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease-in-out;
-
-  &:hover {
-    box-shadow: 0 8px 16px -5px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 8px 16px -5px var(--black-shadow-light-1);
+  transition: box-shadow 0.5s ease-in-out;
+  @media (max-width: $breakpoint-desktop-wide) {
+    padding: 0.8rem 1.2rem;
   }
+  @media (max-width: $breakpoint-desktop) {
+    padding: 0.7rem 1.1rem;
+  }
+  @media (max-width: $breakpoint-large-tablet) {
+    padding: 0.5rem 1rem;
+  }
+  @media (max-width: $breakpoint-tablet) {
+    height: var(--landing-nav-height-tab);
+  }
+  @media (max-width: $breakpoint-phone) {
+    height: var(--landing-nav-height-phone);
+  }
+  &:hover {
+    box-shadow: 0 8px 16px -5px var(--black-shadow-1);
+  }
+  // ! important don't remove
+  // &::after {
+  //   content: "";
+  //   position: absolute;
+  //   bottom: 0;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   width: 0;
+  //   height: 3px;
+  //   background-color: var(--black-shadow-light-2);
+  //   transition: width 1s ease-in-out;
+  // }
 
+  // &:hover::after {
+  //   width: 100%;
+  // }
   .logo {
     position: relative;
-    font-size: 2.5rem;
-    font-weight: bold;
     z-index: 1;
-
+    font-family: var(--font-elianto);
+    font-size: var(--font-7);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-5);
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .logo-text {
       cursor: pointer;
-      color: #ffc107;
+      color: var(--blue-4);
       text-decoration: none;
-      transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
-
+      transition: transform 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
-        transform: rotate(-5deg) scale(1.1);
-        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        transform: scale(1.1);
+        text-shadow: 2px 2px 4px var(--white-shadow-medium);
+        color: var(--blue-2);
       }
 
       &:active {
@@ -40,7 +94,7 @@
         transform: translateX(-50%);
         width: 0;
         height: 3px;
-        background-color: #75b3ff;
+        background-color: var(--blue-8);
         transition: width 0.3s ease-in-out;
       }
 
@@ -54,21 +108,55 @@
     .nav-list {
       list-style: none;
       padding: 0;
-      display: flex;
-
+      @include flex-container(row, nowrap, flex-start, center);
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+        display: none;
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       .nav-item {
-        margin-right: 2rem;
-
+        margin: 0 2rem 0 0;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+          margin: 0 1rem 0 0;
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         a {
           position: relative;
-          color: #ffc107;
           text-decoration: none;
           cursor: pointer;
-          font-weight: bold;
-          font-size: 1.2rem;
+          color: var(--yellow-1);
+          color: var(--blue-4);
+          font-family: var(--font-tektur);
+          font-size: var(--font-11);
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 2px;
           transition: color 0.3s, transform 0.3s, background 0.3s,
             box-shadow 0.3s;
-
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+            font-size: var(--font-12);
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
           &:before {
             content: "";
             position: absolute;
@@ -76,12 +164,12 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: #75b3ff;
+            background: var(--blue-8);
             transition: width 0.3s ease-in-out;
           }
 
           &:hover {
-            color: #75b3ff;
+            color: var(--blue-2);
             &:before {
               width: 100%;
             }
@@ -98,18 +186,41 @@
   }
 
   .button-section {
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      display: none;
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .logout-button {
-      background: #ffc107;
-      color: #001f3f;
-      border: none;
-      padding: 0.8rem 1.5rem;
+      border: 1px solid transparent;
       cursor: pointer;
-      font-size: 1.2rem;
+      background: var(--red-2);
+      font-family: var(--font-roboto);
+      font-size: var(--font-11);
+      letter-spacing: 2px;
+      padding: 0.6rem 1.2rem;
+      overflow: hidden;
       border-radius: 12px;
+      box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
       transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
-
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
-        background: #ffdb58;
+        background: var(--red-5);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         transform: translateY(-2px);
       }
@@ -121,65 +232,148 @@
   }
 
   .menu {
-    display: flex;
-    flex-direction: column;
     cursor: pointer;
-
+    display: none;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      display: block;
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .menu-line {
-      height: 4px;
+      height: 3px;
       width: 30px;
-      background: #ffc107;
-      margin: 6px 0;
-      border-radius: 4px;
-      transition: transform 0.3s, background 0.3s;
+      background-color: var(--blue-4);
+      transition: transform 0.3s ease-in-out;
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
+      &:not(:last-child) {
+        margin-bottom: 5px;
+      }
+    }
+    &.open {
+      .menu-line:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
 
-      &:hover {
-        transform: scaleX(1.2);
-        background: #75b3ff;
+      .menu-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-line:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
       }
     }
   }
 
   .mobile-menu {
-    display: none;
-
+    position: absolute;
+    background: linear-gradient(180deg, var(--blue-9), var(--blue-10));
+    padding: 1.5rem;
+    top: var(--landing-nav-height);
+    right: 1%;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px var(--black-shadow-light-1);
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      top: var(--landing-nav-height-tab);
+      right: 1%;
+    }
+    @media (max-width: $breakpoint-phone) {
+      top: var(--landing-nav-height-phone);
+      right: 1%;
+      padding: 1rem;
+    }
     .mobile-nav-list {
+      @include flex-container(column, nowrap, center, center);
       padding: 0;
       list-style: none;
-
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       .mobile-nav-item {
-        margin-bottom: 2rem;
-
+        margin-bottom: 20%;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         a {
-          color: #fff;
-          text-decoration: none;
-          font-weight: bold;
-          font-size: 1.5rem;
+          color: var(--white);
+          font-family: var(--font-tektur);
+          font-size: var(--font-8);
+          letter-spacing: 2px;
           transition: color 0.3s, transform 0.3s;
-
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
           &:hover {
-            color: #75b3ff;
+            color: var(--blue-8);
             transform: translateY(-2px);
           }
         }
       }
 
       .logout-button {
-        background: #ffc107;
-        color: #001f3f;
-        border: none;
-        padding: 0.8rem 1.5rem;
+        border: 1px solid transparent;
         cursor: pointer;
-        font-size: 1.2rem;
+        background: var(--red-2);
+        font-family: var(--font-roboto);
+        font-size: var(--font-8);
+        letter-spacing: 2px;
+        padding: 0.6rem 1.2rem;
+        overflow: hidden;
+        font-weight: 500;
         border-radius: 12px;
+        box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
         transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
-
-        &:hover {
-          background: #ffdb58;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-          transform: translateY(-2px);
+        @media (max-width: $breakpoint-desktop-wide) {
         }
-
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         &:active {
           transform: scale(0.95);
         }
@@ -200,55 +394,5 @@
       opacity: 1;
       transform: translateY(0);
     }
-  }
-
-  @media (max-width: 768px) {
-    .nav-section,
-    .button-section {
-      display: none;
-    }
-
-    .mobile-menu {
-      display: block;
-      position: absolute;
-      top: 80px;
-      right: 20px;
-      background: linear-gradient(to right, #001f3f, #003366);
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
-
-      &:hover {
-        background: linear-gradient(to right, #75b3ff, #3498db);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-        transform: translateY(-2px);
-      }
-
-      .mobile-nav-list {
-        padding: 0;
-        list-style: none;
-      }
-    }
-
-    .menu {
-      animation: pulse 1s infinite;
-    }
-
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.1);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-  }
-
-  html {
-    scroll-behavior: smooth;
   }
 }

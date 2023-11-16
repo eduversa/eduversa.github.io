@@ -2,7 +2,6 @@ import React, { Fragment, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { logoutApi } from "@/functions";
-import Contact from "@/pages/contact";
 function ApplicantNavbar() {
   const router = useRouter();
   const logoText = "eduversa";
@@ -84,7 +83,9 @@ function ApplicantNavbar() {
                   </li>
                 ))}
                 <li className="mobile-nav-item">
-                  <button className="logout-button">Logout</button>
+                  <button className="logout-button" onClick={handleLogout}>
+                    Logout
+                  </button>
                 </li>
               </ul>
             </div>
