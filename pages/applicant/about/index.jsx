@@ -1,10 +1,11 @@
 import { Fragment } from "react";
 import { ApplicantLayout } from "@/layout";
+import { AboutUs } from "@/containers";
 function ApplicantAboutUs() {
   return (
     <Fragment>
       <ApplicantLayout>
-        <h1>About Us Coming Soon</h1>
+        <AboutUs></AboutUs>
       </ApplicantLayout>
     </Fragment>
   );
