@@ -1,3 +1,5 @@
+// applicant-navbar.scss
+
 .applicant-nav {
   position: relative;
   background: linear-gradient(to right, #3498db, #6ab0f3);
@@ -68,7 +70,6 @@
 
           &:hover {
             color: #75b3ff;
-
             &:before {
               width: 100%;
             }
@@ -87,10 +88,11 @@
       cursor: pointer;
       font-size: 1.2rem;
       border-radius: 12px;
-      transition: background 0.3s;
+      transition: background 0.3s, box-shadow 0.3s;
 
       &:hover {
         background: #5dade2;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
     }
   }
@@ -146,10 +148,11 @@
         cursor: pointer;
         font-size: 1.2rem;
         border-radius: 12px;
-        transition: background 0.3s;
+        transition: background 0.3s, box-shadow 0.3s;
 
         &:hover {
           background: #5dade2;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
       }
     }
@@ -170,6 +173,12 @@
       padding: 2rem;
       border-radius: 16px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s, box-shadow 0.3s;
+
+      &:hover {
+        background: linear-gradient(to right, #75b3ff, #3498db);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      }
 
       .mobile-nav-list {
         padding: 0;
