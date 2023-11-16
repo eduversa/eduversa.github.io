@@ -1,33 +1,28 @@
 .footer {
   position: relative;
   background: linear-gradient(45deg, #3498db, #2c3e50);
-  padding: 50px 20px;
+  padding: 1rem 1.2px;
   @include flex-container(column, nowrap, center, center);
   color: #ecf0f1;
   font-family: "Helvetica Neue", Arial, sans-serif;
-  border-radius: 15px;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
   border-top: 2px solid #1abc9c;
-  background-size: 100% 100%;
   overflow: hidden;
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  transition: background 1s ease-in-out, background-color 1s ease-in-out,
+    transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
   &:hover {
-    background: linear-gradient(to right, #2c3e50, #3498db);
-    transform: translateY(-5px);
+    background-color: linear-gradient(to right, #2c3e50, #3498db);
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
   }
   .copyright {
-    flex-basis: 100%;
-    margin-bottom: 20px;
     position: relative;
-    opacity: 0.8;
+    text-align: center;
+    font-family: var(--font-tektur);
+    font-size: var(--font-12);
+    text-transform: uppercase;
+    margin: 0 0 0.5% 0;
     transition: opacity 0.3s ease;
-
-    p {
-      margin: 0;
-      font-size: 14px;
-    }
 
     &::before,
     &::after {
