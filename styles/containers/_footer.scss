@@ -9,7 +9,6 @@
   padding: 1rem 1.2px;
   @include flex-container(column, nowrap, center, center);
   color: var(--white);
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   .copyright {
@@ -43,7 +42,7 @@
 
     &:hover::before,
     &:hover::after {
-      background-color: #1abc9c;
+      background-color: var(--green-3);
       box-shadow: 0 0 5px rgba(26, 188, 156, 1);
     }
   }
@@ -63,7 +62,7 @@
         font-size: var(--font-12);
         letter-spacing: 1px;
         &:hover {
-          color: #1abc9c;
+          color: var(--green-3);
         }
 
         &::before,
@@ -72,7 +71,7 @@
           position: absolute;
           width: 0%;
           height: 2px;
-          background-color: #1abc9c;
+          background-color: var(--green-3);
           transition: width 0.5s ease;
         }
 
