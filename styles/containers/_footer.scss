@@ -3,10 +3,8 @@
   background: linear-gradient(45deg, #3498db, #2c3e50);
   padding: 1rem 1.2px;
   @include flex-container(column, nowrap, center, center);
-  color: #ecf0f1;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: var(--white);
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-  border-top: 2px solid #1abc9c;
   overflow: hidden;
   transition: background 1s ease-in-out, background-color 1s ease-in-out,
     transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -18,12 +16,11 @@
   .copyright {
     position: relative;
     text-align: center;
-    font-family: var(--font-tektur);
-    font-size: var(--font-12);
     text-transform: uppercase;
+    font-family: var(--font-oswald);
+    font-size: var(--font-12);
+    letter-spacing: 2px;
     margin: 0 0 0.5% 0;
-    transition: opacity 0.3s ease;
-
     &::before,
     &::after {
       content: "";
@@ -32,7 +29,7 @@
       height: 2px;
       background-color: transparent;
       box-shadow: 0 0 5px rgba(26, 188, 156, 0);
-      transition: box-shadow 0.3s ease, background-color 0.3s ease;
+      transition: box-shadow 0.5s ease, background-color 0.5s ease;
     }
 
     &::before {
@@ -56,24 +53,18 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
+    @include flex-container(row, nowrap, center, center);
     gap: 20px;
-
     .nav-links {
       position: relative;
 
       a {
-        text-decoration: none;
-        color: #ecf0f1;
-        font-size: 16px;
         transition: color 0.3s ease, border-radius 0.3s ease;
-
-        border-radius: 8px;
-
+        font-family: var(--font-playfair);
+        font-size: var(--font-12);
+        letter-spacing: 1px;
         &:hover {
           color: #1abc9c;
-          border-radius: 15px;
-          animation: pulsate 0.5s infinite;
         }
 
         &::before,
@@ -102,18 +93,6 @@
           animation: lineAnimation 0.5s forwards;
         }
       }
-    }
-  }
-
-  @keyframes pulsate {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-    100% {
-      transform: scale(1);
     }
   }
 
