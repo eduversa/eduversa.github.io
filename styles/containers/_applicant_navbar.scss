@@ -1,14 +1,28 @@
+// applicant-navbar.scss
+
 .applicant-nav {
   position: relative;
   color: #fff;
+  background-color: #3498db; /* Blue background color */
   padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
+  opacity: 0;
   animation: fadeIn 1s forwards;
   transition: box-shadow 0.3s ease-in-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
   &:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
@@ -102,7 +116,7 @@
 
   .button-section {
     .logout-button {
-      background: #3498db;
+      background: #297fb8; /* Darker blue for the button */
       color: #fff;
       border: none;
       padding: 0.8rem 1.5rem;
@@ -112,7 +126,7 @@
       transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
 
       &:hover {
-        background: #5dade2;
+        background: #1c6282; /* Darker blue on hover */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         transform: translateY(-2px);
       }
@@ -168,7 +182,7 @@
       }
 
       .logout-button {
-        background: #3498db;
+        background: #297fb8; /* Darker blue for the button */
         color: #fff;
         border: none;
         padding: 0.8rem 1.5rem;
@@ -178,7 +192,7 @@
         transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
 
         &:hover {
-          background: #5dade2;
+          background: #1c6282; /* Darker blue on hover */
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
           transform: translateY(-2px);
         }
@@ -250,5 +264,10 @@
         transform: scale(1);
       }
     }
+  }
+
+  // Smooth scroll effect
+  html {
+    scroll-behavior: smooth;
   }
 }
