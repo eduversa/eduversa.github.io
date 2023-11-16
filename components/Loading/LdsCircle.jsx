@@ -1,10 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 const LdsCircle = () => {
   return (
-    <div className="lds-circle">
-      <div></div>
-    </div>
+    <Fragment>
+      <div className="lds-circle">
+        <div></div>
+      </div>
+    </Fragment>
   );
 };
 
