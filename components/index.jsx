@@ -13,3 +13,5 @@ export { default as Ring } from "./Loading/Ring";
 export { default as Ripple } from "./Loading/Ripple";
 export { default as Roller } from "./Loading/Roller";
 export { default as Spinner } from "./Loading/Spinner";
+
+export { default as AllLoader } from "./AllLoader";
