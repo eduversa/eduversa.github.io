@@ -51,7 +51,7 @@
 
   .button-section {
     .logout-button {
-      background: #e74c3c; /* Red gradient button color */
+      background: #e74c3c;
       color: #fff;
       border: none;
       padding: 0.8rem 1.5rem;
@@ -61,13 +61,14 @@
       transition: background 0.3s;
 
       &:hover {
-        background: #c0392b; /* Darker red on hover */
+        background: #c0392b;
       }
     }
   }
 
   .menu {
-    display: none;
+    display: flex;
+    flex-direction: column;
     cursor: pointer;
 
     .menu-line {
@@ -79,12 +80,6 @@
       transition: background 0.3s;
 
       &:hover {
-        background: #ffcc00;
-      }
-    }
-
-    &.open {
-      .menu-line {
         background: #ffcc00;
       }
     }
@@ -114,7 +109,7 @@
       }
 
       .logout-button {
-        background: #e74c3c; /* Red gradient button color */
+        background: #e74c3c;
         color: #fff;
         border: none;
         padding: 0.8rem 1.5rem;
@@ -124,7 +119,7 @@
         transition: background 0.3s;
 
         &:hover {
-          background: #c0392b; /* Darker red on hover */
+          background: #c0392b;
         }
       }
     }
@@ -134,11 +129,6 @@
     .nav-section,
     .button-section {
       display: none;
-    }
-
-    .menu {
-      display: flex;
-      flex-direction: column;
     }
 
     .mobile-menu {
