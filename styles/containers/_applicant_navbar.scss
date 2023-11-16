@@ -1,0 +1,93 @@
+.applicant-nav {
+  background-color: #f4f4f4;
+  padding: 10px;
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .nav-section {
+    ul {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+
+      .nav-item {
+        margin-right: 20px;
+        cursor: pointer;
+
+        &:hover {
+          color: #ddd;
+        }
+      }
+    }
+  }
+
+  .button-section {
+    button {
+      background-color: #3498db;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #2980b9;
+      }
+    }
+  }
+
+  .menu {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+
+    &.open {
+      .menu-line {
+        background-color: #333;
+      }
+    }
+
+    .menu-line {
+      width: 30px;
+      height: 3px;
+      background-color: #333;
+      margin: 6px 0;
+      transition: 0.4s;
+    }
+  }
+
+  .mobile-menu {
+    ul {
+      list-style-type: none;
+      padding: 0;
+
+      .mobile-nav-item {
+        margin-bottom: 10px;
+
+        span {
+          cursor: pointer;
+          &:hover {
+            color: #ddd;
+          }
+        }
+      }
+
+      .logout-button {
+        background-color: #3498db;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #2980b9;
+        }
+      }
+    }
+  }
+}
