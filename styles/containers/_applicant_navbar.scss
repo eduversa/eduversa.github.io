@@ -7,8 +7,10 @@
   box-shadow: 0 8px 16px -5px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.5s ease-in-out;
   @media (max-width: $breakpoint-desktop-wide) {
+    padding: 0.8rem 1.2rem;
   }
   @media (max-width: $breakpoint-desktop) {
+    padding: 0.7rem 1.1rem;
   }
   @media (max-width: $breakpoint-large-tablet) {
     padding: 0.5rem 1rem;
@@ -240,7 +242,7 @@
     .menu-line {
       height: 3px;
       width: 30px;
-      background-color: var(--white);
+      background-color: var(--blue-4);
       transition: transform 0.3s ease-in-out;
       @media (max-width: $breakpoint-desktop-wide) {
       }
