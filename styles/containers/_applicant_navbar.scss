@@ -3,10 +3,11 @@
   color: white;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: background 0.3s;
+  transition: background 0.3s, box-shadow 0.3s;
 
   &:hover {
     background: linear-gradient(to right, #297fb8, #297fb8, #236fa0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
 
   .logo {
