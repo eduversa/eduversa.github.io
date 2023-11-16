@@ -1,0 +1,155 @@
+.form {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 5rem;
+
+  label {
+    font-weight: bold;
+    display: flex;
+    margin-bottom: 5px;
+  }
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  input + label {
+    font-weight: bold;
+    display: inline-flex;
+    margin-right: 20px;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  select {
+    display: block;
+    width: calc(100% - 40px);
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
+
+  &--heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    z-index: 10;
+    padding: 0 0 2rem;
+
+    h1 {
+      text-shadow: 1px 1px white;
+    }
+  }
+  &--content {
+    height: fit-content;
+    border-radius: 10px;
+    box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+    width: 1000px;
+    padding: 0 2rem;
+    .page{
+      &--title {
+        font-size: 2rem;
+        text-align: center;
+        padding: 1.5rem 0;
+      }
+      &--content{
+        .sub-heading {
+          font-weight: bold;
+          font-size: 1.2rem;
+          padding: 1rem 0.5rem;
+        }
+        .sub-sub-heading {
+          font-weight: bold;
+          font-size: 1rem;
+          padding: 0.8rem 0.5rem;
+        }
+  
+        .grid-col-3 {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+    
+        .grid-col-2 {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+        
+        .btns {
+          display: flex;
+          justify-content: center;
+          .btn {
+            margin: 1rem 1rem 2rem 1rem;
+            border: 1px white solid;
+            font-size: 1.2rem;
+            background: hsl(235, 17%, 26%);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            &:hover {
+              transform: scale(1.05);
+              color: black;
+              background: hsl(233, 24%, 85%);
+            }
+            &:active {
+              transform: scale(0.9);
+            }
+          }
+        }
+  
+      
+      }
+    }
+  }
+
+}
+
+
+/* responsive design */
+
+@media (max-width: 999px) {
+  .form-container {
+    padding: 2rem 2.5rem;
+  }
+  .form-content {
+    width: 100%;
+  }
+  .grid-col-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-col-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-container {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@keyframes bg-animation {
+  0% {
+    background-position: left;
+  }
+
+  100% {
+    background-position: right;
+  }
+}
