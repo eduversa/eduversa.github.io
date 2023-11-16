@@ -124,7 +124,7 @@
       transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
 
       &:hover {
-        background: #ffdb58; /* Lighter yellow on hover */
+        background: #ffdb58;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         transform: translateY(-2px);
       }
