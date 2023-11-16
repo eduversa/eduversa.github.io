@@ -329,9 +329,9 @@
         }
         a {
           color: var(--white);
-          text-decoration: none;
-          font-weight: bold;
-          font-size: 1.5rem;
+          font-family: var(--font-tektur);
+          font-size: var(--font-7);
+          letter-spacing: 2px;
           transition: color 0.3s, transform 0.3s;
           @media (max-width: $breakpoint-desktop-wide) {
           }
@@ -344,6 +344,7 @@
           @media (max-width: $breakpoint-phone) {
           }
           &:hover {
+            text-decoration: overline;
             color: var(--blue-8);
             transform: translateY(-2px);
           }
