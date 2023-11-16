@@ -1,10 +1,33 @@
 import React, { Fragment, useState } from "react";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
+import { logoutApi } from "@/functions";
 function ApplicantNavbar() {
+  const router = useRouter();
   const logoText = "eduversa";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const handleLogout = async () => {
+    const userId = localStorage.getItem("userid");
+    const authToken = localStorage.getItem("authToken");
 
+    try {
+      const apiResponse = await logoutApi(userId, authToken);
+      if (apiResponse.status === false) {
+        alert(apiResponse.message);
+        return;
+      }
+      console.log("Logout data:", apiResponse);
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("email");
+      localStorage.removeItem("userType");
+      localStorage.removeItem("userid");
+      localStorage.clear();
+      alert(apiResponse.message);
+      router.push("/");
+    } catch (error) {
+      console.error("Logout error:", error.message);
+    }
+  };
   const menuItems = [
     { label: "Dashboard", className: "nav-item", src: "/applicant" },
     {
@@ -37,7 +60,9 @@ function ApplicantNavbar() {
             </ul>
           </div>
           <div className="button-section">
-            <button className="logout-button">Logout</button>
+            <button className="logout-button" onClick={handleLogout}>
+              Logout
+            </button>
           </div>
           <div
             className={`menu ${isMenuOpen && "open"}`}
@@ -58,7 +83,9 @@ function ApplicantNavbar() {
                   </li>
                 ))}
                 <li className="mobile-nav-item">
-                  <button className="logout-button">Logout</button>
+                  <button className="logout-button" onClick={handleLogout}>
+                    Logout
+                  </button>
                 </li>
               </ul>
             </div>

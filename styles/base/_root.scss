@@ -1,4 +1,7 @@
 :root {
+  html {
+    scroll-behavior: smooth;
+  }
   .none {
     -webkit-user-select: none;
     user-select: none;
