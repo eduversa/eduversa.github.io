@@ -2,10 +2,19 @@
   background-color: #3498db;
   color: white;
   padding: 10px;
+
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
     margin-right: 20px;
+    a {
+      color: white;
+      text-decoration: none;
+
+      &:hover {
+        color: #297fb8;
+      }
+    }
   }
 
   .nav-section {
@@ -18,8 +27,13 @@
         margin-right: 20px;
         cursor: pointer;
 
-        &:hover {
-          color: #297fb8;
+        a {
+          color: white;
+          text-decoration: none;
+
+          &:hover {
+            color: #297fb8;
+          }
         }
       }
     }
@@ -71,8 +85,10 @@
       .mobile-nav-item {
         margin-bottom: 10px;
 
-        span {
-          cursor: pointer;
+        a {
+          color: white;
+          text-decoration: none;
+
           &:hover {
             color: #297fb8;
           }
