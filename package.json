@@ -16,7 +16,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "type": "module",
   "dependencies": {
     "fs": "^0.0.1-security",
     "next": "^13.5.3",
