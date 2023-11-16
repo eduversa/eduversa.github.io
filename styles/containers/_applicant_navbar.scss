@@ -1,3 +1,5 @@
+// applicant-navbar.scss
+
 .applicant-nav {
   background: linear-gradient(to right, #3498db, #6bb9f0);
   color: #fff;
@@ -49,17 +51,17 @@
 
   .button-section {
     .logout-button {
-      background-color: #e74c3c;
+      background: #e74c3c; /* Red gradient button color */
       color: #fff;
       border: none;
       padding: 0.8rem 1.5rem;
       cursor: pointer;
       font-size: 1.2rem;
-      border-radius: 6px;
-      transition: background-color 0.3s;
+      border-radius: 8px;
+      transition: background 0.3s;
 
       &:hover {
-        background-color: #c0392b;
+        background: #c0392b; /* Darker red on hover */
       }
     }
   }
@@ -71,19 +73,19 @@
     .menu-line {
       height: 4px;
       width: 30px;
-      background-color: #fff;
+      background: #fff;
       margin: 6px 0;
       border-radius: 4px;
-      transition: background-color 0.3s;
+      transition: background 0.3s;
 
       &:hover {
-        background-color: #ffcc00;
+        background: #ffcc00;
       }
     }
 
     &.open {
       .menu-line {
-        background-color: #ffcc00;
+        background: #ffcc00;
       }
     }
   }
@@ -112,17 +114,17 @@
       }
 
       .logout-button {
-        background-color: #e74c3c;
+        background: #e74c3c; /* Red gradient button color */
         color: #fff;
         border: none;
         padding: 0.8rem 1.5rem;
         cursor: pointer;
         font-size: 1.2rem;
-        border-radius: 6px;
-        transition: background-color 0.3s;
+        border-radius: 8px;
+        transition: background 0.3s;
 
         &:hover {
-          background-color: #c0392b;
+          background: #c0392b; /* Darker red on hover */
         }
       }
     }
