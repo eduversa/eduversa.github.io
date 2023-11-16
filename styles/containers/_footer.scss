@@ -1,38 +1,18 @@
-// Footer Styles
-
 .footer {
   position: relative;
-  background: linear-gradient(
-    to right,
-    #3498db,
-    #2c3e50
-  ); // Gradient background
-  padding: 50px 20px; // Increased padding
+  background: linear-gradient(to right, #3498db, #2c3e50);
+  padding: 50px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  color: #ecf0f1; // Change to your preferred text color
-  font-family: "Helvetica Neue", Arial, sans-serif; // Change to your preferred font
-  border-radius: 15px; // Rounded corners
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); // Subtle shadow
-  border-top: 2px solid #1abc9c; // Border at the top
-  background-size: 150% 150%; // For the subtle pattern
-  overflow: hidden; // Hide overflow for parallax effect
-
-  // // Subtle background pattern
-  // background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill="%23999"%3E%3Ccircle cx="20" cy="20" r="20" %3E%3C/g%3E%3C/g%3E%3C/svg%3E');
-
-  .parallax {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    // background: url("your-parallax-image.jpg") center/cover; // Replace with your parallax image
-    z-index: -1;
-    opacity: 0.1; // Adjust opacity for subtlety
-  }
+  color: #ecf0f1;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  border-top: 2px solid #1abc9c;
+  background-size: 150% 150%;
+  overflow: hidden;
 
   .copyright {
     flex-basis: 100%;
@@ -61,33 +41,27 @@
         font-size: 16px;
         transition: color 0.3s ease, border-radius 0.3s ease;
 
-        // Rounded corners for links
         border-radius: 8px;
 
         &:hover {
-          color: #1abc9c; // Change to your preferred hover color
-          border-radius: 15px; // Larger border-radius on hover
-          animation: pulsate 0.5s infinite; // Pulsating effect on hover
+          color: #1abc9c;
+          border-radius: 15px;
+          animation: pulsate 0.5s infinite;
         }
-
-        // "Before" and "After" effect
         &::before,
         &::after {
           content: "";
           position: absolute;
           width: 0%;
           height: 2px;
-          background-color: #1abc9c; // Color for "Before" and "After" lines
+          background-color: #1abc9c;
           transition: width 0.3s ease;
         }
-
-        // "Before" line
         &::before {
           left: 0;
           top: 0;
         }
 
-        // "After" line
         &::after {
           right: 0;
           bottom: 0;
@@ -95,25 +69,21 @@
 
         &:hover::before,
         &:hover::after {
-          width: 100%; // Expand lines on hover
-          animation: lineAnimation 0.5s forwards; // Creative animation for lines on hover
+          width: 100%;
+          animation: lineAnimation 0.5s forwards;
         }
       }
     }
   }
 
-  // Smooth background transition on hover
   transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    background: linear-gradient(
-      to right,
-      #2c3e50,
-      #3498db
-    ); // Gradient change on hover
-    transform: translateY(-5px); // Move the footer slightly up on hover
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2); // Slightly larger shadow on hover
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
   }
+
   @keyframes pulsate {
     0% {
       transform: scale(1);
@@ -125,6 +95,7 @@
       transform: scale(1);
     }
   }
+
   @keyframes lineAnimation {
     to {
       transform: scaleX(0);
