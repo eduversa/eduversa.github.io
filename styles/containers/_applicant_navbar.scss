@@ -89,6 +89,7 @@
       @media (max-width: $breakpoint-large-tablet) {
       }
       @media (max-width: $breakpoint-tablet) {
+        display: none;
       }
       @media (max-width: $breakpoint-phone) {
       }
@@ -152,6 +153,17 @@
   }
 
   .button-section {
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      display: none;
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .logout-button {
       background: #ffc107;
       color: #001f3f;
@@ -185,14 +197,6 @@
 
   .menu {
     cursor: pointer;
-    // ! don't Delete this
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: space-between;
-    // height: 24px;
-    // width: 30px;
-    // padding: 5px;
-    // margin-right: 10px;
     display: none;
     @media (max-width: $breakpoint-desktop-wide) {
     }
