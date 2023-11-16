@@ -21,7 +21,9 @@ function ApplicantNavbar() {
       <header>
         <nav className="applicant-nav">
           <div className="logo">
-            <span className="logo-text">{logoText}</span>
+            <Link href="/">
+              <span className="logo-text">{logoText}</span>
+            </Link>
           </div>
           <div className="nav-section">
             <ul className="nav-list">

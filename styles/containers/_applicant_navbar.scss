@@ -1,96 +1,157 @@
 .applicant-nav {
-  background-color: #3498db;
-  color: white;
-  padding: 10px;
+  background: linear-gradient(to right, #3498db, #6bb9f0);
+  color: #fff;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
   .logo {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     font-weight: bold;
-    margin-right: 20px;
+
+    .logo-text {
+      cursor: pointer;
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #ffcc00;
+      }
+    }
   }
 
   .nav-section {
-    ul {
-      list-style-type: none;
+    .nav-list {
+      list-style: none;
       padding: 0;
       display: flex;
 
       .nav-item {
-        margin-right: 20px;
-        cursor: pointer;
+        margin-right: 2rem;
 
-        &:hover {
-          color: #297fb8;
+        a {
+          color: #fff;
+          text-decoration: none;
+          cursor: pointer;
+          font-weight: bold;
+          transition: color 0.3s;
+
+          &:hover {
+            color: #ffcc00;
+          }
         }
       }
     }
   }
 
   .button-section {
-    button {
-      background-color: #fff;
-      color: #3498db;
-      padding: 8px 16px;
-      border: 2px solid #fff;
+    .logout-button {
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.5rem;
       cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
+      font-size: 1.2rem;
+      border-radius: 6px;
+      transition: background-color 0.3s;
 
       &:hover {
-        background-color: #297fb8;
-        color: white;
+        background-color: #c0392b;
       }
     }
   }
 
   .menu {
+    display: none;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: auto;
 
-    &.open {
-      .menu-line {
-        background-color: #fff;
+    .menu-line {
+      height: 4px;
+      width: 30px;
+      background-color: #fff;
+      margin: 6px 0;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #ffcc00;
       }
     }
 
-    .menu-line {
-      width: 30px;
-      height: 3px;
-      background-color: #fff;
-      margin: 6px 0;
-      transition: 0.4s;
+    &.open {
+      .menu-line {
+        background-color: #ffcc00;
+      }
     }
   }
 
   .mobile-menu {
-    ul {
-      list-style-type: none;
+    display: none;
+
+    .mobile-nav-list {
       padding: 0;
+      list-style: none;
 
       .mobile-nav-item {
-        margin-bottom: 10px;
+        margin-bottom: 2rem;
 
-        span {
-          cursor: pointer;
+        a {
+          color: #fff;
+          text-decoration: none;
+          font-weight: bold;
+          font-size: 1.5rem;
+          transition: color 0.3s;
+
           &:hover {
-            color: #297fb8;
+            color: #ffcc00;
           }
         }
       }
 
       .logout-button {
-        background-color: #fff;
-        color: #3498db;
-        padding: 8px 16px;
-        border: 2px solid #fff;
+        background-color: #e74c3c;
+        color: #fff;
+        border: none;
+        padding: 0.8rem 1.5rem;
         cursor: pointer;
-        transition: background-color 0.3s, color 0.3s;
+        font-size: 1.2rem;
+        border-radius: 6px;
+        transition: background-color 0.3s;
 
         &:hover {
-          background-color: #297fb8;
-          color: white;
+          background-color: #c0392b;
         }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav-section,
+    .button-section {
+      display: none;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-menu {
+      display: block;
+      position: absolute;
+      top: 80px;
+      right: 20px;
+      background: linear-gradient(to right, #3498db, #6bb9f0);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+      .mobile-nav-list {
+        padding: 0;
+        list-style: none;
       }
     }
   }
