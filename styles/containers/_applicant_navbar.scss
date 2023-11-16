@@ -287,12 +287,6 @@
     right: 1%;
     border-radius: 16px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
-
-    &:hover {
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-      transform: translateY(-2px);
-    }
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {
@@ -308,6 +302,7 @@
       right: 1%;
     }
     .mobile-nav-list {
+      @include flex-container(column, nowrap, center, center);
       padding: 0;
       list-style: none;
       @media (max-width: $breakpoint-desktop-wide) {
@@ -321,7 +316,7 @@
       @media (max-width: $breakpoint-phone) {
       }
       .mobile-nav-item {
-        margin-bottom: 2rem;
+        margin-bottom: 20%;
         @media (max-width: $breakpoint-desktop-wide) {
         }
         @media (max-width: $breakpoint-desktop) {
