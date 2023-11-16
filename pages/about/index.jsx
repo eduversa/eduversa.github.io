@@ -6,7 +6,7 @@ function About() {
     <Fragment>
       <LandingLayout>
         <h1 className="aboutus-container"></h1>
-      <AboutUs/>
+
       </LandingLayout>
     </Fragment>
   );
