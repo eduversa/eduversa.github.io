@@ -4,18 +4,21 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
 import { registerUser } from "@/functions";
-
+import { AllLoader } from "@/components";
 function Register() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const registrationData = await registerUser(email);
       if (registrationData.status === false) {
         console.log("Registration data:", registrationData);
         alert(registrationData.message);
+        setLoading(false);
         return;
       }
 
@@ -24,6 +27,7 @@ function Register() {
       alert(
         "Registration Was Successful! Check Your Email For Login Credentials"
       );
+      setLoading(false);
       router.push("/");
     } catch (error) {
       console.error("Error during registration:", error.message);
@@ -32,6 +36,7 @@ function Register() {
   return (
     <Fragment>
       <LandingLayout>
+        {loading && <AllLoader />}
         <div className="register-container">
           <h2 className="register-heading">Register</h2>
           <h3 className="register-subheading">
