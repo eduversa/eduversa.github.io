@@ -1,7 +1,7 @@
 .applicant-nav {
   position: relative;
   color: #fff;
-  background: linear-gradient(to right, #001f3f, #003366);
+  background: linear-gradient(180deg, #001f3f, #003366);
   padding: 1.5rem 2rem;
   @include flex-container(row, nowrap, space-between, center);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);

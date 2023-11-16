@@ -2,7 +2,6 @@ import React, { Fragment, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { logoutApi } from "@/functions";
-import Contact from "@/pages/contact";
 function ApplicantNavbar() {
   const router = useRouter();
   const logoText = "eduversa";
