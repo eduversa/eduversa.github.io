@@ -39,7 +39,9 @@ function AllLoader() {
 
   return (
     <Fragment>
-      <RandomLoader />
+      <div className="loader-container">
+        <RandomLoader />
+      </div>
     </Fragment>
   );
 }
