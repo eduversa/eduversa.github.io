@@ -55,7 +55,7 @@
       cursor: pointer;
       color: var(--yellow-1);
       text-decoration: none;
-      transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+      transition: transform 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
@@ -67,9 +67,9 @@
       @media (max-width: $breakpoint-phone) {
       }
       &:hover {
-        transform: rotate(-5deg) scale(1.1);
-        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
-        color: #75b3ff;
+        transform: scale(1.1);
+        // text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        color: var(--white);
       }
 
       &:active {
