@@ -1,24 +1,66 @@
 .applicant-nav {
-  background: linear-gradient(to right, #3498db, #6bb9f0);
+  position: relative;
   color: #fff;
+  background: linear-gradient(to right, #001f3f, #003366);
   padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  transition: box-shadow 0.3s ease-in-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
 
   .logo {
+    position: relative;
     font-size: 2.5rem;
     font-weight: bold;
+    z-index: 1;
 
     .logo-text {
       cursor: pointer;
-      color: #fff;
+      color: #ffc107;
       text-decoration: none;
-      transition: color 0.3s;
+      transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
 
       &:hover {
-        color: #ffcc00;
+        transform: rotate(-5deg) scale(1.1);
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+      }
+
+      &:active {
+        transform: scale(0.9);
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 3px;
+        background-color: #75b3ff;
+        transition: width 0.3s ease-in-out;
+      }
+
+      &:hover::after {
+        width: 100%;
       }
     }
   }
@@ -33,14 +75,37 @@
         margin-right: 2rem;
 
         a {
-          color: #fff;
+          position: relative;
+          color: #ffc107;
           text-decoration: none;
           cursor: pointer;
           font-weight: bold;
-          transition: color 0.3s;
+          font-size: 1.2rem;
+          transition: color 0.3s, transform 0.3s, background 0.3s,
+            box-shadow 0.3s;
+
+          &:before {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #75b3ff;
+            transition: width 0.3s ease-in-out;
+          }
 
           &:hover {
-            color: #ffcc00;
+            color: #75b3ff;
+            &:before {
+              width: 100%;
+            }
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
+
+          &:active {
+            transform: scale(0.95);
           }
         }
       }
@@ -49,41 +114,43 @@
 
   .button-section {
     .logout-button {
-      background-color: #e74c3c;
-      color: #fff;
+      background: #ffc107;
+      color: #001f3f;
       border: none;
       padding: 0.8rem 1.5rem;
       cursor: pointer;
       font-size: 1.2rem;
-      border-radius: 6px;
-      transition: background-color 0.3s;
+      border-radius: 12px;
+      transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
 
       &:hover {
-        background-color: #c0392b;
+        background: #ffdb58; /* Lighter yellow on hover */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: scale(0.95);
       }
     }
   }
 
   .menu {
-    display: none;
+    display: flex;
+    flex-direction: column;
     cursor: pointer;
 
     .menu-line {
       height: 4px;
       width: 30px;
-      background-color: #fff;
+      background: #ffc107;
       margin: 6px 0;
       border-radius: 4px;
-      transition: background-color 0.3s;
+      transition: transform 0.3s, background 0.3s;
 
       &:hover {
-        background-color: #ffcc00;
-      }
-    }
-
-    &.open {
-      .menu-line {
-        background-color: #ffcc00;
+        transform: scaleX(1.2);
+        background: #75b3ff;
       }
     }
   }
@@ -103,28 +170,50 @@
           text-decoration: none;
           font-weight: bold;
           font-size: 1.5rem;
-          transition: color 0.3s;
+          transition: color 0.3s, transform 0.3s;
 
           &:hover {
-            color: #ffcc00;
+            color: #75b3ff;
+            transform: translateY(-2px);
           }
         }
       }
 
       .logout-button {
-        background-color: #e74c3c;
-        color: #fff;
+        background: #ffc107;
+        color: #001f3f;
         border: none;
         padding: 0.8rem 1.5rem;
         cursor: pointer;
         font-size: 1.2rem;
-        border-radius: 6px;
-        transition: background-color 0.3s;
+        border-radius: 12px;
+        transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
 
         &:hover {
-          background-color: #c0392b;
+          background: #ffdb58;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          transform: translateY(-2px);
+        }
+
+        &:active {
+          transform: scale(0.95);
         }
       }
+    }
+
+    &.open {
+      animation: fadeIn 0.5s both;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
@@ -134,25 +223,47 @@
       display: none;
     }
 
-    .menu {
-      display: flex;
-      flex-direction: column;
-    }
-
     .mobile-menu {
       display: block;
       position: absolute;
       top: 80px;
       right: 20px;
-      background: linear-gradient(to right, #3498db, #6bb9f0);
+      background: linear-gradient(to right, #001f3f, #003366);
       padding: 2rem;
-      border-radius: 12px;
+      border-radius: 16px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+
+      &:hover {
+        background: linear-gradient(to right, #75b3ff, #3498db);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+      }
 
       .mobile-nav-list {
         padding: 0;
         list-style: none;
       }
     }
+
+    .menu {
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 }
