@@ -37,12 +37,10 @@
   .logo {
     position: relative;
     z-index: 1;
-    // font-size: 2.5rem;
-    // font-weight: bold;
     font-family: var(--font-elianto);
     font-size: var(--font-8);
     text-transform: uppercase;
-
+    letter-spacing: 3px;
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {
@@ -55,7 +53,7 @@
     }
     .logo-text {
       cursor: pointer;
-      color: #ffc107;
+      color: var(--yellow-1);
       text-decoration: none;
       transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
       @media (max-width: $breakpoint-desktop-wide) {
