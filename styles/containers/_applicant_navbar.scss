@@ -3,24 +3,9 @@
   color: #fff;
   background: linear-gradient(to right, #001f3f, #003366);
   padding: 1.5rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-container(row, nowrap, space-between, center);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  animation: fadeIn 1s forwards;
   transition: box-shadow 0.3s ease-in-out;
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
   &:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
