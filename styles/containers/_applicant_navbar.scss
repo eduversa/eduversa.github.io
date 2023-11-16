@@ -17,10 +17,10 @@
       cursor: pointer;
       color: #fff;
       text-decoration: none;
-      transition: color 0.3s;
+      transition: transform 0.3s ease-in-out;
 
       &:hover {
-        color: #ffcc00;
+        transform: scale(1.1);
       }
     }
   }
@@ -77,9 +77,10 @@
       background: #fff;
       margin: 6px 0;
       border-radius: 4px;
-      transition: background 0.3s;
+      transition: transform 0.3s, background 0.3s;
 
       &:hover {
+        transform: scaleX(1.2);
         background: #ffcc00;
       }
     }
