@@ -107,7 +107,8 @@
     @media (max-width: $breakpoint-phone) {
     }
   }
-  .forget-password-form {
+  .forget-password-form,
+  .new-password-form {
     @include flex-container(column, nowrap, none, none);
     z-index: 1;
     gap: 0px;
