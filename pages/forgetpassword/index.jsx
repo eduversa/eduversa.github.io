@@ -18,6 +18,7 @@ function ForgetPassword() {
     hasDigit: false,
     hasSpecialChar: false,
   });
+  const [passwordMatch, setPasswordMatch] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,10 +67,17 @@ function ForgetPassword() {
     });
   };
 
+  const handleConfirmPasswordChange = (e) => {
+    const confirmPasswordValue = e.target.value;
+    setConfirmPassword(confirmPasswordValue);
+
+    setPasswordMatch(newPassword === confirmPasswordValue);
+  };
+
   const handleNewPasswordSubmit = (e) => {
     e.preventDefault();
 
-    if (newPassword !== confirmPassword) {
+    if (!passwordMatch) {
       alert("Passwords do not match. Please make sure the passwords match.");
       return;
     }
@@ -197,8 +205,19 @@ function ForgetPassword() {
                     className="confirm-password-input"
                     placeholder="Confirm Password"
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={handleConfirmPasswordChange}
+                    style={{
+                      border: passwordMatch
+                        ? "2px solid green"
+                        : "2px solid red",
+                      color: passwordMatch ? "green" : "red",
+                    }}
                   />
+                  <div style={{ fontSize: "12px", marginTop: "5px" }}>
+                    {passwordMatch
+                      ? "✅ Passwords match"
+                      : "❌ Passwords do not match"}
+                  </div>
                 </div>
                 <div className="new-password-button-container">
                   <button type="submit" className="new-password-button">
