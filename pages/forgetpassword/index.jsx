@@ -27,7 +27,10 @@ function ForgetPassword() {
       const otpResponse = await generateOtpApi(userIdOrEmail);
       console.log(otpResponse);
       alert(otpResponse.message);
-      setOtpResponse(otpResponse);
+
+      if (otpResponse.status) {
+        setOtpResponse(otpResponse);
+      }
     } catch (error) {
       console.error("Error generating OTP:", error);
       alert("Error generating OTP. Please try again.");
@@ -50,12 +53,14 @@ function ForgetPassword() {
       );
       return;
     }
+
     setNewPassword("");
     setConfirmPassword("");
     setOtpResponse(null);
 
     alert("Password updated successfully!");
   };
+
   const isStrongPassword = (password) => {
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -68,7 +73,7 @@ function ForgetPassword() {
         {loading && <AllLoader />}
         <div className="forget-password-container">
           <h1 className="forget-password-heading">Forgot Password</h1>
-          {otpResponse ? (
+          {otpResponse && otpResponse.status ? (
             <>
               <h3 className="forget-password-subheading">
                 Verify OTP and enter your new password!
