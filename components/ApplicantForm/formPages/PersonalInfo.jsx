@@ -35,49 +35,60 @@ const PersonalInfo = ({ formData, handleChange, handleSave, handleNextClick, han
       handleChange({ target: { name: 'formData', value: updatedFormData } });
     }
   };
-  // Function to fetch address details(state, district, city) from pincode
-const fetchAddressFromPincode = async (pincode) => {
-  if (pincode.length !== 6) {
-    return;
-  }
 
-  try {
-    const response = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
-    if (response.ok) {
-      const data = await response.json();
-      if (data && data.length > 0 && data[0].PostOffice.length > 0) {
-        const postOffice = data[0].PostOffice[0];
-        const street = [postOffice.Name, postOffice.Division, postOffice.Region, postOffice.Block]
-          .filter(value => Boolean(value) && value !== "NA")
-          .join(", ");
-        const updatedFormData = {
-          ...formData,
-          personal_info: {
-            ...formData.personal_info,
-            present_address: {
-              ...formData.personal_info.present_address,
-              street: street,
-              city: postOffice.District !== "NA" ? postOffice.District : "",
-              district: postOffice.District !== "NA" ? postOffice.District : "",
-              state: postOffice.State !== "NA" ? postOffice.State : "",
-            },
-          },
-        };
-        handleChange({ target: { name: 'formData', value: updatedFormData } });
-      }
-    } else {
-      throw new Error("Failed to fetch data");
-    }
-  } catch (error) {
-    console.error("Error fetching address details:", error);
-  }
-};
-  const [pincode, setPincode] = useState("");
+  const [presentPincode, setPresentPincode] = useState("");
+  const [permanentPincode, setPermanentPincode] = useState("");
+
   useEffect(() => {
-    if (pincode.length === 6) {
-      fetchAddressFromPincode(pincode);
+    if (presentPincode.length === 6) {
+      fetchAddressFromPincode(presentPincode, 'present_address');
     }
-  }, [pincode]);
+  }, [presentPincode]);
+
+  useEffect(() => {
+    if (permanentPincode.length === 6) {
+      fetchAddressFromPincode(permanentPincode, 'permanent_address');
+    }
+  }, [permanentPincode]);
+
+  // Function to fetch address details(state, district, city) from pincode
+  const fetchAddressFromPincode = async (pincode, addressType) => {
+    if (pincode.length !== 6) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data.length > 0 && data[0].PostOffice.length > 0) {
+          const postOffice = data[0].PostOffice[0];
+          const street = [postOffice.Name, postOffice.Division, postOffice.Region, postOffice.Block]
+            .filter(value => Boolean(value) && value !== "NA")
+            .join(", ");
+          const updatedFormData = {
+            ...formData,
+            personal_info: {
+              ...formData.personal_info,
+              [addressType]: {
+                ...formData.personal_info[addressType],
+                street: street,
+                city: postOffice.Region !== "NA" ? postOffice.Region : "",
+                district: postOffice.District !== "NA" ? postOffice.District : "",
+                state: postOffice.State !== "NA" ? postOffice.State : "",
+              },
+            },
+          };
+          handleChange({ target: { name: 'formData', value: updatedFormData } });
+        }
+      } else {
+        throw new Error("Failed to fetch data");
+      }
+    } catch (error) {
+      console.error("Error fetching address details:", error);
+    }
+  };
+
 
   return (
     <div className="page">
@@ -225,7 +236,7 @@ const fetchAddressFromPincode = async (pincode) => {
             onChange={(e) => {
               handleChange(e);
               if (e.target.value.length === 6) {
-                setPincode(e.target.value);
+                setPresentPincode(e.target.value);
               }
             }}
             required
@@ -282,7 +293,13 @@ const fetchAddressFromPincode = async (pincode) => {
             label="Pincode"
             name="personal_info.permanent_address.pincode"
             value={formData.personal_info.permanent_address.pincode}
-            onChange={handleChange}
+            // onChange={handleChange}
+            onChange={(e) => {
+              handleChange(e);
+              if (e.target.value.length === 6) {
+                setPermanentPincode(e.target.value);
+              }
+            }}
             min="100000"
             max="999999"
           />

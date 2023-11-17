@@ -1,7 +1,59 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {Text, Email, Number, Select, DateInput} from "../inputComponent/InputComponent";
 
 const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handlePreviousClick, handleSubmit }) => {
+  const [officePincode, setOfficePincode] = useState("");
+
+  useEffect(() => {
+    if (officePincode.length === 6) {
+      fetchAddressFromPincode(officePincode, 'office_address');
+    }
+  }, [officePincode]);
+
+
+  // Function to fetch address details(state, district, city) from pincode
+  const fetchAddressFromPincode = async (pincode, addressType) => {
+    if (pincode.length !== 6) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data.length > 0 && data[0].PostOffice.length > 0) {
+          const postOffice = data[0].PostOffice[0];
+          const street = [postOffice.Name, postOffice.Division, postOffice.Region, postOffice.Block]
+            .filter(value => Boolean(value) && value !== "NA")
+            .join(", ");
+          const updatedFormData = {
+            ...formData,
+            family_info: {
+              ...formData.family_info,
+              guardian: {
+                ...formData.family_info.guardian,
+                office_address: {
+                  ...formData.family_info.guardian.office_address,
+                  street: street,
+                  city: postOffice.Region !== "NA" ? postOffice.Region : "",
+                  district: postOffice.District !== "NA" ? postOffice.District : "",
+                  state: postOffice.State !== "NA" ? postOffice.State : "",
+                  pincode: pincode, // Update pincode separately as needed
+                },
+              },
+            },
+          };
+          handleChange({ target: { name: 'formData', value: updatedFormData } });
+        }
+      } else {
+        throw new Error("Failed to fetch data");
+      }
+    } catch (error) {
+      console.error("Error fetching address details:", error);
+    }
+  };
+  
+  
   return (
     <div className="page">
       <h2 className="page--title">Family Information</h2>
@@ -221,7 +273,12 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
               label="Pincode"
               name="family_info.guardian.office_address.pincode"
               value={formData.family_info.guardian.office_address.pincode}
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                if (e.target.value.length === 6) {
+                  setOfficePincode(e.target.value);
+                }
+              }}
               min="100000"
               max="999999"
             />
