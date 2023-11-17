@@ -148,7 +148,9 @@ function Login() {
                 <Link href="/forgetpassword">
                   <span className="forget-password">Forgot Password?</span>
                 </Link>
-                <span className="forget-password">Forget username?</span>
+                <Link href="/forgetusername">
+                  <span className="forget-password">Forget username?</span>
+                </Link>
               </div>
               <div className="register">
                 <span>New to universa?</span>
