@@ -315,4 +315,8 @@
       }
     }
   }
+  .new-password-form {
+    @include flex-container(column, nowrap, center, center);
+    text-align: center;
+  }
 }
