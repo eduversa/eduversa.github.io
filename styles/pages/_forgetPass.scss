@@ -488,7 +488,6 @@
         z-index: 1000;
         padding: 20px;
         background: var(--black-shadow-medium);
-        // backdrop-filter: blur(100px);
         border: 1px solid var(--white-shadow-light-1);
         border-radius: 12px;
         box-shadow: 0 0 5px var(--black-shadow-light-1);
@@ -511,6 +510,20 @@
             letter-spacing: 1px;
           }
         }
+      }
+    }
+    .confirm-password-input-container {
+      .confirm-password {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: -100%;
+        z-index: 1000;
+        padding: 20px;
+        background: var(--black-shadow-medium);
+        border: 1px solid var(--white-shadow-light-1);
+        border-radius: 12px;
+        box-shadow: 0 0 5px var(--black-shadow-light-1);
       }
     }
   }

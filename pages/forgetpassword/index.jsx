@@ -249,13 +249,13 @@ function ForgetPassword() {
                         : "inherit",
                     }}
                   />
-                  {confirmPasswordFocused && (
-                    <div className="confirm-password">
-                      {passwordMatch
-                        ? "✅ Passwords match"
-                        : "❌ Passwords do not match"}
-                    </div>
-                  )}
+                  {/* {confirmPasswordFocused && ( */}
+                  <div className="confirm-password">
+                    {passwordMatch
+                      ? "✅ Passwords match"
+                      : "❌ Passwords do not match"}
+                  </div>
+                  {/* )} */}
                 </div>
                 <div className="new-password-button-container">
                   <button type="submit" className="new-password-button">
