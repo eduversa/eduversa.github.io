@@ -11,7 +11,7 @@
   border-radius: 12px;
   box-shadow: 0 0 5px var(--black-shadow-light-1);
   z-index: 5;
-  overflow: hidden;
+  // overflow: hidden;
   transition: background 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
   @media (max-width: $breakpoint-desktop-wide) {
     margin: 8% 0 0 0;
@@ -484,11 +484,11 @@
       .password-requirements {
         position: absolute;
         top: 0;
-        left: 0;
-        z-index: 100;
+        left: -100%;
+        z-index: 1000;
         padding: 30px;
         background: var(--black-shadow-medium);
-        backdrop-filter: blur(100px);
+        // backdrop-filter: blur(100px);
         border: 1px solid var(--white-shadow-light-1);
         border-radius: 12px;
         box-shadow: 0 0 5px var(--black-shadow-light-1);

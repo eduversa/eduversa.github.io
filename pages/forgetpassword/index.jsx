@@ -135,7 +135,7 @@ function ForgetPassword() {
           {otpResponse && otpResponse.status ? (
             <Fragment>
               <h3 className="forget-password-subheading">
-                Verify OTP and enter your new password!
+                Verify OTP and enter your new password 😊
               </h3>
               <form
                 className="new-password-form"
