@@ -107,4 +107,79 @@
     @media (max-width: $breakpoint-phone) {
     }
   }
+  .forget-password-form {
+    @include flex-container(column, nowrap, none, none);
+    z-index: 1;
+    gap: 0px;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+    .forget-password-input-container {
+      @include flex-container(row, nowrap, center, center);
+      gap: 5px;
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
+      input {
+        padding: 20px;
+        border: none;
+        border-radius: 6px;
+        background: var(--white-shadow-light);
+        backdrop-filter: blur(8px);
+        color: var(--white);
+        transition: background 0.3s, box-shadow 0.3s;
+        width: 100%;
+        font-family: var(--font-tektur);
+        font-size: var(--font-12);
+        letter-spacing: 3px;
+        font-weight: 600;
+        outline: none;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+          font-size: var(--font-10);
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
+        &::placeholder {
+          color: var(--white-shadow-1);
+          font-family: var(--font-tektur);
+          font-size: var(--font-12);
+          letter-spacing: 3px;
+          font-weight: 400;
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+            font-size: var(--font-10);
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
+        }
+      }
+    }
+    .forget-password-button-container {
+    }
+  }
 }
