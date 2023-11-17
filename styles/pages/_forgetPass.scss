@@ -180,6 +180,94 @@
       }
     }
     .forget-password-button-container {
+      .forget-password-button {
+        font-family: var(--font-elianto);
+        font-size: var(--font-11);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--black);
+        position: relative;
+        right: 10%;
+        left: 10%;
+        width: 80%;
+        z-index: 1;
+        margin: 5% 0 0 0;
+        padding: 15px 30px;
+        background: linear-gradient(to right, #4caf50, #2ecc71);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out,
+          background 0.4s ease-in-out;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+          font-size: var(--font-9);
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
+        &:hover {
+          background: linear-gradient(
+            135deg,
+            darken(#2ecc71, 10%),
+            darken(#4caf50, 10%)
+          );
+          transform: translateY(1px);
+          box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
+        }
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          width: 50px;
+          height: 50px;
+          background: var(--white-shadow-1);
+          border-radius: 50%;
+          opacity: 0.4;
+          pointer-events: none;
+          transform: scale(0);
+          transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+        }
+
+        &::before {
+          top: -25px;
+          left: -25px;
+        }
+
+        &::after {
+          bottom: -25px;
+          right: -25px;
+        }
+        // ! important
+        &:hover::before {
+          top: 0px;
+          left: -25px;
+        }
+        &:hover::after {
+          top: 0;
+          right: -25px;
+        }
+
+        &::before {
+          animation: ripple 2s linear infinite;
+        }
+
+        &::after {
+          animation: ripple 2s linear infinite;
+        }
+        @keyframes ripple {
+          to {
+            transform: scale(5);
+            opacity: 0;
+          }
+        }
+      }
     }
   }
 }
