@@ -42,7 +42,7 @@ function ForgetPassword() {
       }
     } catch (error) {
       console.error("Error generating OTP:", error);
-      alert("Error generating OTP. Please try again.");
+      alert(otpResponse.message);
     } finally {
       setLoading(false);
     }
