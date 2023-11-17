@@ -19,6 +19,8 @@ function ForgetPassword() {
     hasSpecialChar: false,
   });
   const [passwordMatch, setPasswordMatch] = useState(false);
+  const [newPasswordFocused, setNewPasswordFocused] = useState(false);
+  const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,6 +76,22 @@ function ForgetPassword() {
     setPasswordMatch(newPassword === confirmPasswordValue);
   };
 
+  const handleNewPasswordFocus = () => {
+    setNewPasswordFocused(true);
+  };
+
+  const handleConfirmPasswordFocus = () => {
+    setConfirmPasswordFocused(true);
+  };
+
+  const handleNewPasswordBlur = () => {
+    setNewPasswordFocused(false);
+  };
+
+  const handleConfirmPasswordBlur = () => {
+    setConfirmPasswordFocused(false);
+  };
+
   const handleNewPasswordSubmit = (e) => {
     e.preventDefault();
 
@@ -115,9 +133,9 @@ function ForgetPassword() {
         <div className="forget-password-container">
           <h1 className="forget-password-heading">Forgot Password</h1>
           {otpResponse && otpResponse.status ? (
-            <>
+            <Fragment>
               <h3 className="forget-password-subheading">
-                Verify OTP and enter your new password!
+                Verify OTP and enter your new password 😊
               </h3>
               <form
                 className="new-password-form"
@@ -154,43 +172,61 @@ function ForgetPassword() {
                     placeholder="New Password"
                     value={newPassword}
                     onChange={handleNewPasswordChange}
+                    onFocus={handleNewPasswordFocus}
+                    onBlur={handleNewPasswordBlur}
                     style={{
-                      border: passwordStatus.isLengthValid
-                        ? "2px solid green"
-                        : "2px solid red",
-                      color: passwordStatus.isLengthValid ? "green" : "red",
+                      border:
+                        // newPasswordFocused &&
+                        passwordStatus.isLengthValid &&
+                        passwordStatus.hasUpperCase &&
+                        passwordStatus.hasLowerCase &&
+                        passwordStatus.hasDigit &&
+                        passwordStatus.hasSpecialChar
+                          ? "2px solid green"
+                          : "2px solid red",
+                      color:
+                        // newPasswordFocused &&
+                        passwordStatus.isLengthValid &&
+                        passwordStatus.hasUpperCase &&
+                        passwordStatus.hasLowerCase &&
+                        passwordStatus.hasDigit &&
+                        passwordStatus.hasSpecialChar
+                          ? "green"
+                          : "red",
                     }}
                   />
-                  <div style={{ fontSize: "12px", marginTop: "5px" }}>
-                    Password Requirements:
-                    <ul>
-                      <li>
-                        {passwordStatus.isLengthValid
-                          ? "✅ Minimum 8 characters"
-                          : "❌ Minimum 8 characters"}
-                      </li>
-                      <li>
-                        {passwordStatus.hasUpperCase
-                          ? "✅ At least one uppercase letter"
-                          : "❌ At least one uppercase letter"}
-                      </li>
-                      <li>
-                        {passwordStatus.hasLowerCase
-                          ? "✅ At least one lowercase letter"
-                          : "❌ At least one lowercase letter"}
-                      </li>
-                      <li>
-                        {passwordStatus.hasDigit
-                          ? "✅ At least one digit"
-                          : "❌ At least one digit"}
-                      </li>
-                      <li>
-                        {passwordStatus.hasSpecialChar
-                          ? "✅ At least one special character (@$!%*?&)"
-                          : "❌ At least one special character (@$!%*?&)"}
-                      </li>
-                    </ul>
-                  </div>
+                  {newPasswordFocused && (
+                    <div className="password-requirements">
+                      <p>Password Requirements:</p>
+                      <ul>
+                        <li>
+                          {passwordStatus.isLengthValid
+                            ? "✅ Minimum 8 characters"
+                            : "❌ Minimum 8 characters"}
+                        </li>
+                        <li>
+                          {passwordStatus.hasUpperCase
+                            ? "✅ At least one uppercase letter"
+                            : "❌ At least one uppercase letter"}
+                        </li>
+                        <li>
+                          {passwordStatus.hasLowerCase
+                            ? "✅ At least one lowercase letter"
+                            : "❌ At least one lowercase letter"}
+                        </li>
+                        <li>
+                          {passwordStatus.hasDigit
+                            ? "✅ At least one digit"
+                            : "❌ At least one digit"}
+                        </li>
+                        <li>
+                          {passwordStatus.hasSpecialChar
+                            ? "✅ At least one special character (@$!%*?&)"
+                            : "❌ At least one special character (@$!%*?&)"}
+                        </li>
+                      </ul>
+                    </div>
+                  )}
                 </div>
                 <div className="confirm-password-input-container">
                   <Image
@@ -206,18 +242,28 @@ function ForgetPassword() {
                     placeholder="Confirm Password"
                     value={confirmPassword}
                     onChange={handleConfirmPasswordChange}
+                    onFocus={handleConfirmPasswordFocus}
+                    onBlur={handleConfirmPasswordBlur}
                     style={{
-                      border: passwordMatch
-                        ? "2px solid green"
-                        : "2px solid red",
-                      color: passwordMatch ? "green" : "red",
+                      border: confirmPasswordFocused
+                        ? passwordMatch
+                          ? "2px solid green"
+                          : "2px solid red"
+                        : "none",
+                      color: confirmPasswordFocused
+                        ? passwordMatch
+                          ? "green"
+                          : "red"
+                        : "inherit",
                     }}
                   />
-                  <div style={{ fontSize: "12px", marginTop: "5px" }}>
-                    {passwordMatch
-                      ? "✅ Passwords match"
-                      : "❌ Passwords do not match"}
-                  </div>
+                  {confirmPasswordFocused && (
+                    <div className="confirm-password">
+                      {passwordMatch
+                        ? "✅ Passwords match"
+                        : "❌ Passwords do not match"}
+                    </div>
+                  )}
                 </div>
                 <div className="new-password-button-container">
                   <button type="submit" className="new-password-button">
@@ -225,9 +271,9 @@ function ForgetPassword() {
                   </button>
                 </div>
               </form>
-            </>
+            </Fragment>
           ) : (
-            <>
+            <Fragment>
               <div className="forget-password-subheading-container">
                 <h3 className="forget-password-subheading">
                   Enter your userId/Email address to generate OTP 😁
@@ -266,7 +312,7 @@ function ForgetPassword() {
                   </button>
                 </div>
               </form>
-            </>
+            </Fragment>
           )}
         </div>
       </LandingLayout>
