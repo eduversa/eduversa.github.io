@@ -8,6 +8,7 @@ function ForgetPassword() {
   const [inputValue, setInputValue] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
   const [otpResponse, setOtpResponse] = useState(null);
 
@@ -54,8 +55,16 @@ function ForgetPassword() {
       return;
     }
 
+    if (!otp) {
+      alert("Please enter the OTP.");
+      return;
+    }
+
+    // Additional logic for updating the password using OTP
+
     setNewPassword("");
     setConfirmPassword("");
+    setOtp("");
     setOtpResponse(null);
 
     alert("Password updated successfully!");
@@ -82,6 +91,15 @@ function ForgetPassword() {
                 className="new-password-form"
                 onSubmit={handleNewPasswordSubmit}
               >
+                <div className="otp-input-container">
+                  <input
+                    type="text"
+                    className="otp-input"
+                    placeholder="Enter OTP"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                  />
+                </div>
                 <div className="new-password-input-container">
                   <input
                     type="password"
