@@ -92,6 +92,14 @@ function ForgetPassword() {
                 onSubmit={handleNewPasswordSubmit}
               >
                 <div className="otp-input-container">
+                  <Image
+                    src="/forget/otp.png"
+                    alt="otp"
+                    height={20}
+                    width={20}
+                    className="otp-icon"
+                  ></Image>
+
                   <input
                     type="text"
                     className="otp-input"
@@ -101,6 +109,13 @@ function ForgetPassword() {
                   />
                 </div>
                 <div className="new-password-input-container">
+                  <Image
+                    src="/login/password.png"
+                    alt="password"
+                    height={20}
+                    width={20}
+                    className="password-icon"
+                  ></Image>
                   <input
                     type="password"
                     className="new-password-input"
@@ -110,6 +125,13 @@ function ForgetPassword() {
                   />
                 </div>
                 <div className="confirm-password-input-container">
+                  <Image
+                    src="/login/password.png"
+                    alt="password"
+                    height={20}
+                    width={20}
+                    className="password-icon"
+                  ></Image>
                   <input
                     type="password"
                     className="confirm-password-input"
