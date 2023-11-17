@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import Image from "next/image";
 import { AllLoader } from "@/components";
 import { LandingLayout } from "@/layout";
-import { generateOtpApi } from "@/functions";
+import { generateOtpApi, resetPasswordApi } from "@/functions";
 
 function ForgetPassword() {
   const [inputValue, setInputValue] = useState("");
@@ -92,7 +92,7 @@ function ForgetPassword() {
     setConfirmPasswordFocused(false);
   };
 
-  const handleNewPasswordSubmit = (e) => {
+  const handleNewPasswordSubmit = async (e) => {
     e.preventDefault();
 
     if (!passwordMatch) {
@@ -112,12 +112,32 @@ function ForgetPassword() {
       return;
     }
 
-    setNewPassword("");
-    setConfirmPassword("");
-    setOtp("");
-    setOtpResponse(null);
+    try {
+      setLoading(true);
+      const resetPasswordResponse = await resetPasswordApi(
+        inputValue.trim(),
+        otp,
+        newPassword,
+        confirmPassword
+      );
 
-    alert("Password updated successfully!");
+      console.log(resetPasswordResponse);
+
+      if (resetPasswordResponse.status) {
+        setNewPassword("");
+        setConfirmPassword("");
+        setOtp("");
+        setOtpResponse(null);
+        alert("Password updated successfully!");
+      } else {
+        alert(resetPasswordResponse.message);
+      }
+    } catch (error) {
+      console.error("Error updating password:", error.message);
+      alert("An error occurred while updating the password.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const isStrongPassword = (password) => {
