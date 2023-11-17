@@ -175,16 +175,24 @@ function ForgetPassword() {
                     onFocus={handleNewPasswordFocus}
                     onBlur={handleNewPasswordBlur}
                     style={{
-                      border: newPasswordFocused
-                        ? passwordStatus.isLengthValid
+                      border:
+                        // newPasswordFocused &&
+                        passwordStatus.isLengthValid &&
+                        passwordStatus.hasUpperCase &&
+                        passwordStatus.hasLowerCase &&
+                        passwordStatus.hasDigit &&
+                        passwordStatus.hasSpecialChar
                           ? "2px solid green"
-                          : "2px solid red"
-                        : "none",
-                      color: newPasswordFocused
-                        ? passwordStatus.isLengthValid
+                          : "2px solid red",
+                      color:
+                        // newPasswordFocused &&
+                        passwordStatus.isLengthValid &&
+                        passwordStatus.hasUpperCase &&
+                        passwordStatus.hasLowerCase &&
+                        passwordStatus.hasDigit &&
+                        passwordStatus.hasSpecialChar
                           ? "green"
-                          : "red"
-                        : "inherit",
+                          : "red",
                     }}
                   />
                   {newPasswordFocused && (
