@@ -153,7 +153,7 @@ function Login() {
                 </Link>
               </div>
               <div className="register">
-                <span>New to universa?</span>
+                <span>New to eduversa?</span>
                 <Link href="/register">
                   <p className="rerister-promt">Click here to Register</p>
                 </Link>
