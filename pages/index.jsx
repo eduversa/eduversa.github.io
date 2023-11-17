@@ -4,19 +4,23 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
 import { loginUser } from "@/functions";
+import { AllLoader } from "@/components";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const apiResponse = await loginUser(username, password);
       if (apiResponse.status === false) {
         console.log("Login data:", apiResponse);
         alert(apiResponse.message);
+        setLoading(false);
         return;
       }
       console.log("Login data:", apiResponse);
@@ -28,6 +32,8 @@ function Login() {
       console.log("Email", localStorage.getItem("email"));
       console.log("UserType", localStorage.getItem("userType"));
       console.log("UserId", localStorage.getItem("userid"));
+      alert(apiResponse.message);
+      setLoading(false);
       if (apiResponse.data.type === "applicant") {
         router.push("/applicant");
       } else if (apiResponse.data.type === "student") {
@@ -39,14 +45,15 @@ function Login() {
       } else {
         alert("Invalid User Type");
       }
-      alert(apiResponse.message);
     } catch (error) {
       console.error("Error in login:", error);
     }
   };
+
   return (
     <Fragment>
       <LandingLayout>
+        {loading && <AllLoader />}
         <div className="login-container">
           <h2 className="login-heading">Login</h2>
           <div className="login-subheading-container">
@@ -137,7 +144,14 @@ function Login() {
               </button>
             </div>
             <div className="extra-options">
-              <span className="forget-password">Forgot Password?</span>
+              <div className="forget-option">
+                <Link href="/forgetpassword">
+                  <span className="forget-password">Forgot Password?</span>
+                </Link>
+                <Link href="/forgetusername">
+                  <span className="forget-password">Forget username?</span>
+                </Link>
+              </div>
               <div className="register">
                 <span>New to universa?</span>
                 <Link href="/register">

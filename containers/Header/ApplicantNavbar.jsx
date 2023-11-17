@@ -2,18 +2,23 @@ import React, { Fragment, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { logoutApi } from "@/functions";
+import { AllLoader } from "@/components";
+
 function ApplicantNavbar() {
   const router = useRouter();
   const logoText = "eduversa";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleLogout = async () => {
     const userId = localStorage.getItem("userid");
     const authToken = localStorage.getItem("authToken");
 
     try {
+      setIsLoading(true);
       const apiResponse = await logoutApi(userId, authToken);
       if (apiResponse.status === false) {
         alert(apiResponse.message);
+        setIsLoading(false);
         return;
       }
       console.log("Logout data:", apiResponse);
@@ -23,6 +28,7 @@ function ApplicantNavbar() {
       localStorage.removeItem("userid");
       localStorage.clear();
       alert(apiResponse.message);
+      setIsLoading(false);
       router.push("/");
     } catch (error) {
       console.error("Logout error:", error.message);
@@ -41,6 +47,7 @@ function ApplicantNavbar() {
 
   return (
     <Fragment>
+      {isLoading && <AllLoader />}
       <header>
         <nav className="applicant-nav">
           <div className="logo">

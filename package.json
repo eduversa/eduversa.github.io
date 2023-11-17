@@ -2,16 +2,27 @@
   "name": "eduversa",
   "version": "0.1.0",
   "private": true,
+  "author": "Ankur halder",
+  "description": "Eduversa is an ERP system for educational institutions. It is a complete solution for managing a school, college, or university. It includes modules for admission, student information, attendance, examination, human resources, finance, and inventory management.",
+  "license": "MIT",
+  "main": "app.jsx",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eduversa/eduversa.github.io"
+  },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "fs": "^0.0.1-security",
     "next": "^13.5.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sharp": "^0.32.6",
+    "sitemap": "^7.1.1"
   },
   "devDependencies": {
     "eslint": "^8.53.0",

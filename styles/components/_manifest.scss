@@ -1,12 +1,27 @@
-@import "./loading/circle";
-@import "./loading/default";
-@import "./loading/dualRing";
-@import "./loading/ellipsis";
-@import "./loading/facebook";
-@import "./loading/grid";
-@import "./loading/heart";
-@import "./loading/hourglass";
-@import "./loading/ring";
-@import "./loading/ripple";
-@import "./loading/roller";
-@import "./loading/spinner";
+@import "loading/circle";
+@import "loading/default";
+@import "loading/dualRing";
+@import "loading/ellipsis";
+@import "loading/facebook";
+@import "loading/grid";
+@import "loading/heart";
+@import "loading/hourGlass";
+@import "loading/ring";
+@import "loading/ripple";
+@import "loading/roller";
+@import "loading/spinner";
+
+.loader-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--black-shadow-light-3);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  zoom: 2;
+}
