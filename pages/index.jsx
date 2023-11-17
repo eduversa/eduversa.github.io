@@ -49,6 +49,7 @@ function Login() {
       console.error("Error in login:", error);
     }
   };
+
   return (
     <Fragment>
       <LandingLayout>
@@ -143,7 +144,14 @@ function Login() {
               </button>
             </div>
             <div className="extra-options">
-              <span className="forget-password">Forgot Password?</span>
+              <div className="forget-option">
+                <Link href="/forgetpassword">
+                  <span className="forget-password">Forgot Password?</span>
+                </Link>
+                <Link href="/forgetusername">
+                  <span className="forget-password">Forget username?</span>
+                </Link>
+              </div>
               <div className="register">
                 <span>New to universa?</span>
                 <Link href="/register">
