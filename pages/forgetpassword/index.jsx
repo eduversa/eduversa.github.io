@@ -115,7 +115,7 @@ function ForgetPassword() {
         <div className="forget-password-container">
           <h1 className="forget-password-heading">Forgot Password</h1>
           {otpResponse && otpResponse.status ? (
-            <>
+            <Fragment>
               <h3 className="forget-password-subheading">
                 Verify OTP and enter your new password!
               </h3>
@@ -161,7 +161,7 @@ function ForgetPassword() {
                       color: passwordStatus.isLengthValid ? "green" : "red",
                     }}
                   />
-                  <div style={{ fontSize: "12px", marginTop: "5px" }}>
+                  <div className="password-requirements">
                     Password Requirements:
                     <ul>
                       <li>
@@ -225,9 +225,9 @@ function ForgetPassword() {
                   </button>
                 </div>
               </form>
-            </>
+            </Fragment>
           ) : (
-            <>
+            <Fragment>
               <div className="forget-password-subheading-container">
                 <h3 className="forget-password-subheading">
                   Enter your userId/Email address to generate OTP 😁
@@ -266,7 +266,7 @@ function ForgetPassword() {
                   </button>
                 </div>
               </form>
-            </>
+            </Fragment>
           )}
         </div>
       </LandingLayout>
