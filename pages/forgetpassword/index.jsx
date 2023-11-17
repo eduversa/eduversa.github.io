@@ -125,7 +125,7 @@ function ForgetPassword() {
             <>
               <div className="forget-password-subheading-container">
                 <h3 className="forget-password-subheading">
-                  Enter your userId/Email address to generate OTP.
+                  Enter your userId/Email address to generate OTP 😁
                 </h3>
               </div>
               <form className="forget-password-form" onSubmit={handleSubmit}>
@@ -138,6 +138,7 @@ function ForgetPassword() {
                       width={20}
                       className="username-icon"
                     ></Image>
+                    <p className="forgot-or">OR</p>
                     <Image
                       src="/login/password.png"
                       alt="password"
