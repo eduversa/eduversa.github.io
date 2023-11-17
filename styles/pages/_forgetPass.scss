@@ -47,4 +47,41 @@
     // }
     box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
   }
+  .forget-password-heading {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    z-index: 1;
+    color: var(--white);
+    font-family: var(--font-oswald);
+    font-size: var(--font-7);
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 0 0 3% 0;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-4);
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+    &::before {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--blue-7), var(--pink-4));
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: width 2s ease-in-out;
+      animation: underlineAnimation 2s infinite alternate;
+    }
+  }
 }
