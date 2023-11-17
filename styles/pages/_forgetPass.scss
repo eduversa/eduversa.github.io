@@ -487,11 +487,12 @@
         left: -100%;
         z-index: 1000;
         padding: 20px;
-        background: var(--black-shadow-medium);
+        background: var(--black-shadow-1);
         border: 1px solid var(--white-shadow-light-1);
         border-radius: 12px;
         box-shadow: 0 0 5px var(--black-shadow-light-1);
         @media (max-width: $breakpoint-desktop-wide) {
+          left: -110%;
         }
         @media (max-width: $breakpoint-desktop) {
         }

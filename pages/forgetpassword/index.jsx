@@ -187,38 +187,38 @@ function ForgetPassword() {
                         : "inherit",
                     }}
                   />
-                  {/* {newPasswordFocused && ( */}
-                  <div className="password-requirements">
-                    <p>Password Requirements:</p>
-                    <ul>
-                      <li>
-                        {passwordStatus.isLengthValid
-                          ? "✅ Minimum 8 characters"
-                          : "❌ Minimum 8 characters"}
-                      </li>
-                      <li>
-                        {passwordStatus.hasUpperCase
-                          ? "✅ At least one uppercase letter"
-                          : "❌ At least one uppercase letter"}
-                      </li>
-                      <li>
-                        {passwordStatus.hasLowerCase
-                          ? "✅ At least one lowercase letter"
-                          : "❌ At least one lowercase letter"}
-                      </li>
-                      <li>
-                        {passwordStatus.hasDigit
-                          ? "✅ At least one digit"
-                          : "❌ At least one digit"}
-                      </li>
-                      <li>
-                        {passwordStatus.hasSpecialChar
-                          ? "✅ At least one special character (@$!%*?&)"
-                          : "❌ At least one special character (@$!%*?&)"}
-                      </li>
-                    </ul>
-                  </div>
-                  {/* )} */}
+                  {newPasswordFocused && (
+                    <div className="password-requirements">
+                      <p>Password Requirements:</p>
+                      <ul>
+                        <li>
+                          {passwordStatus.isLengthValid
+                            ? "✅ Minimum 8 characters"
+                            : "❌ Minimum 8 characters"}
+                        </li>
+                        <li>
+                          {passwordStatus.hasUpperCase
+                            ? "✅ At least one uppercase letter"
+                            : "❌ At least one uppercase letter"}
+                        </li>
+                        <li>
+                          {passwordStatus.hasLowerCase
+                            ? "✅ At least one lowercase letter"
+                            : "❌ At least one lowercase letter"}
+                        </li>
+                        <li>
+                          {passwordStatus.hasDigit
+                            ? "✅ At least one digit"
+                            : "❌ At least one digit"}
+                        </li>
+                        <li>
+                          {passwordStatus.hasSpecialChar
+                            ? "✅ At least one special character (@$!%*?&)"
+                            : "❌ At least one special character (@$!%*?&)"}
+                        </li>
+                      </ul>
+                    </div>
+                  )}
                 </div>
                 <div className="confirm-password-input-container">
                   <Image
@@ -249,13 +249,13 @@ function ForgetPassword() {
                         : "inherit",
                     }}
                   />
-                  {/* {confirmPasswordFocused && ( */}
-                  <div className="confirm-password">
-                    {passwordMatch
-                      ? "✅ Passwords match"
-                      : "❌ Passwords do not match"}
-                  </div>
-                  {/* )} */}
+                  {confirmPasswordFocused && (
+                    <div className="confirm-password">
+                      {passwordMatch
+                        ? "✅ Passwords match"
+                        : "❌ Passwords do not match"}
+                    </div>
+                  )}
                 </div>
                 <div className="new-password-button-container">
                   <button type="submit" className="new-password-button">
