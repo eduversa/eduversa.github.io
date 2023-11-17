@@ -30,10 +30,15 @@ function ForgetPassword() {
       }
 
       if (isValidEmail(userIdOrEmail)) {
+        console.log(userIdOrEmail);
         const otpResponse = await generateOtpApi(userIdOrEmail);
+        //  Otp Generated
+        console.log(otpResponse);
         alert(otpResponse.message);
       } else if (isValidUserId(userIdOrEmail)) {
+        console.log(otpResponse);
         const otpResponse = await generateOtpApi(userIdOrEmail);
+        //  Otp Generated
         alert(otpResponse.message);
       } else {
         alert("Please enter a valid userId or Email address.");
