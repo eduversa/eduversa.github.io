@@ -1,0 +1,50 @@
+.forget-password-container {
+  max-width: 450px;
+  width: 100%;
+  max-height: 600px;
+  height: 100%;
+  margin: 5% 0 0 0;
+  padding: 30px;
+  background: var(--white-shadow-light);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--white-shadow-light-1);
+  border-radius: 12px;
+  box-shadow: 0 0 5px var(--black-shadow-light-1);
+  z-index: 5;
+  overflow: hidden;
+  transition: background 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+  @media (max-width: $breakpoint-desktop-wide) {
+    margin: 8% 0 0 0;
+    max-width: 400px;
+    max-height: 550px;
+    padding: 25px;
+  }
+  @media (max-width: $breakpoint-desktop) {
+    margin: 12% 0 0 0;
+    max-width: 370px;
+    max-height: 510px;
+    padding: 20px;
+  }
+  @media (max-width: $breakpoint-large-tablet) {
+    max-width: 400px;
+    max-height: 550px;
+    padding: 25px;
+  }
+  @media (max-width: $breakpoint-tablet) {
+    padding: 20px;
+    max-height: 530px;
+  }
+  @media (max-width: $breakpoint-phone) {
+    max-width: 350px;
+    max-height: 500px;
+    padding: 15px;
+  }
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    // ! important
+    // .login-heading::before {
+    //   width: 70%;
+    // }
+    box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
+  }
+}
