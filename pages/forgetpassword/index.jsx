@@ -11,15 +11,6 @@ function ForgetPassword() {
   const [loading, setLoading] = useState(false);
   const [otpResponse, setOtpResponse] = useState(null);
 
-  const isValidEmail = (value) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(value);
-  };
-
-  const isValidUserId = (value) => {
-    return /^\d+$/.test(value);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,20 +24,10 @@ function ForgetPassword() {
         return;
       }
 
-      if (isValidEmail(userIdOrEmail)) {
-        console.log(userIdOrEmail);
-        const otpResponse = await generateOtpApi(userIdOrEmail);
-        //  Otp Generated
-        console.log(otpResponse);
-        alert(otpResponse.message);
-      } else if (isValidUserId(userIdOrEmail)) {
-        console.log(otpResponse);
-        const otpResponse = await generateOtpApi(userIdOrEmail);
-        //  Otp Generated
-        alert(otpResponse.message);
-      } else {
-        alert("Please enter a valid userId or Email address.");
-      }
+      const otpResponse = await generateOtpApi(userIdOrEmail);
+      console.log(otpResponse);
+      alert(otpResponse.message);
+      setOtpResponse(otpResponse);
     } catch (error) {
       console.error("Error generating OTP:", error);
       alert("Error generating OTP. Please try again.");
