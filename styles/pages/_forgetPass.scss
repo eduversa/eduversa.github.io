@@ -361,6 +361,7 @@
         font-weight: 600;
         outline: none;
         @media (max-width: $breakpoint-desktop-wide) {
+          padding: 15px;
         }
         @media (max-width: $breakpoint-desktop) {
         }
