@@ -1,11 +1,11 @@
 import { Fragment } from "react";
-import { ApplicantLayout } from "@/layout";
+import { LandingLayout } from "@/layout";
 function ForgetPassword() {
   return (
     <Fragment>
-      <ApplicantLayout>
+      <LandingLayout>
         <h1>Forget Password</h1>
-      </ApplicantLayout>
+      </LandingLayout>
     </Fragment>
   );
 }

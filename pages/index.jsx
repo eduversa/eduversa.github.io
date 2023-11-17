@@ -49,16 +49,7 @@ function Login() {
       console.error("Error in login:", error);
     }
   };
-  const handleGenerateOtp = async () => {
-    try {
-      const userId = "USER_ID";
-      const otpResponse = await generateOtpApi(userId);
-      console.log(" OTP response:", otpResponse);
-      alert(otpResponse.message);
-    } catch (error) {
-      console.error("Error generating OTP:", error);
-    }
-  };
+
   return (
     <Fragment>
       <LandingLayout>
@@ -154,12 +145,10 @@ function Login() {
             </div>
             <div className="extra-options">
               <div className="forget-option">
-                <span onClick={handleGenerateOtp} className="forget-password">
-                  Forgot Password?
-                </span>
-                <span onClick={handleGenerateOtp} className="forget-password">
-                  Forget username?
-                </span>
+                <Link href="/forgetpassword">
+                  <span className="forget-password">Forgot Password?</span>
+                </Link>
+                <span className="forget-password">Forget username?</span>
               </div>
               <div className="register">
                 <span>New to universa?</span>
