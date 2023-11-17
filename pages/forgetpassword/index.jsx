@@ -11,6 +11,13 @@ function ForgetPassword() {
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
   const [otpResponse, setOtpResponse] = useState(null);
+  const [passwordStatus, setPasswordStatus] = useState({
+    isLengthValid: false,
+    hasUpperCase: false,
+    hasLowerCase: false,
+    hasDigit: false,
+    hasSpecialChar: false,
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,6 +47,25 @@ function ForgetPassword() {
     }
   };
 
+  const handleNewPasswordChange = (e) => {
+    const newPasswordValue = e.target.value;
+    setNewPassword(newPasswordValue);
+
+    const isLengthValid = newPasswordValue.length >= 8;
+    const hasUpperCase = /[A-Z]/.test(newPasswordValue);
+    const hasLowerCase = /[a-z]/.test(newPasswordValue);
+    const hasDigit = /\d/.test(newPasswordValue);
+    const hasSpecialChar = /[@$!%*?&]/.test(newPasswordValue);
+
+    setPasswordStatus({
+      isLengthValid,
+      hasUpperCase,
+      hasLowerCase,
+      hasDigit,
+      hasSpecialChar,
+    });
+  };
+
   const handleNewPasswordSubmit = (e) => {
     e.preventDefault();
 
@@ -59,8 +85,6 @@ function ForgetPassword() {
       alert("Please enter the OTP.");
       return;
     }
-
-    // Additional logic for updating the password using OTP
 
     setNewPassword("");
     setConfirmPassword("");
@@ -121,8 +145,44 @@ function ForgetPassword() {
                     className="new-password-input"
                     placeholder="New Password"
                     value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    onChange={handleNewPasswordChange}
+                    style={{
+                      border: passwordStatus.isLengthValid
+                        ? "2px solid green"
+                        : "2px solid red",
+                      color: passwordStatus.isLengthValid ? "green" : "red",
+                    }}
                   />
+                  <div style={{ fontSize: "12px", marginTop: "5px" }}>
+                    Password Requirements:
+                    <ul>
+                      <li>
+                        {passwordStatus.isLengthValid
+                          ? "✅ Minimum 8 characters"
+                          : "❌ Minimum 8 characters"}
+                      </li>
+                      <li>
+                        {passwordStatus.hasUpperCase
+                          ? "✅ At least one uppercase letter"
+                          : "❌ At least one uppercase letter"}
+                      </li>
+                      <li>
+                        {passwordStatus.hasLowerCase
+                          ? "✅ At least one lowercase letter"
+                          : "❌ At least one lowercase letter"}
+                      </li>
+                      <li>
+                        {passwordStatus.hasDigit
+                          ? "✅ At least one digit"
+                          : "❌ At least one digit"}
+                      </li>
+                      <li>
+                        {passwordStatus.hasSpecialChar
+                          ? "✅ At least one special character (@$!%*?&)"
+                          : "❌ At least one special character (@$!%*?&)"}
+                      </li>
+                    </ul>
+                  </div>
                 </div>
                 <div className="confirm-password-input-container">
                   <Image
