@@ -3,6 +3,7 @@ import Image from "next/image";
 import { AllLoader } from "@/components";
 import { LandingLayout } from "@/layout";
 import { generateOtpApi, resetPasswordApi } from "@/functions";
+import { useRouter } from "next/router";
 
 function ForgetPassword() {
   const [inputValue, setInputValue] = useState("");
@@ -21,7 +22,7 @@ function ForgetPassword() {
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [newPasswordFocused, setNewPasswordFocused] = useState(false);
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
-
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -129,6 +130,8 @@ function ForgetPassword() {
         setOtp("");
         setOtpResponse(null);
         alert(resetPasswordResponse.message);
+        setLoading(false);
+        router.push("/");
       } else {
         alert(resetPasswordResponse.message);
       }
