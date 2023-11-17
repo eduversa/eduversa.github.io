@@ -83,6 +83,11 @@
       transition: width 2s ease-in-out;
       animation: underlineAnimation 2s infinite alternate;
     }
+    @keyframes underlineAnimation {
+      to {
+        width: 20%;
+      }
+    }
   }
   .login-subheading-container {
     text-align: center;
@@ -112,11 +117,6 @@
         font-size: var(--font-7);
       }
       @media (max-width: $breakpoint-phone) {
-      }
-    }
-    @keyframes underlineAnimation {
-      to {
-        width: 20%;
       }
     }
   }
