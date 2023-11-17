@@ -1,7 +1,11 @@
 import { Fragment } from "react";
 import { LandingLayout } from "@/layout";
 function ForgetCredential() {
-  return <div></div>;
+  return (
+    <Fragment>
+      <LandingLayout></LandingLayout>
+    </Fragment>
+  );
 }
 
 export default ForgetCredential;
