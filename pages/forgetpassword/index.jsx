@@ -1,9 +1,9 @@
 import { Fragment, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { AllLoader } from "@/components";
 import { LandingLayout } from "@/layout";
 import { generateOtpApi, resetPasswordApi } from "@/functions";
-import { useRouter } from "next/router";
 
 function ForgetPassword() {
   const [inputValue, setInputValue] = useState("");
