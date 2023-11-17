@@ -128,7 +128,7 @@ function ForgetPassword() {
         setConfirmPassword("");
         setOtp("");
         setOtpResponse(null);
-        alert("Password updated successfully!");
+        alert(resetPasswordResponse.message);
       } else {
         alert(resetPasswordResponse.message);
       }

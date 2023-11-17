@@ -12,6 +12,8 @@ const resetPasswordApi = async (
   try {
     console.log("Reset Password Function Called");
     console.log("User ID or Email:", userIdOrEmail);
+    console.log("OTP:", otp);
+    console.log(newPassword, confirmPassword);
 
     const response = await fetch(url, {
       method: "PUT",
