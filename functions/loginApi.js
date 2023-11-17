@@ -2,8 +2,8 @@ const apiBaseUrl = "https://eduversa-api.onrender.com";
 
 const loginUser = async (username, password) => {
   const apiUrl = `${apiBaseUrl}/account/auth`;
-  // const tempUserId = localStorage.getItem("registeredUserId");
-  // const tempUserPassword = "Test@1234";
+  const tempUserId = localStorage.getItem("registeredUserId");
+  const tempUserPassword = "Test@1234";
   try {
     console.log("Login Function Called");
     console.log("Username:", username);
@@ -14,8 +14,8 @@ const loginUser = async (username, password) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        user_id: username,
-        password: password,
+        user_id: tempUserId,
+        password: tempUserPassword,
       }),
     });
     if (!response.ok) {
