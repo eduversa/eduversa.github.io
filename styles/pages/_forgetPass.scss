@@ -480,5 +480,19 @@
         }
       }
     }
+    .new-password-input-container {
+      .password-requirements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        padding: 30px;
+        background: var(--black-shadow-medium);
+        backdrop-filter: blur(100px);
+        border: 1px solid var(--white-shadow-light-1);
+        border-radius: 12px;
+        box-shadow: 0 0 5px var(--black-shadow-light-1);
+      }
+    }
   }
 }

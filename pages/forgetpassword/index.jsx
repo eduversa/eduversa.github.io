@@ -84,6 +84,14 @@ function ForgetPassword() {
     setConfirmPasswordFocused(true);
   };
 
+  const handleNewPasswordBlur = () => {
+    setNewPasswordFocused(false);
+  };
+
+  const handleConfirmPasswordBlur = () => {
+    setConfirmPasswordFocused(false);
+  };
+
   const handleNewPasswordSubmit = (e) => {
     e.preventDefault();
 
@@ -108,8 +116,6 @@ function ForgetPassword() {
     setConfirmPassword("");
     setOtp("");
     setOtpResponse(null);
-    setNewPasswordFocused(false);
-    setConfirmPasswordFocused(false);
 
     alert("Password updated successfully!");
   };
@@ -167,6 +173,7 @@ function ForgetPassword() {
                     value={newPassword}
                     onChange={handleNewPasswordChange}
                     onFocus={handleNewPasswordFocus}
+                    onBlur={handleNewPasswordBlur}
                     style={{
                       border: newPasswordFocused
                         ? passwordStatus.isLengthValid
@@ -228,6 +235,7 @@ function ForgetPassword() {
                     value={confirmPassword}
                     onChange={handleConfirmPasswordChange}
                     onFocus={handleConfirmPasswordFocus}
+                    onBlur={handleConfirmPasswordBlur}
                     style={{
                       border: confirmPasswordFocused
                         ? passwordMatch
