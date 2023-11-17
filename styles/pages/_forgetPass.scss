@@ -122,7 +122,7 @@
     @media (max-width: $breakpoint-phone) {
     }
     .forget-password-input-container {
-      @include flex-container(row, nowrap, center, center);
+      @include flex-container(column, nowrap, center, center);
       gap: 5px;
       @media (max-width: $breakpoint-desktop-wide) {
       }
@@ -133,6 +133,26 @@
       @media (max-width: $breakpoint-tablet) {
       }
       @media (max-width: $breakpoint-phone) {
+      }
+      .image-container {
+        @include flex-container(row, nowrap, center, center);
+        .username-icon,
+        .password-icon {
+          filter: invert(0.5);
+          position: relative;
+          height: 40px;
+          width: 40px;
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
+        }
       }
       input {
         padding: 20px;
@@ -176,6 +196,12 @@
           }
           @media (max-width: $breakpoint-phone) {
           }
+        }
+      }
+      &:focus-within {
+        .username-icon,
+        .password-icon {
+          filter: invert(1);
         }
       }
     }

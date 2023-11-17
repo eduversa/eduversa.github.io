@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+import Image from "next/image";
 import { AllLoader } from "@/components";
 import { LandingLayout } from "@/layout";
 import { generateOtpApi } from "@/functions";
@@ -129,6 +130,22 @@ function ForgetPassword() {
               </div>
               <form className="forget-password-form" onSubmit={handleSubmit}>
                 <div className="forget-password-input-container">
+                  <div className="image-container">
+                    <Image
+                      src="/login/username.png"
+                      alt="username"
+                      height={20}
+                      width={20}
+                      className="username-icon"
+                    ></Image>
+                    <Image
+                      src="/login/password.png"
+                      alt="password"
+                      height={20}
+                      width={20}
+                      className="password-icon"
+                    />
+                  </div>
                   <input
                     type="text"
                     className="forget-password-input"
