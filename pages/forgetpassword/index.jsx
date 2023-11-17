@@ -5,6 +5,8 @@ import { generateOtpApi } from "@/functions";
 
 function ForgetPassword() {
   const [inputValue, setInputValue] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [otpResponse, setOtpResponse] = useState(null);
 
@@ -50,6 +52,32 @@ function ForgetPassword() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleNewPasswordSubmit = (e) => {
+    e.preventDefault();
+
+    if (newPassword !== confirmPassword) {
+      alert("Passwords do not match. Please make sure the passwords match.");
+      return;
+    }
+
+    if (!isStrongPassword(newPassword)) {
+      alert(
+        "Please enter a password that is at least 8 characters long, contains at least one uppercase letter, one lowercase letter, one digit, and one special character."
+      );
+      return;
+    }
+    setNewPassword("");
+    setConfirmPassword("");
+    setOtpResponse(null);
+
+    alert("Password updated successfully!");
+  };
+  const isStrongPassword = (password) => {
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
   };
 
   return (
