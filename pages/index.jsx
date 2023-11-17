@@ -153,9 +153,14 @@ function Login() {
               </button>
             </div>
             <div className="extra-options">
-              <span onClick={handleGenerateOtp} className="forget-password">
-                Forgot Password?
-              </span>
+              <div className="forget-option">
+                <span onClick={handleGenerateOtp} className="forget-password">
+                  Forgot Password?
+                </span>
+                <span onClick={handleGenerateOtp} className="forget-password">
+                  Forget username?
+                </span>
+              </div>
               <div className="register">
                 <span>New to universa?</span>
                 <Link href="/register">

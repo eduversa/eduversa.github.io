@@ -3,7 +3,12 @@ import { LandingLayout } from "@/layout";
 function ForgetCredential() {
   return (
     <Fragment>
-      <LandingLayout></LandingLayout>
+      <LandingLayout>
+        <div className="forget-container">
+          <div className="forget-userid"></div>
+          <div className="forget-password"></div>
+        </div>
+      </LandingLayout>
     </Fragment>
   );
 }
