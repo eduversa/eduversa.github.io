@@ -176,6 +176,7 @@ function ForgetPassword() {
                     onBlur={handleNewPasswordBlur}
                     style={{
                       border:
+                        // ! important
                         // newPasswordFocused &&
                         passwordStatus.isLengthValid &&
                         passwordStatus.hasUpperCase &&
@@ -185,6 +186,7 @@ function ForgetPassword() {
                           ? "2px solid green"
                           : "2px solid red",
                       color:
+                        // ! important
                         // newPasswordFocused &&
                         passwordStatus.isLengthValid &&
                         passwordStatus.hasUpperCase &&

@@ -143,6 +143,8 @@
           height: 50px;
           width: 50px;
           @media (max-width: $breakpoint-desktop-wide) {
+            height: 40px;
+            width: 40px;
           }
           @media (max-width: $breakpoint-desktop) {
           }
@@ -186,6 +188,7 @@
         font-weight: 600;
         outline: none;
         @media (max-width: $breakpoint-desktop-wide) {
+          padding: 15px;
         }
         @media (max-width: $breakpoint-desktop) {
         }
@@ -331,6 +334,8 @@
         height: 40px;
         width: 40px;
         @media (max-width: $breakpoint-desktop-wide) {
+          height: 30px;
+          width: 30px;
         }
         @media (max-width: $breakpoint-desktop) {
         }
