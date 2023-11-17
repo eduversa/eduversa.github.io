@@ -18,7 +18,7 @@ const loginUser = async (username, password) => {
         password: tempUserPassword,
       }),
     });
-    if (response.status === false) {
+    if (!response.ok) {
       console.log(response);
       throw new Error(`HTTP error! Status: ${response.status}`);
     }

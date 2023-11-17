@@ -1,8 +1,8 @@
 const BASE_URL = "https://eduversa-api.onrender.com";
 
 const generateOtpApi = async (userIdOrEmail) => {
-  const url = `${BASE_URL}/account/?query=${userIdOrEmail}`;
-
+  const url = `${BASE_URL}/account/OTP/?query=${userIdOrEmail}`;
+  console.log("URL:", url);
   try {
     console.log("Generate OTP Function Called");
     console.log("User ID:", userIdOrEmail);
@@ -14,7 +14,7 @@ const generateOtpApi = async (userIdOrEmail) => {
       },
     });
 
-    if (response.status === false) {
+    if (!response.ok) {
       console.log(response);
       throw new Error(
         `Generate OTP request failed with status ${response.status}`
