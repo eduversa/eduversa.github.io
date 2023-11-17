@@ -31,10 +31,10 @@ function ForgetPassword() {
 
       if (isValidEmail(userIdOrEmail)) {
         const otpResponse = await generateOtpApi(userIdOrEmail);
-        alert("OTP generated and sent to email successfully!");
+        alert(otpResponse.message);
       } else if (isValidUserId(userIdOrEmail)) {
         const otpResponse = await generateOtpApi(userIdOrEmail);
-        alert("OTP generated and sent to email successfully!");
+        alert(otpResponse.message);
       } else {
         alert("Please enter a valid userId or Email address.");
       }
