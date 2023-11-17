@@ -118,32 +118,63 @@ const ApplicantForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
 
-  // handles the change in the form input fields
-  const handleChange = (event) => {
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  
+  //   // Check if the target is 'formData', and update the formData directly
+  //   if (name === 'formData') {
+  //     setFormData(value);
+  //     return;
+  //   }
+  
+  //   // Split the name into an array using dot notation to access nested properties
+  //   const nameArray = name.split('.');
+  
+  //   // Use reduce to traverse the nested structure and update the state
+  //   setFormData((prevFormData) => {
+  //     let updatedData = { ...prevFormData };
+  //     let currentLevel = updatedData;
+  
+  //     for (let i = 0; i < nameArray.length; i++) {
+  //       if (i === nameArray.length - 1) {
+  //         // Update the value at the last level
+  //         currentLevel[nameArray[i]] = value;
+  //       } else {
+  //         // Create nested structures if they don't exist
+  //         currentLevel[nameArray[i]] = { ...currentLevel[nameArray[i]] };
+  //         // Move to the next level
+  //         currentLevel = currentLevel[nameArray[i]];
+  //       }
+  //     }
+  
+  //     return updatedData;
+  //   });
+  // };
+
+  const handleChange = (event, callback) => {
     const { name, value } = event.target;
   
-    // Split the name into an array using dot notation to access nested properties
-    const nameArray = name.split('.');
+    if (name === 'formData') {
+      setFormData(value, callback);
+      return;
+    }
   
-    // Use reduce to traverse the nested structure and update the state
+    const nameArray = name.split('.');
     setFormData((prevFormData) => {
       let updatedData = { ...prevFormData };
       let currentLevel = updatedData;
   
       for (let i = 0; i < nameArray.length; i++) {
         if (i === nameArray.length - 1) {
-          // Update the value at the last level
           currentLevel[nameArray[i]] = value;
         } else {
-          // Create nested structures if they don't exist
           currentLevel[nameArray[i]] = { ...currentLevel[nameArray[i]] };
-          // Move to the next level
           currentLevel = currentLevel[nameArray[i]];
         }
       }
   
       return updatedData;
-    });
+    }, callback);
   };
 
   // Save form data to local storage when the SAVE button is pressed
