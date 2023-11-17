@@ -86,7 +86,7 @@ function ForgetPassword() {
       <LandingLayout>
         {loading && <AllLoader />}
         <div className="forget-password-container">
-          <h1 className="forget-password-heading">Forget Password</h1>
+          <h1 className="forget-password-heading">Forgot Password</h1>
           {otpResponse ? (
             <>
               <h3 className="forget-password-subheading">
