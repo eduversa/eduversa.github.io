@@ -7,7 +7,7 @@ const CourseInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
   return (
     <div className="page">
       <h2 className="page--title">Course Information</h2> 
-      <form className="page--content" onSubmit={handleSubmit}>
+      <form className="page--content" onSubmit={handleNextClick}>
         {/* enrollment no */}
         <Text
           label="Enrollment Number"
@@ -76,18 +76,9 @@ const CourseInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
           >
             Prev
           </button>
-          <button 
-            type="button" 
-            className="btn" 
-            onClick={handleSave}
-          >
-            Save
-          </button>
-          <button 
-            type="submit" 
-            className="btn"
-          >
-            Submit
+          <button type="button" className="btn" onClick={handleSave}>Save</button>
+          <button type="submit" className="btn">
+            Next
           </button>
         </div>
       </form>

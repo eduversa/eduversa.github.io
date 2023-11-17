@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PersonalInfo, FamilyInfo, AcademicInfo, CourseInfo } from "./formPages";
+import { PersonalInfo, FamilyInfo, AcademicInfo, CourseInfo, FileUpload } from "./formPages";
 
 const ApplicantForm = () => {
 
@@ -102,7 +102,8 @@ const ApplicantForm = () => {
       duration: "",
       stream: "",
       admission_year: ""
-    }
+    },
+    image: null
   }
   const [formData, setFormData] = useState(initialFormData);
 
@@ -236,15 +237,26 @@ const ApplicantForm = () => {
         handleSubmit={handleSubmit}
         handleSave={handleSave}
       />,
+      <FileUpload 
+        formData={formData} 
+        handleChange={handleChange} 
+        handleNextClick={handleNextClick} 
+        handlePreviousClick={handlePreviousClick} 
+        handleSubmit={handleSubmit}
+        handleSave={handleSave}
+      />,
 
   ]
 
+  let progress=currentStep/(renderStep.length)*100
+  console.log(progress)
 
   return (
     <div className="form">
       <h1 className="form--heading">Applicant Form</h1>
 
       <div className="form--content">
+        <div className="progress-bar" style={{ width: `${progress}%` }}></div>
         {/* displaying the pages from the array according to the page number */}
         {renderStep[currentStep-1]}
       </div>
