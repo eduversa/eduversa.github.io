@@ -120,7 +120,7 @@ function ForgetUsername() {
               <form className="forget-username-form" onSubmit={handleSubmit}>
                 <div className="forget-username-input-container">
                   <Image
-                    src="/login/email.png"
+                    src="/register/gmail.png"
                     alt="email"
                     height={20}
                     width={20}
