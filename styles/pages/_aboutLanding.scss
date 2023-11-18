@@ -35,6 +35,12 @@
   .key-solution-and-objective,
   .future-plans {
     margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
 
     h2 {
       cursor: pointer;
@@ -44,10 +50,15 @@
     }
 
     div {
-      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
       border: 1px solid #ddd;
       border-radius: 5px;
-
+      padding: 15px;
+      text-align: center;
       p.heading {
         font-weight: bold;
         margin-bottom: 10px;
