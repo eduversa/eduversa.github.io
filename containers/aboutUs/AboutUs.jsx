@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 
 const aboutUs = require("../../data/aboutUs");
 
@@ -6,6 +6,11 @@ function AboutUs() {
   const [showProblems, setShowProblems] = useState(false);
   const [showKeySolution, setShowKeySolution] = useState(false);
   const [showFuturePlans, setShowFuturePlans] = useState(false);
+  const authToken =
+    typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+  const containerClass = authToken
+    ? "about-us-container"
+    : "about-us-landing-container";
 
   const toggleSection = (section) => {
     switch (section) {
@@ -70,28 +75,30 @@ function AboutUs() {
   };
 
   return (
-    <div className="about-us-container">
-      <div className="description">{aboutUs.description}</div>
+    <Fragment>
+      <div className={containerClass}>
+        <div className="description">{aboutUs.description}</div>
 
-      <div className="technologies">{aboutUs.technologies}</div>
+        <div className="technologies">{aboutUs.technologies}</div>
 
-      <div className="problems">
-        <h2 onClick={() => toggleSection("problems")}>Problems</h2>
-        {generateProblemsContent()}
+        <div className="problems">
+          <h2 onClick={() => toggleSection("problems")}>Problems</h2>
+          {generateProblemsContent()}
+        </div>
+
+        <div className="key-solution-and-objective">
+          <h2 onClick={() => toggleSection("keySolution")}>
+            Key Solution and Objective
+          </h2>
+          {generateKeySolutionAndObjectiveContent()}
+        </div>
+
+        <div className="future-plans">
+          <h2 onClick={() => toggleSection("futurePlans")}>Future Plans</h2>
+          {generateFuturePlansContent()}
+        </div>
       </div>
-
-      <div className="key-solution-and-objective">
-        <h2 onClick={() => toggleSection("keySolution")}>
-          Key Solution and Objective
-        </h2>
-        {generateKeySolutionAndObjectiveContent()}
-      </div>
-
-      <div className="future-plans">
-        <h2 onClick={() => toggleSection("futurePlans")}>Future Plans</h2>
-        {generateFuturePlansContent()}
-      </div>
-    </div>
+    </Fragment>
   );
 }
 
