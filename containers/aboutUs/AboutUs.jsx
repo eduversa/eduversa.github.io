@@ -35,6 +35,9 @@ function AboutUs() {
           key={index}
           className={`problem-${key.toLowerCase().replace(/ /g, "-")}`}
         >
+          <p className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
+            {key}
+          </p>
           {value}
         </div>
       ));
@@ -52,6 +55,9 @@ function AboutUs() {
               .toLowerCase()
               .replace(/ /g, "-")}`}
           >
+            <p className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
+              {key}
+            </p>
             {value}
           </div>
         )
@@ -67,6 +73,9 @@ function AboutUs() {
           key={index}
           className={`future-plans-${key.toLowerCase().replace(/ /g, "-")}`}
         >
+          <p className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
+            {key}
+          </p>
           {value}
         </div>
       ));
