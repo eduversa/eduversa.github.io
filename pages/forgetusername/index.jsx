@@ -124,21 +124,23 @@ function ForgetUsername() {
               </div>
               <form className="forget-username-form" onSubmit={handleSubmit}>
                 <div className="forget-username-input-container">
-                  <Image
-                    src="/register/gmail.png"
-                    alt="email"
-                    height={20}
-                    width={20}
-                    className="email-icon"
-                  ></Image>
-                  <p className="forgot-or">OR</p>
-                  <Image
-                    src="/login/password.png"
-                    alt="password"
-                    height={20}
-                    width={20}
-                    className="password-icon"
-                  />
+                  <div className="image-container">
+                    <Image
+                      src="/register/gmail.png"
+                      alt="email"
+                      height={20}
+                      width={20}
+                      className="email-icon"
+                    ></Image>
+                    <p className="forgot-or">OR</p>
+                    <Image
+                      src="/login/password.png"
+                      alt="password"
+                      height={20}
+                      width={20}
+                      className="password-icon"
+                    />
+                  </div>
                   <input
                     type="text"
                     className="forget-username-input"

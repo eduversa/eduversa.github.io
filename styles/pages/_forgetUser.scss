@@ -106,12 +106,75 @@
     @media (max-width: $breakpoint-phone) {
     }
   }
-  .verify-otp-form {
-    .otp-input-container {
-      .otp-icon {
+  .forget-username-form {
+    @include flex-container(column, nowrap, none, none);
+    z-index: 1;
+    gap: 0px;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+    .forget-username-input-container {
+      @include flex-container(column, nowrap, center, center);
+      gap: 20px;
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
+      .image-container {
+        @include flex-container(row, nowrap, center, center);
+        gap: 30px;
+        .email-icon,
+        .password-icon {
+          filter: invert(0.5);
+          position: relative;
+          height: 50px;
+          width: 50px;
+          @media (max-width: $breakpoint-desktop-wide) {
+            height: 40px;
+            width: 40px;
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
+        }
+        .forgot-or {
+          font-family: var(--font-tektur);
+          font-size: var(--font-10);
+          font-weight: 600;
+          letter-spacing: 3px;
+          color: var(--black);
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
+        }
       }
     }
-    .verify-otp-button-container {
+    .forget-username-button-container {
     }
   }
 }
