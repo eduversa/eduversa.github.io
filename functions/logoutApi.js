@@ -14,7 +14,7 @@ const logoutApi = async (userId, authToken) => {
       },
     });
 
-    if (response.status === false) {
+    if (!response.ok) {
       console.log(response);
       throw new Error(`Logout request failed with status ${response.status}`);
     }

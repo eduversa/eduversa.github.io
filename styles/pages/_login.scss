@@ -83,6 +83,11 @@
       transition: width 2s ease-in-out;
       animation: underlineAnimation 2s infinite alternate;
     }
+    @keyframes underlineAnimation {
+      to {
+        width: 20%;
+      }
+    }
   }
   .login-subheading-container {
     text-align: center;
@@ -112,11 +117,6 @@
         font-size: var(--font-7);
       }
       @media (max-width: $breakpoint-phone) {
-      }
-    }
-    @keyframes underlineAnimation {
-      to {
-        width: 20%;
       }
     }
   }
@@ -405,35 +405,51 @@
       }
       @media (max-width: $breakpoint-phone) {
       }
-      span {
-        font-family: var(--font-roboto);
-        font-size: var(--font-12);
-        letter-spacing: 1px;
-        font-weight: 400;
+      .forget-option {
+        @include flex-container(column, nowrap, center, center);
+        gap: 5px;
         @media (max-width: $breakpoint-desktop-wide) {
         }
         @media (max-width: $breakpoint-desktop) {
-          font-size: var(--font-13);
         }
         @media (max-width: $breakpoint-large-tablet) {
         }
         @media (max-width: $breakpoint-tablet) {
-          font-size: var(--font-9);
         }
         @media (max-width: $breakpoint-phone) {
         }
-        transition: transform 0.4s ease-in-out, text-shadow 0.4s ease-in-out,
-          color 0.4s ease-in-out, letter-spacing 0.4s ease-in-out;
-        &:hover {
-          cursor: pointer;
-          color: var(--red-2);
-          transform: translateY(1px) translateX(-1px) scale(1.05);
-          text-shadow: 0px 8px 20px var(--black-shadow);
-          letter-spacing: 2px;
-          font-weight: 500;
+        span {
+          font-family: var(--font-roboto);
+          font-size: var(--font-12);
+          letter-spacing: 1px;
+          font-weight: 400;
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+            font-size: var(--font-13);
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+            font-size: var(--font-9);
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
+          transition: transform 0.4s ease-in-out, text-shadow 0.4s ease-in-out,
+            color 0.4s ease-in-out, letter-spacing 0.4s ease-in-out;
+          &:hover {
+            cursor: pointer;
+            color: var(--red-2);
+            transform: translateY(1px) translateX(-1px) scale(1.05);
+            text-shadow: 0px 8px 20px var(--black-shadow);
+            letter-spacing: 2px;
+            font-weight: 500;
+          }
         }
       }
       .register {
+        @include flex-container(column, nowrap, center, center);
+        gap: 5px;
         span {
           font-family: var(--font-roboto);
           font-size: var(--font-12);
@@ -459,7 +475,6 @@
           }
         }
         p {
-          margin: 2% 0 0 0;
           font-family: var(--font-oswald);
           font-size: var(--font-13);
           text-transform: uppercase;
