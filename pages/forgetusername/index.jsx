@@ -64,6 +64,7 @@ function ForgetUsername() {
 
       if (verifyOtpResponse.status) {
         alert(verifyOtpResponse.message);
+        router.push("/");
       } else {
         alert("OTP verification failed. Please try again.");
       }
