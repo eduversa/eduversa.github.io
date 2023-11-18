@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
 import { AllLoader } from "@/components";
-import { generateOtpApi, verifyOtpApi } from "@/functions";
+import { generateOtpApi, resetUserNameApi } from "@/functions";
 
 function ForgetUsername() {
   const router = useRouter();
@@ -53,12 +53,17 @@ function ForgetUsername() {
   const handleVerifyOtp = async () => {
     try {
       setLoading(true);
-      const verifyOtpResponse = await verifyOtpApi(inputValue.trim(), otp);
+      if (!otp) {
+        alert("Please enter the OTP.");
+        setLoading(false);
+        return;
+      }
+      const verifyOtpResponse = await resetUserNameApi(inputValue.trim(), otp);
 
       console.log(verifyOtpResponse);
 
       if (verifyOtpResponse.status) {
-        alert("OTP verification successful!");
+        alert(verifyOtpResponse.message);
       } else {
         alert("OTP verification failed. Please try again.");
       }
