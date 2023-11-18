@@ -1,0 +1,318 @@
+.form {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 5rem;
+  transition: background 800ms ease-in-out;
+
+  label {
+    font-weight: bold;
+    display: flex;
+    margin-bottom: 0.3rem;
+    font-size: var(--font-12);
+    color: var(--blue-6);
+  }
+  input[type="radio"] {
+    margin-right: 0.3rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  select {
+    display: block;
+    width: 100%;
+    padding: 0.3rem 0.75rem;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    margin-bottom: 1.25rem;
+    &:invalid,
+    &.invalid {
+      color: red;
+      // border: 1px solid red ;
+    }
+  }
+  input[type="checkbox"] {
+    margin: 0 10px;
+  }
+
+  @media (max-width: $breakpoint-desktop-wide) {
+  }
+  @media (max-width: $breakpoint-desktop) {
+  }
+  @media (max-width: $breakpoint-large-tablet) {
+    padding: 2rem 2.5rem;
+  }
+  @media (max-width: $breakpoint-tablet) {
+    padding: 2rem 1.5rem;
+  }
+  @media (max-width: $breakpoint-phone) {
+  }
+
+  &--heading {
+    font-family: var(--font-roboto);
+    font-size: var(--font-7);
+    font-weight: bold;
+    text-align: center;
+    z-index: 10;
+    padding: 0 0 2rem;
+
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-5);
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+  }
+  &--content {
+    height: fit-content;
+    border-radius: 10px;
+    // box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+    box-shadow: 0px 0px 20px 10px hsla(0, 0%, 100%, 0.75);
+    width: 1100px;
+    overflow: hidden;
+    background: white;
+    // background: var(--line-background);
+    // background: linear-gradient(to right, var(--light-black-3), var(--white-5));
+    // background-size: 10% 100%;
+    // background-repeat: repeat;
+    // background: #e0e0e0;
+    // padding: 0 2rem;
+
+    hr {
+      height: 2px;
+      background: var(--light-black-8);
+      border-top: 0;
+    }
+
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+      width: 100%;
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+
+    .progress-bar {
+      height: 10px;
+      // background: rgb(144, 238, 144);
+      // box-shadow: 0px 2px 10px 10px rgba(144, 238, 144, 1);
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      transition: width 800ms ease-in-out, background 800ms ease-in-out;
+    }
+
+    .page {
+      padding: 0 2rem;
+
+      &--title {
+        font-family: var(--font-roboto);
+        font-size: var(--font-9);
+        text-align: center;
+        padding: 1.5rem 0;
+
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+          font-size: var(--font-7);
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
+      }
+      &--content {
+        .sub-heading {
+          font-weight: bold;
+          font-size: var(--font-10);
+          padding: 1rem 0.5rem;
+          text-align: center;
+
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+            font-size: var(--font-9);
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
+        }
+        .sub-sub-heading {
+          font-weight: bold;
+          font-size: var(--font-11);
+          padding: 0.8rem 0.5rem;
+          text-align: center;
+
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+            font-size: var(--font-10);
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
+        }
+
+        .grid-col-3 {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 2rem;
+
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+            grid-template-columns: 1fr;
+            gap: 0;
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
+        }
+
+        .grid-col-2 {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+            grid-template-columns: 1fr;
+            gap: 0;
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
+        }
+
+        .image-upload {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          .image-preview {
+            height: 200px;
+            width: 200px;
+            // overflow: hidden;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          .btn {
+            margin: 1rem 1rem 2rem 1rem;
+            border: 1px white solid;
+            font-size: var(--font-11);
+            background: hsl(235, 17%, 26%);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+
+            @media (max-width: $breakpoint-desktop-wide) {
+            }
+            @media (max-width: $breakpoint-desktop) {
+            }
+            @media (max-width: $breakpoint-large-tablet) {
+              padding: 0.75rem 1.5rem;
+            }
+            @media (max-width: $breakpoint-tablet) {
+              margin: 1rem 0.5rem 1rem;
+              padding: 0.5rem 1rem;
+            }
+            @media (max-width: $breakpoint-phone) {
+            }
+
+            &:hover {
+              transform: scale(1.05);
+              color: black;
+              background: hsl(233, 24%, 85%);
+            }
+            &:active {
+              transform: scale(0.9);
+            }
+          }
+        }
+
+        .btns {
+          display: flex;
+          justify-content: center;
+          .btn {
+            margin: 1rem 1rem 2rem 1rem;
+            border: 1px white solid;
+            font-size: var(--font-11);
+            background: hsl(235, 17%, 26%);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+
+            @media (max-width: $breakpoint-desktop-wide) {
+            }
+            @media (max-width: $breakpoint-desktop) {
+            }
+            @media (max-width: $breakpoint-large-tablet) {
+              padding: 0.75rem 1.5rem;
+            }
+            @media (max-width: $breakpoint-tablet) {
+              margin: 1rem 0.5rem 1rem;
+              padding: 0.5rem 1rem;
+            }
+            @media (max-width: $breakpoint-phone) {
+            }
+
+            &:hover {
+              transform: scale(1.05);
+              color: black;
+              background: hsl(233, 24%, 85%);
+            }
+            &:active {
+              transform: scale(0.9);
+            }
+          }
+        }
+      }
+    }
+  }
+}
