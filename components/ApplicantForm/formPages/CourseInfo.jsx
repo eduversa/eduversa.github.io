@@ -81,6 +81,7 @@ const CourseInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             Next
           </button>
         </div>
+    
       </form>
     </div>
   );

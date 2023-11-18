@@ -1,31 +1,52 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
+import { Image } from '../inputComponent/InputComponent';
 
-const FileUpload = ({ formData, handleChange, handleSave, handleNextClick, handlePreviousClick, handleSubmit }) => {
-  const [photo, setPhoto] = useState(null);
+const FileUpload = ({ formData, setFormData, handleSave, handlePreviousClick, handleSubmit }) => {
+  const [imagePreview, setImagePreview] = useState(formData.image);
 
-  const handlePhotoUpload = (event) => {
-    const uploadedPhoto = event.target.files[0];
-    setPhoto(uploadedPhoto);
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+        setFormData({ ...formData, image: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
-  const handlePhotoSave = () => {
-    // Store the photo in formData
-    setFormData({
-      ...formData,
-      photo: photo, // Update the photo field in formData with the uploaded photo
-    });
-  };
   return (
     <div className="page">
       <h2 className="page--title">File Upload</h2>
       <form className="page--content" onSubmit={handleSubmit}>
-        <div>
-          {/* File Input for photo upload */}
-          <label>Upload photo:</label>
-          <input type="file" onChange={handlePhotoUpload} accept="image/*" />
+        <div className="image-upload">
+          {imagePreview && (
+            <div className="image-preview" >
+              <img src={imagePreview} alt="Preview" />
+            </div>
+          )}
 
+          <label htmlFor="user-image" className="btn">Upload Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            name="user-image"
+            id="user-image"
+            onChange={handleFileInputChange}
+            style={{ display: 'none' }}
+          />
         </div>
-        <div className="btns"> {/* buttons */}
+        
+        {/* <Image 
+          label="Upload Image"
+          name="user-image"
+          id="user-image"
+          onChange={handleFileInputChange}
+          imagePreview={imagePreview}
+        /> */}
+
+        <div className="btns">
           <button
             type="button"
             className="btn"
@@ -33,26 +54,32 @@ const FileUpload = ({ formData, handleChange, handleSave, handleNextClick, handl
           >
             Prev
           </button>
-          <button
-            type="button"
-            className="btn"
-            onClick={() => {
-              handlePhotoSave();
-              handleSave();
-            }}
+          <button 
+            type="button" 
+            className="btn" 
+            onClick={handleSave}
           >
             Save
           </button>
-          <button
-            type="submit"
+          <button 
+            type="submit" 
             className="btn"
           >
             Submit
           </button>
         </div>
       </form>
+      {/* {selectedFile && (
+        <div>
+          <h3>Selected File:</h3>
+          <p>{selectedFile.name}</p>
+          <button type="button" onClick={handleRemoveFile}>
+            Remove File
+          </button>
+        </div>
+      )} */}
     </div>
-  )
-}
+  );
+};
 
-export default FileUpload
+export default FileUpload;

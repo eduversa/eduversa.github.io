@@ -47,6 +47,8 @@ const AcademicInfo = ({ formData, handleChange, handleSave, handleNextClick, han
           />
         </div>
 
+        <hr />
+
         <h3 className="sub-heading">Secondary Education</h3> {/* Secondary */}
         {/* school_name */}
         <Text
@@ -92,6 +94,8 @@ const AcademicInfo = ({ formData, handleChange, handleSave, handleNextClick, han
             required
           />
         </div>
+
+        <hr />
 
         <h3 className="sub-heading">Higher Secondary Education</h3> {/* Higher Secondary */}
         {/* school_name */}

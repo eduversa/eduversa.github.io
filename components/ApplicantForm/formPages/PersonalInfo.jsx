@@ -1,5 +1,7 @@
 import React,{useState, useEffect} from "react";
-import {Text, Email, Number, Select, DateInput} from "../inputComponent/InputComponent";
+import {Text, Email, Number, Select, DateInput, Pincode, Aadhar, Pan, PhoneNumber} from "../inputComponent/InputComponent";
+import fetchAddressFromPincode from "../inputComponent/fetchAddressFromPincode";
+
 
 const PersonalInfo = ({ formData, handleChange, handleSave, handleNextClick, handlePreviousClick, handleSubmit }) => {
   const copyAddress = (e) => {
@@ -38,86 +40,78 @@ const PersonalInfo = ({ formData, handleChange, handleSave, handleNextClick, han
 
   const [presentPincode, setPresentPincode] = useState("");
   const [permanentPincode, setPermanentPincode] = useState("");
+  
+  const [presentPincodeError, setPresentPincodeError] = useState(false);
+  const [permanentPincodeError, setPermanentPincodeError] = useState(false);
 
   useEffect(() => {
     if (presentPincode.length === 6) {
-      fetchAddressFromPincode(presentPincode, 'present_address');
+      fetchAddressFromPincode(formData, handleChange, 'personal_info.present_address', presentPincode, setPresentPincodeError);
     }
   }, [presentPincode]);
 
   useEffect(() => {
     if (permanentPincode.length === 6) {
-      fetchAddressFromPincode(permanentPincode, 'permanent_address');
+      fetchAddressFromPincode(formData, handleChange, 'personal_info.permanent_address', permanentPincode, setPermanentPincodeError);
     }
   }, [permanentPincode]);
 
   // Function to fetch address details(state, district, city) from pincode
-  const fetchAddressFromPincode = async (pincode, addressType) => {
-    if (pincode.length !== 6) {
-      return;
-    }
+  // const fetchAddressFromPincode = async (pincode, addressType) => {
+  //   if (pincode.length !== 6) {
+  //     return;
+  //   }
 
-    try {
-      const response = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
-      if (response.ok) {
-        const data = await response.json();
-        if (data && data.length > 0 && data[0].PostOffice.length > 0) {
-          const postOffice = data[0].PostOffice[0];
-          const street = [postOffice.Name, postOffice.Division, postOffice.Region, postOffice.Block]
-            .filter(value => Boolean(value) && value !== "NA")
-            .join(", ");
-          const updatedFormData = {
-            ...formData,
-            personal_info: {
-              ...formData.personal_info,
-              [addressType]: {
-                ...formData.personal_info[addressType],
-                street: street,
-                city: postOffice.Region !== "NA" ? postOffice.Region : "",
-                district: postOffice.District !== "NA" ? postOffice.District : "",
-                state: postOffice.State !== "NA" ? postOffice.State : "",
-              },
-            },
-          };
-          handleChange({ target: { name: 'formData', value: updatedFormData } });
-        }
-      } else {
-        throw new Error("Failed to fetch data");
-      }
-    } catch (error) {
-      console.error("Error fetching address details:", error);
-    }
-  };
+  //   try {
+  //     const response = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       if (data && data.length > 0 && data[0].PostOffice.length > 0) {
+  //         const postOffice = data[0].PostOffice[0];
+  //         const street = [
+  //           postOffice.Name, 
+  //           postOffice.Division, 
+  //           postOffice.Region, 
+  //           postOffice.Block
+  //         ]
+  //           .filter(value => Boolean(value) && value !== "NA")
+  //           .join(", ");
+  //         const updatedFormData = {
+  //           ...formData,
+  //           personal_info: {
+  //             ...formData.personal_info,
+  //             [addressType]: {
+  //               ...formData.personal_info[addressType],
+  //               street: street,
+  //               city: postOffice.Region !== "NA" ? postOffice.Region : "",
+  //               district: postOffice.District !== "NA" ? postOffice.District : "",
+  //               state: postOffice.State !== "NA" ? postOffice.State : "",
+  //             },
+  //           },
+  //         };
+  //         handleChange({ target: { name: 'formData', value: updatedFormData } });
+  //       }
+  //     } else {
+  //       throw new Error("Pincode does not exist");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching address details (Pincode does not exist):", error);
+  //   }
+  // };
 
 
   return (
     <div className="page">
       <h2 className="page--title">Personal Information</h2>
       <form className="page--content" onSubmit={handleNextClick}>
-        <div className="grid-col-3"> {/* name */}
-          <Text
-            label="First Name"
-            name="personal_info.first_name"
-            value={formData.personal_info.first_name}
-            onChange={handleChange}
-            required
-          />
-
-          <Text
-            label="Middle Name"
-            name="personal_info.middle_name"
-            value={formData.personal_info.middle_name}
-            onChange={handleChange}
-          />
-
-          <Text
-            label="Last Name"
-            name="personal_info.last_name"
-            value={formData.personal_info.last_name}
-            onChange={handleChange}
-            required
-          />          
-        </div>
+        {/* name */}
+        <Text   
+          label="Name"
+          name="personal_info.name"
+          value={formData.personal_info.name}
+          onChange={handleChange}
+          required
+        />
         <div className="grid-col-2"> {/* email contact */}
           <Email
             label="Email"
@@ -127,14 +121,12 @@ const PersonalInfo = ({ formData, handleChange, handleSave, handleNextClick, han
             required
           />
 
-          <Number
+          <PhoneNumber
             label="Contact Number"
             name="personal_info.contact"
             value={formData.personal_info.contact}
             onChange={handleChange}
             required
-            min="1000000000"
-            max="9999999999"
           />          
         </div>
         <div className="grid-col-2"> {/* gender dob */}
@@ -198,17 +190,16 @@ const PersonalInfo = ({ formData, handleChange, handleSave, handleNextClick, han
           />
         </div>
         <div className="grid-col-2"> {/* aadhar pan */}
-          <Number 
+          <Aadhar 
             label="Aadhar Number"
             name="personal_info.aadhar_number"
             value={formData.personal_info.aadhar_number}
             onChange={handleChange}
             required
-            min="100000000000"
-            max="999999999999"
+
           />
 
-          <Text
+          <Pan
             label="PAN Number"
             name="personal_info.pan_number"
             value={formData.personal_info.pan_number}
@@ -218,6 +209,8 @@ const PersonalInfo = ({ formData, handleChange, handleSave, handleNextClick, han
             maxLength="10"
           />
         </div>
+        
+        <hr />
 
         <h3 className="sub-heading">Present Address</h3> {/* present address */}
         <Text
@@ -228,7 +221,7 @@ const PersonalInfo = ({ formData, handleChange, handleSave, handleNextClick, han
           required
         />
         <div className="grid-col-2"> {/* pin city */}
-          <Number
+          <Pincode
             label="Pincode"
             name="personal_info.present_address.pincode"
             value={formData.personal_info.present_address.pincode}
@@ -240,8 +233,7 @@ const PersonalInfo = ({ formData, handleChange, handleSave, handleNextClick, han
               }
             }}
             required
-            min="100000"
-            max="999999"
+            className={presentPincodeError ? "invalid" : ""}
           />
 
           <Text
@@ -269,19 +261,28 @@ const PersonalInfo = ({ formData, handleChange, handleSave, handleNextClick, han
             required
           />
         </div>
+        
+        <hr />
 
         <h3 className="sub-heading">Permanent Address</h3> {/* permanent address */}
-        <div> {/* is permanent address same as present address */}
+        {/* is permanent address same as present address */}
+        <div> 
           <label>
             <input
               type="checkbox"
-              name="sameAddress"
-              checked={formData.personal_info.are_addresses_same}
+              name="personal_info.are_addresses_same"
+              value={formData.personal_info.are_addresses_same}
               onChange={copyAddress}
-            />{' '}
+            />
             Same as Present Address
           </label>
         </div>
+        {/* <Checkbox 
+          name="personal_info.are_addresses_same"
+          value={formData.personal_info.are_addresses_same}
+          onChange={copyAddress}
+
+        /> */}
         <Text
           label="Street"
           name="personal_info.permanent_address.street"
@@ -289,7 +290,7 @@ const PersonalInfo = ({ formData, handleChange, handleSave, handleNextClick, han
           onChange={handleChange}
         />
         <div className="grid-col-2"> {/* pin city */}
-          <Number
+          <Pincode
             label="Pincode"
             name="personal_info.permanent_address.pincode"
             value={formData.personal_info.permanent_address.pincode}
@@ -300,8 +301,7 @@ const PersonalInfo = ({ formData, handleChange, handleSave, handleNextClick, han
                 setPermanentPincode(e.target.value);
               }
             }}
-            min="100000"
-            max="999999"
+            className={permanentPincodeError ? "invalid" : ""}
           />
           <Text
             label="City"

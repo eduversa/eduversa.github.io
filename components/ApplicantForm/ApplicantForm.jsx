@@ -3,9 +3,11 @@ import { PersonalInfo, FamilyInfo, AcademicInfo, CourseInfo, FileUpload } from "
 
 const ApplicantForm = () => {
 
-  // window.onbeforeunload = function() {
-  //   return "Data will be lost if you leave the page, are you sure?";
-  // };
+  // if (typeof window !== 'undefined') {
+  //   window.onbeforeunload = function() {
+  //     return "Data will be lost if you leave the page, are you sure?";
+  //   };
+  // }
 
   //initial Form Data
   const initialFormData = {
@@ -24,14 +26,12 @@ const ApplicantForm = () => {
         district: "",
         state: ""
       },
-      first_name: "Ankur",
-      middle_name: "",
-      last_name: "H",
+      name: "",
       email: "a@g.com",
       contact: "1234567890",
       gender: "",
       dob: "",
-      are_adresses_same: false,
+      are_adresses_same: true,
       category: "GN",
       blood_group: "B+",
       aadhar_number: "",
@@ -39,16 +39,12 @@ const ApplicantForm = () => {
     },
     family_info: {
       father: {
-        first_name: "",
-        middle_name: "",
-        last_name: "",
+        name: "",
         email: "",
         contact: ""
       },
       mother: {
-        first_name: "",
-        middle_name: "",
-        last_name: "",
+        name: "",
         email: "",
         contact: ""
       },
@@ -60,9 +56,7 @@ const ApplicantForm = () => {
           district: "",
           state: ""
         },
-        first_name: "",
-        middle_name: "",
-        last_name: "",
+        name: "",
         relation: "",
         occupation: "",
         designation: "",
@@ -118,40 +112,6 @@ const ApplicantForm = () => {
   //steps in the form
   const [currentStep, setCurrentStep] = useState(1);
 
-
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  
-  //   // Check if the target is 'formData', and update the formData directly
-  //   if (name === 'formData') {
-  //     setFormData(value);
-  //     return;
-  //   }
-  
-  //   // Split the name into an array using dot notation to access nested properties
-  //   const nameArray = name.split('.');
-  
-  //   // Use reduce to traverse the nested structure and update the state
-  //   setFormData((prevFormData) => {
-  //     let updatedData = { ...prevFormData };
-  //     let currentLevel = updatedData;
-  
-  //     for (let i = 0; i < nameArray.length; i++) {
-  //       if (i === nameArray.length - 1) {
-  //         // Update the value at the last level
-  //         currentLevel[nameArray[i]] = value;
-  //       } else {
-  //         // Create nested structures if they don't exist
-  //         currentLevel[nameArray[i]] = { ...currentLevel[nameArray[i]] };
-  //         // Move to the next level
-  //         currentLevel = currentLevel[nameArray[i]];
-  //       }
-  //     }
-  
-  //     return updatedData;
-  //   });
-  // };
-
   const handleChange = (event, callback) => {
     const { name, value } = event.target;
   
@@ -198,6 +158,7 @@ const ApplicantForm = () => {
   // function to submit the form
   const handleSubmit = (event) => {
     event.preventDefault(); 
+    alert("Form Submitted")
     console.log("Form submitted:", formData);
   };
 
@@ -239,6 +200,7 @@ const ApplicantForm = () => {
       />,
       <FileUpload 
         formData={formData} 
+        setFormData={setFormData}
         handleChange={handleChange} 
         handleNextClick={handleNextClick} 
         handlePreviousClick={handlePreviousClick} 
@@ -247,18 +209,41 @@ const ApplicantForm = () => {
       />,
 
   ]
+  // const renderStep =[
+  //   <PersonalInfo/>,
+  //   <FamilyInfo/>,
+  //   <AcademicInfo/>,
+  //   <CourseInfo/>,
+  //   <FileUpload/>,
+  // ]
 
-  let progress=currentStep/(renderStep.length)*100
-  console.log(progress)
+  const progress=currentStep/(renderStep.length)*100
 
   return (
-    <div className="form">
+    <div className="form" style={{background: `hsl(${(currentStep - 1) * 62.5}, 40% , 85%)`}}>
       <h1 className="form--heading">Applicant Form</h1>
 
       <div className="form--content">
-        <div className="progress-bar" style={{ width: `${progress}%` }}></div>
+        <div 
+          className="progress-bar" 
+          style={{ 
+            width: currentStep === renderStep.length ? `${progress +2}%` : `${progress}%`, 
+            background: `hsl(${(currentStep - 1) * 62.5}, 50% , 60%)`,
+            // borderBottomRightRadius: currentStep === renderStep.length ? "0" : "10px"
+          }}
+        >
+        </div>
         {/* displaying the pages from the array according to the page number */}
         {renderStep[currentStep-1]}
+        {/* {renderStep[currentStep - 1]({
+          formData,
+          setFormData,
+          handleChange,
+          handleNextClick,
+          handlePreviousClick,
+          handleSubmit,
+          handleSave
+        })} */}
       </div>
 
     </div>
