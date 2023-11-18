@@ -1,8 +1,5 @@
-.aboutus-container {
+.about-us-container {
+  max-height: 95vh;
   z-index: 5;
-  font-family: var(--font-elianto);
-  font-size: var(--font-8);
-  letter-spacing: 4px;
-  font-weight: 100;
-  text-transform: uppercase;
+  overflow-y: scroll;
 }
