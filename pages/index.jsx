@@ -49,7 +49,9 @@ function Login() {
       console.error("Error in login:", error);
     }
   };
-
+  const handleSocialLoginClick = (provider) => {
+    alert(`Login with ${provider} is coming soon!`);
+  };
   return (
     <Fragment>
       <LandingLayout>
@@ -107,6 +109,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="google-icon"
+                  onClick={() => handleSocialLoginClick("Google")}
                 ></Image>
                 <Image
                   src="/login/facebook.png"
@@ -114,6 +117,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="facebook-icon"
+                  onClick={() => handleSocialLoginClick("Facebook")}
                 ></Image>
                 <Image
                   src="/login/twitter.png"
@@ -121,6 +125,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="twitter-icon"
+                  onClick={() => handleSocialLoginClick("Twitter")}
                 ></Image>
                 <Image
                   src="/login/linkedin.png"
@@ -128,6 +133,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="linkedin-icon"
+                  onClick={() => handleSocialLoginClick("LinkedIn")}
                 ></Image>
                 <Image
                   src="/login/github.png"
@@ -135,6 +141,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="github-icon"
+                  onClick={() => handleSocialLoginClick("GitHub")}
                 ></Image>
               </div>
             </div>

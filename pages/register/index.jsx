@@ -33,6 +33,9 @@ function Register() {
       console.error("Error during registration:", error.message);
     }
   };
+  const handleSocialRegisterClick = (provider) => {
+    alert(`Register with ${provider} is coming soon!`);
+  };
   return (
     <Fragment>
       <LandingLayout>
@@ -70,35 +73,40 @@ function Register() {
                   height={25}
                   width={25}
                   className="google-icon"
-                />
+                  onClick={() => handleSocialRegisterClick("Google")}
+                ></Image>
                 <Image
                   src="/login/facebook.png"
                   alt="facebook"
                   height={25}
                   width={25}
                   className="facebook-icon"
-                />
+                  onClick={() => handleSocialRegisterClick("Facebook")}
+                ></Image>
                 <Image
                   src="/login/twitter.png"
                   alt="twitter"
                   height={25}
                   width={25}
                   className="twitter-icon"
-                />
+                  onClick={() => handleSocialRegisterClick("Twitter")}
+                ></Image>
                 <Image
                   src="/login/linkedin.png"
                   alt="linkedin"
                   height={25}
                   width={25}
                   className="linkedin-icon"
-                />
+                  onClick={() => handleSocialRegisterClick("LinkedIn")}
+                ></Image>
                 <Image
                   src="/login/github.png"
                   alt="github"
                   height={25}
                   width={25}
                   className="github-icon"
-                />
+                  onClick={() => handleSocialRegisterClick("GitHub")}
+                ></Image>
               </div>
             </div>
 

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
 import { AllLoader } from "@/components";
-import { generateOtpApi, verifyOtpApi } from "@/functions";
+import { generateOtpApi, resetUserNameApi } from "@/functions";
 
 function ForgetUsername() {
   const router = useRouter();
@@ -53,12 +53,18 @@ function ForgetUsername() {
   const handleVerifyOtp = async () => {
     try {
       setLoading(true);
-      const verifyOtpResponse = await verifyOtpApi(inputValue.trim(), otp);
+      if (!otp) {
+        alert("Please enter the OTP.");
+        setLoading(false);
+        return;
+      }
+      const verifyOtpResponse = await resetUserNameApi(inputValue.trim(), otp);
 
       console.log(verifyOtpResponse);
 
       if (verifyOtpResponse.status) {
-        alert("OTP verification successful!");
+        alert(verifyOtpResponse.message);
+        router.push("/");
       } else {
         alert("OTP verification failed. Please try again.");
       }
@@ -119,21 +125,23 @@ function ForgetUsername() {
               </div>
               <form className="forget-username-form" onSubmit={handleSubmit}>
                 <div className="forget-username-input-container">
-                  <Image
-                    src="/register/gmail.png"
-                    alt="email"
-                    height={20}
-                    width={20}
-                    className="email-icon"
-                  ></Image>
-                  <p className="forgot-or">OR</p>
-                  <Image
-                    src="/login/password.png"
-                    alt="password"
-                    height={20}
-                    width={20}
-                    className="password-icon"
-                  />
+                  <div className="image-container">
+                    <Image
+                      src="/register/gmail.png"
+                      alt="email"
+                      height={20}
+                      width={20}
+                      className="email-icon"
+                    ></Image>
+                    <p className="forgot-or">OR</p>
+                    <Image
+                      src="/login/password.png"
+                      alt="password"
+                      height={20}
+                      width={20}
+                      className="password-icon"
+                    />
+                  </div>
                   <input
                     type="text"
                     className="forget-username-input"
