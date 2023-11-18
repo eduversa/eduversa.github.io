@@ -45,7 +45,11 @@ function AboutUs() {
           key={index}
           className={`problem-${key.toLowerCase().replace(/ /g, "-")}`}
         >
-          <span className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
+          <span
+            className={`${key
+              .toLowerCase()
+              .replace(/ /g, "-")}-heading problem-grid-heading`}
+          >
             {generateFormattedHeading(key)}
           </span>
           {value}
@@ -65,7 +69,11 @@ function AboutUs() {
               .toLowerCase()
               .replace(/ /g, "-")}`}
           >
-            <span className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
+            <span
+              className={`${key
+                .toLowerCase()
+                .replace(/ /g, "-")}-heading solution-and-object-grid-heading`}
+            >
               {generateFormattedHeading(key)}
             </span>
             {value}
@@ -83,7 +91,11 @@ function AboutUs() {
           key={index}
           className={`future-plans-${key.toLowerCase().replace(/ /g, "-")}`}
         >
-          <span className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
+          <span
+            className={`${key
+              .toLowerCase()
+              .replace(/ /g, "-")}-heading future-plans-grid-heading `}
+          >
             {generateFormattedHeading(key)}
           </span>
           {value}

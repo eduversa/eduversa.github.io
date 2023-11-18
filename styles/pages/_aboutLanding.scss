@@ -102,7 +102,7 @@
     .technologies-heading {
       color: var(--white);
       font-family: var(--font-oswald);
-      font-size: var(--font-10);
+      font-size: var(--font-9);
       font-weight: 400;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -123,7 +123,7 @@
   .key-solution-and-objective,
   .future-plans {
     margin: 0 0 2% 0;
-    border: 1px solid var(--white-shadow-light-1);
+    // border: 1px solid var(--white-shadow-light-1);
     border-radius: 12px;
     padding: 15px;
     transition: background 0.5s ease-in-out, border 0.5s ease-in-out,
@@ -141,7 +141,7 @@
       text-align: center;
       color: var(--black);
       font-family: var(--font-source);
-      font-size: var(--font-10);
+      font-size: var(--font-8);
       text-transform: uppercase;
       transition: color 0.5s ease-in-out, text-decoration 0.5s ease-in-out;
       letter-spacing: 3px;
@@ -153,7 +153,7 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 15px;
       p {
         @include flex-container(column, nowrap, flex-start, center);
@@ -166,15 +166,49 @@
         &:hover {
           background: var(--white-shadow-light);
           transform: scale(1.02);
-          animation: shake 1s ease-in-out infinite;
+          animation: shake 3s ease-in-out infinite;
         }
         span {
           color: var(--white);
-          font-family: var(--font-roboto);
-          font-size: var(--font-12);
+          position: relative;
+          font-family: var(--font-elianto);
+          font-size: var(--font-11);
+          text-transform: capitalize;
           font-weight: 600;
-          // letter-spacing: 1.5px;
+          letter-spacing: 1.5px;
           text-shadow: 2px 2px 4px var(--black-shadow-light-1);
+          &::before {
+            content: "";
+            display: block;
+            width: 80%;
+            height: 3px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 2s ease-in-out;
+            animation: underlineAnimation 5s infinite alternate;
+          }
+          @keyframes underlineAnimation {
+            to {
+              width: 20%;
+            }
+          }
+        }
+        .problem-grid-heading {
+          &::before {
+            background: linear-gradient(to right, #1a936f, #91cb3e);
+          }
+        }
+        .solution-and-object-grid-heading {
+          &::before {
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+          }
+        }
+        .future-plans-grid-heading {
+          &::before {
+            background: linear-gradient(to right, #ffd300, #ff971d);
+          }
         }
       }
     }
