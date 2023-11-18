@@ -16,9 +16,9 @@
     transform 0.3s ease-in-out;
 
   &:hover {
-    background: var(--white-shadow-medium);
+    background: rgba(255, 255, 255, 0.05);
     border-color: var(--white-shadow-light-3);
-    transform: scale(1.02);
+    transform: scale(1.005);
   }
 
   h3.aboutus-heading {
@@ -50,8 +50,8 @@
       transform 0.3s ease-in-out;
 
     &:hover {
-      background: var(--white-shadow-medium);
-      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--white-shadow-light-2);
       transform: scale(1.02);
     }
 
