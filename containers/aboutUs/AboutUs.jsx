@@ -3,6 +3,43 @@ import React from "react";
 const aboutUs = require("../../data/aboutUs");
 
 function AboutUs() {
+  const generateProblemsContent = () => {
+    return Object.entries(aboutUs.problems).map(([key, value], index) => (
+      <div
+        key={index}
+        className={`problem-${key.toLowerCase().replace(/ /g, "-")}`}
+      >
+        {value}
+      </div>
+    ));
+  };
+
+  const generateKeySolutionAndObjectiveContent = () => {
+    return Object.entries(aboutUs.keySolutionAndObjective).map(
+      ([key, value], index) => (
+        <div
+          key={index}
+          className={`key-solution-and-objective-${key
+            .toLowerCase()
+            .replace(/ /g, "-")}`}
+        >
+          {value}
+        </div>
+      )
+    );
+  };
+
+  const generateFuturePlansContent = () => {
+    return Object.entries(aboutUs.futurePlans).map(([key, value], index) => (
+      <div
+        key={index}
+        className={`future-plans-${key.toLowerCase().replace(/ /g, "-")}`}
+      >
+        {value}
+      </div>
+    ));
+  };
+
   return (
     <div className="about-us-container">
       <div className="description">{aboutUs.description}</div>
@@ -11,69 +48,17 @@ function AboutUs() {
 
       <div className="problems">
         <h2>Problems</h2>
-        <ul>
-          {Object.values(aboutUs.problems).map((problem, index) => (
-            <li key={index}>{problem}</li>
-          ))}
-        </ul>
+        {generateProblemsContent()}
       </div>
 
       <div className="key-solution-and-objective">
         <h2>Key Solution and Objective</h2>
-        <div className="user-friendly-ui">
-          {aboutUs.keySolutionAndObjective.userFriendlyUI}
-        </div>
-        <div className="centralized-information">
-          {aboutUs.keySolutionAndObjective.centralizedInformation}
-        </div>
-        <div className="digital-administration-and-teacher-authority">
-          {
-            aboutUs.keySolutionAndObjective
-              .digitalAdministrationAndTeacherAuthority
-          }
-        </div>
-        <div className="mobile-responsiveness">
-          {aboutUs.keySolutionAndObjective.mobileResponsiveness}
-        </div>
-        <div className="role-based-access-control">
-          {aboutUs.keySolutionAndObjective.roleBasedAccessControl}
-        </div>
-        <div className="student-portal">
-          {aboutUs.keySolutionAndObjective.studentPortal}
-        </div>
-        <div className="comprehensive-control">
-          {aboutUs.keySolutionAndObjective.comprehensiveControl}
-        </div>
+        {generateKeySolutionAndObjectiveContent()}
       </div>
 
       <div className="future-plans">
         <h2>Future Plans</h2>
-        <div className="description">{aboutUs.futurePlans.description}</div>
-        <div className="digital-attendance-and-class-routine">
-          {aboutUs.futurePlans.digitalAttendanceAndClassRoutine}
-        </div>
-        <div className="google-classroom-like-feature">
-          {aboutUs.futurePlans.googleClassroomLikeFeature}
-        </div>
-        <div className="notification-system">
-          {aboutUs.futurePlans.notificationSystem}
-        </div>
-        <div className="integration-with-telegram">
-          {aboutUs.futurePlans.integrationWithTelegram}
-        </div>
-        <div className="chatrooms">{aboutUs.futurePlans.chatrooms}</div>
-        <div className="special-access-for-admins">
-          {aboutUs.futurePlans.specialAccessForAdmins}
-        </div>
-        <div className="active-chatbot">
-          {aboutUs.futurePlans.activeChatbot}
-        </div>
-        <div className="continuous-improvement">
-          {aboutUs.futurePlans.continuousImprovement}
-        </div>
-        <div className="accessibility-features">
-          {aboutUs.futurePlans.accessibilityFeatures}
-        </div>
+        {generateFuturePlansContent()}
       </div>
     </div>
   );
