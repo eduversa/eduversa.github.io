@@ -1,17 +1,40 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import {Text, Email, Number, Select, DateInput, Aadhar, Pan, PhoneNumber, Pincode} from "../inputComponent/InputComponent";
+import {
+  Text,
+  Email,
+  Number,
+  Select,
+  DateInput,
+  Aadhar,
+  Pan,
+  PhoneNumber,
+  Pincode,
+} from "../inputComponent/InputComponent";
 import fetchAddressFromPincode from "../inputComponent/fetchAddressFromPincode";
 
-const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handlePreviousClick, handleSubmit }) => {
+const FamilyInfo = ({
+  formData,
+  handleChange,
+  handleSave,
+  handleNextClick,
+  handlePreviousClick,
+  handleSubmit,
+}) => {
   const [officePincode, setOfficePincode] = useState("");
   const [pincodeError, setPincodeError] = useState(false);
 
   useEffect(() => {
     if (officePincode.length === 6) {
-      fetchAddressFromPincode(formData, handleChange, 'family_info.guardian.office_address', officePincode, setPincodeError );
+      fetchAddressFromPincode(
+        formData,
+        handleChange,
+        "family_info.guardian.office_address",
+        officePincode,
+        setPincodeError
+      );
     }
   }, [officePincode]);
-
 
   // Function to fetch address details(state, district, city) from pincode
   // const fetchAddressFromPincode = async (pincode, addressType) => {
@@ -45,7 +68,7 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
   //           },
   //         };
   //         handleChange({ target: { name: 'formData', value: updatedFormData } });
-          
+
   //         setPincodeError(false);
   //       }
   //     } else {
@@ -53,33 +76,32 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
   //     }
   //   } catch (error) {
   //     console.error("Error fetching address details:", error);
-  //     setPincodeError(true); 
+  //     setPincodeError(true);
   //   }
   // };
-  
-  
+
   return (
     <div className="page">
       <h2 className="page--title">Family Information</h2>
       <form className="page--content" onSubmit={handleNextClick}>
-        
         {/* father */}
-        <h3 className="sub-heading">Father's Information</h3>
-        <Text 
+        <h3 className="sub-heading">Father`&apos;`s Information</h3>
+        <Text
           label="Name"
           name="family_info.father.name"
           value={formData.family_info.father.name}
           onChange={handleChange}
           required
         />
-        <div className="grid-col-2"> {/* email contact */}
+        <div className="grid-col-2">
+          {" "}
+          {/* email contact */}
           <Email
             label="Email"
             name="family_info.father.email"
             value={formData.family_info.father.email}
             onChange={handleChange}
           />
-
           <PhoneNumber
             label="Contact Number"
             name="family_info.father.contact"
@@ -87,26 +109,25 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             onChange={handleChange}
           />
         </div>
-
         <hr />
-
         {/* mother */}
-        <h3 className="sub-heading">Mother's Information</h3>
-        <Text 
+        <h3 className="sub-heading">Mother`&apos;`s Information</h3>
+        <Text
           label="Name"
           name="family_info.mother.name"
           value={formData.family_info.mother.name}
           onChange={handleChange}
           required
         />
-        <div className="grid-col-2"> {/* email contact */}
+        <div className="grid-col-2">
+          {" "}
+          {/* email contact */}
           <Email
             label="Email"
             name="family_info.mother.email"
             value={formData.family_info.mother.email}
             onChange={handleChange}
           />
-
           <PhoneNumber
             label="Contact Number"
             name="family_info.mother.contact"
@@ -114,19 +135,19 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             onChange={handleChange}
           />
         </div>
-
         <hr />
-
         {/* guardian */}
-        <h3 className="sub-heading">Guardian's Information</h3>
-        <Text 
+        <h3 className="sub-heading">Guardian`&apos;`s Information</h3>
+        <Text
           label="Name"
           name="family_info.guardian.name"
           value={formData.family_info.guardian.name}
           onChange={handleChange}
           required
         />
-        <div className="grid-col-2"> {/* relation occupation*/}
+        <div className="grid-col-2">
+          {" "}
+          {/* relation occupation*/}
           <Text
             label="Relation"
             name="family_info.guardian.relation"
@@ -134,7 +155,6 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             onChange={handleChange}
             required
           />
-
           <Text
             label="Occupation"
             name="family_info.guardian.occupation"
@@ -143,7 +163,9 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             required
           />
         </div>
-        <div className="grid-col-2"> {/* email contact */}
+        <div className="grid-col-2">
+          {" "}
+          {/* email contact */}
           <Email
             label="Email"
             name="family_info.guardian.email"
@@ -151,7 +173,6 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             onChange={handleChange}
             required
           />
-
           <PhoneNumber
             label="Contact Number"
             name="family_info.guardian.contact"
@@ -160,7 +181,9 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             required
           />
         </div>
-        <div className="grid-col-3"> {/* designation office_contact income */}
+        <div className="grid-col-3">
+          {" "}
+          {/* designation office_contact income */}
           <Text
             label="Designation"
             name="family_info.guardian.designation"
@@ -168,7 +191,6 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             onChange={handleChange}
             required
           />
-
           <PhoneNumber
             label="Office Contact"
             name="family_info.guardian.office_contact"
@@ -176,7 +198,6 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             onChange={handleChange}
             required
           />
-
           <Number
             label="Income"
             name="family_info.guardian.income"
@@ -185,7 +206,9 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             required
           />
         </div>
-        <div className="grid-col-2"> {/* aadhar pan */}
+        <div className="grid-col-2">
+          {" "}
+          {/* aadhar pan */}
           <Aadhar
             label="Aadhar Number"
             name="family_info.guardian.aadhar_number"
@@ -200,10 +223,9 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             onChange={handleChange}
             required
           />
-
         </div>
-
-        <h4 className="sub-sub-heading">Office Address</h4> {/* office address */}
+        <h4 className="sub-sub-heading">Office Address</h4>{" "}
+        {/* office address */}
         <div>
           {/* street */}
           <Text
@@ -213,7 +235,9 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             onChange={handleChange}
           />
 
-          <div className="grid-col-2"> {/* pin city */}
+          <div className="grid-col-2">
+            {" "}
+            {/* pin city */}
             <Pincode
               label="Pincode"
               name="family_info.guardian.office_address.pincode"
@@ -222,12 +246,11 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
                 handleChange(e);
                 if (e.target.value.length === 6) {
                   setOfficePincode(e.target.value);
-                  setPincodeError(false); 
+                  setPincodeError(false);
                 }
               }}
               className={pincodeError ? "invalid" : ""}
             />
-
             <Text
               label="City"
               name="family_info.guardian.office_address.city"
@@ -236,14 +259,15 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
             />
           </div>
 
-          <div className="grid-col-2"> {/* district state */}
+          <div className="grid-col-2">
+            {" "}
+            {/* district state */}
             <Text
               label="District"
               name="family_info.guardian.office_address.district"
               value={formData.family_info.guardian.office_address.district}
               onChange={handleChange}
             />
-
             <Text
               label="State"
               name="family_info.guardian.office_address.state"
@@ -251,28 +275,17 @@ const FamilyInfo = ({ formData, handleChange, handleSave, handleNextClick, handl
               onChange={handleChange}
             />
           </div>
-
         </div>
-
-        <div className="btns"> {/* buttons */}
-          <button
-            type="button"
-            className="btn"
-            onClick={handlePreviousClick}
-          >
+        <div className="btns">
+          {" "}
+          {/* buttons */}
+          <button type="button" className="btn" onClick={handlePreviousClick}>
             Prev
           </button>
-          <button 
-            type="button" 
-            className="btn" 
-            onClick={handleSave}
-          >
+          <button type="button" className="btn" onClick={handleSave}>
             Save
           </button>
-          <button 
-            type="submit" 
-            className="btn"
-          >
+          <button type="submit" className="btn">
             Next
           </button>
         </div>

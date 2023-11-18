@@ -36,28 +36,41 @@
 //   }
 // };
 
-const fetchAddressFromPincode = async (formData, handleChange, addressType, pincode, setPincodeError) => {
+const fetchAddressFromPincode = async (
+  formData,
+  handleChange,
+  addressType,
+  pincode,
+  setPincodeError
+) => {
   console.log("fetchAddressFromPincode called");
   if (pincode.length !== 6) {
     return;
   }
 
   try {
-    const response = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
+    const response = await fetch(
+      `https://api.postalpincode.in/pincode/${pincode}`
+    );
     if (response.ok) {
       const data = await response.json();
       console.log("API response", data);
       if (data && data.length > 0 && data[0].PostOffice.length > 0) {
         const postOffice = data[0].PostOffice[0];
-        const street = [postOffice.Name, postOffice.Division, postOffice.Region, postOffice.Block]
-          .filter(value => Boolean(value) && value !== "NA")
+        const street = [
+          postOffice.Name,
+          postOffice.Division,
+          postOffice.Region,
+          postOffice.Block,
+        ]
+          .filter((value) => Boolean(value) && value !== "NA")
           .join(", ");
         let nestedObj = { ...formData };
-        const addressTypeKeys = addressType.split('.');
+        const addressTypeKeys = addressType.split(".");
         for (let key of addressTypeKeys) {
           nestedObj = nestedObj[key];
         }
-        
+
         // Update the nested fields
         nestedObj = {
           ...nestedObj,
@@ -77,7 +90,7 @@ const fetchAddressFromPincode = async (formData, handleChange, addressType, pinc
         temp[addressTypeKeys[addressTypeKeys.length - 1]] = nestedObj;
 
         // Call handleChange to update the entire formData
-        handleChange({ target: { name: 'formData', value: updatedFormData } });
+        handleChange({ target: { name: "formData", value: updatedFormData } });
         setPincodeError(false);
       }
     } else {
@@ -88,6 +101,5 @@ const fetchAddressFromPincode = async (formData, handleChange, addressType, pinc
     setPincodeError(true);
   }
 };
-
 
 export default fetchAddressFromPincode;

@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { PersonalInfo, FamilyInfo, AcademicInfo, CourseInfo, FileUpload } from "./formPages";
+import {
+  PersonalInfo,
+  FamilyInfo,
+  AcademicInfo,
+  CourseInfo,
+  FileUpload,
+} from "./formPages";
 
 const ApplicantForm = () => {
-
   // if (typeof window !== 'undefined') {
   //   window.onbeforeunload = function() {
   //     return "Data will be lost if you leave the page, are you sure?";
@@ -17,14 +22,14 @@ const ApplicantForm = () => {
         pincode: "",
         city: "",
         district: "",
-        state: ""
+        state: "",
       },
       permanent_address: {
         street: "",
         pincode: "",
         city: "",
         district: "",
-        state: ""
+        state: "",
       },
       name: "",
       email: "a@g.com",
@@ -35,18 +40,18 @@ const ApplicantForm = () => {
       category: "GN",
       blood_group: "B+",
       aadhar_number: "",
-      pan_number: ""
+      pan_number: "",
     },
     family_info: {
       father: {
         name: "",
         email: "",
-        contact: ""
+        contact: "",
       },
       mother: {
         name: "",
         email: "",
-        contact: ""
+        contact: "",
       },
       guardian: {
         office_address: {
@@ -54,7 +59,7 @@ const ApplicantForm = () => {
           pincode: "",
           city: "",
           district: "",
-          state: ""
+          state: "",
         },
         name: "",
         relation: "",
@@ -65,45 +70,45 @@ const ApplicantForm = () => {
         income: "",
         email: "",
         pan_number: "",
-        aadhar_number: ""
-      }
+        aadhar_number: "",
+      },
     },
     academic_info: {
       admission: {
         exam_name: "",
         year_of_exam: "",
         roll_number: "",
-        rank: ""
+        rank: "",
       },
       secondary: {
         exam_name: "",
         year_of_exam: "",
         board: "",
         aggregate: "",
-        school_name: ""
+        school_name: "",
       },
       higher_secondary: {
         exam_name: "",
         year_of_exam: "",
         board: "",
         aggregate: "",
-        school_name: ""
-      }
+        school_name: "",
+      },
     },
     course_info: {
       enrollment_number: "",
       course_name: "",
       duration: "",
       stream: "",
-      admission_year: ""
+      admission_year: "",
     },
-    image: null
-  }
+    image: null,
+  };
   const [formData, setFormData] = useState(initialFormData);
 
   // Load saved form data from local storage on component mount
   useEffect(() => {
-    const savedFormData = JSON.parse(localStorage.getItem('formData'));
+    const savedFormData = JSON.parse(localStorage.getItem("formData"));
     if (savedFormData) {
       setFormData(savedFormData);
     }
@@ -114,17 +119,17 @@ const ApplicantForm = () => {
 
   const handleChange = (event, callback) => {
     const { name, value } = event.target;
-  
-    if (name === 'formData') {
+
+    if (name === "formData") {
       setFormData(value, callback);
       return;
     }
-  
-    const nameArray = name.split('.');
+
+    const nameArray = name.split(".");
     setFormData((prevFormData) => {
       let updatedData = { ...prevFormData };
       let currentLevel = updatedData;
-  
+
       for (let i = 0; i < nameArray.length; i++) {
         if (i === nameArray.length - 1) {
           currentLevel[nameArray[i]] = value;
@@ -133,82 +138,84 @@ const ApplicantForm = () => {
           currentLevel = currentLevel[nameArray[i]];
         }
       }
-  
+
       return updatedData;
     }, callback);
   };
 
   // Save form data to local storage when the SAVE button is pressed
   const handleSave = () => {
-    localStorage.setItem('formData', JSON.stringify(formData));
+    localStorage.setItem("formData", JSON.stringify(formData));
   };
-  
+
   // function to move to the next page
   const handleNextClick = (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
     setCurrentStep((prevStep) => prevStep + 1);
   };
 
   // function to move to the previous page
   const handlePreviousClick = (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
     setCurrentStep((prevStep) => prevStep - 1);
   };
 
   // function to submit the form
   const handleSubmit = (event) => {
-    event.preventDefault(); 
-    alert("Form Submitted")
+    event.preventDefault();
+    alert("Form Submitted");
     console.log("Form submitted:", formData);
   };
 
-
   // all the pages with all the prop functions
   const renderStep = [
-
-      <PersonalInfo 
-        formData={formData} 
-        handleChange={handleChange} 
-        handleNextClick={handleNextClick} 
-        handlePreviousClick={handlePreviousClick} 
-        handleSubmit={handleSubmit}
-        handleSave={handleSave}
-      />,
-      <FamilyInfo 
-        formData={formData} 
-        handleChange={handleChange} 
-        handleNextClick={handleNextClick} 
-        handlePreviousClick={handlePreviousClick} 
-        handleSubmit={handleSubmit}
-        handleSave={handleSave}
-      />,
-      <AcademicInfo 
-        formData={formData} 
-        handleChange={handleChange} 
-        handleNextClick={handleNextClick} 
-        handlePreviousClick={handlePreviousClick} 
-        handleSubmit={handleSubmit}
-        handleSave={handleSave}
-      />,
-      <CourseInfo 
-        formData={formData} 
-        handleChange={handleChange} 
-        handleNextClick={handleNextClick} 
-        handlePreviousClick={handlePreviousClick} 
-        handleSubmit={handleSubmit}
-        handleSave={handleSave}
-      />,
-      <FileUpload 
-        formData={formData} 
-        setFormData={setFormData}
-        handleChange={handleChange} 
-        handleNextClick={handleNextClick} 
-        handlePreviousClick={handlePreviousClick} 
-        handleSubmit={handleSubmit}
-        handleSave={handleSave}
-      />,
-
-  ]
+    <PersonalInfo
+      formData={formData}
+      handleChange={handleChange}
+      handleNextClick={handleNextClick}
+      handlePreviousClick={handlePreviousClick}
+      handleSubmit={handleSubmit}
+      handleSave={handleSave}
+      key={Math.random()}
+    />,
+    <FamilyInfo
+      formData={formData}
+      handleChange={handleChange}
+      handleNextClick={handleNextClick}
+      handlePreviousClick={handlePreviousClick}
+      handleSubmit={handleSubmit}
+      handleSave={handleSave}
+      key={Math.random()}
+    />,
+    <AcademicInfo
+      formData={formData}
+      handleChange={handleChange}
+      handleNextClick={handleNextClick}
+      handlePreviousClick={handlePreviousClick}
+      handleSubmit={handleSubmit}
+      handleSave={handleSave}
+      key={Math.random()}
+    />,
+    <CourseInfo
+      formData={formData}
+      handleChange={handleChange}
+      handleNextClick={handleNextClick}
+      handlePreviousClick={handlePreviousClick}
+      handleSubmit={handleSubmit}
+      handleSave={handleSave}
+      key={Math.random()}
+    />,
+    <FileUpload
+      formData={formData}
+      setFormData={setFormData}
+      handleChange={handleChange}
+      handleNextClick={handleNextClick}
+      handlePreviousClick={handlePreviousClick}
+      handleSubmit={handleSubmit}
+      handleSave={handleSave}
+      key={Math.random()}
+    />,
+  ];
   // const renderStep =[
   //   <PersonalInfo/>,
   //   <FamilyInfo/>,
@@ -217,24 +224,29 @@ const ApplicantForm = () => {
   //   <FileUpload/>,
   // ]
 
-  const progress=currentStep/(renderStep.length)*100
+  const progress = (currentStep / renderStep.length) * 100;
 
   return (
-    <div className="form" style={{background: `hsl(${(currentStep - 1) * 62.5}, 40% , 85%)`}}>
+    <div
+      className="form"
+      style={{ background: `hsl(${(currentStep - 1) * 62.5}, 40% , 85%)` }}
+    >
       <h1 className="form--heading">Applicant Form</h1>
 
       <div className="form--content">
-        <div 
-          className="progress-bar" 
-          style={{ 
-            width: currentStep === renderStep.length ? `${progress +2}%` : `${progress}%`, 
+        <div
+          className="progress-bar"
+          style={{
+            width:
+              currentStep === renderStep.length
+                ? `${progress + 2}%`
+                : `${progress}%`,
             background: `hsl(${(currentStep - 1) * 62.5}, 50% , 60%)`,
             // borderBottomRightRadius: currentStep === renderStep.length ? "0" : "10px"
           }}
-        >
-        </div>
+        ></div>
         {/* displaying the pages from the array according to the page number */}
-        {renderStep[currentStep-1]}
+        {renderStep[currentStep - 1]}
         {/* {renderStep[currentStep - 1]({
           formData,
           setFormData,
@@ -245,7 +257,6 @@ const ApplicantForm = () => {
           handleSave
         })} */}
       </div>
-
     </div>
   );
 };

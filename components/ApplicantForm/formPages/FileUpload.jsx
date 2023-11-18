@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
-import { Image } from '../inputComponent/InputComponent';
+import React, { useState } from "react";
+import { ImageUpload } from "../inputComponent/InputComponent";
+import Image from "next/image";
 
-const FileUpload = ({ formData, setFormData, handleSave, handlePreviousClick, handleSubmit }) => {
+const FileUpload = ({
+  formData,
+  setFormData,
+  handleSave,
+  handlePreviousClick,
+  handleSubmit,
+}) => {
   const [imagePreview, setImagePreview] = useState(formData.image);
 
   const handleFileInputChange = (e) => {
@@ -22,22 +29,30 @@ const FileUpload = ({ formData, setFormData, handleSave, handlePreviousClick, ha
       <form className="page--content" onSubmit={handleSubmit}>
         <div className="image-upload">
           {imagePreview && (
-            <div className="image-preview" >
-              <img src={imagePreview} alt="Preview" />
+            <div className="image-preview">
+              {/* <img src={imagePreview} alt="Preview" /> */}
+              <Image
+                src={imagePreview}
+                alt="Preview"
+                width={200}
+                height={200}
+              />
             </div>
           )}
 
-          <label htmlFor="user-image" className="btn">Upload Image</label>
+          <label htmlFor="user-image" className="btn">
+            Upload Image
+          </label>
           <input
             type="file"
             accept="image/*"
             name="user-image"
             id="user-image"
             onChange={handleFileInputChange}
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
           />
         </div>
-        
+
         {/* <Image 
           label="Upload Image"
           name="user-image"
@@ -47,24 +62,13 @@ const FileUpload = ({ formData, setFormData, handleSave, handlePreviousClick, ha
         /> */}
 
         <div className="btns">
-          <button
-            type="button"
-            className="btn"
-            onClick={handlePreviousClick}
-          >
+          <button type="button" className="btn" onClick={handlePreviousClick}>
             Prev
           </button>
-          <button 
-            type="button" 
-            className="btn" 
-            onClick={handleSave}
-          >
+          <button type="button" className="btn" onClick={handleSave}>
             Save
           </button>
-          <button 
-            type="submit" 
-            className="btn"
-          >
+          <button type="submit" className="btn">
             Submit
           </button>
         </div>
