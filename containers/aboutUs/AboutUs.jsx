@@ -98,19 +98,19 @@ function AboutUs() {
 
         <div className="problems">
           <h2 onClick={() => toggleSection("problems")}>Problems</h2>
-          {generateProblemsContent()}
+          <div className="grid">{generateProblemsContent()}</div>
         </div>
 
         <div className="key-solution-and-objective">
           <h2 onClick={() => toggleSection("keySolution")}>
             Key Solution and Objective
           </h2>
-          {generateKeySolutionAndObjectiveContent()}
+          <div className="grid">{generateKeySolutionAndObjectiveContent()}</div>
         </div>
 
         <div className="future-plans">
           <h2 onClick={() => toggleSection("futurePlans")}>Future Plans</h2>
-          {generateFuturePlansContent()}
+          <div className="grid">{generateFuturePlansContent()}</div>
         </div>
       </div>
     </Fragment>

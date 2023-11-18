@@ -82,15 +82,12 @@
   .problems,
   .key-solution-and-objective,
   .future-plans {
-    margin-bottom: 30px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    margin: 0 0 2% 0;
     border: 1px solid var(--white-shadow-light-1);
     border-radius: 12px;
     padding: 15px;
-    transition: background 0.3s ease-in-out, border 0.3s ease-in-out,
-      transform 0.3s ease-in-out;
+    transition: background 0.5s ease-in-out, border 0.5s ease-in-out,
+      transform 0.5s ease-in-out;
 
     &:hover {
       background: rgba(255, 255, 255, 0.05);
@@ -100,49 +97,56 @@
 
     h2 {
       cursor: pointer;
-      color: #ff847c;
-      font-size: 24px;
-      margin-bottom: 10px;
-      transition: color 0.3s ease-in-out;
+      margin: 0 0 2% 0;
+      text-align: center;
+      color: var(--black);
+      font-family: var(--font-source);
+      font-size: var(--font-10);
+      text-transform: uppercase;
+      transition: color 0.5s ease-in-out, text-decoration 0.5s ease-in-out;
+      letter-spacing: 3px;
 
       &:hover {
-        color: #e84a5f;
+        color: var(--white);
         text-decoration: underline;
       }
     }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      div {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid var(--white-shadow-light-1);
+        border-radius: 12px;
+        padding: 15px;
+        text-align: center;
+        transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
 
-    div {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid var(--white-shadow-light-1);
-      border-radius: 12px;
-      padding: 15px;
-      text-align: center;
-      transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+        &:hover {
+          background: var(--white-shadow-light);
+          transform: scale(1.02);
+          animation: shake 0.3s ease-in-out;
+        }
 
-      &:hover {
-        background: var(--white-shadow-light);
-        transform: scale(1.02);
-        animation: shake 0.3s ease-in-out;
-      }
+        p.heading {
+          font-weight: bold;
+          margin-bottom: 10px;
 
-      p.heading {
-        font-weight: bold;
-        margin-bottom: 10px;
+          font-size: 18px;
+        }
 
-        font-size: 18px;
-      }
-
-      &.problem,
-      &.key-solution-and-objective,
-      &.future-plans {
-        &-heading {
-          color: #ff847c;
-          font-size: 24px;
+        &.problem,
+        &.key-solution-and-objective,
+        &.future-plans {
+          &-heading {
+            color: #ff847c;
+            font-size: 24px;
+          }
         }
       }
     }
