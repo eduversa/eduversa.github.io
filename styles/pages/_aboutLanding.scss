@@ -8,81 +8,57 @@
   background-color: #f8f8f8;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
   z-index: 5;
-  overflow-y: scroll;
-  overflow-y: scroll;
+  overflow: auto;
   scrollbar-width: thin;
-  scrollbar-color: #3498db #f8f8f8;
-
+  scrollbar-color: transparent transparent;
   &::-webkit-scrollbar {
-    width: 8px;
+    width: 12px;
   }
-
   &::-webkit-scrollbar-thumb {
     background-color: #3498db;
     border-radius: 10px;
     border: 2px solid #f8f8f8;
     transition: background-color 0.3s ease-in-out;
   }
-
   &::-webkit-scrollbar-thumb:hover {
     background-color: #297fb8;
   }
-
   &::-webkit-scrollbar-track {
     background-color: #f8f8f8;
     border-radius: 10px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   }
-
   &::-webkit-scrollbar-corner {
     background-color: transparent;
   }
-
   &::-webkit-resizer {
     background-color: #f8f8f8;
   }
-
-  /* Additional styles for a gradient effect on the scrollbar track */
   &::-webkit-scrollbar-track {
-    background: linear-gradient(to right, #f8f8f8, #eaeaea);
+    background: linear-gradient(to right, #f8f8f8, #e5e5e5);
   }
-
   &::-webkit-scrollbar-thumb {
     background: linear-gradient(to right, #3498db, #297fb8);
     border: 2px solid #f8f8f8;
   }
-
   &::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(to right, #297fb8, #236c99);
   }
-
   &::-webkit-scrollbar-thumb:active {
     background: linear-gradient(to right, #236c99, #1a5877);
   }
-
-  /* Thin track for a more minimalistic appearance */
   &::-webkit-scrollbar-track-piece {
     background-color: #f8f8f8;
   }
-
-  /* Add a subtle shadow to the scrollbar track */
   &::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   }
-
-  /* Transition for a smoother hover effect */
   &:hover {
     &::-webkit-scrollbar-thumb {
       background-color: #297fb8;
     }
   }
-
-  /* Improve readability by hiding scrollbar when not hovered */
-  overflow: auto;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
 
   &:hover {
     scrollbar-color: #3498db #f8f8f8;
