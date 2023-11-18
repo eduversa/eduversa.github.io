@@ -15,5 +15,3 @@ export { default as Roller } from "./Loading/Roller";
 export { default as Spinner } from "./Loading/Spinner";
 
 export { default as AllLoader } from "./AllLoader";
-export {default as InfoCategory} from "./AboutUsHelper/InfoCategory"
-export {default as InfoDescription} from "./AboutUsHelper/InfoDescription"
