@@ -1,5 +1,61 @@
 .about-us-container {
+  font-family: "Arial", sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-height: 95vh;
   z-index: 5;
   overflow-y: scroll;
+
+  .description {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .technologies {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    cursor: pointer;
+    color: #3498db;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .problems,
+  .key-solution-and-objective,
+  .future-plans {
+    margin-top: 20px;
+
+    div {
+      margin-bottom: 10px;
+    }
+
+    .key-solution-and-objective,
+    .future-plans {
+      display: none;
+    }
+  }
+
+  .problems,
+  .key-solution-and-objective,
+  .future-plans {
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    div {
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  }
 }
