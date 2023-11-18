@@ -136,6 +136,7 @@
       .image-container {
         @include flex-container(row, nowrap, center, center);
         gap: 30px;
+        margin: 5% 0 0 0;
         .email-icon,
         .password-icon {
           filter: invert(0.5);
@@ -187,6 +188,7 @@
         letter-spacing: 3px;
         font-weight: 600;
         outline: none;
+        margin: 2% 0 0 0;
         @media (max-width: $breakpoint-desktop-wide) {
           padding: 15px;
         }
