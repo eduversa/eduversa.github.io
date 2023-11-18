@@ -87,9 +87,14 @@ function AboutUs() {
     <Fragment>
       <div className={containerClass}>
         <h3 className="aboutus-heading">About Eduversa</h3>
-        <div className="description">{aboutUs.description}</div>
-
-        <div className="technologies">{aboutUs.technologies}</div>
+        <div className="description">
+          <h4 className="description-heading">description</h4>
+          <p>{aboutUs.description}</p>
+        </div>
+        <div className="technologies">
+          <h4 className="technologies-heading">Technologies</h4>
+          <p>{aboutUs.technologies}</p>
+        </div>
 
         <div className="problems">
           <h2 onClick={() => toggleSection("problems")}>Problems</h2>

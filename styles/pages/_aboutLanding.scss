@@ -55,8 +55,28 @@
 
   .description,
   .technologies {
-    margin-bottom: 20px;
-    line-height: 1.5;
+    @include flex-container(column, nowrap, center, center);
+    gap: 5px;
+    margin: 0 0 2% 0;
+    .description-heading,
+    .technologies-heading {
+      color: var(--white);
+      font-family: var(--font-oswald);
+      font-size: var(--font-10);
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px var(--black-shadow-light-1);
+    }
+    p {
+      text-align: justify;
+      color: var(--white);
+      font-family: var(--font-tektur);
+      font-size: var(--font-12);
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      text-shadow: 2px 2px 4px var(--black-shadow-light-1);
+    }
   }
 
   .problems,
