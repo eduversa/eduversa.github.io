@@ -41,9 +41,11 @@ function AboutUs() {
   const generateProblemsContent = () => {
     if (showProblems) {
       return Object.entries(aboutUs.problems).map(([key, value], index) => (
-        <p
+        <div
           key={index}
-          className={`problem-${key.toLowerCase().replace(/ /g, "-")}`}
+          className={`problem-${key
+            .toLowerCase()
+            .replace(/ /g, "-")}-container`}
         >
           <span
             className={`${key
@@ -52,8 +54,8 @@ function AboutUs() {
           >
             {generateFormattedHeading(key)}
           </span>
-          {value}
-        </p>
+          <p>{value}</p>
+        </div>
       ));
     }
     return null;
@@ -63,11 +65,11 @@ function AboutUs() {
     if (showKeySolution) {
       return Object.entries(aboutUs.keySolutionAndObjective).map(
         ([key, value], index) => (
-          <p
+          <div
             key={index}
             className={`key-solution-and-objective-${key
               .toLowerCase()
-              .replace(/ /g, "-")}`}
+              .replace(/ /g, "-")}-container`}
           >
             <span
               className={`${key
@@ -76,8 +78,8 @@ function AboutUs() {
             >
               {generateFormattedHeading(key)}
             </span>
-            {value}
-          </p>
+            <p>{value}</p>
+          </div>
         )
       );
     }
@@ -87,9 +89,11 @@ function AboutUs() {
   const generateFuturePlansContent = () => {
     if (showFuturePlans) {
       return Object.entries(aboutUs.futurePlans).map(([key, value], index) => (
-        <p
+        <div
           key={index}
-          className={`future-plans-${key.toLowerCase().replace(/ /g, "-")}`}
+          className={`future-plans-${key
+            .toLowerCase()
+            .replace(/ /g, "-")}-container`}
         >
           <span
             className={`${key
@@ -98,8 +102,8 @@ function AboutUs() {
           >
             {generateFormattedHeading(key)}
           </span>
-          {value}
-        </p>
+          <p>{value}</p>
+        </div>
       ));
     }
     return null;

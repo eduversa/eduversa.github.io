@@ -19,7 +19,7 @@
   &:hover {
     background: rgba(255, 255, 255, 0.05);
     border-color: var(--white-shadow-light-3);
-    transform: scale(1.005);
+    transform: scale(1.0005);
   }
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
@@ -116,6 +116,7 @@
       font-weight: 400;
       letter-spacing: 1.5px;
       text-shadow: 2px 2px 4px var(--black-shadow-light-1);
+      line-height: 1.5;
     }
   }
 
@@ -123,16 +124,17 @@
   .key-solution-and-objective,
   .future-plans {
     margin: 0 0 2% 0;
-    // border: 1px solid var(--white-shadow-light-1);
+    border: 1px solid var(--white-shadow-light-1);
     border-radius: 12px;
     padding: 15px;
+    padding-top: 0;
     transition: background 0.5s ease-in-out, border 0.5s ease-in-out,
       transform 0.5s ease-in-out;
 
     &:hover {
       background: rgba(255, 255, 255, 0.05);
       border-color: var(--white-shadow-light-2);
-      transform: scale(1.02);
+      transform: scale(1.0005);
     }
 
     h2 {
@@ -140,12 +142,12 @@
       margin: 0 0 2% 0;
       text-align: center;
       color: var(--black);
-      font-family: var(--font-source);
-      font-size: var(--font-8);
+      font-family: var(--font-playfair);
+      font-size: var(--font-9);
+      font-weight: 800;
+      letter-spacing: 4px;
       text-transform: uppercase;
       transition: color 0.5s ease-in-out, text-decoration 0.5s ease-in-out;
-      letter-spacing: 3px;
-
       &:hover {
         color: var(--white);
         text-decoration: underline;
@@ -153,9 +155,9 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 15px;
-      p {
+      div {
         @include flex-container(column, nowrap, flex-start, center);
         gap: 10px;
         border: 1px solid var(--white-shadow-light-1);
@@ -172,11 +174,11 @@
           color: var(--white);
           position: relative;
           font-family: var(--font-elianto);
-          font-size: var(--font-11);
+          font-size: var(--font-10);
           text-transform: capitalize;
           font-weight: 600;
           letter-spacing: 1.5px;
-          text-shadow: 2px 2px 4px var(--black-shadow-light-1);
+          text-shadow: 2px 2px 4px var(--white-shadow-light-1);
           &::before {
             content: "";
             display: block;
@@ -209,6 +211,16 @@
           &::before {
             background: linear-gradient(to right, #ffd300, #ff971d);
           }
+        }
+        p {
+          color: var(--white);
+          text-align: center;
+          font-family: var(--font-roboto);
+          font-size: var(--font-11);
+          font-weight: 400;
+          // letter-spacing: 1.5px;
+          text-shadow: 2px 2px 4px var(--white-shadow-light-1);
+          line-height: 1.5;
         }
       }
     }
