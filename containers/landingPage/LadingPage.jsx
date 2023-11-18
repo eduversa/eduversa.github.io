@@ -5,7 +5,7 @@ function LandingPage() {
   return (
     <Fragment>
       <div className="homepage-left">
-        <h1 className="company-name">Welcome To UNIVERSA</h1>
+        <h1 className="company-name">Welcome To EDUVERSA</h1>
         <h2 className="company-slogan">Chase Your Dream!</h2>
         <div className="typing-text-container">
           <main className="typing-text-main">
