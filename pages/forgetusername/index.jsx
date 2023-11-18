@@ -12,6 +12,10 @@ function ForgetUsername() {
   const [otp, setOtp] = useState("");
   const [otpResponse, setOtpResponse] = useState(null);
 
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -21,6 +25,12 @@ function ForgetUsername() {
 
       if (!userIdOrEmail) {
         alert("Please enter your Email address.");
+        setLoading(false);
+        return;
+      }
+
+      if (!isValidEmail(userIdOrEmail)) {
+        alert("Please enter a valid Email address.");
         setLoading(false);
         return;
       }
