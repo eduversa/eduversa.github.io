@@ -242,7 +242,7 @@
         z-index: 1;
         margin: 5% 0 0 0;
         padding: 15px 30px;
-        background: linear-gradient(to right, #3498db, #2980b9);
+        background: linear-gradient(to left, #3a0ca3, #ff6f61);
         border: none;
         border-radius: 6px;
         cursor: pointer;
@@ -263,8 +263,8 @@
         &:hover {
           background: linear-gradient(
             135deg,
-            darken(#2980b9, 10%),
-            darken(#3498db, 10%)
+            darken(#ff6f61, 10%),
+            darken(#3a0ca3, 10%)
           );
           transform: translateY(1px);
           box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
@@ -322,7 +322,7 @@
   .verify-otp-form {
     @include flex-container(column, nowrap, none, none);
     z-index: 1;
-    gap: 0px;
+    gap: 20px;
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {
@@ -334,9 +334,9 @@
     @media (max-width: $breakpoint-phone) {
     }
     .otp-input-container {
-      @include flex-container(column, nowrap, center, center);
-      gap: 20px;
-
+      @include flex-container(row, nowrap, center, center);
+      gap: 10px;
+      margin: 10% 0 0 0;
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
@@ -433,7 +433,7 @@
         z-index: 1;
         margin: 5% 0 0 0;
         padding: 15px 30px;
-        background: linear-gradient(to right, #3498db, #2980b9);
+        background: linear-gradient(to right, #b2dbbf, #6a6a6a);
         border: none;
         border-radius: 6px;
         cursor: pointer;
@@ -454,8 +454,8 @@
         &:hover {
           background: linear-gradient(
             135deg,
-            darken(#2980b9, 10%),
-            darken(#3498db, 10%)
+            darken(#b2dbbf, 10%),
+            darken(#6a6a6a, 10%)
           );
           transform: translateY(1px);
           box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
