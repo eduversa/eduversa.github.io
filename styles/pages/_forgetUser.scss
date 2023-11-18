@@ -319,4 +319,195 @@
       }
     }
   }
+  .verify-otp-form {
+    @include flex-container(column, nowrap, none, none);
+    z-index: 1;
+    gap: 0px;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+    .otp-input-container {
+      @include flex-container(column, nowrap, center, center);
+      gap: 20px;
+
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
+
+      .otp-icon {
+        filter: invert(0.5);
+        position: relative;
+        height: 50px;
+        width: 50px;
+        @media (max-width: $breakpoint-desktop-wide) {
+          height: 40px;
+          width: 40px;
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
+      }
+      input {
+        padding: 20px;
+        border: none;
+        border-radius: 6px;
+        background: var(--white-shadow-light);
+        backdrop-filter: blur(8px);
+        color: var(--white);
+        transition: background 0.3s, box-shadow 0.3s;
+        width: 100%;
+        font-family: var(--font-tektur);
+        font-size: var(--font-12);
+        letter-spacing: 3px;
+        font-weight: 600;
+        outline: none;
+        margin: 2% 0 0 0;
+        @media (max-width: $breakpoint-desktop-wide) {
+          padding: 15px;
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+          font-size: var(--font-10);
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
+        &::placeholder {
+          color: var(--white-shadow-1);
+          font-family: var(--font-tektur);
+          font-size: var(--font-12);
+          letter-spacing: 3px;
+          font-weight: 400;
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+            font-size: var(--font-10);
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
+        }
+      }
+      &:focus-within {
+        .otp-icon {
+          filter: invert(1);
+        }
+      }
+    }
+    .verify-otp-button-container {
+      .verify-otp-button {
+        font-family: var(--font-elianto);
+        font-size: var(--font-11);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--black);
+        position: absolute;
+        right: 10%;
+        left: 10%;
+        top: 70%;
+        width: 80%;
+        z-index: 1;
+        margin: 5% 0 0 0;
+        padding: 15px 30px;
+        background: linear-gradient(to right, #3498db, #2980b9);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out,
+          background 0.4s ease-in-out;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+          font-size: var(--font-9);
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
+        &:hover {
+          background: linear-gradient(
+            135deg,
+            darken(#2980b9, 10%),
+            darken(#3498db, 10%)
+          );
+          transform: translateY(1px);
+          box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
+        }
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          width: 50px;
+          height: 50px;
+          background: var(--white-shadow-1);
+          border-radius: 50%;
+          opacity: 0.4;
+          pointer-events: none;
+          transform: scale(0);
+          transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+        }
+
+        &::before {
+          top: -25px;
+          left: -25px;
+        }
+
+        &::after {
+          bottom: -25px;
+          right: -25px;
+        }
+        // ! important
+        &:hover::before {
+          top: 0px;
+          left: -25px;
+        }
+        &:hover::after {
+          top: 0;
+          right: -25px;
+        }
+
+        &::before {
+          animation: ripple 2s linear infinite;
+        }
+
+        &::after {
+          animation: ripple 2s linear infinite;
+        }
+        @keyframes ripple {
+          to {
+            transform: scale(5);
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
 }
