@@ -86,6 +86,7 @@ function AboutUs() {
   return (
     <Fragment>
       <div className={containerClass}>
+        <h3>About Eduversa</h3>
         <div className="description">{aboutUs.description}</div>
 
         <div className="technologies">{aboutUs.technologies}</div>
