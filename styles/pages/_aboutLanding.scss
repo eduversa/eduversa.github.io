@@ -11,6 +11,7 @@
   border-radius: 12px;
   position: relative;
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 5;
   transition: background 0.3s ease-in-out, border 0.3s ease-in-out,
     transform 0.3s ease-in-out;
@@ -18,7 +19,7 @@
   &:hover {
     background: rgba(255, 255, 255, 0.05);
     border-color: var(--white-shadow-light-3);
-    transform: scale(1.005);
+    transform: scale(1.0005);
   }
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
@@ -101,7 +102,7 @@
     .technologies-heading {
       color: var(--white);
       font-family: var(--font-oswald);
-      font-size: var(--font-10);
+      font-size: var(--font-9);
       font-weight: 400;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -115,6 +116,7 @@
       font-weight: 400;
       letter-spacing: 1.5px;
       text-shadow: 2px 2px 4px var(--black-shadow-light-1);
+      line-height: 1.5;
     }
   }
 
@@ -125,13 +127,14 @@
     border: 1px solid var(--white-shadow-light-1);
     border-radius: 12px;
     padding: 15px;
+    padding-top: 0;
     transition: background 0.5s ease-in-out, border 0.5s ease-in-out,
       transform 0.5s ease-in-out;
 
     &:hover {
       background: rgba(255, 255, 255, 0.05);
       border-color: var(--white-shadow-light-2);
-      transform: scale(1.02);
+      transform: scale(1.0005);
     }
 
     h2 {
@@ -139,12 +142,12 @@
       margin: 0 0 2% 0;
       text-align: center;
       color: var(--black);
-      font-family: var(--font-source);
-      font-size: var(--font-10);
+      font-family: var(--font-playfair);
+      font-size: var(--font-9);
+      font-weight: 800;
+      letter-spacing: 4px;
       text-transform: uppercase;
       transition: color 0.5s ease-in-out, text-decoration 0.5s ease-in-out;
-      letter-spacing: 3px;
-
       &:hover {
         color: var(--white);
         text-decoration: underline;
@@ -152,10 +155,9 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 15px;
       div {
-        position: relative;
         @include flex-container(column, nowrap, flex-start, center);
         gap: 10px;
         border: 1px solid var(--white-shadow-light-1);
@@ -163,27 +165,62 @@
         padding: 15px;
         text-align: center;
         transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
-
         &:hover {
           background: var(--white-shadow-light);
           transform: scale(1.02);
-          animation: shake 0.3s ease-in-out;
+          animation: shake 3s ease-in-out infinite;
         }
-
-        p.heading {
-          font-weight: bold;
-          margin-bottom: 10px;
-
-          font-size: 18px;
-        }
-
-        &.problem,
-        &.key-solution-and-objective,
-        &.future-plans {
-          &-heading {
-            color: #ff847c;
-            font-size: 24px;
+        span {
+          color: var(--white);
+          position: relative;
+          font-family: var(--font-elianto);
+          font-size: var(--font-10);
+          text-transform: capitalize;
+          font-weight: 600;
+          letter-spacing: 1.5px;
+          text-shadow: 2px 2px 4px var(--white-shadow-light-1);
+          &::before {
+            content: "";
+            display: block;
+            width: 80%;
+            height: 3px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 2s ease-in-out;
+            animation: underlineAnimation 5s infinite alternate;
           }
+          @keyframes underlineAnimation {
+            to {
+              width: 20%;
+            }
+          }
+        }
+        .problem-grid-heading {
+          &::before {
+            background: linear-gradient(to right, #1a936f, #91cb3e);
+          }
+        }
+        .solution-and-object-grid-heading {
+          &::before {
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+          }
+        }
+        .future-plans-grid-heading {
+          &::before {
+            background: linear-gradient(to right, #ffd300, #ff971d);
+          }
+        }
+        p {
+          color: var(--white);
+          text-align: center;
+          font-family: var(--font-roboto);
+          font-size: var(--font-11);
+          font-weight: 400;
+          // letter-spacing: 1.5px;
+          text-shadow: 2px 2px 4px var(--white-shadow-light-1);
+          line-height: 1.5;
         }
       }
     }

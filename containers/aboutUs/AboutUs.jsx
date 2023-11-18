@@ -27,18 +27,34 @@ function AboutUs() {
         break;
     }
   };
-
+  const generateFormattedHeading = (key) => {
+    let formattedKey = key.charAt(0).toUpperCase();
+    for (let i = 1; i < key.length; i++) {
+      if (key[i] === key[i].toUpperCase()) {
+        formattedKey += ` ${key[i].toLowerCase()}`;
+      } else {
+        formattedKey += key[i];
+      }
+    }
+    return formattedKey;
+  };
   const generateProblemsContent = () => {
     if (showProblems) {
       return Object.entries(aboutUs.problems).map(([key, value], index) => (
         <div
           key={index}
-          className={`problem-${key.toLowerCase().replace(/ /g, "-")}`}
+          className={`problem-${key
+            .toLowerCase()
+            .replace(/ /g, "-")}-container`}
         >
-          <p className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
-            {key}
-          </p>
-          {value}
+          <span
+            className={`${key
+              .toLowerCase()
+              .replace(/ /g, "-")}-heading problem-grid-heading`}
+          >
+            {generateFormattedHeading(key)}
+          </span>
+          <p>{value}</p>
         </div>
       ));
     }
@@ -53,12 +69,16 @@ function AboutUs() {
             key={index}
             className={`key-solution-and-objective-${key
               .toLowerCase()
-              .replace(/ /g, "-")}`}
+              .replace(/ /g, "-")}-container`}
           >
-            <p className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
-              {key}
-            </p>
-            {value}
+            <span
+              className={`${key
+                .toLowerCase()
+                .replace(/ /g, "-")}-heading solution-and-object-grid-heading`}
+            >
+              {generateFormattedHeading(key)}
+            </span>
+            <p>{value}</p>
           </div>
         )
       );
@@ -71,12 +91,18 @@ function AboutUs() {
       return Object.entries(aboutUs.futurePlans).map(([key, value], index) => (
         <div
           key={index}
-          className={`future-plans-${key.toLowerCase().replace(/ /g, "-")}`}
+          className={`future-plans-${key
+            .toLowerCase()
+            .replace(/ /g, "-")}-container`}
         >
-          <p className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
-            {key}
-          </p>
-          {value}
+          <span
+            className={`${key
+              .toLowerCase()
+              .replace(/ /g, "-")}-heading future-plans-grid-heading `}
+          >
+            {generateFormattedHeading(key)}
+          </span>
+          <p>{value}</p>
         </div>
       ));
     }
