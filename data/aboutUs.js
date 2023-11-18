@@ -56,3 +56,4 @@ const aboutUs = {
       "Ensuring that the platform is more accessible by incorporating features like screen reader compatibility and keyboard navigation.",
   },
 };
+module.exports = aboutUs;
