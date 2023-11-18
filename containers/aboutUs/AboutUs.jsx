@@ -27,19 +27,29 @@ function AboutUs() {
         break;
     }
   };
-
+  const generateFormattedHeading = (key) => {
+    let formattedKey = key.charAt(0).toUpperCase();
+    for (let i = 1; i < key.length; i++) {
+      if (key[i] === key[i].toUpperCase()) {
+        formattedKey += ` ${key[i].toLowerCase()}`;
+      } else {
+        formattedKey += key[i];
+      }
+    }
+    return formattedKey;
+  };
   const generateProblemsContent = () => {
     if (showProblems) {
       return Object.entries(aboutUs.problems).map(([key, value], index) => (
-        <div
+        <p
           key={index}
           className={`problem-${key.toLowerCase().replace(/ /g, "-")}`}
         >
-          <p className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
-            {key}
-          </p>
+          <span className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
+            {generateFormattedHeading(key)}
+          </span>
           {value}
-        </div>
+        </p>
       ));
     }
     return null;
@@ -49,17 +59,17 @@ function AboutUs() {
     if (showKeySolution) {
       return Object.entries(aboutUs.keySolutionAndObjective).map(
         ([key, value], index) => (
-          <div
+          <p
             key={index}
             className={`key-solution-and-objective-${key
               .toLowerCase()
               .replace(/ /g, "-")}`}
           >
-            <p className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
-              {key}
-            </p>
+            <span className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
+              {generateFormattedHeading(key)}
+            </span>
             {value}
-          </div>
+          </p>
         )
       );
     }
@@ -69,15 +79,15 @@ function AboutUs() {
   const generateFuturePlansContent = () => {
     if (showFuturePlans) {
       return Object.entries(aboutUs.futurePlans).map(([key, value], index) => (
-        <div
+        <p
           key={index}
           className={`future-plans-${key.toLowerCase().replace(/ /g, "-")}`}
         >
-          <p className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
-            {key}
-          </p>
+          <span className={`${key.toLowerCase().replace(/ /g, "-")}-heading`}>
+            {generateFormattedHeading(key)}
+          </span>
           {value}
-        </div>
+        </p>
       ));
     }
     return null;

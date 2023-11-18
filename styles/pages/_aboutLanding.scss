@@ -11,6 +11,7 @@
   border-radius: 12px;
   position: relative;
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 5;
   transition: background 0.3s ease-in-out, border 0.3s ease-in-out,
     transform 0.3s ease-in-out;
@@ -154,8 +155,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 15px;
-      div {
-        position: relative;
+      p {
         @include flex-container(column, nowrap, flex-start, center);
         gap: 10px;
         border: 1px solid var(--white-shadow-light-1);
@@ -163,11 +163,18 @@
         padding: 15px;
         text-align: center;
         transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
-
         &:hover {
           background: var(--white-shadow-light);
           transform: scale(1.02);
           animation: shake 1s ease-in-out infinite;
+        }
+        span {
+          color: var(--white);
+          font-family: var(--font-roboto);
+          font-size: var(--font-12);
+          font-weight: 600;
+          // letter-spacing: 1.5px;
+          text-shadow: 2px 2px 4px var(--black-shadow-light-1);
         }
       }
     }

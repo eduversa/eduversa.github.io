@@ -17,7 +17,7 @@ const aboutUs = {
       "As there is not much that us students can do in order to contact a teacher, it would be easier if the students could directly text the teacher from the software itself and the teacher can reply according to their availability. This removes the issue for the teachers to rethink the legitimacy of the student’s identity.",
   },
   keySolutionAndObjective: {
-    userFriendlyUI:
+    userFriendlyUi:
       "Eduversa prioritizes a user-friendly interface, ensuring intuitive functionality and robust management systems to enhance the user experience. Eduversa is a fully responsive design, enabling users to access Eduversa seamlessly across diverse devices, fostering accessibility.",
     centralizedInformation:
       "The system seeks to centralize all college-related information under a unified framework, promoting transparency and efficiency in academic processes.",
