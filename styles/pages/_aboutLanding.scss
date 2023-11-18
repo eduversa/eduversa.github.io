@@ -5,14 +5,64 @@
   margin: 10% auto;
   padding: 20px;
 
-  background: var(--white-shadow-light);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--white-shadow-light-1);
-  border-radius: 12px;
-  box-shadow: 0 0 5px var(--black-shadow-light-1);
-  color: var(--white);
-  border-radius: 8px;
+  border: 1px rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: white;
+  border-radius: 12px;
   z-index: 5;
   overflow: auto;
+
+  h3.aboutus-heading {
+    color: #333;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .description {
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .technologies {
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .problems,
+  .key-solution-and-objective,
+  .future-plans {
+    margin-bottom: 30px;
+
+    h2 {
+      cursor: pointer;
+      color: #007bff;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    div {
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+
+      p.heading {
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+        font-size: 18px;
+      }
+
+      &.problem,
+      &.key-solution-and-objective,
+      &.future-plans {
+        &-heading {
+          color: #007bff;
+          font-size: 20px;
+        }
+      }
+    }
+  }
 }
