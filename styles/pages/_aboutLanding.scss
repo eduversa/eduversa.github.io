@@ -22,12 +22,31 @@
   }
 
   h3.aboutus-heading {
+    position: relative;
     text-align: center;
     font-size: 28px;
     font-weight: bold;
     text-shadow: 2px 2px 4px var(--black-shadow-light-1);
     margin-bottom: 20px;
     transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    &::before {
+      content: "";
+      display: block;
+      width: 30%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--blue-7), var(--pink-4));
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: width 2s ease-in-out;
+      animation: underlineAnimation 2s infinite alternate;
+    }
+    @keyframes underlineAnimation {
+      to {
+        width: 20%;
+      }
+    }
   }
 
   .description,
