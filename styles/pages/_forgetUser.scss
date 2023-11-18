@@ -89,6 +89,22 @@
     }
   }
   .forget-username-subheading {
+    text-align: center;
+    margin: 0 0 % 0;
+    font-family: var(--font-tektur);
+    font-size: var(--font-10);
+    font-weight: 400;
+    letter-spacing: 3px;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
   }
   .verify-otp-form {
     .otp-input-container {
