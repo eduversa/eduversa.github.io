@@ -167,23 +167,7 @@
         &:hover {
           background: var(--white-shadow-light);
           transform: scale(1.02);
-          animation: shake 0.3s ease-in-out;
-        }
-
-        p.heading {
-          font-weight: bold;
-          margin-bottom: 10px;
-
-          font-size: 18px;
-        }
-
-        &.problem,
-        &.key-solution-and-objective,
-        &.future-plans {
-          &-heading {
-            color: #ff847c;
-            font-size: 24px;
-          }
+          animation: shake 1s ease-in-out infinite;
         }
       }
     }
