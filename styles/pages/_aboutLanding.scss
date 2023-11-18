@@ -24,15 +24,19 @@
   h3.aboutus-heading {
     position: relative;
     text-align: center;
-    font-size: 28px;
-    font-weight: bold;
+    color: var(--white);
+    font-family: var(--font-oswald);
+    font-size: var(--font-7);
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     text-shadow: 2px 2px 4px var(--black-shadow-light-1);
-    margin-bottom: 20px;
+    margin: 0 0 2% 0;
     transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
     &::before {
       content: "";
       display: block;
-      width: 30%;
+      width: 45%;
       height: 5px;
       background: linear-gradient(90deg, var(--blue-7), var(--pink-4));
       position: absolute;
