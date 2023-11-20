@@ -33,6 +33,8 @@
     padding: 20px;
   }
   @media (max-width: $breakpoint-phone) {
+    max-width: 300px;
+    max-height: 650px;
   }
   &:hover {
     background: rgba(255, 255, 255, 0.05);
