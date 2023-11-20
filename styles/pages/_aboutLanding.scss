@@ -29,6 +29,8 @@
     max-width: 400px;
   }
   @media (max-width: $breakpoint-tablet) {
+    margin: 10% 0 0 0;
+    padding: 20px;
   }
   @media (max-width: $breakpoint-phone) {
   }
@@ -97,6 +99,7 @@
     @media (max-width: $breakpoint-large-tablet) {
     }
     @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-5);
     }
     @media (max-width: $breakpoint-phone) {
     }
@@ -133,6 +136,7 @@
     @media (max-width: $breakpoint-large-tablet) {
     }
     @media (max-width: $breakpoint-tablet) {
+      margin: 0 0 2% 0;
     }
     @media (max-width: $breakpoint-phone) {
     }
@@ -153,6 +157,7 @@
       @media (max-width: $breakpoint-large-tablet) {
       }
       @media (max-width: $breakpoint-tablet) {
+        font-size: var(--font-8);
       }
       @media (max-width: $breakpoint-phone) {
       }
@@ -175,6 +180,8 @@
       @media (max-width: $breakpoint-large-tablet) {
       }
       @media (max-width: $breakpoint-tablet) {
+        text-align: center;
+        font-size: var(--font-11);
       }
       @media (max-width: $breakpoint-phone) {
       }
@@ -200,6 +207,7 @@
     @media (max-width: $breakpoint-large-tablet) {
     }
     @media (max-width: $breakpoint-tablet) {
+      margin: 0 0 2% 0;
     }
     @media (max-width: $breakpoint-phone) {
     }
@@ -229,6 +237,7 @@
       @media (max-width: $breakpoint-large-tablet) {
       }
       @media (max-width: $breakpoint-tablet) {
+        font-size: var(--font-9);
       }
       @media (max-width: $breakpoint-phone) {
       }
@@ -251,6 +260,7 @@
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       }
       @media (max-width: $breakpoint-tablet) {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       }
       @media (max-width: $breakpoint-phone) {
       }
@@ -294,6 +304,7 @@
           @media (max-width: $breakpoint-large-tablet) {
           }
           @media (max-width: $breakpoint-tablet) {
+            font-size: var(--font-10);
           }
           @media (max-width: $breakpoint-phone) {
           }
@@ -347,6 +358,7 @@
           @media (max-width: $breakpoint-large-tablet) {
           }
           @media (max-width: $breakpoint-tablet) {
+            font-size: var(--font-11);
           }
           @media (max-width: $breakpoint-phone) {
           }
