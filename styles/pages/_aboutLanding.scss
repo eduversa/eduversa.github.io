@@ -2,7 +2,7 @@
   max-width: 800px;
   height: 85vh;
   max-height: 100%;
-  margin: 12% auto;
+  margin: 10% 0 0 0;
   padding: 20px;
   background: var(--white-shadow-light);
   backdrop-filter: blur(10px);
@@ -16,6 +16,10 @@
   transition: background 0.3s ease-in-out, border 0.3s ease-in-out,
     transform 0.3s ease-in-out;
   @media (max-width: $breakpoint-desktop-wide) {
+    max-width: 650px;
+    height: 85vh;
+    padding: 15px;
+    margin: 10% 0 0 0;
   }
   @media (max-width: $breakpoint-desktop) {
   }
