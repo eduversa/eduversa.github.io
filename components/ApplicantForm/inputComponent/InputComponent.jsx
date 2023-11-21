@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+
 export const Text = ({ label, name, value, ...props }) => {
   return (
     <div>
