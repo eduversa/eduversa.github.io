@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
+import Image from "next/image";
 
-const contactUs = require("../../data/ContactUs");
+const contactUs = require("../../data/contactUs");
+
 const ContactUs = () => {
   const { teamMembers, contactEmail, teamObjective, additionalInformation } =
     contactUs;
@@ -27,10 +29,12 @@ const ContactUs = () => {
   const containerClass = authToken
     ? "contact-us-container"
     : "contact-us-landing-container";
-
+  const handleSocialLoginClick = (provider) => {
+    alert(`We are coming on ${provider} soon!`);
+  };
   return (
     <Fragment>
-      <div className={containerClass}>
+      <div className={containerClass} style={{ zIndex: 500 }}>
         <h2 className="contact-us-heading">Contact Us</h2>
 
         <div className="team-members">
@@ -55,60 +59,62 @@ const ContactUs = () => {
           <div className="social-media">
             <h4 className="social-media-heading">Social Media</h4>
             <ul>
-              <li>
+              <li
+                onClick={() => {
+                  const github = document.createElement("a");
+                  github.href = additionalInformation.socialMedia.github;
+                  github.target = "_blank";
+                  github.click();
+                }}
+              >
                 GitHub:
-                <a
-                  href={additionalInformation.socialMedia.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-media-link"
-                >
-                  {additionalInformation.socialMedia.github}
-                </a>
+                <Image
+                  src="/login/github.png"
+                  alt="github"
+                  height={25}
+                  width={25}
+                  className="github-icon"
+                ></Image>
               </li>
-              <li>
+              <li onClick={() => handleSocialLoginClick("Twitter")}>
                 Twitter:
-                <a
-                  href={additionalInformation.socialMedia.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-media-link"
-                >
-                  {additionalInformation.socialMedia.twitter}
-                </a>
+                <Image
+                  src="/login/twitter.png"
+                  alt="twitter"
+                  height={25}
+                  width={25}
+                  className="twitter-icon"
+                ></Image>
               </li>
-              <li>
+              <li onClick={() => handleSocialLoginClick("LinkedIn")}>
                 LinkedIn:
-                <a
-                  href={additionalInformation.socialMedia.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-media-link"
-                >
-                  {additionalInformation.socialMedia.linkedin}
-                </a>
+                <Image
+                  src="/login/linkedin.png"
+                  alt="linkedin"
+                  height={25}
+                  width={25}
+                  className="linkedin-icon"
+                ></Image>
               </li>
-              <li>
+              <li onClick={() => handleSocialLoginClick("Facebook")}>
                 Facebook:
-                <a
-                  href={additionalInformation.socialMedia.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-media-link"
-                >
-                  {additionalInformation.socialMedia.facebook}
-                </a>
+                <Image
+                  src="/login/facebook.png"
+                  alt="facebook"
+                  height={25}
+                  width={25}
+                  className="facebook-icon"
+                ></Image>
               </li>
               <li>
                 Instagram:
-                <a
-                  href={additionalInformation.socialMedia.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-media-link"
-                >
-                  {additionalInformation.socialMedia.instagram}
-                </a>
+                <Image
+                  src="/contactus/instagram.png"
+                  alt="instagram"
+                  height={25}
+                  width={25}
+                  className="instagram-icon"
+                ></Image>
               </li>
             </ul>
           </div>
