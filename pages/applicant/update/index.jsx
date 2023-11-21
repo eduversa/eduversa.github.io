@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { ApplicantLayout } from "@/layout";
+
 function UpdateApplicant() {
   return (
     <Fragment>

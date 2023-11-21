@@ -2,7 +2,7 @@
   max-width: 800px;
   height: 85vh;
   max-height: 100%;
-  margin: 12% auto;
+  margin: 10% 0 0 0;
   padding: 20px;
   background: var(--white-shadow-light);
   backdrop-filter: blur(10px);
@@ -15,7 +15,27 @@
   z-index: 5;
   transition: background 0.3s ease-in-out, border 0.3s ease-in-out,
     transform 0.3s ease-in-out;
-
+  @media (max-width: $breakpoint-desktop-wide) {
+    max-width: 650px;
+    height: 85vh;
+    padding: 15px;
+    margin: 10% 0 0 0;
+  }
+  @media (max-width: $breakpoint-desktop) {
+    max-width: 600px;
+  }
+  @media (max-width: $breakpoint-large-tablet) {
+    margin: 12% 0 0 0;
+    max-width: 400px;
+  }
+  @media (max-width: $breakpoint-tablet) {
+    margin: 10% 0 0 0;
+    padding: 20px;
+  }
+  @media (max-width: $breakpoint-phone) {
+    max-width: 300px;
+    max-height: 650px;
+  }
   &:hover {
     background: rgba(255, 255, 255, 0.05);
     border-color: var(--white-shadow-light-3);
@@ -48,7 +68,6 @@
   }
   &::-webkit-scrollbar-track {
     background: linear-gradient(to right, #f8f8f8, #e5e5e5);
-    // background: transparent;
     border-radius: 10px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   }
@@ -73,6 +92,19 @@
     text-shadow: 2px 2px 4px var(--black-shadow-light-1);
     margin: 0 0 2% 0;
     transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    @media (max-width: $breakpoint-desktop-wide) {
+      font-size: var(--font-8);
+      margin: 0 0 1.5% 0;
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-5);
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     &::before {
       content: "";
       display: block;
@@ -98,6 +130,18 @@
     @include flex-container(column, nowrap, center, center);
     gap: 5px;
     margin: 0 0 2% 0;
+    @media (max-width: $breakpoint-desktop-wide) {
+      margin: 0 0 1.5% 0;
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      margin: 0 0 2% 0;
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .description-heading,
     .technologies-heading {
       color: var(--white);
@@ -107,6 +151,18 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       text-shadow: 2px 2px 4px var(--black-shadow-light-1);
+      @media (max-width: $breakpoint-desktop-wide) {
+        font-size: var(--font-10);
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+        font-size: var(--font-8);
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
     }
     p {
       text-align: justify;
@@ -117,6 +173,20 @@
       letter-spacing: 1.5px;
       text-shadow: 2px 2px 4px var(--black-shadow-light-1);
       line-height: 1.5;
+      @media (max-width: $breakpoint-desktop-wide) {
+        font-size: var(--font-12);
+        letter-spacing: 1px;
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+        text-align: center;
+        font-size: var(--font-11);
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
     }
   }
 
@@ -130,7 +200,19 @@
     padding-top: 0;
     transition: background 0.5s ease-in-out, border 0.5s ease-in-out,
       transform 0.5s ease-in-out;
-
+    @media (max-width: $breakpoint-desktop-wide) {
+      margin: 0 0 1.5% 0;
+      padding: 10px;
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      margin: 0 0 2% 0;
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     &:hover {
       background: rgba(255, 255, 255, 0.05);
       border-color: var(--white-shadow-light-2);
@@ -142,12 +224,25 @@
       margin: 0 0 2% 0;
       text-align: center;
       color: var(--black);
-      font-family: var(--font-playfair);
+      font-family: var(--font-oswald);
       font-size: var(--font-9);
       font-weight: 800;
       letter-spacing: 4px;
       text-transform: uppercase;
       transition: color 0.5s ease-in-out, text-decoration 0.5s ease-in-out;
+      @media (max-width: $breakpoint-desktop-wide) {
+        margin: 0 0 1% 0;
+        font-size: var(--font-10);
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+        font-size: var(--font-9);
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
         color: var(--white);
         text-decoration: underline;
@@ -157,6 +252,20 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 15px;
+      @media (max-width: $breakpoint-desktop-wide) {
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      }
+      @media (max-width: $breakpoint-desktop) {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      @media (max-width: $breakpoint-tablet) {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       div {
         @include flex-container(column, nowrap, flex-start, center);
         gap: 10px;
@@ -165,6 +274,16 @@
         padding: 15px;
         text-align: center;
         transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         &:hover {
           background: var(--white-shadow-light);
           transform: scale(1.02);
@@ -179,6 +298,18 @@
           font-weight: 600;
           letter-spacing: 1.5px;
           text-shadow: 2px 2px 4px var(--white-shadow-light-1);
+          @media (max-width: $breakpoint-desktop-wide) {
+            font-size: var(--font-11);
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+            font-size: var(--font-10);
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
           &::before {
             content: "";
             display: block;
@@ -218,9 +349,21 @@
           font-family: var(--font-roboto);
           font-size: var(--font-11);
           font-weight: 400;
-          // letter-spacing: 1.5px;
+          letter-spacing: 1.5px;
           text-shadow: 2px 2px 4px var(--white-shadow-light-1);
           line-height: 1.5;
+          @media (max-width: $breakpoint-desktop-wide) {
+            font-size: var(--font-12);
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+            font-size: var(--font-11);
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
         }
       }
     }

@@ -1,0 +1,131 @@
+// Main container
+.contact-us-landing-container {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+
+  // Heading styles
+  .contact-us-heading {
+    color: #3498db;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  // Team members styles
+  .team-members {
+    margin-top: 20px;
+
+    // Team members heading styles
+    .team-members-heading {
+      color: #34495e;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    // Team member styles
+    .team-member {
+      margin-bottom: 15px;
+
+      // Team member heading styles
+      &-heading {
+        color: #3498db;
+        font-size: 1.2em;
+        margin-bottom: 5px;
+      }
+
+      // Team member email styles
+      &-email {
+        color: #34495e;
+        margin-bottom: 5px;
+      }
+
+      // Team member expertise styles
+      &-expertise {
+        color: #34495e;
+        margin-bottom: 5px;
+      }
+
+      // Team member description styles
+      &-description {
+        color: #34495e;
+      }
+    }
+  }
+
+  // Contact email styles
+  .contact-email {
+    margin-top: 20px;
+
+    // Contact email heading styles
+    .contact-email-heading {
+      color: #34495e;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    // Contact email content styles
+    .contact-email-content {
+      color: #34495e;
+    }
+  }
+
+  // Team objective styles
+  .team-objective {
+    margin-top: 20px;
+
+    // Team objective heading styles
+    .team-objective-heading {
+      color: #34495e;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    // Team objective content styles
+    .team-objective-content {
+      color: #34495e;
+    }
+  }
+
+  // Additional information styles
+  .additional-information {
+    margin-top: 20px;
+
+    // Additional information heading styles
+    .additional-information-heading {
+      color: #34495e;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    // Social media styles
+    .social-media {
+      // Social media heading styles
+      .social-media-heading {
+        color: #34495e;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+
+      // Social media list styles
+      ul {
+        list-style: none;
+        padding: 0;
+
+        // Social media list item styles
+        li {
+          margin-bottom: 10px;
+          cursor: pointer;
+
+          // Social media icon styles
+          img {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+}
