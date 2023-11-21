@@ -52,3 +52,5 @@ const contactUs = {
     },
   },
 };
+
+module.exports = contactUs;

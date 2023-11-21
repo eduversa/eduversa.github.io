@@ -1,27 +1,83 @@
-import { Fragment } from "react";
-function ContactUs() {
+import React, { Fragment } from "react";
+const contactUs = require("../../data/ContactUs");
+const ContactUs = () => {
+  const { teamMembers, contactEmail, teamObjective, additionalInformation } =
+    contactUs;
+
+  const renderTeamMembers = () => {
+    return teamMembers.map((member, index) => (
+      <div key={index} className={`team-member-${index + 1}`}>
+        <h3 className={`team-member-${index + 1}-heading`}>{member.name}</h3>
+        <p>Email: {member.email}</p>
+        <p>Expertise: {member.expertise}</p>
+        <p>{member.description}</p>
+      </div>
+    ));
+  };
+
   return (
     <Fragment>
-      <h1>Contact Us</h1>
-      We are a team of 6 members, with each having expertise in different
-      departments. We are a team which loves and adores making new stuff with an
-      extra advantages of solving problems. - Ankur Halder (Leader) – email:
-      ankur.halder12345@gmail.com, expertise in both frontend and backend
-      technologies, someone who believes in constant learning and likes
-      developing products. - Vidit Modi – email:viditmodi2207@gmail.com ,
-      expertise in both frontend and backend technologies, has a deeprooted
-      belief in learning and experimenting new technologies by making great
-      products. - Debargha Mondal – email:debargha10000@gmail.com , learning and
-      growing in frontend technologies ; learner who fancies some affinity
-      towards making products look good. - Tanay Ghoriwala – email:
-      tanayghoriwala001@gmail.com,learning and growing in frontend technologies
-      ; learner who fancies both developing and problem solving. - Ankan Basak -
-      email: ankanbasak377@gmail.com , beginner. - Shreyasi Roy – email ,
-      beginner. We can be contacted using our email id -
-      eduversa.developer@gmail.com We as a team are determined to make this
-      project evolve and be at par with other similar state-of-art-facilities.
+      <div className="contact-us-container">
+        <h2 className="contact-us-heading">Contact Us</h2>
+
+        <div className="team-members">
+          <h3 className="team-members-heading">Our Team</h3>
+          {renderTeamMembers()}
+        </div>
+
+        <div className="contact-email">
+          <h3 className="contact-email-heading">Contact Email</h3>
+          <p>{contactEmail}</p>
+        </div>
+
+        <div className="team-objective">
+          <h3 className="team-objective-heading">Team Objective</h3>
+          <p>{teamObjective}</p>
+        </div>
+
+        <div className="additional-information">
+          <h3 className="additional-information-heading">
+            Additional Information
+          </h3>
+          <div className="social-media">
+            <h4 className="social-media-heading">Social Media</h4>
+            <ul>
+              <li>
+                Twitter:
+                <a
+                  href={additionalInformation.socialMedia.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {additionalInformation.socialMedia.twitter}
+                </a>
+              </li>
+              <li>
+                LinkedIn:
+                <a
+                  href={additionalInformation.socialMedia.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {additionalInformation.socialMedia.linkedin}
+                </a>
+              </li>
+              <li>
+                GitHub:
+                <a
+                  href={additionalInformation.socialMedia.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {additionalInformation.socialMedia.github}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </Fragment>
   );
-}
+};
 
 export default ContactUs;
