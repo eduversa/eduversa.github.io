@@ -150,6 +150,8 @@ const ApplicantForm = () => {
   //   localStorage.removeItem('formData');
   // };
 
+  //testing
+
   // clears the current page from the state not localStorage
   const clearFormData = (currentStep) => {
     let updatedFormData = { ...formData };
