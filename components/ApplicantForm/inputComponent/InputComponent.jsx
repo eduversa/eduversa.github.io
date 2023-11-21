@@ -170,27 +170,57 @@ export const Select =({label, name, value, options, ...props}) =>{
 // }
 
 
-export const Image =({label, name, imagePreview, handleFileInputChange}) => {
-  return(
-    <div className='image-upload'>
-      {/* Image preview */}
-      {imagePreview && (
-        <div className="image-preview" >
-          <img src={imagePreview} alt="Preview"/>
-        </div>
-      )}
-      <label htmlFor="user-image" className="btn">{label}</label>
-      {/* Input for file upload */}
-      <input
-        type="file"
-        accept="image/*"
-        name={name}
-        id={name}
-        onChange={handleFileInputChange}
-        style={{ display: 'none' }}
-      />
+// export const Image =({label, name, imagePreview, handleFileInputChange}) => {
+//   return(
+//     <div className='image-upload'>
+//       {/* Image preview */}
+//       {imagePreview && (
+//         <div className="image-preview" >
+//           <img src={imagePreview} alt="Preview"/>
+//         </div>
+//       )}
+//       <label htmlFor="user-image" className="btn">{label}</label>
+//       {/* Input for file upload */}
+//       <input
+//         type="file"
+//         accept="image/*"
+//         name={name}
+//         id={name}
+//         onChange={handleFileInputChange}
+//         style={{ display: 'none' }}
+//       />
 
+//     </div>
+//   )
+// }
+
+
+export const FormButtons = ({ handlePreviousClick, clearFormData, handleSave, currentStep, totalSteps }) => {
+  return (
+    <div className="btns">
+      <button
+        type="button"
+        className="btn"
+        onClick={handlePreviousClick}
+        disabled={currentStep === 1}
+        // style={{opacity: isPrevDisabled ? 0.3 : 1}}
+      >
+        Prev
+      </button>
+      <button type="button" className="btn" onClick={clearFormData}>Clear</button>
+      <button 
+        type="button" 
+        className="btn" 
+        onClick={handleSave}
+      >
+        Save
+      </button>
+      <button 
+        className="btn" 
+        type="submit" 
+      >
+        {currentStep===totalSteps ? "Submit" : "Next" }
+      </button>
     </div>
-  )
-}
-
+  );
+};

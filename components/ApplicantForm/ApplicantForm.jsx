@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { PersonalInfo, FamilyInfo, AcademicInfo, CourseInfo, FileUpload } from "./formPages";
+import { FormButtons } from "./inputComponent/InputComponent";
 
 const ApplicantForm = () => {
-
-  // if (typeof window !== 'undefined') {
-  //   window.onbeforeunload = function() {
-  //     return "Data will be lost if you leave the page, are you sure?";
-  //   };
-  // }
 
   //initial Form Data
   const initialFormData = {
@@ -27,13 +22,13 @@ const ApplicantForm = () => {
         state: ""
       },
       name: "",
-      email: "a@g.com",
-      contact: "1234567890",
+      email: "",
+      contact: "",
       gender: "",
       dob: "",
-      are_adresses_same: true,
-      category: "GN",
-      blood_group: "B+",
+      are_addresses_same: false,
+      category: "",
+      blood_group: "",
       aadhar_number: "",
       pan_number: ""
     },
@@ -104,24 +99,30 @@ const ApplicantForm = () => {
   // Load saved form data from local storage on component mount
   useEffect(() => {
     const savedFormData = JSON.parse(localStorage.getItem('formData'));
+    const savedCurrentStep = JSON.parse(localStorage.getItem('currentStep'));
     if (savedFormData) {
       setFormData(savedFormData);
     }
+    if (savedCurrentStep) {
+      setCurrentStep(savedCurrentStep);
+    }
   }, []);
+
 
   //steps in the form
   const [currentStep, setCurrentStep] = useState(1);
 
+  // fn to handle change in the input fields
   const handleChange = (event, callback) => {
     const { name, value } = event.target;
   
     if (name === 'formData') {
-      setFormData(value, callback);
+      setFormData(prevFormData => ({ ...prevFormData, ...value }), callback);
       return;
     }
   
     const nameArray = name.split('.');
-    setFormData((prevFormData) => {
+    setFormData(prevFormData => {
       let updatedData = { ...prevFormData };
       let currentLevel = updatedData;
   
@@ -142,17 +143,58 @@ const ApplicantForm = () => {
   const handleSave = () => {
     localStorage.setItem('formData', JSON.stringify(formData));
   };
+
+  // // clears all the form data from the state and also localStorage 
+  // const clearFormData = () => {
+  //   setFormData(initialFormData);
+  //   localStorage.removeItem('formData');
+  // };
+
+  // clears the current page from the state not localStorage
+  const clearFormData = (currentStep) => {
+    let updatedFormData = { ...formData };
+  
+    switch (currentStep) {
+      case 1:
+        updatedFormData.personal_info = initialFormData.personal_info;
+        break;
+      case 2:
+        updatedFormData.family_info = initialFormData.family_info;
+        break;
+      case 3:
+        updatedFormData.academic_info = initialFormData.academic_info;
+        break;
+      case 4:
+        updatedFormData.course_info = initialFormData.course_info;
+        break;
+      case 5:
+        updatedFormData.image = initialFormData.image;
+        break;
+      default:
+        break;
+    }
+  
+    setFormData(updatedFormData);
+  };
   
   // function to move to the next page
   const handleNextClick = (event) => {
     event.preventDefault(); 
-    setCurrentStep((prevStep) => prevStep + 1);
+    if (presentPincodeError || permanentPincodeError || officePincodeError) {
+      alert("Please enter a valid pincode.");
+      return;
+    }
+    const nextStep = currentStep + 1;
+    setCurrentStep(nextStep);
+    localStorage.setItem('currentStep', JSON.stringify(nextStep));
   };
 
   // function to move to the previous page
   const handlePreviousClick = (event) => {
     event.preventDefault(); 
-    setCurrentStep((prevStep) => prevStep - 1);
+    const previousStep = currentStep - 1;
+    setCurrentStep(previousStep);
+    localStorage.setItem('currentStep', JSON.stringify(previousStep));
   };
 
   // function to submit the form
@@ -162,53 +204,89 @@ const ApplicantForm = () => {
     console.log("Form submitted:", formData);
   };
 
+  // pincode error states 
+  const [presentPincodeError, setPresentPincodeError] = useState(false);
+  const [permanentPincodeError, setPermanentPincodeError] = useState(false);
+  const [officePincodeError, setOfficePincodeError] = useState(false);
 
-  // all the pages with all the prop functions
-  const renderStep = [
+  // all the pages
 
-      <PersonalInfo 
-        formData={formData} 
-        handleChange={handleChange} 
-        handleNextClick={handleNextClick} 
-        handlePreviousClick={handlePreviousClick} 
-        handleSubmit={handleSubmit}
-        handleSave={handleSave}
-      />,
-      <FamilyInfo 
-        formData={formData} 
-        handleChange={handleChange} 
-        handleNextClick={handleNextClick} 
-        handlePreviousClick={handlePreviousClick} 
-        handleSubmit={handleSubmit}
-        handleSave={handleSave}
-      />,
-      <AcademicInfo 
-        formData={formData} 
-        handleChange={handleChange} 
-        handleNextClick={handleNextClick} 
-        handlePreviousClick={handlePreviousClick} 
-        handleSubmit={handleSubmit}
-        handleSave={handleSave}
-      />,
-      <CourseInfo 
-        formData={formData} 
-        handleChange={handleChange} 
-        handleNextClick={handleNextClick} 
-        handlePreviousClick={handlePreviousClick} 
-        handleSubmit={handleSubmit}
-        handleSave={handleSave}
-      />,
-      <FileUpload 
-        formData={formData} 
-        setFormData={setFormData}
-        handleChange={handleChange} 
-        handleNextClick={handleNextClick} 
-        handlePreviousClick={handlePreviousClick} 
-        handleSubmit={handleSubmit}
-        handleSave={handleSave}
-      />,
+  const formSteps = [PersonalInfo, FamilyInfo, AcademicInfo, CourseInfo, FileUpload];
+  const totalSteps = formSteps.length;
 
-  ]
+  const pageTitles = formSteps.map(step => {
+    const stepName = step.name;
+    return stepName.replace(/([A-Z])/g, ' $1').trim(); 
+  });
+
+  // const pageTitles = ["Personal Information", "Family Information", "Academic Information", "Course Information", "File Upload"];
+
+  const renderStep = formSteps.map((StepComponent, index) => (
+    <StepComponent
+      key={index + 1}
+      formData={formData}
+      handleChange={handleChange}
+      setFormData={setFormData}
+
+      presentPincodeError={presentPincodeError}
+      setPresentPincodeError={setPresentPincodeError}
+      permanentPincodeError={permanentPincodeError}
+      setPermanentPincodeError={setPermanentPincodeError}
+      officePincodeError={officePincodeError}
+      setOfficePincodeError={setOfficePincodeError}
+    />
+  ));
+
+  // const renderStep = [
+
+  //     <PersonalInfo 
+  //       formData={formData} 
+  //       handleChange={handleChange} 
+  //       handleNextClick={handleNextClick} 
+  //       handlePreviousClick={handlePreviousClick} 
+  //       handleSubmit={handleSubmit}
+  //       handleSave={handleSave}
+  //       key={1}
+  //     />,
+  //     <FamilyInfo 
+  //       formData={formData} 
+  //       handleChange={handleChange} 
+  //       handleNextClick={handleNextClick} 
+  //       handlePreviousClick={handlePreviousClick} 
+  //       handleSubmit={handleSubmit}
+  //       handleSave={handleSave}
+  //       key={2}
+  //     />,
+  //     <AcademicInfo 
+  //       formData={formData} 
+  //       handleChange={handleChange} 
+  //       handleNextClick={handleNextClick} 
+  //       handlePreviousClick={handlePreviousClick} 
+  //       handleSubmit={handleSubmit}
+  //       handleSave={handleSave}
+  //       key={3}
+  //     />,
+  //     <CourseInfo 
+  //       formData={formData} 
+  //       handleChange={handleChange} 
+  //       handleNextClick={handleNextClick} 
+  //       handlePreviousClick={handlePreviousClick} 
+  //       handleSubmit={handleSubmit}
+  //       handleSave={handleSave}
+  //       key={4}
+  //     />,
+  //     <FileUpload 
+  //       formData={formData} 
+  //       setFormData={setFormData}
+  //       handleChange={handleChange} 
+  //       handleNextClick={handleNextClick} 
+  //       handlePreviousClick={handlePreviousClick} 
+  //       handleSubmit={handleSubmit}
+  //       handleSave={handleSave}
+  //       key={5}
+  //     />,
+
+  // ]
   // const renderStep =[
   //   <PersonalInfo/>,
   //   <FamilyInfo/>,
@@ -217,7 +295,7 @@ const ApplicantForm = () => {
   //   <FileUpload/>,
   // ]
 
-  const progress=currentStep/(renderStep.length)*100
+  const progress=currentStep/(formSteps.length)*100
 
   return (
     <div className="form" style={{background: `hsl(${(currentStep - 1) * 62.5}, 40% , 85%)`}}>
@@ -233,17 +311,24 @@ const ApplicantForm = () => {
           }}
         >
         </div>
-        {/* displaying the pages from the array according to the page number */}
-        {renderStep[currentStep-1]}
-        {/* {renderStep[currentStep - 1]({
-          formData,
-          setFormData,
-          handleChange,
-          handleNextClick,
-          handlePreviousClick,
-          handleSubmit,
-          handleSave
-        })} */}
+        <div className="page">
+          <h2 className="page--title">{pageTitles[currentStep-1]}</h2>
+
+          <form className="page--content" onSubmit={currentStep === totalSteps ? handleSubmit : handleNextClick}>
+
+            {/* displaying the pages from the array according to the page number */}
+            {renderStep[currentStep-1]}
+
+            <FormButtons 
+              handlePreviousClick={handlePreviousClick} 
+              clearFormData={() => clearFormData(currentStep)} 
+              handleSave={handleSave} 
+              currentStep={currentStep}
+              totalSteps={totalSteps}
+            />
+          </form>
+          
+        </div>
       </div>
 
     </div>
