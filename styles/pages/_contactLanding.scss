@@ -72,10 +72,28 @@
       font-size: 1.5em;
       margin-bottom: 10px;
       text-transform: uppercase;
+      position: relative;
       transition: color 0.3s ease, transform 0.3s ease;
 
       &:hover {
         color: #2c3e50;
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 2px;
+        background-color: #3498db;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 100%;
+        transition: width 0.3s ease, right 0.3s ease;
+      }
+
+      &:hover:before {
+        width: 30px;
+        right: 90%;
       }
     }
 
@@ -84,6 +102,7 @@
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      position: relative;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
 
       &:hover {
@@ -123,6 +142,24 @@
         &:hover {
           color: #2c3e50;
         }
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background-color: #3498db;
+        bottom: 0;
+        left: 0;
+        transform-origin: right;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      &:hover:before {
+        transform-origin: left;
+        transform: scaleX(1);
       }
     }
   }
@@ -187,6 +224,77 @@
 
           &:hover {
             transform: scale(1.2);
+          }
+        }
+      }
+    }
+  }
+
+  &:after {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .team-members-heading {
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background-color: #3498db;
+      margin-right: 10px;
+      transition: width 0.3s ease;
+    }
+
+    &:hover {
+      &:before {
+        width: 30px;
+      }
+    }
+  }
+
+  .team-member {
+    &:before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: #3498db;
+      top: 0;
+      left: 0;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      &:before {
+        transform-origin: left;
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  .social-media {
+    ul {
+      li {
+        &:before {
+          content: "";
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          background-color: #3498db;
+          border-radius: 50%;
+          margin-right: 5px;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover {
+          &:before {
+            transform: scale(1.5);
           }
         }
       }
