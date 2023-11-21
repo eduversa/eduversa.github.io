@@ -3,7 +3,7 @@ import { PersonalInfo, FamilyInfo, AcademicInfo, CourseInfo, FileUpload } from "
 import { FormButtons } from "./inputComponent/InputComponent";
 
 const ApplicantForm = () => {
-
+  //TEST
   //initial Form Data
   const initialFormData = {
     personal_info: {
