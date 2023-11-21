@@ -1,10 +1,12 @@
 import { Fragment } from "react";
 import { ApplicantLayout } from "@/layout";
-
+import { ApplicantForm } from "@/components";
 function UpdateApplicant() {
   return (
     <Fragment>
-      <ApplicantLayout></ApplicantLayout>
+      <ApplicantLayout>
+        <ApplicantForm />
+      </ApplicantLayout>
     </Fragment>
   );
 }
