@@ -1,33 +1,51 @@
-import React from "react";
-import Image from "next/image";
-export const Text = ({ label, name, value, ...props }) => {
+import React from 'react'
+
+export const Text =({label, name, value, ...props}) =>{
   return (
     <div>
       <label htmlFor={name}>{label}</label>
-      <input type="text" id={name} name={name} value={value} {...props} />
+      <input
+        type="text"
+        id={name}
+        name={name}
+        value={value}
+        {...props}
+      />
     </div>
-  );
-};
+  )
+}
 
-export const Email = ({ label, name, value, ...props }) => {
+export const Email =({label, name, value, ...props}) =>{
   return (
     <div>
       <label htmlFor={name}>{label}</label>
-      <input type="email" id={name} name={name} value={value} {...props} />
+      <input
+        type="email"
+        id={name}
+        name={name}
+        value={value}
+        {...props}
+      />
     </div>
-  );
-};
+  )
+}
 
-export const Number = ({ label, name, value, ...props }) => {
+export const Number =({label, name, value, ...props}) =>{
   return (
     <div htmlFor={name}>
       <label>{label}</label>
-      <input type="number" id={name} name={name} value={value} {...props} />
+      <input
+        type="number"
+        id={name}
+        name={name}
+        value={value}
+        {...props}
+      />
     </div>
-  );
-};
+  )
+}
 
-export const PhoneNumber = ({ label, name, value, ...props }) => {
+export const PhoneNumber =({label, name, value, ...props}) =>{
   return (
     <div htmlFor={name}>
       <label>{label}</label>
@@ -41,10 +59,10 @@ export const PhoneNumber = ({ label, name, value, ...props }) => {
         {...props}
       />
     </div>
-  );
-};
+  )
+}
 
-export const Pincode = ({ label, name, value, ...props }) => {
+export const Pincode =({label, name, value, ...props}) =>{
   return (
     <div htmlFor={name}>
       <label>{label}</label>
@@ -58,10 +76,10 @@ export const Pincode = ({ label, name, value, ...props }) => {
         {...props}
       />
     </div>
-  );
-};
+  )
+}
 
-export const Aadhar = ({ label, name, value, ...props }) => {
+export const Aadhar =({label, name, value, ...props}) =>{
   return (
     <div htmlFor={name}>
       <label>{label}</label>
@@ -74,10 +92,10 @@ export const Aadhar = ({ label, name, value, ...props }) => {
         {...props}
       />
     </div>
-  );
-};
+  )
+}
 
-export const Pan = ({ label, name, value, ...props }) => {
+export const Pan =({label, name, value, ...props}) =>{
   return (
     <div htmlFor={name}>
       <label>{label}</label>
@@ -90,23 +108,34 @@ export const Pan = ({ label, name, value, ...props }) => {
         {...props}
       />
     </div>
-  );
-};
+  )
+}
 
-export const DateInput = ({ label, name, value, ...props }) => {
+export const DateInput =({label, name, value, ...props}) =>{
   return (
     <div>
       <label htmlFor={name}>{label}</label>
-      <input type="date" id={name} name={name} value={value} {...props} />
+      <input
+        type="date"
+        id={name}
+        name={name}
+        value={value}
+        {...props}
+      />
     </div>
-  );
-};
+  )
+}
 
-export const Select = ({ label, name, value, options, ...props }) => {
+export const Select =({label, name, value, options, ...props}) =>{
   return (
     <div>
       <label htmlFor={name}>{label}</label>
-      <select id={name} name={name} value={value} {...props}>
+      <select
+        id={name}
+        name={name}
+        value={value}
+        {...props}
+      >
         {options.map((option) => {
           return (
             <option key={option.key} value={option.value}>
@@ -116,8 +145,8 @@ export const Select = ({ label, name, value, options, ...props }) => {
         })}
       </select>
     </div>
-  );
-};
+  )
+}
 
 // export const Checkbox =({label, name, value, options, ...props}) =>{
 //   return (
@@ -126,8 +155,8 @@ export const Select = ({ label, name, value, options, ...props }) => {
 //         return (
 //           <div>
 //             <label htmlFor={option.value}>{option.key}</label>
-//             <input
-//               type="checkbox"
+//             <input 
+//               type="checkbox" 
 //               id={name}
 //               name={name}
 //               value={value}
@@ -140,41 +169,58 @@ export const Select = ({ label, name, value, options, ...props }) => {
 //   )
 // }
 
-export const ImageUpload = ({
-  label,
-  name,
-  imagePreview,
-  handleFileInputChange,
-}) => {
-  return (
-    <div className="image-upload">
-      {/* Image preview */}
-      {imagePreview && (
-        <div className="image-preview">
-          {/* <img src={imagePreview} alt="Preview" />
-           */}
 
-          <Image
-            src={imagePreview}
-            alt="Preview"
-            width={200}
-            height={200}
-            objectFit="contain"
-          />
-        </div>
-      )}
-      <label htmlFor="user-image" className="btn">
-        {label}
-      </label>
-      {/* Input for file upload */}
-      <input
-        type="file"
-        accept="image/*"
-        name={name}
-        id={name}
-        onChange={handleFileInputChange}
-        style={{ display: "none" }}
-      />
+// export const Image =({label, name, imagePreview, handleFileInputChange}) => {
+//   return(
+//     <div className='image-upload'>
+//       {/* Image preview */}
+//       {imagePreview && (
+//         <div className="image-preview" >
+//           <img src={imagePreview} alt="Preview"/>
+//         </div>
+//       )}
+//       <label htmlFor="user-image" className="btn">{label}</label>
+//       {/* Input for file upload */}
+//       <input
+//         type="file"
+//         accept="image/*"
+//         name={name}
+//         id={name}
+//         onChange={handleFileInputChange}
+//         style={{ display: 'none' }}
+//       />
+
+//     </div>
+//   )
+// }
+
+
+export const FormButtons = ({ handlePreviousClick, clearFormData, handleSave, currentStep, totalSteps }) => {
+  return (
+    <div className="btns">
+      <button
+        type="button"
+        className="btn"
+        onClick={handlePreviousClick}
+        disabled={currentStep === 1}
+        // style={{opacity: isPrevDisabled ? 0.3 : 1}}
+      >
+        Prev
+      </button>
+      <button type="button" className="btn" onClick={clearFormData}>Clear</button>
+      <button 
+        type="button" 
+        className="btn" 
+        onClick={handleSave}
+      >
+        Save
+      </button>
+      <button 
+        className="btn" 
+        type="submit" 
+      >
+        {currentStep===totalSteps ? "Submit" : "Next" }
+      </button>
     </div>
   );
 };

@@ -1,6 +1,5 @@
 export { default as TypingText } from "./TypingText";
-export { default as ApplicantForm } from "./ApplicantForm/ApplicantForm"
-
+export { default as ApplicantForm } from "./ApplicantForm/ApplicantForm";
 // Loading Components
 export { default as Circle } from "./Loading/Circle";
 export { default as Default } from "./Loading/Default";

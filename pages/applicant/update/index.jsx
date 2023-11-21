@@ -5,7 +5,7 @@ function UpdateApplicant() {
   return (
     <Fragment>
       <ApplicantLayout>
-        <ApplicantForm/>
+        <ApplicantForm />
       </ApplicantLayout>
     </Fragment>
   );
