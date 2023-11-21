@@ -19,7 +19,6 @@
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     transition: color 0.3s ease, transform 0.3s ease;
-    transform-origin: center;
 
     &:hover {
       color: #2980b9;
@@ -67,17 +66,7 @@
         }
       }
 
-      &-email {
-        color: #34495e;
-        margin-bottom: 5px;
-        font-style: italic;
-        transition: color 0.3s ease;
-
-        &:hover {
-          color: #2c3e50;
-        }
-      }
-
+      &-email,
       &-expertise {
         color: #34495e;
         margin-bottom: 5px;
@@ -100,63 +89,12 @@
     }
   }
 
-  .contact-email {
-    margin-top: 20px;
-
-    .contact-email-heading {
-      color: #34495e;
-      font-size: 1.5em;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      transition: color 0.3s ease, transform 0.3s ease;
-
-      &:hover {
-        color: #2c3e50;
-      }
-    }
-
-    .contact-email-content {
-      color: #34495e;
-      font-weight: bold;
-      letter-spacing: 1px;
-      transition: color 0.3s ease;
-
-      &:hover {
-        color: #2c3e50;
-      }
-    }
-  }
-
-  .team-objective {
-    margin-top: 20px;
-
-    .team-objective-heading {
-      color: #34495e;
-      font-size: 1.5em;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      transition: color 0.3s ease, transform 0.3s ease;
-
-      &:hover {
-        color: #2c3e50;
-      }
-    }
-
-    .team-objective-content {
-      color: #34495e;
-      line-height: 1.6;
-      transition: color 0.3s ease;
-
-      &:hover {
-        color: #2c3e50;
-      }
-    }
-  }
-
+  .contact-email,
+  .team-objective,
   .additional-information {
     margin-top: 20px;
 
-    .additional-information-heading {
+    h3 {
       color: #34495e;
       font-size: 1.5em;
       margin-bottom: 10px;
@@ -168,40 +106,49 @@
       }
     }
 
-    .social-media {
-      .social-media-heading {
-        color: #34495e;
-        font-size: 1.2em;
+    p {
+      color: #34495e;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #2c3e50;
+      }
+    }
+  }
+
+  .social-media {
+    .social-media-heading {
+      color: #34495e;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      transition: color 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        color: #2c3e50;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
         margin-bottom: 10px;
-        transition: color 0.3s ease, transform 0.3s ease;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
 
         &:hover {
-          color: #2c3e50;
+          transform: scale(1.1);
+          box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
         }
-      }
 
-      ul {
-        list-style: none;
-        padding: 0;
-
-        li {
-          margin-bottom: 10px;
-          cursor: pointer;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        img {
+          margin-left: 5px;
+          border-radius: 50%;
+          transition: transform 0.3s ease;
 
           &:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-          }
-
-          img {
-            margin-left: 5px;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-
-            &:hover {
-              transform: scale(1.2);
-            }
+            transform: scale(1.2);
           }
         }
       }
