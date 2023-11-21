@@ -56,7 +56,18 @@ const ContactUs = () => {
             <h4 className="social-media-heading">Social Media</h4>
             <ul>
               <li>
-                Twitter:{" "}
+                GitHub:
+                <a
+                  href={additionalInformation.socialMedia.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-media-link"
+                >
+                  {additionalInformation.socialMedia.github}
+                </a>
+              </li>
+              <li>
+                Twitter:
                 <a
                   href={additionalInformation.socialMedia.twitter}
                   target="_blank"
@@ -67,7 +78,7 @@ const ContactUs = () => {
                 </a>
               </li>
               <li>
-                LinkedIn:{" "}
+                LinkedIn:
                 <a
                   href={additionalInformation.socialMedia.linkedin}
                   target="_blank"
@@ -78,14 +89,25 @@ const ContactUs = () => {
                 </a>
               </li>
               <li>
-                GitHub:{" "}
+                Facebook:
                 <a
-                  href={additionalInformation.socialMedia.github}
+                  href={additionalInformation.socialMedia.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-media-link"
                 >
-                  {additionalInformation.socialMedia.github}
+                  {additionalInformation.socialMedia.facebook}
+                </a>
+              </li>
+              <li>
+                Instagram:
+                <a
+                  href={additionalInformation.socialMedia.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-media-link"
+                >
+                  {additionalInformation.socialMedia.instagram}
                 </a>
               </li>
             </ul>
