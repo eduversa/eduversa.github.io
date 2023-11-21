@@ -1,18 +1,25 @@
 // Main container
 .contact-us-landing-container {
-  background-color: #ecf0f1;
+  background: linear-gradient(to bottom, #ecf0f1, #bdc3c7);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to bottom, #bdc3c7, #ecf0f1);
+  }
 
   // Heading styles
   .contact-us-heading {
     color: #3498db;
     font-size: 2em;
     margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   // Team members styles
@@ -24,23 +31,36 @@
       color: #34495e;
       font-size: 1.5em;
       margin-bottom: 10px;
+      text-transform: uppercase;
     }
 
     // Team member styles
     .team-member {
       margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+      }
 
       // Team member heading styles
       &-heading {
         color: #3498db;
         font-size: 1.2em;
         margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
       }
 
       // Team member email styles
       &-email {
         color: #34495e;
         margin-bottom: 5px;
+        font-style: italic;
       }
 
       // Team member expertise styles
@@ -52,6 +72,7 @@
       // Team member description styles
       &-description {
         color: #34495e;
+        font-style: italic;
       }
     }
   }
@@ -65,11 +86,14 @@
       color: #34495e;
       font-size: 1.5em;
       margin-bottom: 10px;
+      text-transform: uppercase;
     }
 
     // Contact email content styles
     .contact-email-content {
       color: #34495e;
+      font-weight: bold;
+      letter-spacing: 1px;
     }
   }
 
@@ -82,11 +106,13 @@
       color: #34495e;
       font-size: 1.5em;
       margin-bottom: 10px;
+      text-transform: uppercase;
     }
 
     // Team objective content styles
     .team-objective-content {
       color: #34495e;
+      line-height: 1.6;
     }
   }
 
@@ -99,6 +125,7 @@
       color: #34495e;
       font-size: 1.5em;
       margin-bottom: 10px;
+      text-transform: uppercase;
     }
 
     // Social media styles
@@ -119,10 +146,22 @@
         li {
           margin-bottom: 10px;
           cursor: pointer;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+          &:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+          }
 
           // Social media icon styles
           img {
             margin-left: 5px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+
+            &:hover {
+              transform: scale(1.2);
+            }
           }
         }
       }
