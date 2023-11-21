@@ -1,20 +1,18 @@
-// Main container
 .contact-us-landing-container {
-  background: linear-gradient(to bottom, #ecf0f1, #bdc3c7);
-  padding: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
   transition: box-shadow 0.3s ease, background 0.3s ease;
 
   &:hover {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(to bottom, #bdc3c7, #ecf0f1);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.1);
   }
 
-  // Heading styles
   .contact-us-heading {
     color: #3498db;
     font-size: 2em;
@@ -22,7 +20,6 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
 
-  // Team members styles
   .team-members {
     margin-top: 20px;
 
