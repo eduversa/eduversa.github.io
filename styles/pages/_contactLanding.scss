@@ -16,6 +16,24 @@
     );
     z-index: -1;
     pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+  }
+
+  &:before {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  &:hover {
+    &:before,
+    &:after {
+      opacity: 0.7;
+      transform: scale(1.02);
+    }
+    transform: scale(1.02);
   }
 
   background: rgba(255, 255, 255, 0.1);
@@ -26,7 +44,7 @@
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
-  transition: box-shadow 0.3s ease, background 0.3s ease;
+  transition: box-shadow 0.3s ease, background 0.3s ease, transform 0.3s ease;
 
   &:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
