@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import Image from "next/image";
 
-const contactUs = require("../../data/contactUs");
+import contactUs from "../../data/ContactUs";
 
 const ContactUs = () => {
   const { teamMembers, contactEmail, teamObjective, additionalInformation } =
