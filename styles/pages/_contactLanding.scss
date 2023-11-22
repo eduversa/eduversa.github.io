@@ -149,6 +149,16 @@
 
   .team-members {
     margin: 1% 0 0 0;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .team-members-heading {
       font-family: var(--font-orbitron);
       font-size: var(--font-9);
@@ -158,6 +168,16 @@
       text-align: center;
       padding: 0.5rem;
       transition: all 0.5s ease-in-out;
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
         color: var(--yellow);
         transform: translateY(-2px) translateX(2px) scale(1.05);
@@ -173,7 +193,16 @@
       box-shadow: 0 0 8px var(--black-shadow-light-2);
       position: relative;
       transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
-
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
         transform: scale(1.005);
         box-shadow: 0 8px 16px -5px var(--black-shadow);
@@ -201,6 +230,16 @@
         letter-spacing: 2px;
         text-transform: uppercase;
         transition: color 0.5s ease-in-out;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         &:hover {
           color: var(--yellow);
         }
@@ -209,6 +248,16 @@
       &__email {
         @include flex-container(row, nowrap, center, center);
         gap: 10px;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         &__icon {
           position: relative;
           width: 30px;
@@ -217,6 +266,18 @@
           background-color: var(--blue-11);
           transition: all 0.5s ease-in-out;
           cursor: pointer;
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+            height: 20px;
+            width: 20px;
+          }
           &:hover {
             transform: scale(1.05);
             box-shadow: 5px 10px 20px var(--black-shadow);
@@ -230,6 +291,16 @@
           font-weight: 600;
           text-decoration: none;
           transition: all 0.5s ease-in-out;
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
           &:hover {
             color: var(--green);
             transform: scale(1.01);
@@ -244,6 +315,16 @@
         font-size: var(--font-11);
         letter-spacing: 1px;
         text-transform: capitalize;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
       }
 
       &__description {
@@ -252,12 +333,32 @@
         font-size: var(--font-12);
         text-align: center;
         letter-spacing: 2px;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
       }
     }
   }
 
   .contact-email {
     margin: 3% 0 0 0;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     &__heading {
       color: var(--red-2);
       font-family: var(--font-roboto);
@@ -268,6 +369,16 @@
       padding: 0.5rem;
       transition: all 0.5s ease;
       box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
         color: var(--red-5);
         box-shadow: 0 4px 12px var(--black-shadow-light);
@@ -278,6 +389,16 @@
       @include flex-container(row, nowrap, center, center);
       gap: 10px;
       margin: 3% 0 1% 0;
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &__icon {
         position: relative;
         width: 30px;
@@ -286,6 +407,18 @@
         background-color: var(--blue-11);
         transition: all 0.5s ease-in-out;
         cursor: pointer;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+          height: 20px;
+          width: 20px;
+        }
         &:hover {
           transform: scale(1.05);
           box-shadow: 5px 10px 20px var(--black-shadow);
@@ -299,6 +432,16 @@
         font-weight: 600;
         text-decoration: none;
         transition: all 0.5s ease-in-out;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         &:hover {
           color: var(--green);
           transform: scale(1.01);
@@ -310,6 +453,16 @@
 
   .team-objective {
     margin: 3% 0 0 0;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     &__heading {
       color: var(--red-2);
       font-family: var(--font-roboto);
@@ -320,6 +473,16 @@
       padding: 0.5rem;
       transition: all 0.5s ease;
       box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
         color: var(--red-5);
         box-shadow: 0 4px 12px var(--black-shadow-light);
@@ -333,6 +496,16 @@
       letter-spacing: 2px;
       text-align: center;
       margin: 2% 0 0 0;
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
     }
   }
 
@@ -345,11 +518,31 @@
       text-transform: uppercase;
       text-align: center;
       margin: 1.5% 0 1.5% 0;
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
     }
 
     ul {
       @include flex-container(column, nowrap, center, center);
       gap: 10px;
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       li {
         @include flex-container(row, nowrap, center, center);
         gap: 30px;
@@ -359,6 +552,16 @@
         font-size: var(--font-10);
         letter-spacing: 1.5px;
         margin: 0 0 2% 0;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
         &:hover {
           transform: scale(1.1);
           box-shadow: 0 0 8px var(--black-shadow-light-1);
@@ -388,6 +591,18 @@
           height: 50px;
           border-radius: 50%;
           transition: transform 0.5s ease-in-out;
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+            height: 30px;
+            width: 30px;
+          }
           &:hover {
             transform: scale(1.2);
           }
