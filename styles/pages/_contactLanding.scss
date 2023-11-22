@@ -31,7 +31,7 @@
   &::-webkit-scrollbar-thumb {
     background-color: var(--blue-11);
     border-radius: 8px;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.5s ease-in-out-in-out;
     box-shadow: inset 0 0 4px var(--black-shadow-light-1);
   }
 
@@ -89,7 +89,8 @@
     text-transform: uppercase;
     text-shadow: 2px 2px 4px var(--black-shadow-light-1);
     margin: 0 0 1% 0;
-    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    transition: color 0.5s ease-in-out-in-out,
+      text-shadow 0.5s ease-in-out-in-out;
     @media (max-width: $breakpoint-desktop-wide) {
       font-size: var(--font-8);
       margin: 0 0 1.5% 0;
@@ -321,18 +322,19 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       text-align: center;
-      padding: 0.5rem;
+      margin: 1.5% 0 1.5% 0;
     }
 
     ul {
-      list-style: none;
-      padding: 0;
-
+      @include flex-container(column, nowrap, center, center);
+      gap: 10px;
       li {
-        margin-bottom: 10px;
         cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-
+        transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+        font-family: var(--font-elianto);
+        font-size: var(--font-10);
+        letter-spacing: 1.5px;
+        margin: 0 0 2% 0;
         &:hover {
           transform: scale(1.1);
           box-shadow: 0 0 8px var(--black-shadow-light-1);
@@ -345,19 +347,23 @@
           background-color: var(--blue-11);
           border-radius: 50%;
           margin-right: 5px;
-          transition: transform 0.3s ease;
+          transition: transform 0.5s ease-in-out;
         }
-
         &:hover {
           &:before {
             transform: scale(1.5);
           }
         }
-        img {
-          margin-left: 5px;
+        .github-icon,
+        .twitter-icon,
+        .linkedin-icon,
+        .instagram-icon,
+        .facebook-icon {
+          position: relative;
+          width: 30px;
+          height: 30px;
           border-radius: 50%;
-          transition: transform 0.3s ease;
-
+          transition: transform 0.5s ease-in-out;
           &:hover {
             transform: scale(1.2);
           }
