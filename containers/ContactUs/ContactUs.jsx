@@ -7,13 +7,24 @@ const ContactUs = () => {
   const { teamMembers, contactEmail, teamObjective, additionalInformation } =
     contactUs;
 
-  function emailHandler() {}
+  function emailHandler(contactEmail) {
+    console.log("emailHandler");
+    console.log(contactEmail);
+    window.location.href = `mailto:${contactEmail}`;
+  }
 
   const renderTeamMembers = () => {
     return teamMembers.map((member, index) => (
       <div key={index} className="member">
         <h3 className="member__heading">{member.name}</h3>
-        <p className="member__email">Email: {member.email}</p>
+        <p
+          onClick={() => {
+            emailHandler(contactEmail);
+          }}
+          className="member__email"
+        >
+          Email: {member.email}
+        </p>
         <p className="member__expertise">Expertise: {member.expertise}</p>
         <p className="member__description">{member.description}</p>
       </div>

@@ -53,5 +53,4 @@ const contactUs = {
   },
 };
 
-// module.exports = contactUs;
 export default contactUs;
