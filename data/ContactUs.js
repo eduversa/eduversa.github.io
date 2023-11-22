@@ -32,13 +32,13 @@ const contactUs = {
       name: "Ankan Basak",
       email: "ankanbasak377@gmail.com",
       expertise: "No Specific Expertise",
-      description: "Ankan is just a beginner!",
+      description: "",
     },
     {
       name: "Shreyasi Roy",
-      email: "not available",
+      email: "shreyasiroy21@gmail.com",
       expertise: "No Specific Expertise",
-      description: "Shreyasi is just a beginner!",
+      description: "",
     },
   ],
   contactEmail: "eduversa.developer@gmail.com",
@@ -53,5 +53,4 @@ const contactUs = {
   },
 };
 
-// module.exports = contactUs;
 export default contactUs;

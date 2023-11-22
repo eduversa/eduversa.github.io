@@ -15,6 +15,7 @@ export const Text =({label, name, value, ...props}) =>{
   )
 }
 
+
 export const Email =({label, name, value, ...props}) =>{
   return (
     <div>

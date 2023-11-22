@@ -6,6 +6,7 @@
   position: relative;
   color: var(--white);
   padding: 1rem 1.5rem;
+  z-index: 100;
   @include flex-container(row, nowrap, space-between, center);
   box-shadow: 0 8px 16px -5px var(--black-shadow-light-1);
   transition: box-shadow 0.5s ease-in-out;

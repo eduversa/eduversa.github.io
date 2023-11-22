@@ -41,44 +41,65 @@
     border-color: var(--white-shadow-light-3);
     transform: scale(1.0005);
   }
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
+  // ! Scrollbar codes
   &::-webkit-scrollbar {
-    width: 12px;
-  }
-  &::-webkit-scrollbar-corner {
-    background-color: transparent;
+    width: 8px;
   }
 
-  &::-webkit-resizer {
-    background-color: transparent;
+  &::-webkit-scrollbar-track {
+    background-color: var(--white-1);
+    border-radius: 8px;
   }
+
   &::-webkit-scrollbar-thumb {
-    background: linear-gradient(to right, #3498db, #297fb8);
-    border-radius: 10px;
-    border: 2px solid #f8f8f8;
+    background-color: var(--blue-11);
+    border-radius: 8px;
     transition: background-color 0.3s ease-in-out;
+    box-shadow: inset 0 0 4px var(--black-shadow-light-1);
   }
+
   &::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to right, #297fb8, #236c99);
+    background-color: var(--blue-11);
   }
 
   &::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(to right, #236c99, #1a5877);
+    background-color: var(--blue-5);
   }
-  &::-webkit-scrollbar-track {
-    background: linear-gradient(to right, #f8f8f8, #e5e5e5);
-    border-radius: 10px;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  }
+
+  &::-webkit-scrollbar-corner,
   &::-webkit-scrollbar-track-piece {
-    background-color: transparent;
+    background-color: var(--white-1);
+    border-radius: 8px;
   }
-  &:hover {
-    &::-webkit-scrollbar-thumb {
-      background-color: #297fb8;
-    }
-    scrollbar-color: #3498db #f8f8f8;
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-thumb:vertical {
+    height: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb:horizontal {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb:after {
+    content: " ";
+    display: block;
+    background: linear-gradient(
+      45deg,
+      transparent 10%,
+      var(--blue-11) 10%,
+      var(--blue-11) 90%,
+      transparent 90%
+    );
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
   }
   h3.aboutus-heading {
     position: relative;
@@ -114,6 +135,7 @@
       position: absolute;
       bottom: 0;
       left: 50%;
+      border-radius: 20px;
       transform: translateX(-50%);
       transition: width 2s ease-in-out;
       animation: underlineAnimation 2s infinite alternate;
@@ -223,7 +245,7 @@
       cursor: pointer;
       margin: 0 0 2% 0;
       text-align: center;
-      color: var(--black);
+      color: var(--yellow);
       font-family: var(--font-oswald);
       font-size: var(--font-9);
       font-weight: 800;
@@ -318,6 +340,7 @@
             position: absolute;
             bottom: 0;
             left: 50%;
+            border-radius: 20px;
             transform: translateX(-50%);
             transition: width 2s ease-in-out;
             animation: underlineAnimation 5s infinite alternate;
@@ -330,17 +353,29 @@
         }
         .problem-grid-heading {
           &::before {
-            background: linear-gradient(to right, #1a936f, #91cb3e);
+            background: linear-gradient(
+              to right,
+              var(--green-7),
+              var(--green-8)
+            );
           }
         }
         .solution-and-object-grid-heading {
           &::before {
-            background: linear-gradient(to right, #0072ff, #00c6ff);
+            background: linear-gradient(
+              to right,
+              var(--blue-13),
+              var(--blue-14)
+            );
           }
         }
         .future-plans-grid-heading {
           &::before {
-            background: linear-gradient(to right, #ffd300, #ff971d);
+            background: linear-gradient(
+              to right,
+              var(--yellow-9),
+              var(--yellow-10)
+            );
           }
         }
         p {

@@ -1,28 +1,71 @@
-import React, {Fragment}  from "react";
-import { Text, Email, Number, Select, DateInput } from "../inputComponent/InputComponent";
+import React, { useState, useEffect, Fragment } from "react";
+import {
+  Text,
+  Email,
+  Number,
+  Select,
+  DateInput,
+} from "../inputComponent/InputComponent";
+import { getCollegeDetailsApi } from "@/functions";
 
 const CourseInfo = ({ formData, handleChange }) => {
   let year = new Date().getFullYear().toString();
-  
+
+  const [courses, setCourses] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState("");
+  const [streams, setStreams] = useState([]);
+  const [showStrem, setShowStream] = useState(false);
+  useEffect(() => {
+    getCollegeDetails();
+  }, []);
+
+  useEffect(() => {
+    if (Array.isArray(courses)) {
+      const course = courses.find((course) => course.name === selectedCourse);
+      if (course) {
+        setStreams(course.streams);
+      }
+    }
+  }, [selectedCourse, courses]);
+
+  async function getCollegeDetails() {
+    try {
+      const collegeData = await getCollegeDetailsApi(304);
+      console.log(collegeData);
+      setCourses(collegeData.data.college_courses); // set the state
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleCourseChange = (event) => {
+    handleChange(event);
+    setSelectedCourse(event.target.value);
+    setShowStream(true);
+  };
+
   return (
     <Fragment>
       {/* enrollment no */}
-      <Text
-        label="Enrollment Number"
-        name="course_info.enrollment_number"
-        value={formData.course_info.enrollment_number}
-        onChange={handleChange}
-        required
-      />
-      <div className="grid-col-2"> {/* course duration */}
-        <Text
+      <div className="grid-col-2">
+        {" "}
+        {/* course duration */}
+        <Select
           label="Course Name"
           name="course_info.course_name"
           value={formData.course_info.course_name}
-          onChange={handleChange}
+          onChange={handleCourseChange}
           required
+          options={[
+            { key: "Select your course", value: "" },
+            ...(Array.isArray(courses)
+              ? courses.map((course) => ({
+                  key: course.name,
+                  value: course.name,
+                }))
+              : []),
+          ]}
         />
-
         <Number
           label="Duration"
           name="course_info.duration"
@@ -33,35 +76,38 @@ const CourseInfo = ({ formData, handleChange }) => {
           max="10"
         />
       </div>
-      <div className="grid-col-2"> {/* stream admission_year */}
-        <Select
-          label="Stream"
-          name="course_info.stream"
-          value={formData.course_info.stream}
-          onChange={handleChange}
-          required
-          options={[
-            {key: "Select Stream", value: ""},
-            {key: "CSE", value: "CSE"},
-            {key: "CSE(AIML)", value: "CSE(AIML)"},
-            {key: "CSE(IOT)", value: "CSE(IOT)"},
-            {key: "CST(", value: "CST"},
-            {key: "CSIT", value: "CSIT"},
-            {key: "ECE", value: "ECE"},
-            {key: "EE", value: "EE"},
-            {key: "ME", value: "ME"},
-            {key: "Biotech", value: "Biotech"},
-
-          ]}
-        />
-
+      <div className="grid-col-2">
+        {" "}
+        {/* stream admission_year */}
+        {!showStrem ? (
+          ""
+        ) : (
+          <Select
+            label="Stream"
+            name="course_info.stream"
+            value={formData.course_info.stream}
+            onChange={handleChange}
+            required
+            // options={Array.isArray(streams) ? streams.map(stream => ({ key: stream.name, value: stream.name })) : []}
+            options={[
+              { key: "Select your stream", value: "" },
+              ...(Array.isArray(streams)
+                ? streams.map((stream) => ({
+                    key: stream.name,
+                    value: stream.name,
+                  }))
+                : []),
+            ]}
+          />
+        )}
+        {/* <button onClick={getCollegeDetails}>College Details</button> */}
         <Number
           label="Admission Year"
           name="course_info.admission_year"
           value={formData.course_info.admission_year}
           onChange={handleChange}
           required
-          min={year-10}
+          min={year - 10}
           max={year}
         />
       </div>

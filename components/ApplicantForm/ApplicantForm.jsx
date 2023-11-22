@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { PersonalInfo, FamilyInfo, AcademicInfo, CourseInfo, FileUpload } from "./formPages";
 import { FormButtons } from "./inputComponent/InputComponent";
 
+
 const ApplicantForm = () => {
+  let year = new Date().getFullYear().toString();
   //TEST
   //initial Form Data
   const initialFormData = {
@@ -86,11 +88,10 @@ const ApplicantForm = () => {
       }
     },
     course_info: {
-      enrollment_number: "",
       course_name: "",
       duration: "",
       stream: "",
-      admission_year: ""
+      admission_year: {year}
     },
     image: null
   }
@@ -216,12 +217,12 @@ const ApplicantForm = () => {
   const formSteps = [PersonalInfo, FamilyInfo, AcademicInfo, CourseInfo, FileUpload];
   const totalSteps = formSteps.length;
 
-  const pageTitles = formSteps.map(step => {
-    const stepName = step.name;
-    return stepName.replace(/([A-Z])/g, ' $1').trim(); 
-  });
+  // const pageTitles = formSteps.map(step => {
+  //   const stepName = step.name;
+  //   return stepName.replace(/([A-Z])/g, ' $1').trim(); 
+  // });
 
-  // const pageTitles = ["Personal Information", "Family Information", "Academic Information", "Course Information", "File Upload"];
+  const pageTitles = ["Personal Information", "Family Information", "Academic Information", "Course Information", "File Upload"];
 
   const renderStep = formSteps.map((StepComponent, index) => (
     <StepComponent
@@ -238,64 +239,6 @@ const ApplicantForm = () => {
       setOfficePincodeError={setOfficePincodeError}
     />
   ));
-
-  // const renderStep = [
-
-  //     <PersonalInfo 
-  //       formData={formData} 
-  //       handleChange={handleChange} 
-  //       handleNextClick={handleNextClick} 
-  //       handlePreviousClick={handlePreviousClick} 
-  //       handleSubmit={handleSubmit}
-  //       handleSave={handleSave}
-  //       key={1}
-  //     />,
-  //     <FamilyInfo 
-  //       formData={formData} 
-  //       handleChange={handleChange} 
-  //       handleNextClick={handleNextClick} 
-  //       handlePreviousClick={handlePreviousClick} 
-  //       handleSubmit={handleSubmit}
-  //       handleSave={handleSave}
-  //       key={2}
-  //     />,
-  //     <AcademicInfo 
-  //       formData={formData} 
-  //       handleChange={handleChange} 
-  //       handleNextClick={handleNextClick} 
-  //       handlePreviousClick={handlePreviousClick} 
-  //       handleSubmit={handleSubmit}
-  //       handleSave={handleSave}
-  //       key={3}
-  //     />,
-  //     <CourseInfo 
-  //       formData={formData} 
-  //       handleChange={handleChange} 
-  //       handleNextClick={handleNextClick} 
-  //       handlePreviousClick={handlePreviousClick} 
-  //       handleSubmit={handleSubmit}
-  //       handleSave={handleSave}
-  //       key={4}
-  //     />,
-  //     <FileUpload 
-  //       formData={formData} 
-  //       setFormData={setFormData}
-  //       handleChange={handleChange} 
-  //       handleNextClick={handleNextClick} 
-  //       handlePreviousClick={handlePreviousClick} 
-  //       handleSubmit={handleSubmit}
-  //       handleSave={handleSave}
-  //       key={5}
-  //     />,
-
-  // ]
-  // const renderStep =[
-  //   <PersonalInfo/>,
-  //   <FamilyInfo/>,
-  //   <AcademicInfo/>,
-  //   <CourseInfo/>,
-  //   <FileUpload/>,
-  // ]
 
   const progress=currentStep/(formSteps.length)*100
 

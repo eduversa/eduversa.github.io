@@ -21,7 +21,7 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
       {/* father */}
       <h3 className="sub-heading">Father&apos;s Information</h3>
       <Text 
-        label="Name"
+        label="Full Name"
         name="family_info.father.name"
         value={formData.family_info.father.name}
         onChange={handleChange}
@@ -48,7 +48,7 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
       {/* mother */}
       <h3 className="sub-heading">Mother&apos;s Information</h3>
       <Text 
-        label="Name"
+        label="Full Name"
         name="family_info.mother.name"
         value={formData.family_info.mother.name}
         onChange={handleChange}
@@ -75,7 +75,7 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
       {/* guardian */}
       <h3 className="sub-heading">Guardian&apos;s Information</h3>
       <Text 
-        label="Name"
+        label="Full Name"
         name="family_info.guardian.name"
         value={formData.family_info.guardian.name}
         onChange={handleChange}
