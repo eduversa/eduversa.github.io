@@ -168,7 +168,7 @@
         transform-origin: left;
         transform: scaleX(1);
       }
-      &-heading {
+      &__heading {
         color: #3498db;
         font-size: 1.2em;
         margin-bottom: 5px;
@@ -181,8 +181,8 @@
         }
       }
 
-      &-email,
-      &-expertise {
+      &__email,
+      &__expertise {
         color: #34495e;
         margin-bottom: 5px;
         transition: color 0.3s ease;
