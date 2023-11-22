@@ -242,7 +242,7 @@
         z-index: 1;
         margin: 5% 0 0 0;
         padding: 15px 30px;
-        background: linear-gradient(to right, #3498db, #2980b9);
+        background: linear-gradient(to right, var(--blue-11), var(--blue-12));
         border: none;
         border-radius: 6px;
         cursor: pointer;
@@ -411,7 +411,7 @@
         z-index: 1;
         margin: 5% 0 0 0;
         padding: 15px 30px;
-        background: linear-gradient(to right, #e67e22, #d35400);
+        background: linear-gradient(to right, var(--orange-5), var(--orange-6));
         border: none;
         border-radius: 6px;
         cursor: pointer;

@@ -287,7 +287,7 @@
       z-index: 1;
       margin: 5% 0 0 0;
       padding: 15px 30px;
-      background: linear-gradient(135deg, #e74c3c, #8e44ad);
+      background: linear-gradient(135deg, var(--red), var(--purple-1));
       border: none;
       border-radius: 6px;
       cursor: pointer;
@@ -306,7 +306,7 @@
       @media (max-width: $breakpoint-phone) {
       }
       &:hover {
-        background: linear-gradient(135deg, #8e44ad, #e74c3c);
+        background: linear-gradient(135deg, var(--purple-1), var(--red));
         transform: translateY(1px);
         box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
       }

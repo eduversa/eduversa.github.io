@@ -236,14 +236,16 @@
   .contact-email,
   .team-objective,
   .additional-information {
-    margin-top: 20px;
-
+    margin: 3% 0 0 0;
     h3 {
-      color: #34495e;
-      font-size: 1.5em;
-      margin-bottom: 10px;
+      color: var(--red);
+      font-family: var(--font-orbitron);
+      font-size: var(--font-9);
+      letter-spacing: 3px;
       text-transform: uppercase;
-      transition: color 0.3s ease, transform 0.3s ease;
+      text-align: center;
+      padding: 0.5rem;
+      transition: all 0.5s ease-in-out;
 
       &:hover {
         color: #2c3e50;
