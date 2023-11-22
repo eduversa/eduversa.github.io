@@ -6,7 +6,8 @@
   box-shadow: 0 8px 16px var(--black-shadow-light-1);
   padding: 20px;
   max-width: 800px;
-  max-height: 800px;
+  height: 85vh;
+  max-height: 100%;
   margin: 10% 0 0 0;
   text-align: center;
   overflow-y: auto;
@@ -14,6 +15,27 @@
   z-index: 5;
   transition: box-shadow 0.5s ease-in-out, background 0.5s ease-in-out,
     transform 0.5s ease-in-out;
+  @media (max-width: $breakpoint-desktop-wide) {
+    max-width: 650px;
+    height: 85vh;
+    padding: 15px;
+    margin: 10% 0 0 0;
+  }
+  @media (max-width: $breakpoint-desktop) {
+    max-width: 600px;
+  }
+  @media (max-width: $breakpoint-large-tablet) {
+    margin: 12% 0 0 0;
+    max-width: 400px;
+  }
+  @media (max-width: $breakpoint-tablet) {
+    margin: 10% 0 0 0;
+    padding: 20px;
+  }
+  @media (max-width: $breakpoint-phone) {
+    max-width: 300px;
+    max-height: 650px;
+  }
   &:hover {
     box-shadow: 0 12px 24px var(--black-shadow-light-2);
     background: rgba(255, 255, 255, 0.05);
@@ -329,6 +351,8 @@
       @include flex-container(column, nowrap, center, center);
       gap: 10px;
       li {
+        @include flex-container(row, nowrap, center, center);
+        gap: 30px;
         cursor: pointer;
         transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
         font-family: var(--font-elianto);
@@ -360,8 +384,8 @@
         .instagram-icon,
         .facebook-icon {
           position: relative;
-          width: 30px;
-          height: 30px;
+          width: 50px;
+          height: 50px;
           border-radius: 50%;
           transition: transform 0.5s ease-in-out;
           &:hover {
