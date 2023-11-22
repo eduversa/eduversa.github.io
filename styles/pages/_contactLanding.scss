@@ -12,20 +12,11 @@
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 5;
-  transition: box-shadow 0.3s ease-in-out, background 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
+  transition: box-shadow 0.5s ease-in-out, background 0.5s ease-in-out,
+    transform 0.5s ease-in-out;
   &:hover {
     box-shadow: 0 12px 24px var(--black-shadow-light-2);
     background: rgba(255, 255, 255, 0.05);
-  }
-
-  &:hover {
-    &:before,
-    &:after {
-      opacity: 0.7;
-      transform: scale(1.02);
-    }
-    transform: scale(1.02);
   }
   // ! Scrollbar codes
   &::-webkit-scrollbar {
@@ -226,15 +217,18 @@
       &__expertise {
         color: var(--white);
         margin: 2% 0 1% 0;
-        font-size: var(--font-11);
-        text-transform: capitalize;
         font-family: var(--font-elianto);
-        transition: color 0.3s ease;
+        font-size: var(--font-11);
+        letter-spacing: 1px;
+        text-transform: capitalize;
       }
 
       &__description {
-        font-style: italic;
-        transition: color 0.3s ease;
+        color: var(--white);
+        font-family: var(--font-tektur);
+        font-size: var(--font-12);
+        text-align: center;
+        letter-spacing: 2px;
       }
     }
   }
