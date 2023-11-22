@@ -213,8 +213,11 @@ const UpdateForm = () => {
       <div>
         {step > 1 && <button onClick={prevStep}>Previous</button>}
         {step < 4 && <button onClick={nextStep}>Next</button>}
-        {step === 4 && <button onClick={saveForm}>Save</button>}
-        <button onClick={handleFormSubmit}>Submit</button>
+        {step === 4 ? (
+          <button onClick={saveForm}>Submit</button>
+        ) : (
+          <button onClick={handleFormSubmit}>Save</button>
+        )}
         <button onClick={clearForm}>Clear</button>
       </div>
     </div>
