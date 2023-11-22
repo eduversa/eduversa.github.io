@@ -1,227 +1,199 @@
-// UpdateForm.jsx
 import React, { useState } from "react";
 import PersonalInfoForm from "./PersonalInfo";
-import AcademicInfoForm from "./AcademicInfo";
 import FamilyInfoForm from "./FamilyInfo";
+import AcademicInfoForm from "./AcademicInfo";
 import ApplicantCourseForm from "./ApplicantCourse";
 
-const UpdateForm = () => {
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    // ! personal form
-    personalInfo: {
-      first_name: "",
-      middle_name: "",
-      last_name: "",
-      gender: "",
-      dob: "",
-      present_address: {
-        street: "",
-        pincode: "",
-        city: "",
-        district: "",
-        state: "",
-      },
-      permanent_address: {
-        street: "",
-        pincode: "",
-        city: "",
-        district: "",
-        state: "",
-      },
-      are_addresses_same: false,
-      email: "",
-      contact: "",
-      category: "",
-      blood_group: "",
-      aadhar_number: "",
-      pan_number: "",
+const ApplicationFormLayout = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [personalInfoFormData, setPersonalInfoFormData] = useState({
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    gender: "",
+    dob: "",
+    present_address: {
+      street: "",
+      pincode: "",
+      city: "",
+      district: "",
+      state: "",
     },
-    // ! academic form
-    academicInfo: {
-      admission: {
-        exam_name: "",
-        year_of_exam: "",
-        roll_number: "",
-        rank: "",
-      },
-      secondary: {
-        exam_name: "",
-        year_of_exam: "",
-        board: "",
-        aggregate: "",
-        school_name: "",
-        subjects: "",
-        marks: {},
-      },
-      higher_secondary: {
-        exam_name: "",
-        year_of_exam: "",
-        board: "",
-        aggregate: "",
-        school_name: "",
-        subjects: "",
-        marks: {},
-      },
+    permanent_address: {
+      street: "",
+      pincode: "",
+      city: "",
+      district: "",
+      state: "",
     },
-    // ! family form
-    familyInfo: {
-      father: {
-        first_name: "",
-        middle_name: "",
-        last_name: "",
-        email: "",
-        contact: "",
-      },
-      mother: {
-        first_name: "",
-        middle_name: "",
-        last_name: "",
-        email: "",
-        contact: "",
-      },
-      guardian: {
-        first_name: "",
-        middle_name: "",
-        last_name: "",
-        relation: "",
-        office_address: {
-          street: "",
-          pincode: "",
-          city: "",
-          district: "",
-          state: "",
-        },
-        occupation: "",
-        designation: "",
-        office_contact: "",
-        contact: "",
-        income: "",
-        email: "",
-        pan_number: "",
-        aadhar_number: "",
-      },
+    are_addresses_same: false,
+    email: "",
+    contact: "",
+    category: "",
+    blood_group: "",
+    aadhar_number: "",
+    pan_number: "",
+  });
+
+  const [academicInfoFormData, setAcademicInfoFormData] = useState({
+    admission: {
+      exam_name: "",
+      year_of_exam: "",
+      roll_number: "",
+      rank: "",
     },
-    // ! applicant course form
-    applicantCourseInfo: {
-      course_name: "",
-      duration: "",
-      stream: "",
-      admission_year: new Date().getFullYear().toString(),
+    secondary: {
+      exam_name: "",
+      year_of_exam: "",
+      board: "",
+      aggregate: "",
+      school_name: "",
+      subjects: "",
+      marks: {},
+    },
+    higher_secondary: {
+      exam_name: "",
+      year_of_exam: "",
+      board: "",
+      aggregate: "",
+      school_name: "",
+      subjects: "",
+      marks: {},
     },
   });
 
-  const nextStep = () => {
-    setStep((prevStep) => prevStep + 1);
+  const [familyInfoFormData, setFamilyInfoFormData] = useState({
+    father: {
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      email: "",
+      contact: "",
+    },
+    mother: {
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      email: "",
+      contact: "",
+    },
+    guardian: {
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      relation: "",
+      office_address: {
+        street: "",
+        pincode: "",
+        city: "",
+        district: "",
+        state: "",
+      },
+      occupation: "",
+      designation: "",
+      office_contact: "",
+      contact: "",
+      income: "",
+      email: "",
+      pan_number: "",
+      aadhar_number: "",
+    },
+  });
+
+  const [applicantCourseFormData, setApplicantCourseFormData] = useState({
+    course_name: "",
+    duration: "",
+    stream: "",
+    admission_year: new Date().getFullYear().toString(),
+  });
+
+  const handleNextPage = () => {
+    // Handle updating form data based on the current page
+    if (currentPage === 1) {
+      setPersonalInfoFormData(personalInfoFormData);
+    } else if (currentPage === 2) {
+      setFamilyInfoFormData(familyInfoFormData);
+    } else if (currentPage === 3) {
+      setAcademicInfoFormData(academicInfoFormData);
+    } else if (currentPage === 4) {
+      setApplicantCourseFormData(applicantCourseFormData);
+    }
+
+    // Move to the next page
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, 4));
   };
 
-  const prevStep = () => {
-    setStep((prevStep) => prevStep - 1);
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => Math.max(1, prevPage - 1));
   };
 
-  const clearForm = () => {
-    setFormData({
-      personalInfo: {},
-      academicInfo: {},
-      familyInfo: {},
-      applicantCourseInfo: {},
+  const handlePersonalInfoUpdate = (newFormData) => {
+    setPersonalInfoFormData(newFormData);
+  };
+
+  const handleFamilyInfoUpdate = (newFormData) => {
+    setFamilyInfoFormData(newFormData);
+  };
+
+  const handleAcademicInfoUpdate = (newFormData) => {
+    setAcademicInfoFormData(newFormData);
+  };
+
+  const handleApplicantCourseUpdate = (newFormData) => {
+    setApplicantCourseFormData(newFormData);
+  };
+
+  const handleSubmit = () => {
+    console.log("All Form Data:", {
+      personalInfo: personalInfoFormData,
+      familyInfo: familyInfoFormData,
+      academicInfo: academicInfoFormData,
+      applicantCourseInfo: applicantCourseFormData,
     });
-  };
-
-  const saveForm = () => {
-    // Handle saving form data
-    console.log("Saved Form Data:", formData);
-  };
-
-  const handleFormSubmit = () => {
-    // Perform any additional logic here before submitting the form data
-
-    // Call the appropriate form submission function based on the current step
-    switch (step) {
-      case 1:
-        console.log("Personal Info Form Data:", formData.personalInfo);
-        // Additional logic if needed
-        break;
-      case 2:
-        console.log("Academic Info Form Data:", formData.academicInfo);
-        // Additional logic if needed
-        break;
-      case 3:
-        console.log("Family Info Form Data:", formData.familyInfo);
-        // Additional logic if needed
-        break;
-      case 4:
-        console.log(
-          "Applicant Course Form Data:",
-          formData.applicantCourseInfo
-        );
-        // Additional logic if needed
-        break;
-      default:
-        break;
-    }
-  };
-
-  const updateFormData = (updatedData) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      ...updatedData,
-    }));
-  };
-
-  const renderStep = () => {
-    switch (step) {
-      case 1:
-        return (
-          <PersonalInfoForm
-            formData={formData.personalInfo}
-            updateFormData={(data) => updateFormData({ personalInfo: data })}
-          />
-        );
-      case 2:
-        return (
-          <AcademicInfoForm
-            formData={formData.academicInfo}
-            updateFormData={(data) => updateFormData({ academicInfo: data })}
-          />
-        );
-      case 3:
-        return (
-          <FamilyInfoForm
-            formData={formData.familyInfo}
-            updateFormData={(data) => updateFormData({ familyInfo: data })}
-          />
-        );
-      case 4:
-        return (
-          <ApplicantCourseForm
-            formData={formData.applicantCourseInfo}
-            updateFormData={(data) =>
-              updateFormData({ applicantCourseInfo: data })
-            }
-          />
-        );
-      default:
-        return null;
-    }
   };
 
   return (
     <div>
-      {renderStep()}
+      <h1>Application Form - Page {currentPage}</h1>
+
+      {currentPage === 1 && (
+        <PersonalInfoForm
+          formData={personalInfoFormData}
+          updateFormData={handlePersonalInfoUpdate}
+        />
+      )}
+
+      {currentPage === 2 && (
+        <FamilyInfoForm
+          formData={familyInfoFormData}
+          updateFormData={handleFamilyInfoUpdate}
+        />
+      )}
+
+      {currentPage === 3 && (
+        <AcademicInfoForm
+          formData={academicInfoFormData}
+          updateFormData={handleAcademicInfoUpdate}
+        />
+      )}
+
+      {currentPage === 4 && (
+        <ApplicantCourseForm
+          formData={applicantCourseFormData}
+          updateFormData={handleApplicantCourseUpdate}
+        />
+      )}
 
       <div>
-        {step > 1 && <button onClick={prevStep}>Previous</button>}
-        {step < 4 && <button onClick={nextStep}>Next</button>}
-        {step === 4 ? (
-          <button onClick={saveForm}>Submit</button>
-        ) : (
-          <button onClick={handleFormSubmit}>Save</button>
+        {currentPage > 1 && (
+          <button onClick={handlePrevPage}>Previous Page</button>
         )}
-        <button onClick={clearForm}>Clear</button>
+        {currentPage < 4 && <button onClick={handleNextPage}>Next Page</button>}
+        {currentPage === 4 && <button onClick={handleSubmit}>Submit</button>}
       </div>
     </div>
   );
 };
 
-export default UpdateForm;
+export default ApplicationFormLayout;
