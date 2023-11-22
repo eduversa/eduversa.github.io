@@ -1,9 +1,9 @@
 .contact-us-landing-container {
   position: relative;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(----black-shadow-light);
   backdrop-filter: blur(10px);
   border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px var(--black-shadow-light-1);
   padding: 20px;
   max-width: 800px;
   max-height: 800px;
@@ -15,7 +15,7 @@
   transition: box-shadow 0.3s ease-in-out, background 0.3s ease-in-out,
     transform 0.3s ease-in-out;
   &:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 24px var(--black-shadow-light-2);
     background: rgba(255, 255, 255, 0.05);
   }
 
@@ -41,7 +41,7 @@
     background-color: #3498db;
     border-radius: 8px;
     transition: background-color 0.3s ease-in-out;
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 4px var(--black-shadow-light-1);
   }
 
   &::-webkit-scrollbar-thumb:hover {
@@ -152,17 +152,16 @@
 
     .member {
       margin: 2% 0 0 0;
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(0, 0, 0, 0.05);
       padding: 10px;
       border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 8px var(--black-shadow-light-2);
       position: relative;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
 
       &:hover {
         transform: scale(1.005);
-        box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
-        background: rgba(225, 225, 225, 0.9);
+        box-shadow: 0 8px 16px -5px rgba(0, 0, 0, 0.9);
       }
       &:before {
         content: "";
@@ -174,11 +173,11 @@
         left: 0;
         transform-origin: right;
         transform: scaleX(0);
-        transition: transform 0.3s ease;
+        transition: transform 0.5s ease-in-out;
       }
       &:hover:before {
         transform-origin: left;
-        transform: scaleX(1);
+        transform: scaleX(1.005);
       }
       &__heading {
         color: #3498db;
@@ -285,7 +284,7 @@
 
         &:hover {
           transform: scale(1.1);
-          box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 8px var(--black-shadow-light-1);
         }
 
         img {
