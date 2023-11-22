@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import PersonalInfoForm from "./PersonalInfo";
 import AcademicInfoForm from "./AcademicInfo";
+import FamilyInfoForm from "./FamilyInfo";
 function UpdateFormLayout({ children }) {
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -45,6 +46,7 @@ const UpdateForm = () => (
   <UpdateFormLayout>
     <PersonalInfoForm></PersonalInfoForm>
     <AcademicInfoForm></AcademicInfoForm>
+    <FamilyInfoForm></FamilyInfoForm>
   </UpdateFormLayout>
 );
 
