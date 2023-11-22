@@ -132,17 +132,20 @@
   }
 
   .team-members {
-    margin: 0 0 0 0;
+    margin: 2% 0 0 0;
     .team-members-heading {
-      color: #34495e;
-      font-size: 1.5em;
-      margin-bottom: 10px;
+      font-family: var(--font-orbitron);
+      font-size: var(--font-9);
+      letter-spacing: 3px;
+      color: var(--yellow-1);
       text-transform: uppercase;
-      position: relative;
-      transition: color 0.3s ease, transform 0.3s ease;
-
+      text-align: center;
+      padding: 0.5rem;
+      transition: all 0.5s ease-in-out;
       &:hover {
-        color: #2c3e50;
+        color: var(--yellow-2);
+        transform: translateY(-2px) translateX(2px) scale(1.05);
+        text-shadow: 5px 10px 20px var(--black-shadow);
       }
     }
 
