@@ -87,15 +87,47 @@
     pointer-events: none;
   }
   .contact-us-heading {
-    color: #3498db;
-    font-size: 2em;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    transition: color 0.3s ease, transform 0.3s ease;
-
-    &:hover {
-      color: #2980b9;
-      transform: scale(1.05);
+    position: relative;
+    text-align: center;
+    color: var(--white);
+    font-family: var(--font-oswald);
+    font-size: var(--font-7);
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px var(--black-shadow-light-1);
+    margin: 0 0 2% 0;
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    @media (max-width: $breakpoint-desktop-wide) {
+      font-size: var(--font-8);
+      margin: 0 0 1.5% 0;
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-5);
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+    &::before {
+      content: "";
+      display: block;
+      width: 45%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--blue-7), var(--pink-4));
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: width 2s ease-in-out;
+      animation: underlineAnimation 2s infinite alternate;
+    }
+    @keyframes underlineAnimation {
+      to {
+        width: 20%;
+      }
     }
   }
 
