@@ -28,9 +28,9 @@ const ContactUs = () => {
             alt="email"
             height={20}
             width={20}
-            className="email__icon"
+            className="member__email__icon"
           ></Image>
-          <span className="email__link">{member.email}</span>
+          <span className="member__email__link">{member.email}</span>
         </div>
         <p className="member__expertise">Expertise: {member.expertise}</p>
         <p className="member__description">{member.description}</p>

@@ -1,7 +1,7 @@
 .contact-us-landing-container {
   position: relative;
   background: var(----black-shadow-light);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(25px);
   border-radius: 15px;
   box-shadow: 0 8px 16px var(--black-shadow-light-1);
   padding: 20px;
@@ -192,25 +192,49 @@
         }
       }
 
-      &__email,
+      &__email {
+        @include flex-container(row, nowrap, center, center);
+        gap: 10px;
+        &__icon {
+          position: relative;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background-color: var(--blue-11);
+          transition: all 0.5s ease-in-out;
+          cursor: pointer;
+          &:hover {
+            transform: scale(1.05);
+            box-shadow: 5px 10px 20px var(--black-shadow);
+          }
+        }
+        &__link {
+          color: var(--blue-1);
+          font-size: var(--font-12);
+          font-family: var(--font-roboto);
+          letter-spacing: 2px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 0.5s ease-in-out;
+          &:hover {
+            color: var(--green);
+            transform: scale(1.01);
+            text-decoration: underline;
+          }
+        }
+      }
       &__expertise {
         color: var(--white);
-        margin-bottom: 5px;
+        margin: 2% 0 1% 0;
+        font-size: var(--font-11);
+        text-transform: capitalize;
+        font-family: var(--font-elianto);
         transition: color 0.3s ease;
       }
 
-      &__email {
-        font-size: var(--font-roboto);
-        font-size: var(--font-11);
-      }
       &__description {
-        // color: #34495e;
         font-style: italic;
         transition: color 0.3s ease;
-
-        // &:hover {
-        //   color: #2c3e50;
-        // }
       }
     }
   }
