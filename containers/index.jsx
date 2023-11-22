@@ -6,4 +6,3 @@ export { default as AboutUs } from "./aboutUs/AboutUs";
 export { default as ContactUs } from "./ContactUs/ContactUs";
 
 // ! form
-export { default as UpdateForm } from "./updateForm/updateForm";

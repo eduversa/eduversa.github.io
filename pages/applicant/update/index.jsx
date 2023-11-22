@@ -6,7 +6,7 @@ function UpdateApplicant() {
   return (
     <Fragment>
       <ApplicantLayout>
-        <UpdateForm></UpdateForm>
+        {/* <UpdateForm></UpdateForm> */}
         {/* <ApplicantForm /> */}
       </ApplicantLayout>
     </Fragment>
