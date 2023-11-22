@@ -27,7 +27,7 @@ const ContactUs = () => {
   };
   return (
     <Fragment>
-      <div className={containerClass} style={{ zIndex: 500 }}>
+      <div className={containerClass}>
         <h2 className="contact-us-heading">Contact Us</h2>
 
         <div className="team-members">
