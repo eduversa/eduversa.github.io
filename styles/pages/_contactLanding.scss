@@ -1,9 +1,9 @@
 .contact-us-landing-container {
   position: relative;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: var(----black-shadow-light);
+  backdrop-filter: blur(25px);
   border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px var(--black-shadow-light-1);
   padding: 20px;
   max-width: 800px;
   max-height: 800px;
@@ -12,45 +12,11 @@
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 5;
-  transition: box-shadow 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  transition: box-shadow 0.5s ease-in-out, background 0.5s ease-in-out,
+    transform 0.5s ease-in-out;
   &:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 24px var(--black-shadow-light-2);
     background: rgba(255, 255, 255, 0.05);
-  }
-  //! Container pseudo elements
-  // &:before,
-  // &:after {
-  //   content: "";
-  //   position: absolute;
-  //   width: 100%;
-  //   height: 100%;
-  //   top: 0;
-  //   left: 0;
-  //   background: linear-gradient(
-  //     45deg,
-  //     rgba(255, 255, 255, 0.1) 0%,
-  //     rgba(255, 255, 255, 0) 100%
-  //   );
-  //   z-index: -1;
-  //   pointer-events: none;
-  //   transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
-  // }
-
-  // &:before {
-  //   background: linear-gradient(
-  //     135deg,
-  //     rgba(255, 255, 255, 0.1) 0%,
-  //     rgba(255, 255, 255, 0) 100%
-  //   );
-  // }
-
-  &:hover {
-    &:before,
-    &:after {
-      opacity: 0.7;
-      transform: scale(1.02);
-    }
-    transform: scale(1.02);
   }
   // ! Scrollbar codes
   &::-webkit-scrollbar {
@@ -58,28 +24,28 @@
   }
 
   &::-webkit-scrollbar-track {
-    background-color: #f2f2f2;
+    background-color: var(--white-1);
     border-radius: 8px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #3498db;
+    background-color: var(--blue-11);
     border-radius: 8px;
-    transition: background-color 0.3s ease;
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: inset 0 0 4px var(--black-shadow-light-1);
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: #2980b9;
+    background-color: var(--blue-11);
   }
 
   &::-webkit-scrollbar-thumb:active {
-    background-color: #1f618d;
+    background-color: var(--blue-5);
   }
 
   &::-webkit-scrollbar-corner,
   &::-webkit-scrollbar-track-piece {
-    background-color: #f2f2f2;
+    background-color: var(--white-1);
     border-radius: 8px;
   }
 
@@ -101,8 +67,8 @@
     background: linear-gradient(
       45deg,
       transparent 10%,
-      #2980b9 10%,
-      #2980b9 90%,
+      var(--blue-11) 10%,
+      var(--blue-11) 90%,
       transparent 90%
     );
     position: absolute;
@@ -113,121 +79,237 @@
     pointer-events: none;
   }
   .contact-us-heading {
-    color: #3498db;
-    font-size: 2em;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    transition: color 0.3s ease, transform 0.3s ease;
-
-    &:hover {
-      color: #2980b9;
-      transform: scale(1.05);
+    position: relative;
+    text-align: center;
+    color: var(--white);
+    font-family: var(--font-oswald);
+    font-size: var(--font-7);
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px var(--black-shadow-light-1);
+    margin: 0 0 1% 0;
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    @media (max-width: $breakpoint-desktop-wide) {
+      font-size: var(--font-8);
+      margin: 0 0 1.5% 0;
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-5);
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+    &::before {
+      content: "";
+      display: block;
+      width: 45%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--blue-7), var(--pink-4));
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      border-radius: 20px;
+      transform: translateX(-50%);
+      transition: width 2s ease-in-out;
+      animation: underlineAnimation 2s infinite alternate;
+    }
+    @keyframes underlineAnimation {
+      to {
+        width: 20%;
+      }
     }
   }
 
   .team-members {
-    margin: 0 0 0 0;
+    margin: 1% 0 0 0;
     .team-members-heading {
-      color: #34495e;
-      font-size: 1.5em;
-      margin-bottom: 10px;
+      font-family: var(--font-orbitron);
+      font-size: var(--font-9);
+      letter-spacing: 3px;
+      color: var(--yellow-1);
       text-transform: uppercase;
-      position: relative;
-      transition: color 0.3s ease, transform 0.3s ease;
-
+      text-align: center;
+      padding: 0.5rem;
+      transition: all 0.5s ease-in-out;
       &:hover {
-        color: #2c3e50;
+        color: var(--yellow);
+        transform: translateY(-2px) translateX(2px) scale(1.05);
+        text-shadow: 5px 10px 20px var(--black-shadow);
       }
     }
 
     .member {
-      margin-bottom: 15px;
-      padding: 15px;
+      margin: 3% 0 0 0;
+      background: rgba(0, 0, 0, 0.05);
+      padding: 10px;
       border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 8px var(--black-shadow-light-2);
       position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
 
       &:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+        transform: scale(1.005);
+        box-shadow: 0 8px 16px -5px var(--black-shadow);
       }
       &:before {
         content: "";
         position: absolute;
         width: 100%;
         height: 2px;
-        background-color: #3498db;
+        background-color: var(--blue-11);
         bottom: 0;
         left: 0;
-        transform-origin: right;
+        transform-origin: left;
         transform: scaleX(0);
-        transition: transform 0.3s ease;
+        transition: transform 0.5s ease-in-out;
       }
       &:hover:before {
         transform-origin: left;
-        transform: scaleX(1);
+        transform: scaleX(1.005);
       }
       &__heading {
-        color: #3498db;
-        font-size: 1.2em;
-        margin-bottom: 5px;
+        font-family: var(--font-roboto);
+        font-size: var(--font-10);
+        color: var(--yellow-1);
+        letter-spacing: 2px;
         text-transform: uppercase;
-        letter-spacing: 1px;
-        transition: color 0.3s ease;
-
+        transition: color 0.5s ease-in-out;
         &:hover {
-          color: #2980b9;
+          color: var(--yellow);
         }
       }
 
-      &__email,
+      &__email {
+        @include flex-container(row, nowrap, center, center);
+        gap: 10px;
+        &__icon {
+          position: relative;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background-color: var(--blue-11);
+          transition: all 0.5s ease-in-out;
+          cursor: pointer;
+          &:hover {
+            transform: scale(1.05);
+            box-shadow: 5px 10px 20px var(--black-shadow);
+          }
+        }
+        &__link {
+          color: var(--blue-1);
+          font-size: var(--font-12);
+          font-family: var(--font-roboto);
+          letter-spacing: 2px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 0.5s ease-in-out;
+          &:hover {
+            color: var(--green);
+            transform: scale(1.01);
+            text-decoration: underline;
+          }
+        }
+      }
       &__expertise {
-        color: #34495e;
-        margin-bottom: 5px;
-        transition: color 0.3s ease;
-
-        &:hover {
-          color: #2c3e50;
-        }
+        color: var(--white);
+        margin: 2% 0 1% 0;
+        font-family: var(--font-elianto);
+        font-size: var(--font-11);
+        letter-spacing: 1px;
+        text-transform: capitalize;
       }
 
-      &-description {
-        color: #34495e;
-        font-style: italic;
-        transition: color 0.3s ease;
+      &__description {
+        color: var(--white);
+        font-family: var(--font-tektur);
+        font-size: var(--font-12);
+        text-align: center;
+        letter-spacing: 2px;
+      }
+    }
+  }
 
+  .contact-email {
+    margin: 3% 0 0 0;
+    &__heading {
+      color: var(--red-2);
+      font-family: var(--font-roboto);
+      font-size: var(--font-9);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0.5rem;
+      transition: all 0.5s ease;
+      box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
+      &:hover {
+        color: var(--red-5);
+        box-shadow: 0 4px 12px var(--black-shadow-light);
+        transform: translateY(-2px);
+      }
+    }
+    &__container {
+      @include flex-container(row, nowrap, center, center);
+      gap: 10px;
+      margin: 3% 0 1% 0;
+      &__icon {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: var(--blue-11);
+        transition: all 0.5s ease-in-out;
+        cursor: pointer;
         &:hover {
-          color: #2c3e50;
+          transform: scale(1.05);
+          box-shadow: 5px 10px 20px var(--black-shadow);
+        }
+      }
+      &__content {
+        color: var(--blue-1);
+        font-size: var(--font-12);
+        font-family: var(--font-roboto);
+        letter-spacing: 2px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.5s ease-in-out;
+        &:hover {
+          color: var(--green);
+          transform: scale(1.01);
+          text-decoration: underline;
         }
       }
     }
   }
 
-  .contact-email,
-  .team-objective,
-  .additional-information {
-    margin-top: 20px;
-
-    h3 {
-      color: #34495e;
-      font-size: 1.5em;
-      margin-bottom: 10px;
+  .team-objective {
+    margin: 3% 0 0 0;
+    &__heading {
+      color: var(--red-2);
+      font-family: var(--font-roboto);
+      font-size: var(--font-9);
+      letter-spacing: 3px;
       text-transform: uppercase;
-      transition: color 0.3s ease, transform 0.3s ease;
-
+      text-align: center;
+      padding: 0.5rem;
+      transition: all 0.5s ease;
+      box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
       &:hover {
-        color: #2c3e50;
+        color: var(--red-5);
+        box-shadow: 0 4px 12px var(--black-shadow-light);
+        transform: translateY(-2px);
       }
     }
-
-    p {
-      color: #34495e;
-      transition: color 0.3s ease;
-
-      &:hover {
-        color: #2c3e50;
-      }
+    &__content {
+      color: var(--white);
+      font-family: var(--font-tektur);
+      font-size: var(--font-12);
+      letter-spacing: 2px;
+      text-align: center;
+      margin: 2% 0 0 0;
     }
   }
 
@@ -254,61 +336,14 @@
 
         &:hover {
           transform: scale(1.1);
-          box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 8px var(--black-shadow-light-1);
         }
-
-        img {
-          margin-left: 5px;
-          border-radius: 50%;
-          transition: transform 0.3s ease;
-
-          &:hover {
-            transform: scale(1.2);
-          }
-        }
-      }
-    }
-  }
-
-  &:after {
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0) 100%
-    );
-  }
-
-  .team-member {
-    &:before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      background-color: #3498db;
-      top: 0;
-      left: 0;
-      transform-origin: right;
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-
-    &:hover {
-      &:before {
-        transform-origin: left;
-        transform: scaleX(1);
-      }
-    }
-  }
-
-  .social-media {
-    ul {
-      li {
         &:before {
           content: "";
           display: inline-block;
           width: 10px;
           height: 10px;
-          background-color: #3498db;
+          background-color: var(--blue-11);
           border-radius: 50%;
           margin-right: 5px;
           transition: transform 0.3s ease;
@@ -317,6 +352,15 @@
         &:hover {
           &:before {
             transform: scale(1.5);
+          }
+        }
+        img {
+          margin-left: 5px;
+          border-radius: 50%;
+          transition: transform 0.3s ease;
+
+          &:hover {
+            transform: scale(1.2);
           }
         }
       }

@@ -41,33 +41,34 @@
     border-color: var(--white-shadow-light-3);
     transform: scale(1.0005);
   }
+  // ! Scrollbar codes
   &::-webkit-scrollbar {
     width: 8px;
   }
 
   &::-webkit-scrollbar-track {
-    background-color: #f2f2f2;
+    background-color: var(--white-1);
     border-radius: 8px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #3498db;
+    background-color: var(--blue-11);
     border-radius: 8px;
-    transition: background-color 0.3s ease;
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: inset 0 0 4px var(--black-shadow-light-1);
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: #2980b9;
+    background-color: var(--blue-11);
   }
 
   &::-webkit-scrollbar-thumb:active {
-    background-color: #1f618d;
+    background-color: var(--blue-5);
   }
 
   &::-webkit-scrollbar-corner,
   &::-webkit-scrollbar-track-piece {
-    background-color: #f2f2f2;
+    background-color: var(--white-1);
     border-radius: 8px;
   }
 
@@ -89,8 +90,8 @@
     background: linear-gradient(
       45deg,
       transparent 10%,
-      #2980b9 10%,
-      #2980b9 90%,
+      var(--blue-11) 10%,
+      var(--blue-11) 90%,
       transparent 90%
     );
     position: absolute;
@@ -134,6 +135,7 @@
       position: absolute;
       bottom: 0;
       left: 50%;
+      border-radius: 20px;
       transform: translateX(-50%);
       transition: width 2s ease-in-out;
       animation: underlineAnimation 2s infinite alternate;
@@ -243,7 +245,7 @@
       cursor: pointer;
       margin: 0 0 2% 0;
       text-align: center;
-      color: var(--black);
+      color: var(--yellow);
       font-family: var(--font-oswald);
       font-size: var(--font-9);
       font-weight: 800;
@@ -338,6 +340,7 @@
             position: absolute;
             bottom: 0;
             left: 50%;
+            border-radius: 20px;
             transform: translateX(-50%);
             transition: width 2s ease-in-out;
             animation: underlineAnimation 5s infinite alternate;
@@ -350,17 +353,29 @@
         }
         .problem-grid-heading {
           &::before {
-            background: linear-gradient(to right, #1a936f, #91cb3e);
+            background: linear-gradient(
+              to right,
+              var(--green-7),
+              var(--green-8)
+            );
           }
         }
         .solution-and-object-grid-heading {
           &::before {
-            background: linear-gradient(to right, #0072ff, #00c6ff);
+            background: linear-gradient(
+              to right,
+              var(--blue-13),
+              var(--blue-14)
+            );
           }
         }
         .future-plans-grid-heading {
           &::before {
-            background: linear-gradient(to right, #ffd300, #ff971d);
+            background: linear-gradient(
+              to right,
+              var(--yellow-9),
+              var(--yellow-10)
+            );
           }
         }
         p {

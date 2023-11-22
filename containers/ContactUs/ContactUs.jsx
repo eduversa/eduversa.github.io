@@ -7,33 +7,34 @@ const ContactUs = () => {
   const { teamMembers, contactEmail, teamObjective, additionalInformation } =
     contactUs;
 
-  // const renderTeamMembers = () => {
-  //   return teamMembers.map((member, index) => (
-  //     <div key={index} className={`team-member-${index + 1} `}>
-  //       <h3 className={`team-member-${index + 1}-heading`}>{member.name}</h3>
-  //       <p className={`team-member-${index + 1}-email`}>
-  //         Email: {member.email}
-  //       </p>
-  //       <p className={`team-member-${index + 1}-expertise`}>
-  //         Expertise: {member.expertise}
-  //       </p>
-  //       <p className={`team-member-${index + 1}-description`}>
-  //         {member.description}
-  //       </p>
-  //     </div>
-  //   ));
-  // };
+  function emailHandler(contactEmail) {
+    window.location.href = `mailto:${contactEmail}`;
+  }
+  const eduversaEmail = "eduversa.developer@gmail.com";
+  function contactEduversa() {
+    window.location.href = `mailto:${eduversaEmail}`;
+  }
   const renderTeamMembers = () => {
     return teamMembers.map((member, index) => (
       <div key={index} className="member">
         <h3 className="member__heading">{member.name}</h3>
-        <p className="member__email">Email: {member.email}</p>
-        <p className={`team-member__expertise`}>
-          Expertise: {member.expertise}
-        </p>
-        <p className={`team-member-${index + 1}-description`}>
-          {member.description}
-        </p>
+        <div
+          onClick={() => {
+            emailHandler(contactEmail);
+          }}
+          className="member__email"
+        >
+          <Image
+            src="/contactus/mail.png"
+            alt="email"
+            height={20}
+            width={20}
+            className="member__email__icon"
+          ></Image>
+          <span className="member__email__link">{member.email}</span>
+        </div>
+        <p className="member__expertise">Expertise: {member.expertise}</p>
+        <p className="member__description">{member.description}</p>
       </div>
     ));
   };
@@ -47,7 +48,7 @@ const ContactUs = () => {
   };
   return (
     <Fragment>
-      <div className={containerClass} style={{ zIndex: 500 }}>
+      <div className={containerClass}>
         <h2 className="contact-us-heading">Contact Us</h2>
 
         <div className="team-members">
@@ -56,81 +57,85 @@ const ContactUs = () => {
         </div>
 
         <div className="contact-email">
-          <h3 className="contact-email-heading">Contact Email</h3>
-          <p className="contact-email-content">{contactEmail}</p>
+          <h3 className="contact-email__heading">Contact Email</h3>
+          <div className="contact-email__container" onClick={contactEduversa}>
+            <Image
+              src="/contactus/mail.png"
+              alt="email"
+              height={20}
+              width={20}
+              className="contact-email__container__icon"
+            ></Image>
+            <p className="contact-email__container__content">{contactEmail}</p>
+          </div>
         </div>
 
         <div className="team-objective">
-          <h3 className="team-objective-heading">Team Objective</h3>
-          <p className="team-objective-content">{teamObjective}</p>
+          <h3 className="team-objective__heading">Team Objective</h3>
+          <p className="team-objective__content">{teamObjective}</p>
         </div>
 
-        <div className="additional-information">
-          <h3 className="additional-information-heading">
-            Additional Information
-          </h3>
-          <div className="social-media">
-            <h4 className="social-media-heading">Social Media</h4>
-            <ul>
-              <li
-                onClick={() => {
-                  const github = document.createElement("a");
-                  github.href = additionalInformation.socialMedia.github;
-                  github.target = "_blank";
-                  github.click();
-                }}
-              >
-                GitHub:
-                <Image
-                  src="/login/github.png"
-                  alt="github"
-                  height={25}
-                  width={25}
-                  className="github-icon"
-                ></Image>
-              </li>
-              <li onClick={() => handleSocialLoginClick("Twitter")}>
-                Twitter:
-                <Image
-                  src="/login/twitter.png"
-                  alt="twitter"
-                  height={25}
-                  width={25}
-                  className="twitter-icon"
-                ></Image>
-              </li>
-              <li onClick={() => handleSocialLoginClick("LinkedIn")}>
-                LinkedIn:
-                <Image
-                  src="/login/linkedin.png"
-                  alt="linkedin"
-                  height={25}
-                  width={25}
-                  className="linkedin-icon"
-                ></Image>
-              </li>
-              <li onClick={() => handleSocialLoginClick("Facebook")}>
-                Facebook:
-                <Image
-                  src="/login/facebook.png"
-                  alt="facebook"
-                  height={25}
-                  width={25}
-                  className="facebook-icon"
-                ></Image>
-              </li>
-              <li>
-                Instagram:
-                <Image
-                  src="/contactus/instagram.png"
-                  alt="instagram"
-                  height={25}
-                  width={25}
-                  className="instagram-icon"
-                ></Image>
-              </li>
-            </ul>
-          </div>
+        <div className="social-media">
+          <h4 className="social-media-heading">Connect Us With</h4>
+          <ul>
+            <li
+              onClick={() => {
+                const github = document.createElement("a");
+                github.href = additionalInformation.socialMedia.github;
+                github.target = "_blank";
+                github.click();
+              }}
+            >
+              GitHub:
+              <Image
+                src="/login/github.png"
+                alt="github"
+                height={25}
+                width={25}
+                className="github-icon"
+              ></Image>
+            </li>
+            <li onClick={() => handleSocialLoginClick("Twitter")}>
+              Twitter:
+              <Image
+                src="/login/twitter.png"
+                alt="twitter"
+                height={25}
+                width={25}
+                className="twitter-icon"
+              ></Image>
+            </li>
+            <li onClick={() => handleSocialLoginClick("LinkedIn")}>
+              LinkedIn:
+              <Image
+                src="/login/linkedin.png"
+                alt="linkedin"
+                height={25}
+                width={25}
+                className="linkedin-icon"
+              ></Image>
+            </li>
+            <li onClick={() => handleSocialLoginClick("Facebook")}>
+              Facebook:
+              <Image
+                src="/login/facebook.png"
+                alt="facebook"
+                height={25}
+                width={25}
+                className="facebook-icon"
+              ></Image>
+            </li>
+            <li>
+              Instagram:
+              <Image
+                src="/contactus/instagram.png"
+                alt="instagram"
+                height={25}
+                width={25}
+                className="instagram-icon"
+              ></Image>
+            </li>
+          </ul>
         </div>
       </div>
     </Fragment>
