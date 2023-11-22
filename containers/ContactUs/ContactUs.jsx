@@ -8,11 +8,12 @@ const ContactUs = () => {
     contactUs;
 
   function emailHandler(contactEmail) {
-    console.log("emailHandler");
-    console.log(contactEmail);
     window.location.href = `mailto:${contactEmail}`;
   }
-
+  const eduversaEmail = "eduversa.developer@gmail.com";
+  function contactEduversa() {
+    window.location.href = `mailto:${eduversaEmail}`;
+  }
   const renderTeamMembers = () => {
     return teamMembers.map((member, index) => (
       <div key={index} className="member">
@@ -57,7 +58,16 @@ const ContactUs = () => {
 
         <div className="contact-email">
           <h3 className="contact-email-heading">Contact Email</h3>
-          <p className="contact-email-content">{contactEmail}</p>
+          <div className="eduversa-email-container" onClick={contactEduversa}>
+            <Image
+              src="/contactus/mail.png"
+              alt="email"
+              height={20}
+              width={20}
+              className="eduversa-mail-icon"
+            ></Image>
+            <p className="contact-email-content">{contactEmail}</p>
+          </div>
         </div>
 
         <div className="team-objective">
@@ -65,72 +75,67 @@ const ContactUs = () => {
           <p className="team-objective-content">{teamObjective}</p>
         </div>
 
-        <div className="additional-information">
-          <h3 className="additional-information-heading">
-            Additional Information
-          </h3>
-          <div className="social-media">
-            <h4 className="social-media-heading">Social Media</h4>
-            <ul>
-              <li
-                onClick={() => {
-                  const github = document.createElement("a");
-                  github.href = additionalInformation.socialMedia.github;
-                  github.target = "_blank";
-                  github.click();
-                }}
-              >
-                GitHub:
-                <Image
-                  src="/login/github.png"
-                  alt="github"
-                  height={25}
-                  width={25}
-                  className="github-icon"
-                ></Image>
-              </li>
-              <li onClick={() => handleSocialLoginClick("Twitter")}>
-                Twitter:
-                <Image
-                  src="/login/twitter.png"
-                  alt="twitter"
-                  height={25}
-                  width={25}
-                  className="twitter-icon"
-                ></Image>
-              </li>
-              <li onClick={() => handleSocialLoginClick("LinkedIn")}>
-                LinkedIn:
-                <Image
-                  src="/login/linkedin.png"
-                  alt="linkedin"
-                  height={25}
-                  width={25}
-                  className="linkedin-icon"
-                ></Image>
-              </li>
-              <li onClick={() => handleSocialLoginClick("Facebook")}>
-                Facebook:
-                <Image
-                  src="/login/facebook.png"
-                  alt="facebook"
-                  height={25}
-                  width={25}
-                  className="facebook-icon"
-                ></Image>
-              </li>
-              <li>
-                Instagram:
-                <Image
-                  src="/contactus/instagram.png"
-                  alt="instagram"
-                  height={25}
-                  width={25}
-                  className="instagram-icon"
-                ></Image>
-              </li>
-            </ul>
-          </div>
+        <div className="social-media">
+          <h4 className="social-media-heading">Social Media</h4>
+          <ul>
+            <li
+              onClick={() => {
+                const github = document.createElement("a");
+                github.href = additionalInformation.socialMedia.github;
+                github.target = "_blank";
+                github.click();
+              }}
+            >
+              GitHub:
+              <Image
+                src="/login/github.png"
+                alt="github"
+                height={25}
+                width={25}
+                className="github-icon"
+              ></Image>
+            </li>
+            <li onClick={() => handleSocialLoginClick("Twitter")}>
+              Twitter:
+              <Image
+                src="/login/twitter.png"
+                alt="twitter"
+                height={25}
+                width={25}
+                className="twitter-icon"
+              ></Image>
+            </li>
+            <li onClick={() => handleSocialLoginClick("LinkedIn")}>
+              LinkedIn:
+              <Image
+                src="/login/linkedin.png"
+                alt="linkedin"
+                height={25}
+                width={25}
+                className="linkedin-icon"
+              ></Image>
+            </li>
+            <li onClick={() => handleSocialLoginClick("Facebook")}>
+              Facebook:
+              <Image
+                src="/login/facebook.png"
+                alt="facebook"
+                height={25}
+                width={25}
+                className="facebook-icon"
+              ></Image>
+            </li>
+            <li>
+              Instagram:
+              <Image
+                src="/contactus/instagram.png"
+                alt="instagram"
+                height={25}
+                width={25}
+                className="instagram-icon"
+              ></Image>
+            </li>
+          </ul>
         </div>
       </div>
     </Fragment>
