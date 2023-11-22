@@ -233,10 +233,9 @@
     }
   }
 
-  .contact-email,
-  .team-objective {
+  .contact-email {
     margin: 3% 0 0 0;
-    h3 {
+    &__heading {
       color: var(--red-2);
       font-family: var(--font-roboto);
       font-size: var(--font-9);
@@ -248,19 +247,63 @@
       box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
       &:hover {
         color: var(--red-5);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px var(--black-shadow-light);
         transform: translateY(-2px);
       }
     }
-    .contact-email-content {
-      color: var(--white);
-      font-family: var(--font-tektur);
-      font-size: var(--font-12);
-      letter-spacing: 2px;
-      text-align: center;
-      margin: 2% 0 0 0;
+    &__container {
+      @include flex-container(row, nowrap, center, center);
+      gap: 10px;
+      margin: 3% 0 1% 0;
+      &__icon {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: var(--blue-11);
+        transition: all 0.5s ease-in-out;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 5px 10px 20px var(--black-shadow);
+        }
+      }
+      &__content {
+        color: var(--blue-1);
+        font-size: var(--font-12);
+        font-family: var(--font-roboto);
+        letter-spacing: 2px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.5s ease-in-out;
+        &:hover {
+          color: var(--green);
+          transform: scale(1.01);
+          text-decoration: underline;
+        }
+      }
     }
-    .team-objective-content {
+  }
+
+  .team-objective {
+    margin: 3% 0 0 0;
+    &__heading {
+      color: var(--red-2);
+      font-family: var(--font-roboto);
+      font-size: var(--font-9);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0.5rem;
+      transition: all 0.5s ease;
+      box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
+      &:hover {
+        color: var(--red-5);
+        box-shadow: 0 4px 12px var(--black-shadow-light);
+        transform: translateY(-2px);
+      }
+    }
+    &__content {
       color: var(--white);
       font-family: var(--font-tektur);
       font-size: var(--font-12);

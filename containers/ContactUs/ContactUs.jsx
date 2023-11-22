@@ -57,22 +57,22 @@ const ContactUs = () => {
         </div>
 
         <div className="contact-email">
-          <h3 className="contact-email-heading">Contact Email</h3>
-          <div className="eduversa-email-container" onClick={contactEduversa}>
+          <h3 className="contact-email__heading">Contact Email</h3>
+          <div className="contact-email__container" onClick={contactEduversa}>
             <Image
               src="/contactus/mail.png"
               alt="email"
               height={20}
               width={20}
-              className="eduversa-mail-icon"
+              className="contact-email__container__icon"
             ></Image>
-            <p className="contact-email-content">{contactEmail}</p>
+            <p className="contact-email__container__content">{contactEmail}</p>
           </div>
         </div>
 
         <div className="team-objective">
-          <h3 className="team-objective-heading">Team Objective</h3>
-          <p className="team-objective-content">{teamObjective}</p>
+          <h3 className="team-objective__heading">Team Objective</h3>
+          <p className="team-objective__content">{teamObjective}</p>
         </div>
 
         <div className="social-media">
