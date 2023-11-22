@@ -66,14 +66,18 @@ const PersonalInfoForm = () => {
       if (typeof formData[key] === "object") {
         return Object.keys(formData[key]).map((nestedKey) => (
           <div key={nestedKey}>
-            <label>
+            <h3>
               {key === "present_address" ? "Present " : "Permanent "}
+              {nestedKey.charAt(0).toUpperCase() + nestedKey.slice(1)}
+            </h3>
+            <label>
               {nestedKey.charAt(0).toUpperCase() + nestedKey.slice(1)}:
               <input
                 type="text"
                 name={`${key}_${nestedKey}`}
                 value={formData[key][nestedKey]}
                 onChange={handleAddressChange}
+                placeholder={`Enter ${nestedKey}`}
               />
             </label>
           </div>
@@ -83,8 +87,8 @@ const PersonalInfoForm = () => {
       if (key === "are_addresses_same") {
         return (
           <div key={key}>
+            <h3>Are Addresses Same?</h3>
             <label>
-              Are Addresses Same?
               <input
                 type="checkbox"
                 name={key}
@@ -98,13 +102,14 @@ const PersonalInfoForm = () => {
 
       return (
         <div key={key}>
+          <h3>{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
           <label>
-            {key.charAt(0).toUpperCase() + key.slice(1)}:
             <input
               type="text"
               name={key}
               value={formData[key]}
               onChange={handleChange}
+              placeholder={`Enter ${key}`}
             />
           </label>
         </div>
