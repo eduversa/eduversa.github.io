@@ -61,30 +61,56 @@ const PersonalInfoForm = () => {
     }));
   };
 
+  const renderAddressFields = (addressType) => {
+    return Object.keys(formData[addressType]).map((key) => (
+      <div key={key} className={`${addressType}-${key}`}>
+        <label>
+          {key.charAt(0).toUpperCase() + key.slice(1)}:
+          <input
+            type="text"
+            name={`${addressType}_${key}`}
+            value={formData[addressType][key]}
+            onChange={handleAddressChange}
+            placeholder={`Enter ${key}`}
+            className={`${addressType}-${key}-input`}
+          />
+        </label>
+      </div>
+    ));
+  };
+
   const renderFormFields = () => {
     return Object.keys(formData).map((key) => {
       const className = key.toLowerCase();
 
       if (typeof formData[key] === "object") {
-        return Object.keys(formData[key]).map((nestedKey) => (
-          <div key={nestedKey} className={`${className}-${nestedKey}`}>
+        return (
+          <div key={key} className={`${className}-group`}>
             <h3>
-              {key === "present_address" ? "Present " : "Permanent "}
-              {nestedKey.charAt(0).toUpperCase() + nestedKey.slice(1)}
+              {key === "present_address"
+                ? "Present Address"
+                : "Permanent Address"}
             </h3>
+            {renderAddressFields(key)}
+          </div>
+        );
+      }
+
+      if (key === "dob") {
+        return (
+          <div key={key} className={className}>
+            <h3>Date of Birth:</h3>
             <label>
-              {nestedKey.charAt(0).toUpperCase() + nestedKey.slice(1)}:
               <input
-                type="text"
-                name={`${key}_${nestedKey}`}
-                value={formData[key][nestedKey]}
-                onChange={handleAddressChange}
-                placeholder={`Enter ${nestedKey}`}
-                className={`${className}-${nestedKey}-input`}
+                type="date"
+                name={key}
+                value={formData[key]}
+                onChange={handleChange}
+                className={`${className}-input`}
               />
             </label>
           </div>
-        ));
+        );
       }
 
       if (key === "are_addresses_same") {
