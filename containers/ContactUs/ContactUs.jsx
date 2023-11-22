@@ -7,33 +7,13 @@ const ContactUs = () => {
   const { teamMembers, contactEmail, teamObjective, additionalInformation } =
     contactUs;
 
-  // const renderTeamMembers = () => {
-  //   return teamMembers.map((member, index) => (
-  //     <div key={index} className={`team-member-${index + 1} `}>
-  //       <h3 className={`team-member-${index + 1}-heading`}>{member.name}</h3>
-  //       <p className={`team-member-${index + 1}-email`}>
-  //         Email: {member.email}
-  //       </p>
-  //       <p className={`team-member-${index + 1}-expertise`}>
-  //         Expertise: {member.expertise}
-  //       </p>
-  //       <p className={`team-member-${index + 1}-description`}>
-  //         {member.description}
-  //       </p>
-  //     </div>
-  //   ));
-  // };
   const renderTeamMembers = () => {
     return teamMembers.map((member, index) => (
       <div key={index} className="member">
         <h3 className="member__heading">{member.name}</h3>
         <p className="member__email">Email: {member.email}</p>
-        <p className={`team-member__expertise`}>
-          Expertise: {member.expertise}
-        </p>
-        <p className={`team-member-${index + 1}-description`}>
-          {member.description}
-        </p>
+        <p className="member__expertise">Expertise: {member.expertise}</p>
+        <p className="member__description">{member.description}</p>
       </div>
     ));
   };
