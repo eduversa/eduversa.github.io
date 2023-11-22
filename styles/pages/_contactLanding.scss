@@ -49,7 +49,7 @@
   }
 
   &::-webkit-scrollbar-thumb:active {
-    background-color: #1f618d;
+    background-color: var(--blue-5);
   }
 
   &::-webkit-scrollbar-corner,
@@ -161,7 +161,7 @@
 
       &:hover {
         transform: scale(1.005);
-        box-shadow: 0 8px 16px -5px rgba(0, 0, 0, 0.9);
+        box-shadow: 0 8px 16px -5px var(--black-shadow);
       }
       &:before {
         content: "";
