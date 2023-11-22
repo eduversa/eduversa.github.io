@@ -63,9 +63,11 @@ const PersonalInfoForm = () => {
 
   const renderFormFields = () => {
     return Object.keys(formData).map((key) => {
+      const className = key.toLowerCase();
+
       if (typeof formData[key] === "object") {
         return Object.keys(formData[key]).map((nestedKey) => (
-          <div key={nestedKey}>
+          <div key={nestedKey} className={`${className}-${nestedKey}`}>
             <h3>
               {key === "present_address" ? "Present " : "Permanent "}
               {nestedKey.charAt(0).toUpperCase() + nestedKey.slice(1)}
@@ -78,6 +80,7 @@ const PersonalInfoForm = () => {
                 value={formData[key][nestedKey]}
                 onChange={handleAddressChange}
                 placeholder={`Enter ${nestedKey}`}
+                className={`${className}-${nestedKey}-input`}
               />
             </label>
           </div>
@@ -86,7 +89,7 @@ const PersonalInfoForm = () => {
 
       if (key === "are_addresses_same") {
         return (
-          <div key={key}>
+          <div key={key} className={className}>
             <h3>Are Addresses Same?</h3>
             <label>
               <input
@@ -94,6 +97,7 @@ const PersonalInfoForm = () => {
                 name={key}
                 checked={formData[key]}
                 onChange={handleCheckboxChange}
+                className={`${className}-checkbox`}
               />
             </label>
           </div>
@@ -101,7 +105,7 @@ const PersonalInfoForm = () => {
       }
 
       return (
-        <div key={key}>
+        <div key={key} className={className}>
           <h3>{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
           <label>
             <input
@@ -110,6 +114,7 @@ const PersonalInfoForm = () => {
               value={formData[key]}
               onChange={handleChange}
               placeholder={`Enter ${key}`}
+              className={`${className}-input`}
             />
           </label>
         </div>
