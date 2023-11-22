@@ -14,14 +14,14 @@ const CourseInfo = ({ formData, handleChange }) => {
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [streams, setStreams] = useState([]);
-
+  const [showStrem, setShowStream] = useState(false);
   useEffect(() => {
     getCollegeDetails();
   }, []);
 
   useEffect(() => {
     if (Array.isArray(courses)) {
-      const course = courses.find(course => course.name === selectedCourse);
+      const course = courses.find((course) => course.name === selectedCourse);
       if (course) {
         setStreams(course.streams);
       }
@@ -41,6 +41,7 @@ const CourseInfo = ({ formData, handleChange }) => {
   const handleCourseChange = (event) => {
     handleChange(event);
     setSelectedCourse(event.target.value);
+    setShowStream(true);
   };
 
   return (
@@ -57,7 +58,12 @@ const CourseInfo = ({ formData, handleChange }) => {
           required
           options={[
             { key: "Select your course", value: "" },
-            ...(Array.isArray(courses) ? courses.map(course => ({ key: course.name, value: course.name })) : [])
+            ...(Array.isArray(courses)
+              ? courses.map((course) => ({
+                  key: course.name,
+                  value: course.name,
+                }))
+              : []),
           ]}
         />
         <Number
@@ -73,18 +79,27 @@ const CourseInfo = ({ formData, handleChange }) => {
       <div className="grid-col-2">
         {" "}
         {/* stream admission_year */}
-        <Select
-          label="Stream"
-          name="course_info.stream"
-          value={formData.course_info.stream}
-          onChange={handleChange}
-          required
-          // options={Array.isArray(streams) ? streams.map(stream => ({ key: stream.name, value: stream.name })) : []}
-          options= {[
-            { key: "Select your stream", value: "" },
-            ...(Array.isArray(streams) ? streams.map(stream => ({ key: stream.name, value: stream.name })) : [])
-          ]}
-        />
+        {!showStrem ? (
+          ""
+        ) : (
+          <Select
+            label="Stream"
+            name="course_info.stream"
+            value={formData.course_info.stream}
+            onChange={handleChange}
+            required
+            // options={Array.isArray(streams) ? streams.map(stream => ({ key: stream.name, value: stream.name })) : []}
+            options={[
+              { key: "Select your stream", value: "" },
+              ...(Array.isArray(streams)
+                ? streams.map((stream) => ({
+                    key: stream.name,
+                    value: stream.name,
+                  }))
+                : []),
+            ]}
+          />
+        )}
         {/* <button onClick={getCollegeDetails}>College Details</button> */}
         <Number
           label="Admission Year"
