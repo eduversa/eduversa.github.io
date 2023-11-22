@@ -338,23 +338,6 @@
           transform: scale(1.1);
           box-shadow: 0 0 8px var(--black-shadow-light-1);
         }
-
-        img {
-          margin-left: 5px;
-          border-radius: 50%;
-          transition: transform 0.3s ease;
-
-          &:hover {
-            transform: scale(1.2);
-          }
-        }
-      }
-    }
-  }
-
-  .social-media {
-    ul {
-      li {
         &:before {
           content: "";
           display: inline-block;
@@ -369,6 +352,15 @@
         &:hover {
           &:before {
             transform: scale(1.5);
+          }
+        }
+        img {
+          margin-left: 5px;
+          border-radius: 50%;
+          transition: transform 0.3s ease;
+
+          &:hover {
+            transform: scale(1.2);
           }
         }
       }
