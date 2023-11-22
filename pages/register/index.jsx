@@ -23,7 +23,7 @@ function Register() {
       }
 
       console.log("Registration data:", registrationData);
-      localStorage.setItem("registeredUserId", registrationData.data.user_id);
+      // localStorage.setItem("registeredUserId", registrationData.data.user_id);
       alert(
         "Registration Was Successful! Check Your Email For Login Credentials"
       );
