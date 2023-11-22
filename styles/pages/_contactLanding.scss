@@ -17,31 +17,32 @@
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
     background: rgba(255, 255, 255, 0.05);
   }
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    z-index: -1;
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
-  }
+  //! Container pseudo elements
+  // &:before,
+  // &:after {
+  //   content: "";
+  //   position: absolute;
+  //   width: 100%;
+  //   height: 100%;
+  //   top: 0;
+  //   left: 0;
+  //   background: linear-gradient(
+  //     45deg,
+  //     rgba(255, 255, 255, 0.1) 0%,
+  //     rgba(255, 255, 255, 0) 100%
+  //   );
+  //   z-index: -1;
+  //   pointer-events: none;
+  //   transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+  // }
 
-  &:before {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0) 100%
-    );
-  }
+  // &:before {
+  //   background: linear-gradient(
+  //     135deg,
+  //     rgba(255, 255, 255, 0.1) 0%,
+  //     rgba(255, 255, 255, 0) 100%
+  //   );
+  // }
 
   &:hover {
     &:before,
@@ -51,6 +52,7 @@
     }
     transform: scale(1.02);
   }
+  // ! Scrollbar codes
   &::-webkit-scrollbar {
     width: 8px;
   }
@@ -124,8 +126,6 @@
   }
 
   .team-members {
-    margin-top: 20px;
-
     .team-members-heading {
       color: #34495e;
       font-size: 1.5em;
@@ -136,23 +136,6 @@
 
       &:hover {
         color: #2c3e50;
-      }
-
-      &:before {
-        content: "";
-        position: absolute;
-        width: 20px;
-        height: 2px;
-        background-color: #3498db;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 100%;
-        transition: width 0.3s ease, right 0.3s ease;
-      }
-
-      &:hover:before {
-        width: 30px;
-        right: 90%;
       }
     }
 
@@ -295,24 +278,6 @@
       rgba(255, 255, 255, 0.1) 0%,
       rgba(255, 255, 255, 0) 100%
     );
-  }
-
-  .team-members-heading {
-    &:before {
-      content: "";
-      display: inline-block;
-      width: 20px;
-      height: 2px;
-      background-color: #3498db;
-      margin-right: 10px;
-      transition: width 0.3s ease;
-    }
-
-    &:hover {
-      &:before {
-        width: 30px;
-      }
-    }
   }
 
   .team-member {
