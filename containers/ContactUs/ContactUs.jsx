@@ -76,7 +76,7 @@ const ContactUs = () => {
         </div>
 
         <div className="social-media">
-          <h4 className="social-media-heading">Social Media</h4>
+          <h4 className="social-media-heading">Connect Us With</h4>
           <ul>
             <li
               onClick={() => {
