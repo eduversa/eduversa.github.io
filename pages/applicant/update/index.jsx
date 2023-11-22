@@ -1,12 +1,12 @@
 import { Fragment } from "react";
 import { ApplicantLayout } from "@/layout";
-import { ApplicantForm } from "@/components";
-import PersonalInfoForm from "@/containers/updateForm/PersonalInfo";
+// import { ApplicantForm } from "@/components";
+import { UpdateForm } from "@/containers";
 function UpdateApplicant() {
   return (
     <Fragment>
       <ApplicantLayout>
-        <PersonalInfoForm></PersonalInfoForm>
+        <UpdateForm></UpdateForm>
         {/* <ApplicantForm /> */}
       </ApplicantLayout>
     </Fragment>
