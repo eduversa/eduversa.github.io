@@ -1,17 +1,10 @@
 import React, { useState } from "react";
 
-const ApplicantCourseForm = () => {
-  const [formData, setFormData] = useState({
-    course_name: "",
-    duration: "",
-    stream: "",
-    admission_year: new Date().getFullYear().toString(),
-  });
-
+const ApplicantCourseForm = ({ formData, updateFormData }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setFormData((prevData) => ({
+    updateFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -35,17 +28,9 @@ const ApplicantCourseForm = () => {
     ));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Applicant Course Form Data:", formData);
-  };
-
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        {renderFormFields()}
-        <button type="submit">Submit</button>
-      </form>
+      <form>{renderFormFields()}</form>
     </div>
   );
 };

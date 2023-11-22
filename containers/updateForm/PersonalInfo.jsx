@@ -1,39 +1,10 @@
 import React, { useState } from "react";
 
-const PersonalInfoForm = () => {
-  const [formData, setFormData] = useState({
-    first_name: "",
-    middle_name: "",
-    last_name: "",
-    gender: "",
-    dob: "",
-    present_address: {
-      street: "",
-      pincode: "",
-      city: "",
-      district: "",
-      state: "",
-    },
-    permanent_address: {
-      street: "",
-      pincode: "",
-      city: "",
-      district: "",
-      state: "",
-    },
-    are_addresses_same: false,
-    email: "",
-    contact: "",
-    category: "",
-    blood_group: "",
-    aadhar_number: "",
-    pan_number: "",
-  });
-
+const PersonalInfoForm = ({ formData, updateFormData }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setFormData((prevData) => ({
+    updateFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -43,7 +14,7 @@ const PersonalInfoForm = () => {
     const { name, value } = e.target;
     const addressType = name.split("_")[0];
 
-    setFormData((prevData) => ({
+    updateFormData((prevData) => ({
       ...prevData,
       [addressType]: {
         ...prevData[addressType],
@@ -55,7 +26,7 @@ const PersonalInfoForm = () => {
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
 
-    setFormData((prevData) => ({
+    updateFormData((prevData) => ({
       ...prevData,
       [name]: checked,
     }));
@@ -150,15 +121,12 @@ const PersonalInfoForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
+    console.log("Personal Info Form Data:", formData);
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        {renderFormFields()}
-        <button type="submit">Submit</button>
-      </form>
+      <form onSubmit={handleSubmit}>{renderFormFields()}</form>
     </div>
   );
 };

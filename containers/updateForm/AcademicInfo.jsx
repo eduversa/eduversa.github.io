@@ -1,37 +1,10 @@
 import React, { useState } from "react";
 
-const AcademicInfoForm = () => {
-  const [formData, setFormData] = useState({
-    admission: {
-      exam_name: "",
-      year_of_exam: "",
-      roll_number: "",
-      rank: "",
-    },
-    secondary: {
-      exam_name: "",
-      year_of_exam: "",
-      board: "",
-      aggregate: "",
-      school_name: "",
-      subjects: "",
-      marks: {},
-    },
-    higher_secondary: {
-      exam_name: "",
-      year_of_exam: "",
-      board: "",
-      aggregate: "",
-      school_name: "",
-      subjects: "",
-      marks: {},
-    },
-  });
-
+const AcademicInfoForm = ({ formData, updateFormData }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setFormData((prevData) => ({
+    updateFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -40,7 +13,7 @@ const AcademicInfoForm = () => {
   const handleMarksChange = (e, examType, subject) => {
     const { value } = e.target;
 
-    setFormData((prevData) => ({
+    updateFormData((prevData) => ({
       ...prevData,
       [examType]: {
         ...prevData[examType],
@@ -106,17 +79,9 @@ const AcademicInfoForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Academic Form Data:", formData);
-  };
-
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        {renderFormFields()}
-        <button type="submit">Submit</button>
-      </form>
+      <form>{renderFormFields()}</form>
     </div>
   );
 };

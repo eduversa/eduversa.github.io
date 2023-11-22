@@ -1,48 +1,10 @@
 import React, { useState } from "react";
 
-const FamilyInfoForm = () => {
-  const [formData, setFormData] = useState({
-    father: {
-      first_name: "",
-      middle_name: "",
-      last_name: "",
-      email: "",
-      contact: "",
-    },
-    mother: {
-      first_name: "",
-      middle_name: "",
-      last_name: "",
-      email: "",
-      contact: "",
-    },
-    guardian: {
-      first_name: "",
-      middle_name: "",
-      last_name: "",
-      relation: "",
-      office_address: {
-        street: "",
-        pincode: "",
-        city: "",
-        district: "",
-        state: "",
-      },
-      occupation: "",
-      designation: "",
-      office_contact: "",
-      contact: "",
-      income: "",
-      email: "",
-      pan_number: "",
-      aadhar_number: "",
-    },
-  });
-
+const FamilyInfoForm = ({ formData, updateFormData }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setFormData((prevData) => ({
+    updateFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -52,7 +14,7 @@ const FamilyInfoForm = () => {
     const { name, value } = e.target;
     const addressType = name.split("_")[0];
 
-    setFormData((prevData) => ({
+    updateFormData((prevData) => ({
       ...prevData,
       [addressType]: {
         ...prevData[addressType],
@@ -118,17 +80,9 @@ const FamilyInfoForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Family Form Data:", formData);
-  };
-
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        {renderFormFields()}
-        <button type="submit">Submit</button>
-      </form>
+      <form>{renderFormFields()}</form>
     </div>
   );
 };
