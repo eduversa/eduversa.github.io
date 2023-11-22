@@ -216,12 +216,12 @@ const ApplicantForm = () => {
   const formSteps = [PersonalInfo, FamilyInfo, AcademicInfo, CourseInfo, FileUpload];
   const totalSteps = formSteps.length;
 
-  const pageTitles = formSteps.map(step => {
-    const stepName = step.name;
-    return stepName.replace(/([A-Z])/g, ' $1').trim(); 
-  });
+  // const pageTitles = formSteps.map(step => {
+  //   const stepName = step.name;
+  //   return stepName.replace(/([A-Z])/g, ' $1').trim(); 
+  // });
 
-  // const pageTitles = ["Personal Information", "Family Information", "Academic Information", "Course Information", "File Upload"];
+  const pageTitles = ["Personal Information", "Family Information", "Academic Information", "Course Information", "File Upload"];
 
   const renderStep = formSteps.map((StepComponent, index) => (
     <StepComponent
