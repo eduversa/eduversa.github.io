@@ -134,6 +134,7 @@
       position: absolute;
       bottom: 0;
       left: 50%;
+      border-radius: 20px;
       transform: translateX(-50%);
       transition: width 2s ease-in-out;
       animation: underlineAnimation 2s infinite alternate;
@@ -338,6 +339,7 @@
             position: absolute;
             bottom: 0;
             left: 50%;
+            border-radius: 20px;
             transform: translateX(-50%);
             transition: width 2s ease-in-out;
             animation: underlineAnimation 5s infinite alternate;
