@@ -1,9 +1,24 @@
-import React, {Fragment}  from "react";
-import { Text, Email, Number, Select, DateInput } from "../inputComponent/InputComponent";
-
+import React, { Fragment } from "react";
+import {
+  Text,
+  Email,
+  Number,
+  Select,
+  DateInput,
+} from "../inputComponent/InputComponent";
+import { getCollegeDetailsApi } from "@/functions";
 const CourseInfo = ({ formData, handleChange }) => {
   let year = new Date().getFullYear().toString();
-  
+
+  async function getCollegeDetails() {
+    try {
+      const collegeData = await getCollegeDetailsApi(304);
+      console.log(collegeData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Fragment>
       {/* enrollment no */}
@@ -14,7 +29,9 @@ const CourseInfo = ({ formData, handleChange }) => {
         onChange={handleChange}
         required
       />
-      <div className="grid-col-2"> {/* course duration */}
+      <div className="grid-col-2">
+        {" "}
+        {/* course duration */}
         <Text
           label="Course Name"
           name="course_info.course_name"
@@ -22,7 +39,6 @@ const CourseInfo = ({ formData, handleChange }) => {
           onChange={handleChange}
           required
         />
-
         <Number
           label="Duration"
           name="course_info.duration"
@@ -33,7 +49,9 @@ const CourseInfo = ({ formData, handleChange }) => {
           max="10"
         />
       </div>
-      <div className="grid-col-2"> {/* stream admission_year */}
+      <div className="grid-col-2">
+        {" "}
+        {/* stream admission_year */}
         <Select
           label="Stream"
           name="course_info.stream"
@@ -41,27 +59,26 @@ const CourseInfo = ({ formData, handleChange }) => {
           onChange={handleChange}
           required
           options={[
-            {key: "Select Stream", value: ""},
-            {key: "CSE", value: "CSE"},
-            {key: "CSE(AIML)", value: "CSE(AIML)"},
-            {key: "CSE(IOT)", value: "CSE(IOT)"},
-            {key: "CST(", value: "CST"},
-            {key: "CSIT", value: "CSIT"},
-            {key: "ECE", value: "ECE"},
-            {key: "EE", value: "EE"},
-            {key: "ME", value: "ME"},
-            {key: "Biotech", value: "Biotech"},
-
+            { key: "Select Stream", value: "" },
+            { key: "CSE", value: "CSE" },
+            { key: "CSE(AIML)", value: "CSE(AIML)" },
+            { key: "CSE(IOT)", value: "CSE(IOT)" },
+            { key: "CST(", value: "CST" },
+            { key: "CSIT", value: "CSIT" },
+            { key: "ECE", value: "ECE" },
+            { key: "EE", value: "EE" },
+            { key: "ME", value: "ME" },
+            { key: "Biotech", value: "Biotech" },
           ]}
         />
-
+        <button onClick={getCollegeDetails}>College Details</button>
         <Number
           label="Admission Year"
           name="course_info.admission_year"
           value={formData.course_info.admission_year}
           onChange={handleChange}
           required
-          min={year-10}
+          min={year - 10}
           max={year}
         />
       </div>
