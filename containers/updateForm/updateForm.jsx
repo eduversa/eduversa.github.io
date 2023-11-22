@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import PersonalInfoForm from "./PersonalInfo";
 import AcademicInfoForm from "./AcademicInfo";
 import FamilyInfoForm from "./FamilyInfo";
@@ -7,6 +7,13 @@ import ApplicantCourseForm from "./ApplicantCourse";
 function UpdateFormLayout({ children }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({});
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("updateFormData");
+    if (storedData) {
+      setFormData(JSON.parse(storedData));
+    }
+  }, []);
 
   const handlePrevious = () => {
     setCurrentStep((prevStep) => Math.max(0, prevStep - 1));
@@ -18,14 +25,15 @@ function UpdateFormLayout({ children }) {
   };
 
   const handleSave = () => {
+    localStorage.setItem("updateFormData", JSON.stringify(formData));
     console.log("Form saved!");
-    console.log("All Form Data:", formData);
   };
 
   const handleClear = () => {
-    console.log("Form cleared!");
+    localStorage.removeItem("updateFormData");
     setFormData({});
     setCurrentStep(0);
+    console.log("Form cleared!");
   };
 
   return (
@@ -43,7 +51,7 @@ function UpdateFormLayout({ children }) {
         Previous
       </button>
       <button
-        onClick={() => handleNext(formData)} // Pass current form data to the next step
+        onClick={() => handleNext(formData)}
         disabled={currentStep === React.Children.count(children) - 1}
       >
         Next
