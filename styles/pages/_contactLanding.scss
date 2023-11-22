@@ -315,14 +315,13 @@
 
   .social-media {
     .social-media-heading {
-      color: #34495e;
-      font-size: 1.2em;
-      margin-bottom: 10px;
-      transition: color 0.3s ease, transform 0.3s ease;
-
-      &:hover {
-        color: #2c3e50;
-      }
+      color: var(--yellow-2);
+      font-family: var(--font-roboto);
+      font-size: var(--font-9);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0.5rem;
     }
 
     ul {
