@@ -71,7 +71,7 @@ const PersonalInfo = ({ formData, handleChange, presentPincodeError, setPresentP
 
     <Fragment>
       {/* name */}
-      <Text   
+      <Text
         label="Full Name"
         name="personal_info.name"
         value={formData.personal_info.name}
