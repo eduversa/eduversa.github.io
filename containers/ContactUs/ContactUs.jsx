@@ -17,14 +17,21 @@ const ContactUs = () => {
     return teamMembers.map((member, index) => (
       <div key={index} className="member">
         <h3 className="member__heading">{member.name}</h3>
-        <p
+        <div
           onClick={() => {
             emailHandler(contactEmail);
           }}
           className="member__email"
         >
-          Email: {member.email}
-        </p>
+          <Image
+            src="/contactus/mail.png"
+            alt="email"
+            height={20}
+            width={20}
+            className="email__icon"
+          ></Image>
+          <span className="email__link">{member.email}</span>
+        </div>
         <p className="member__expertise">Expertise: {member.expertise}</p>
         <p className="member__description">{member.description}</p>
       </div>
