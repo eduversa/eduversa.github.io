@@ -1,9 +1,14 @@
+// ContactUs.scss
+
 .contact-us-container {
-  background: linear-gradient(45deg, #f2f2f2, #e0e0e0);
+  background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
   padding: 30px;
   border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   position: relative;
+  overflow: hidden;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
 
   &::before,
   &::after {
@@ -18,59 +23,65 @@
   }
 
   &::before {
-    background: linear-gradient(45deg, #e0e0e0, #f2f2f2);
+    background: linear-gradient(135deg, #ffaf7b, #3a1c71);
     clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 0% 100%);
   }
 
   &::after {
-    background: linear-gradient(45deg, #f2f2f2, #e0e0e0);
+    background: linear-gradient(135deg, #3a1c71, #ffaf7b);
     clip-path: polygon(0% 15%, 100% 0%, 100% 100%, 0% 100%);
   }
 
   .contact-us-heading {
-    color: #333;
-    font-size: 32px;
+    font-size: 36px;
     margin-bottom: 30px;
     text-align: center;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .contact-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   .team-members {
+    width: 100%;
+    max-width: 400px;
     margin-bottom: 40px;
 
     .team-members-heading {
-      color: #555;
-      font-size: 24px;
+      font-size: 28px;
       margin-bottom: 20px;
-      text-align: center;
+      color: #fff;
     }
 
     .member {
-      background-color: #fff;
+      background-color: rgba(255, 255, 255, 0.9);
       border: 1px solid #ddd;
       padding: 20px;
       border-radius: 10px;
+      margin-bottom: 20px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
 
       &:hover {
         transform: scale(1.05);
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
       }
 
       .member__heading {
-        color: #222;
-        font-size: 26px;
+        font-size: 24px;
         margin-bottom: 10px;
-        text-align: center;
+        color: #222;
       }
 
       .member__email {
         cursor: pointer;
         display: flex;
         align-items: center;
-        justify-content: center;
-        color: #007bff;
+        color: #ff8c00;
         margin-top: 15px;
+        transition: color 0.3s ease;
 
         .member__email__icon {
           margin-right: 8px;
@@ -78,110 +89,92 @@
 
         .member__email__link {
           text-decoration: none;
-          color: #007bff;
+          color: #ff8c00;
           font-weight: bold;
-          transition: color 0.3s ease;
+          transition: text-decoration 0.3s ease, color 0.3s ease;
 
           &:hover {
             text-decoration: underline;
-            color: #0056b3;
+            color: #ff5722;
           }
         }
       }
 
       .member__expertise {
-        color: #777;
+        color: #555;
         margin-top: 15px;
-        text-align: center;
       }
 
       .member__description {
-        color: #555;
+        color: #333;
         margin-top: 20px;
-        text-align: center;
       }
     }
   }
 
-  .contact-email {
-    margin-bottom: 40px;
+  .contact-details {
+    width: calc(100% - 420px);
 
-    .contact-email__heading {
-      color: #555;
-      font-size: 24px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+    .contact-email,
+    .team-objective,
+    .social-media {
+      margin-bottom: 40px;
 
-    .contact-email__container {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #007bff;
-
-      .contact-email__container__icon {
-        margin-right: 8px;
+      h3 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #fff;
       }
 
+      p,
       .contact-email__container__content {
-        text-decoration: none;
-        color: #007bff;
-        font-weight: bold;
-        transition: color 0.3s ease;
-
-        &:hover {
-          text-decoration: underline;
-          color: #0056b3;
-        }
+        color: #ddd;
       }
-    }
-  }
 
-  .team-objective {
-    margin-bottom: 40px;
-
-    .team-objective__heading {
-      color: #555;
-      font-size: 24px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .team-objective__content {
-      color: #777;
-      text-align: center;
-    }
-  }
-
-  .social-media {
-    .social-media-heading {
-      color: #555;
-      font-size: 24px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-
-      li {
+      .contact-email__container,
+      .social-media {
         cursor: pointer;
         display: flex;
         align-items: center;
-        justify-content: center;
-        color: #007bff;
-        margin-bottom: 20px;
+        justify-content: flex-start;
         transition: color 0.3s ease;
 
-        img {
-          margin-right: 10px;
+        .contact-email__container__icon {
+          margin-right: 8px;
         }
 
-        &:hover {
-          color: #0056b3;
+        .contact-email__container__content {
+          text-decoration: none;
+          font-weight: bold;
+          transition: text-decoration 0.3s ease, color 0.3s ease;
+
+          &:hover {
+            text-decoration: underline;
+            color: #ff5722;
+          }
+        }
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          color: #ff8c00;
+          margin-bottom: 20px;
+          transition: color 0.3s ease;
+
+          img {
+            margin-right: 10px;
+          }
+
+          &:hover {
+            color: #ff5722;
+          }
         }
       }
     }
