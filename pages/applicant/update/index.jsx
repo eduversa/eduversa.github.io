@@ -1,11 +1,13 @@
 import { Fragment } from "react";
 import { ApplicantLayout } from "@/layout";
-// import { ApplicantForm } from "@/components";
+import { FormLayout } from "@/containers";
 
 function UpdateApplicant() {
   return (
     <Fragment>
-      <ApplicantLayout>{/* <ApplicantForm /> */}</ApplicantLayout>
+      <ApplicantLayout>
+        <FormLayout></FormLayout>
+      </ApplicantLayout>
     </Fragment>
   );
 }
