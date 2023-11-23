@@ -7,7 +7,7 @@ export { default as resetUserNameApi } from "./resetUserNameApi";
 
 // applicant
 
-export { default as updateAppplicantApi } from "./Applicant/updateApplicant";
+export { default as updateAppplicantData } from "./Applicant/updateApplicant";
 export { default as getApplicantsByYearApi } from "./Applicant/getApplicantsByYearApi";
 export { default as getApplicantsByYear } from "./Applicant/getApplicantsByYearApi";
 export { default as deleteApplicantsByYear } from "./Applicant/deleteApplicantsByYearApi";

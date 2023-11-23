@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { updateAppplicantData } from "@/functions";
 import {
   Text,
   Email,
@@ -95,10 +96,21 @@ const PersonalInfo = ({
     };
   }, [permanentPincode, setPermanentPincodeError, formData, handleChange]);
 
-  const personaInfo = localStorage.setItem(
-    "personal_info",
-    JSON.stringify(formData.personal_info)
-  );
+  async function onSubmitHandler() {
+    localStorage.setItem(
+      "personal_info",
+      JSON.stringify(formData.personal_info)
+    );
+    const data = localStorage.getItem("personal_info");
+    const type = "personal";
+    const user_id = localStorage.getItem("userid");
+    try {
+      const response = await updateAppplicantData(user_id, data, type);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <Fragment>
       {/* name */}

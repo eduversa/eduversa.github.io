@@ -1,8 +1,8 @@
 const apiBaseUrl = "https://eduversa-api.onrender.com";
 
 const updateApplicantData = async (user_id, type, data) => {
-  const apiUrl = `${apiBaseUrl}/applicant/?user_id=${user_id}&type=${type}`;
   const tempUserId = "2023005266";
+  const apiUrl = `${apiBaseUrl}/applicant/?user_id=${tempUserId}&type=${type}`;
   try {
     console.log("Update Applicant Data Function Called");
     console.log("User ID:", user_id);
