@@ -230,6 +230,14 @@ const ApplicantForm = () => {
       formData={formData}
       handleChange={handleChange}
       setFormData={setFormData}
+      clearFormData={clearFormData}
+      
+      handlePreviousClick={handlePreviousClick}
+      handleNextClick={handleNextClick}
+      handleSubmit={handleSubmit}
+
+      currentStep={currentStep}
+      totalSteps={totalSteps}
 
       presentPincodeError={presentPincodeError}
       setPresentPincodeError={setPresentPincodeError}
@@ -259,19 +267,11 @@ const ApplicantForm = () => {
         <div className="page">
           <h2 className="page--title">{pageTitles[currentStep-1]}</h2>
 
-          <form className="page--content" onSubmit={currentStep === totalSteps ? handleSubmit : handleNextClick}>
 
-            {/* displaying the pages from the array according to the page number */}
-            {renderStep[currentStep-1]}
+          {/* displaying the pages from the array according to the page number */}
+          {renderStep[currentStep-1]}
 
-            <FormButtons 
-              handlePreviousClick={handlePreviousClick} 
-              clearFormData={() => clearFormData(currentStep)} 
-              handleSave={handleSave} 
-              currentStep={currentStep}
-              totalSteps={totalSteps}
-            />
-          </form>
+
           
         </div>
       </div>

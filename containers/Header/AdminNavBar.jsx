@@ -44,6 +44,7 @@ function AdminNavbar() {
     } else {
       navContainer.style.width = "100%";
     }
+    setIsMenuOpen(!isMenuOpen);
   };
   const menuItems = [
     { label: "Dashboard", className: "nav-item", src: "/admin" },
@@ -52,97 +53,67 @@ function AdminNavbar() {
       className: "nav-item",
       src: "/admin/manage/applicants",
     },
-    // { label: "About Us", className: "nav-item", src: "/applicant/about" },
-    // { label: "Contact Us", className: "nav-item", src: "/applicant/contact" },
   ];
 
   return (
     <Fragment>
       {isLoading && <AllLoader />}
       <header>
-        <nav className="applicant-nav">
+        <nav className="admin-nav">
           <div className="logo">
             <Link href="/">
               <span className="logo-text">{logoText}</span>
             </Link>
           </div>
-          {/* <div className="nav-section">
-            {/* <ul className="nav-list">
-              {menuItems.map((item, index) => (
-                <li key={index} className={item.className}>
-                  <Link href={item.src}>
-                    <span>{item.label}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul> *
-          </div> */}
-          <div className="">
-            <button
-              className="sidenavbar__btn sidenavbar__btn--open"
-              onClick={toggleSideNavbar}
-            >
-              Menu
-            </button>
-          </div>
-          {/* <div
+
+          <div
             className={`menu ${isMenuOpen && "open"}`}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={toggleSideNavbar}
           >
             <div className="menu-line"></div>
             <div className="menu-line"></div>
             <div className="menu-line"></div>
           </div>
-          {isMenuOpen && (
-            <div className="mobile-menu">
-              <ul className="mobile-nav-list">
-                {menuItems.map((item, index) => (
-                  <li key={index} className="mobile-nav-item">
-                    <Link href={item.src}>
-                      <span>{item.label}</span>
-                    </Link>
-                  </li>
-                ))}
-                <li className="mobile-nav-item">
-                  <button className="logout-button" onClick={handleLogout}>
+          <div id="navContainer" className="sidenavbar">
+            <div className="sidenavbar__container">
+              <div className="sidenavbar__brand">
+                <p className="sidenavbar__brand__name">Eduversa</p>
+                <div
+                  className={`menu ${isMenuOpen && "open"}`}
+                  onClick={toggleSideNavbar}
+                >
+                  <div className="menu-line"></div>
+                  <div className="menu-line"></div>
+                  <div className="menu-line"></div>
+                </div>
+              </div>
+
+              <ul className="sidenavbar__menu">
+                {menuItems.map((item) => {
+                  return (
+                    <li
+                      key={JSON.stringify(item)}
+                      className="sidenavbar__menu-item"
+                    >
+                      <Link href={item.src} className="sidenavbar__menu-link">
+                        <span>{item.label}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+                <li className="sidenavbar__menu-item">
+                  <button
+                    className="sidenavbar__menu-btn"
+                    onClick={handleLogout}
+                  >
                     Logout
                   </button>
                 </li>
               </ul>
             </div>
-          )} */}
+          </div>
         </nav>
       </header>
-      <div id="navContainer" className="sidenavbar">
-        <div className="sidenavbar__container">
-          <div className="sidenavbar__brand">
-            <p className="sidenavbar__brand___name">Eduversa</p>
-            <button
-              className="sidenavbar__btn sidenavbar__btn--close"
-              onClick={toggleSideNavbar}
-            >
-              C
-            </button>
-          </div>
-
-          <ul className="sidenavbar__menu">
-            {menuItems.map((item) => {
-              return (
-                <li key={JSON.stringify(item)} className="sidenavbar__menu-item">
-                    <Link href={item.src} className="sidenavbar__menu-link">
-                      <span>{item.label}</span>
-                    </Link>
-                  </li>
-              );
-            })}
-            <li className="sidenavbar__menu-item">
-              <button className="sidenavbar__menu-btn" onClick={handleLogout}>
-                Logout
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
     </Fragment>
   );
 }
