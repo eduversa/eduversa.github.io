@@ -1,145 +1,160 @@
-// ContactUs.scss
-
 .contact-us-container {
-  // General styling for the contact-us-container
-  background-color: #f4f4f4;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(45deg, #f2f2f2, #e0e0e0);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 
-  // Styling for the heading
   .contact-us-heading {
     color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 32px;
+    margin-bottom: 30px;
+    text-align: center;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
   }
 
-  // Styling for team members section
   .team-members {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 
-    // Styling for team members heading
     .team-members-heading {
       color: #555;
-      font-size: 18px;
-      margin-bottom: 15px;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
     }
 
-    // Styling for individual team members
     .member {
-      margin-bottom: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-      // Styling for member heading
-      .member__heading {
-        color: #222;
-        font-size: 20px;
-        margin-bottom: 5px;
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
       }
 
-      // Styling for member email
+      .member__heading {
+        color: #222;
+        font-size: 26px;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
       .member__email {
         cursor: pointer;
         display: flex;
         align-items: center;
+        justify-content: center;
         color: #007bff;
+        margin-top: 15px;
 
-        // Styling for email icon
         .member__email__icon {
-          margin-right: 5px;
+          margin-right: 8px;
         }
 
-        // Styling for email link
         .member__email__link {
-          text-decoration: underline;
+          text-decoration: none;
+          color: #007bff;
+          font-weight: bold;
+
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
 
-      // Styling for member expertise
       .member__expertise {
         color: #777;
-        margin-bottom: 5px;
+        margin-top: 15px;
+        text-align: center;
       }
 
-      // Styling for member description
       .member__description {
         color: #555;
+        margin-top: 20px;
+        text-align: center;
       }
     }
   }
 
-  // Styling for contact email section
   .contact-email {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 
-    // Styling for contact email heading
     .contact-email__heading {
       color: #555;
-      font-size: 18px;
-      margin-bottom: 15px;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
     }
 
-    // Styling for contact email container
     .contact-email__container {
       cursor: pointer;
       display: flex;
       align-items: center;
+      justify-content: center;
       color: #007bff;
 
-      // Styling for email icon
       .contact-email__container__icon {
-        margin-right: 5px;
+        margin-right: 8px;
       }
 
-      // Styling for email content
       .contact-email__container__content {
-        text-decoration: underline;
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
 
-  // Styling for team objective section
   .team-objective {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 
-    // Styling for team objective heading
     .team-objective__heading {
       color: #555;
-      font-size: 18px;
-      margin-bottom: 15px;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
     }
 
-    // Styling for team objective content
     .team-objective__content {
       color: #777;
+      text-align: center;
     }
   }
 
-  // Styling for social media section
   .social-media {
-    // Styling for social media heading
     .social-media-heading {
       color: #555;
-      font-size: 18px;
-      margin-bottom: 15px;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
     }
 
-    // Styling for social media list
     ul {
       list-style: none;
       padding: 0;
       margin: 0;
 
-      // Styling for individual social media items
       li {
         cursor: pointer;
         display: flex;
         align-items: center;
+        justify-content: center;
         color: #007bff;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+        transition: color 0.3s ease;
 
-        // Styling for social media icon
         img {
-          margin-right: 5px;
+          margin-right: 10px;
+        }
+
+        &:hover {
+          color: #0056b3;
         }
       }
     }
