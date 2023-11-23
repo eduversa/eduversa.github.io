@@ -20,6 +20,7 @@ const logoutApi = async (userId, authToken) => {
     }
     console.log("Response:", response);
     const data = await response.json();
+    console.log("Data:", data);
     return data;
   } catch (error) {
     console.error("Logout request error:", error.message);
