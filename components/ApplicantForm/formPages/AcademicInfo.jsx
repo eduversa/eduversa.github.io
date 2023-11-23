@@ -12,6 +12,7 @@ import {
 const AcademicInfo = ({
   formData,
   setFormData,
+  clearFormData,
   handleChange,
   handlePreviousClick,
   handleNextClick,

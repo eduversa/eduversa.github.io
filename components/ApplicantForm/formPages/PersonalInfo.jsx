@@ -17,6 +17,7 @@ import fetchAddressFromPincode from "../inputComponent/fetchAddressFromPincode";
 const PersonalInfo = ({
   formData,
   setFormData,
+  clearFormData,
   handleChange,
   handlePreviousClick,
   handleNextClick,

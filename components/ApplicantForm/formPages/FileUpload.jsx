@@ -5,6 +5,7 @@ import { FormButtons } from "../inputComponent/InputComponent";
 const FileUpload = ({
   formData,
   setFormData,
+  clearFormData,
   handleChange,
   handlePreviousClick,
   handleNextClick,
