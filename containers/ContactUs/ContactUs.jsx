@@ -52,7 +52,7 @@ const ContactUs = () => {
         <h2 className="contact-us-heading">Contact Us</h2>
 
         <div className="team-members">
-          <h3 className="team-members-heading">Our Team</h3>
+          <h3 className="team-members__heading">Our Team</h3>
           {renderTeamMembers()}
         </div>
 
@@ -76,7 +76,7 @@ const ContactUs = () => {
         </div>
 
         <div className="social-media">
-          <h4 className="social-media-heading">Connect Us With</h4>
+          <h4 className="social-media__heading">Connect Us With</h4>
           <ul>
             <li
               onClick={() => {
