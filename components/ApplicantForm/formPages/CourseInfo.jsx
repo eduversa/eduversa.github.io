@@ -34,6 +34,7 @@ const CourseInfo = ({
       const course = courses.find((course) => course.name === selectedCourse);
       if (course) {
         setStreams(course.streams);
+        setShowStream(true);
       }
     }
   }, [selectedCourse, courses]);
