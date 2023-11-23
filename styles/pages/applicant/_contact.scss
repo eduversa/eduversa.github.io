@@ -16,10 +16,6 @@
     transition: color 0.3s ease;
   }
 
-  &:hover .contact-us-heading {
-    color: #ff5722;
-  }
-
   .contact-content {
     display: flex;
     flex-wrap: wrap;
@@ -43,10 +39,6 @@
       transition: color 0.3s ease;
     }
 
-    &:hover .team-members-heading {
-      color: #ff5722;
-    }
-
     .member {
       background-color: rgba(255, 255, 255, 0.9);
       border: 1px solid #ddd;
@@ -61,10 +53,6 @@
         margin-bottom: 10px;
         color: #222;
         transition: color 0.3s ease;
-      }
-
-      &:hover .member__heading {
-        color: #ff5722;
       }
 
       .member__email {
