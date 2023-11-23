@@ -62,8 +62,8 @@ const CourseInfo = ({
         ...prevFormData,
         course_info: savedFamilyInfo,
       }));
+      setShowStream(true);
     }
-    setShowStream(true);
   }, [setFormData]);
 
   // set data to local storfage and sends data to database
