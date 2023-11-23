@@ -15,7 +15,18 @@ const FileUpload = ({ formData, setFormData, handleChange }) => {
       reader.readAsDataURL(file);
     }
   };
-
+  async function onSubmitHandler() {
+    const image = formData.image;
+    const data = { image: image };
+    const type = "files";
+    const user_id = localStorage.getItem("userid");
+    try {
+      const response = await updateAppplicantData(user_id, type, data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <Fragment>
       <div className="image-upload">
