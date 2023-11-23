@@ -17,7 +17,7 @@ const CourseInfo = ({
   handleNextClick,
   handleSubmit,
   currentStep,
-  totalSteps
+  totalSteps,
 }) => {
   let year = new Date().getFullYear().toString();
 
@@ -34,7 +34,6 @@ const CourseInfo = ({
       const course = courses.find((course) => course.name === selectedCourse);
       if (course) {
         setStreams(course.streams);
-        setShowStream(true);
       }
     }
   }, [selectedCourse, courses]);
@@ -57,21 +56,19 @@ const CourseInfo = ({
 
   //fetches data from local storfage
   useEffect(() => {
-    const savedFamilyInfo = JSON.parse(localStorage.getItem('course_info'));
+    const savedFamilyInfo = JSON.parse(localStorage.getItem("course_info"));
     if (savedFamilyInfo) {
-      setFormData(prevFormData => ({
+      setFormData((prevFormData) => ({
         ...prevFormData,
-        course_info: savedFamilyInfo
+        course_info: savedFamilyInfo,
       }));
     }
+    setShowStream(true);
   }, [setFormData]);
 
   // set data to local storfage and sends data to database
   async function onSubmitHandler() {
-    localStorage.setItem(
-      "course_info",
-      JSON.stringify(formData.course_info)
-    );
+    localStorage.setItem("course_info", JSON.stringify(formData.course_info));
     const data = formData.course_info;
     const type = "course";
     const user_id = localStorage.getItem("userid");
@@ -84,12 +81,14 @@ const CourseInfo = ({
   }
   return (
     <Fragment>
-      <form className="page--content" onSubmit={(event) => {
-        event.preventDefault();
-        onSubmitHandler();
-        handleNextClick();
-      }}>
-
+      <form
+        className="page--content"
+        onSubmit={(event) => {
+          event.preventDefault();
+          onSubmitHandler();
+          handleNextClick();
+        }}
+      >
         {/* enrollment no */}
         <div className="grid-col-2">
           {" "}
@@ -155,10 +154,10 @@ const CourseInfo = ({
             max={year}
           />
         </div>
-        <FormButtons 
-          handlePreviousClick={handlePreviousClick} 
-          clearFormData={() => clearFormData(currentStep)} 
-          onSubmitHandler={onSubmitHandler} 
+        <FormButtons
+          handlePreviousClick={handlePreviousClick}
+          clearFormData={() => clearFormData(currentStep)}
+          onSubmitHandler={onSubmitHandler}
           currentStep={currentStep}
           totalSteps={totalSteps}
         />
