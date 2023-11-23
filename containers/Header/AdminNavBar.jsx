@@ -52,8 +52,6 @@ function AdminNavbar() {
       className: "nav-item",
       src: "/admin/manage/applicants",
     },
-    // { label: "About Us", className: "nav-item", src: "/applicant/about" },
-    // { label: "Contact Us", className: "nav-item", src: "/applicant/contact" },
   ];
 
   return (
@@ -66,17 +64,7 @@ function AdminNavbar() {
               <span className="logo-text">{logoText}</span>
             </Link>
           </div>
-          {/* <div className="nav-section">
-            {/* <ul className="nav-list">
-              {menuItems.map((item, index) => (
-                <li key={index} className={item.className}>
-                  <Link href={item.src}>
-                    <span>{item.label}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul> *
-          </div> */}
+
           <div className="">
             <button
               className="sidenavbar__btn sidenavbar__btn--open"
@@ -85,32 +73,6 @@ function AdminNavbar() {
               Menu
             </button>
           </div>
-          {/* <div
-            className={`menu ${isMenuOpen && "open"}`}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <div className="menu-line"></div>
-            <div className="menu-line"></div>
-            <div className="menu-line"></div>
-          </div>
-          {isMenuOpen && (
-            <div className="mobile-menu">
-              <ul className="mobile-nav-list">
-                {menuItems.map((item, index) => (
-                  <li key={index} className="mobile-nav-item">
-                    <Link href={item.src}>
-                      <span>{item.label}</span>
-                    </Link>
-                  </li>
-                ))}
-                <li className="mobile-nav-item">
-                  <button className="logout-button" onClick={handleLogout}>
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            </div>
-          )} */}
         </nav>
       </header>
       <div id="navContainer" className="sidenavbar">
@@ -128,11 +90,14 @@ function AdminNavbar() {
           <ul className="sidenavbar__menu">
             {menuItems.map((item) => {
               return (
-                <li key={JSON.stringify(item)} className="sidenavbar__menu-item">
-                    <Link href={item.src} className="sidenavbar__menu-link">
-                      <span>{item.label}</span>
-                    </Link>
-                  </li>
+                <li
+                  key={JSON.stringify(item)}
+                  className="sidenavbar__menu-item"
+                >
+                  <Link href={item.src} className="sidenavbar__menu-link">
+                    <span>{item.label}</span>
+                  </Link>
+                </li>
               );
             })}
             <li className="sidenavbar__menu-item">
