@@ -9,6 +9,7 @@ function ApplicantNavbar() {
   const logoText = "eduversa";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  
   const handleLogout = async () => {
     const userId = localStorage.getItem("userid");
     const authToken = localStorage.getItem("authToken");
@@ -26,6 +27,7 @@ function ApplicantNavbar() {
       localStorage.removeItem("email");
       localStorage.removeItem("userType");
       localStorage.removeItem("userid");
+      localStorage.removeItem("applicant_profile");
       localStorage.clear();
       alert(apiResponse.message);
       setIsLoading(false);
