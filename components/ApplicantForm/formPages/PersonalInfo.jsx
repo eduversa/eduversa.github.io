@@ -97,10 +97,11 @@ const PersonalInfo = ({
   }, [permanentPincode, setPermanentPincodeError, formData, handleChange]);
 
   async function onSubmitHandler() {
-    const data = localStorage.setItem(
+    localStorage.setItem(
       "personal_info",
       JSON.stringify(formData.personal_info)
     );
+    const data = localStorage.getItem("personal_info");
     const type = "personal";
     const user_id = localStorage.getItem("userid");
     try {
