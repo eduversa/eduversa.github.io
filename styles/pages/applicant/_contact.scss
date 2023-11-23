@@ -18,27 +18,24 @@
     left: 0;
     pointer-events: none;
     z-index: -1;
+    opacity: 0.5;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   }
 
   &::before {
-    background: linear-gradient(135deg, #ffaf7b, #3a1c71);
-    clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 0% 100%);
-    opacity: 0.8;
-    transform: rotate(45deg);
-    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    background: radial-gradient(ellipse at center, #ffaf7b 0%, #3a1c71 100%);
+    transform: scale(0);
   }
 
   &::after {
     background: linear-gradient(135deg, #3a1c71, #ffaf7b);
-    clip-path: polygon(0% 15%, 100% 0%, 100% 100%, 0% 100%);
-    opacity: 0.8;
-    transform: rotate(-45deg);
-    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    transform: scale(0);
   }
 
   &:hover::before,
   &:hover::after {
-    transform: scale(1.1) rotate(0deg);
+    transform: scale(1);
     opacity: 1;
   }
 
@@ -79,20 +76,19 @@
       left: 0;
       pointer-events: none;
       z-index: -1;
+      opacity: 0.5;
+      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
     }
 
     &::before {
-      background: radial-gradient(#ffaf7b, transparent);
-      opacity: 0.8;
+      background: radial-gradient(ellipse at center, #ffaf7b 0%, #3a1c71 100%);
       transform: scale(0);
-      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
     }
 
     &::after {
-      background: linear-gradient(90deg, #ffaf7b, transparent);
-      opacity: 0.8;
-      transform: scaleX(0);
-      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+      background: linear-gradient(135deg, #3a1c71, #ffaf7b);
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+      transform: scale(0);
     }
 
     &:hover::before,
@@ -118,6 +114,8 @@
       border: 1px solid #ddd;
       padding: 20px;
       border-radius: 10px;
+      position: relative;
+      overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
 
       &::before,
@@ -130,27 +128,36 @@
         left: 0;
         pointer-events: none;
         z-index: -1;
+        opacity: 0.7;
+        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
       }
 
       &::before {
-        background: linear-gradient(135deg, #ffaf7b, #3a1c71);
-        clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 0% 100%);
-        opacity: 0.8;
-        transform: rotate(-30deg);
-        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(255, 255, 255, 0.8) 0%,
+          rgba(255, 255, 255, 0) 50%,
+          rgba(255, 255, 255, 0.8) 100%
+        );
+        transform-origin: bottom right;
+        transform: skewY(-20deg) scaleX(0);
       }
 
       &::after {
-        background: linear-gradient(135deg, #3a1c71, #ffaf7b);
-        clip-path: polygon(0% 15%, 100% 0%, 100% 100%, 0% 100%);
-        opacity: 0.8;
-        transform: rotate(30deg);
-        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0.8)
+        );
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        transform-origin: top left;
+        transform: skewY(-20deg) scaleX(0);
       }
 
       &:hover::before,
       &:hover::after {
-        transform: scale(1.1) rotate(0deg);
+        transform: skewY(-20deg) scaleX(1);
         opacity: 1;
       }
 
@@ -222,6 +229,8 @@
       left: 0;
       pointer-events: none;
       z-index: -1;
+      opacity: 0.5;
+      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
     }
 
     &::before {
@@ -229,7 +238,6 @@
       clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 0% 100%);
       opacity: 0.8;
       transform: scaleY(0);
-      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
     }
 
     &::after {
@@ -237,7 +245,6 @@
       clip-path: polygon(0% 15%, 100% 0%, 100% 100%, 0% 100%);
       opacity: 0.8;
       transform: scaleY(0);
-      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
     }
 
     &:hover::before,
@@ -280,20 +287,20 @@
         left: 0;
         pointer-events: none;
         z-index: -1;
+        opacity: 0.5;
+        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
       }
 
       &::before {
         background: radial-gradient(transparent, #ffaf7b);
         opacity: 0.8;
         transform: scale(0);
-        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
       }
 
       &::after {
         background: linear-gradient(90deg, #ffaf7b, transparent);
         opacity: 0.8;
         transform: scaleX(0);
-        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
       }
 
       &:hover::before,
