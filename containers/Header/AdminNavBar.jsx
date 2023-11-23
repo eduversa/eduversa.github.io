@@ -74,41 +74,44 @@ function AdminNavbar() {
             <div className="menu-line"></div>
             <div className="menu-line"></div>
           </div>
+          <div id="navContainer" className="sidenavbar">
+            <div className="sidenavbar__container">
+              <div className="sidenavbar__brand">
+                <p className="sidenavbar__brand___name">Eduversa</p>
+                <button
+                  className="sidenavbar__btn sidenavbar__btn--close"
+                  onClick={toggleSideNavbar}
+                >
+                  C
+                </button>
+              </div>
+
+              <ul className="sidenavbar__menu">
+                {menuItems.map((item) => {
+                  return (
+                    <li
+                      key={JSON.stringify(item)}
+                      className="sidenavbar__menu-item"
+                    >
+                      <Link href={item.src} className="sidenavbar__menu-link">
+                        <span>{item.label}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+                <li className="sidenavbar__menu-item">
+                  <button
+                    className="sidenavbar__menu-btn"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
         </nav>
       </header>
-      <div id="navContainer" className="sidenavbar">
-        <div className="sidenavbar__container">
-          <div className="sidenavbar__brand">
-            <p className="sidenavbar__brand___name">Eduversa</p>
-            <button
-              className="sidenavbar__btn sidenavbar__btn--close"
-              onClick={toggleSideNavbar}
-            >
-              C
-            </button>
-          </div>
-
-          <ul className="sidenavbar__menu">
-            {menuItems.map((item) => {
-              return (
-                <li
-                  key={JSON.stringify(item)}
-                  className="sidenavbar__menu-item"
-                >
-                  <Link href={item.src} className="sidenavbar__menu-link">
-                    <span>{item.label}</span>
-                  </Link>
-                </li>
-              );
-            })}
-            <li className="sidenavbar__menu-item">
-              <button className="sidenavbar__menu-btn" onClick={handleLogout}>
-                Logout
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
     </Fragment>
   );
 }
