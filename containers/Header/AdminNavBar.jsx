@@ -1,15 +1,15 @@
-import React, { Fragment, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { logoutApi } from "@/functions";
 import { AllLoader } from "@/components";
+import React, { Fragment, useState } from "react";
 
-function ApplicantNavbar() {
+function AdminNavbar() {
   const router = useRouter();
   const logoText = "eduversa";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const handleLogout = async () => {
     const userId = localStorage.getItem("userid");
     const authToken = localStorage.getItem("authToken");
@@ -35,15 +35,25 @@ function ApplicantNavbar() {
       console.error("Logout error:", error.message);
     }
   };
+
+  const toggleSideNavbar = () => {
+    const navContainer = document.getElementById("navContainer");
+    const width = navContainer.offsetWidth;
+    if (width > 0) {
+      navContainer.style.width = "0px";
+    } else {
+      navContainer.style.width = "100%";
+    }
+  };
   const menuItems = [
-    { label: "Dashboard", className: "nav-item", src: "/applicant" },
+    { label: "Dashboard", className: "nav-item", src: "/admin" },
     {
-      label: "Update Profile",
+      label: "Manage Applicants",
       className: "nav-item",
-      src: "/applicant/update",
+      src: "/admin/manage/applicants",
     },
-    { label: "About Us", className: "nav-item", src: "/applicant/about" },
-    { label: "Contact Us", className: "nav-item", src: "/applicant/contact" },
+    // { label: "About Us", className: "nav-item", src: "/applicant/about" },
+    // { label: "Contact Us", className: "nav-item", src: "/applicant/contact" },
   ];
 
   return (
@@ -56,8 +66,8 @@ function ApplicantNavbar() {
               <span className="logo-text">{logoText}</span>
             </Link>
           </div>
-          <div className="nav-section">
-            <ul className="nav-list">
+          {/* <div className="nav-section">
+            {/* <ul className="nav-list">
               {menuItems.map((item, index) => (
                 <li key={index} className={item.className}>
                   <Link href={item.src}>
@@ -65,14 +75,17 @@ function ApplicantNavbar() {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-          <div className="button-section">
-            <button className="logout-button" onClick={handleLogout}>
-              Logout
+            </ul> *
+          </div> */}
+          <div className="">
+            <button
+              className="sidenavbar__btn sidenavbar__btn--open"
+              onClick={toggleSideNavbar}
+            >
+              Menu
             </button>
           </div>
-          <div
+          {/* <div
             className={`menu ${isMenuOpen && "open"}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -97,11 +110,41 @@ function ApplicantNavbar() {
                 </li>
               </ul>
             </div>
-          )}
+          )} */}
         </nav>
       </header>
+      <div id="navContainer" className="sidenavbar">
+        <div className="sidenavbar__container">
+          <div className="sidenavbar__brand">
+            <p className="sidenavbar__brand___name">Eduversa</p>
+            <button
+              className="sidenavbar__btn sidenavbar__btn--close"
+              onClick={toggleSideNavbar}
+            >
+              C
+            </button>
+          </div>
+
+          <ul className="sidenavbar__menu">
+            {menuItems.map((item) => {
+              return (
+                <li key={JSON.stringify(item)} className="sidenavbar__menu-item">
+                    <Link href={item.src} className="sidenavbar__menu-link">
+                      <span>{item.label}</span>
+                    </Link>
+                  </li>
+              );
+            })}
+            <li className="sidenavbar__menu-item">
+              <button className="sidenavbar__menu-btn" onClick={handleLogout}>
+                Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
     </Fragment>
   );
 }
 
-export default ApplicantNavbar;
+export default AdminNavbar;

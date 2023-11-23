@@ -1,0 +1,99 @@
+.sidenavbar{
+    width: 0%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom:0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+    transition: 0.3s ease-in-out;
+    z-index: 100;
+    direction: rtl;
+    overflow: hidden;
+
+
+
+    &__container{
+        width: 100%;
+        max-width: max(300px, 30%);
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        flex-direction: column;
+        direction: ltr;
+    }
+
+
+    &__brand{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid white;
+        padding: 10px;
+
+        &__name{
+            // padding: 0.5rem 0rem;
+            padding-left: 20px;
+            font-size: 30px;
+            line-height: 25px;
+            font-family: var(--font-elianto);
+            text-transform: uppercase;
+            color: white;
+        }
+
+    }
+
+    &__btn{
+        width: 50px;
+        aspect-ratio: 1;
+        // background-color: var(--pink);
+        background-image: linear-gradient(to bottom right, var(--pink), var(--pink-1));
+        border: 2px solid var(--pink-4);
+        outline: 2px solid transparent;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s ease-in-out;
+        
+        &:hover, &:focus{
+            outline: 2px solid var(--pink-4);
+            outline-offset: 3px;
+            
+        }
+
+        &--open{
+            border-radius: 5000px;
+            width: fit-content;
+        }
+        &--close{
+            border-radius: 10px;
+        }
+    }
+
+    &__menu{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+        &-item{
+            width: 100%;
+            text-align: center;
+            color: white;
+            border-bottom: 2px solid white;
+        }
+        
+        &-link, &-btn{
+            padding: 10px;
+            width: 100%;
+            height: 100%;
+            // background-color: aliceblue;
+            font-size: 16px;
+            display: block;
+        }
+    }
+}

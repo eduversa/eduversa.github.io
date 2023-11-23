@@ -3,7 +3,11 @@ import { ApplicantLayout } from "@/layout";
 function ApplicantDashboard() {
   return (
     <Fragment>
-      <ApplicantLayout></ApplicantLayout>
+      <ApplicantLayout>
+        <section className="wrapper applicant-profile">
+          
+        </section>
+      </ApplicantLayout>
     </Fragment>
   );
 }
