@@ -196,7 +196,7 @@ export const Select =({label, name, value, options, ...props}) =>{
 // }
 
 
-export const FormButtons = ({ handlePreviousClick, clearFormData, handleSave, currentStep, totalSteps }) => {
+export const FormButtons = ({ handlePreviousClick, clearFormData, onSubmitHandler, currentStep, totalSteps }) => {
   return (
     <div className="btns">
       <button
@@ -208,11 +208,17 @@ export const FormButtons = ({ handlePreviousClick, clearFormData, handleSave, cu
       >
         Prev
       </button>
-      <button type="button" className="btn" onClick={clearFormData}>Clear</button>
       <button 
         type="button" 
         className="btn" 
-        onClick={handleSave}
+        onClick={clearFormData}
+      >
+        Clear
+      </button>
+      <button 
+        type="button" 
+        className="btn" 
+        onClick={onSubmitHandler}
       >
         Save
       </button>
