@@ -23,7 +23,7 @@ const PersonalInfo = ({
   handleSubmit,
   currentStep,
   totalSteps,
-  
+
   presentPincodeError,
   setPresentPincodeError,
   permanentPincodeError,
@@ -123,11 +123,14 @@ const PersonalInfo = ({
 
   return (
     <Fragment>
-      <form className="page--content" onSubmit={(event) => {
-        event.preventDefault();
-        onSubmitHandler();
-        handleNextClick();
-      }}>
+      <form
+        className="page--content"
+        onSubmit={(event) => {
+          event.preventDefault();
+          onSubmitHandler();
+          handleNextClick();
+        }}
+      >
         {/* name */}
         <Text
           label="Full Name"
@@ -347,11 +350,10 @@ const PersonalInfo = ({
             onChange={handleChange}
           />
         </div>
-
-        <FormButtons 
-          handlePreviousClick={handlePreviousClick} 
-          clearFormData={() => clearFormData(currentStep)} 
-          onSubmitHandler={onSubmitHandler} 
+        <FormButtons
+          handlePreviousClick={handlePreviousClick}
+          clearFormData={() => clearFormData(currentStep)}
+          onSubmitHandler={onSubmitHandler}
           currentStep={currentStep}
           totalSteps={totalSteps}
         />
