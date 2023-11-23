@@ -105,11 +105,11 @@ const PersonalInfo = ({
   }, [permanentPincode, setPermanentPincodeError, formData, handleChange]);
 
   useEffect(() => {
-    const savedPersonalInfo = JSON.parse(localStorage.getItem('personal_info'));
+    const savedPersonalInfo = JSON.parse(localStorage.getItem("personal_info"));
     if (savedPersonalInfo) {
-      setFormData(prevFormData => ({
+      setFormData((prevFormData) => ({
         ...prevFormData,
-        personal_info: savedPersonalInfo
+        personal_info: savedPersonalInfo,
       }));
     }
   }, [setFormData]);
@@ -120,7 +120,7 @@ const PersonalInfo = ({
       JSON.stringify(formData.personal_info)
     );
     // const data = localStorage.getItem("personal_info");
-    const data = formData.personal_info;
+    const data = JSON.stringify(formData.personal_info);
     const type = "personal";
     const user_id = localStorage.getItem("userid");
     try {

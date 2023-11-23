@@ -1,4 +1,5 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useState } from "react";
+import { AllLoader } from "@/components";
 import { updateAppplicantData } from "@/functions";
 import {
   Text,
@@ -8,7 +9,6 @@ import {
   DateInput,
   FormButtons,
 } from "../inputComponent/InputComponent";
-
 const AcademicInfo = ({
   formData,
   setFormData,
@@ -18,45 +18,51 @@ const AcademicInfo = ({
   handleNextClick,
   handleSubmit,
   currentStep,
-  totalSteps
+  totalSteps,
 }) => {
-
   let year = new Date().getFullYear().toString();
-
+  const [loading, setLoading] = useState(false);
   //fetches data from local storfage
   useEffect(() => {
-    const savedFamilyInfo = JSON.parse(localStorage.getItem('academic_info'));
+    const savedFamilyInfo = JSON.parse(localStorage.getItem("academic_info"));
     if (savedFamilyInfo) {
-      setFormData(prevFormData => ({
+      setFormData((prevFormData) => ({
         ...prevFormData,
-        academic_info: savedFamilyInfo
+        academic_info: savedFamilyInfo,
       }));
     }
   }, [setFormData]);
 
   // set data to local storfage and sends data to database
   async function onSubmitHandler() {
+    setLoading(true);
     localStorage.setItem(
       "academic_info",
       JSON.stringify(formData.academic_info)
     );
-    const data = formData.academic_info;
+    const data = JSON.stringify(formData.academic_info);
     const type = "academic";
     const user_id = localStorage.getItem("userid");
     try {
       const response = await updateAppplicantData(user_id, type, data);
       console.log(response);
+      alert(response.message);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
   }
   return (
     <Fragment>
-      <form className="page--content" onSubmit={(event) => {
-        event.preventDefault();
-        onSubmitHandler();
-        handleNextClick();
-      }}>
+      {loading && <AllLoader />}
+      <form
+        className="page--content"
+        onSubmit={(event) => {
+          event.preventDefault();
+          onSubmitHandler();
+          handleNextClick();
+        }}
+      >
         <h3 className="sub-heading">Admission Details</h3> {/* Admission */}
         <div className="grid-col-2">
           {" "}
@@ -193,10 +199,10 @@ const AcademicInfo = ({
             required
           />
         </div>
-        <FormButtons 
-          handlePreviousClick={handlePreviousClick} 
-          clearFormData={() => clearFormData(currentStep)} 
-          onSubmitHandler={onSubmitHandler} 
+        <FormButtons
+          handlePreviousClick={handlePreviousClick}
+          clearFormData={() => clearFormData(currentStep)}
+          onSubmitHandler={onSubmitHandler}
           currentStep={currentStep}
           totalSteps={totalSteps}
         />
