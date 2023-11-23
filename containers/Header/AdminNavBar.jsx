@@ -44,6 +44,7 @@ function AdminNavbar() {
     } else {
       navContainer.style.width = "100%";
     }
+    setIsMenuOpen(!isMenuOpen);
   };
   const menuItems = [
     { label: "Dashboard", className: "nav-item", src: "/admin" },
@@ -58,20 +59,20 @@ function AdminNavbar() {
     <Fragment>
       {isLoading && <AllLoader />}
       <header>
-        <nav className="applicant-nav">
+        <nav className="admin-nav">
           <div className="logo">
             <Link href="/">
               <span className="logo-text">{logoText}</span>
             </Link>
           </div>
 
-          <div className="">
-            <button
-              className="sidenavbar__btn sidenavbar__btn--open"
-              onClick={toggleSideNavbar}
-            >
-              Menu
-            </button>
+          <div
+            className={`menu ${isMenuOpen && "open"}`}
+            onClick={toggleSideNavbar}
+          >
+            <div className="menu-line"></div>
+            <div className="menu-line"></div>
+            <div className="menu-line"></div>
           </div>
         </nav>
       </header>
