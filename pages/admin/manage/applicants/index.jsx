@@ -5,7 +5,14 @@ const manageApplicants = () => {
   return (
     <Fragment>
       <AdminLayout>
-        <button onClick={getCollegeDetailsApi}> Get Dropdown Data</button>
+        <button
+          onClick={() => {
+            getCollegeDetailsApi(304);
+          }}
+        >
+          {" "}
+          Get Dropdown Data
+        </button>
       </AdminLayout>
     </Fragment>
   );
