@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { AllLoader } from "@/components";
 import { updateAppplicantData } from "@/functions";
 import {
   Text,
@@ -65,7 +66,7 @@ const PersonalInfo = ({
 
   const [presentPincode, setPresentPincode] = useState("");
   const [permanentPincode, setPermanentPincode] = useState("");
-
+  const [loading, setLoading] = useState(false);
   // const [presentPincodeError, setPresentPincodeError] = useState(false);
   // const [permanentPincodeError, setPermanentPincodeError] = useState(false);
 
@@ -114,17 +115,19 @@ const PersonalInfo = ({
   }, [setFormData]);
 
   async function onSubmitHandler() {
+    setLoading(true);
     localStorage.setItem(
       "personal_info",
       JSON.stringify(formData.personal_info)
     );
-    // const data = localStorage.getItem("personal_info");
     const data = JSON.stringify(formData.personal_info);
     const type = "personal";
     const user_id = localStorage.getItem("userid");
     try {
       const response = await updateAppplicantData(user_id, type, data);
       console.log(response);
+      alert(response.message);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -132,6 +135,7 @@ const PersonalInfo = ({
 
   return (
     <Fragment>
+      {loading && <AllLoader />}
       <form
         className="page--content"
         onSubmit={(event) => {

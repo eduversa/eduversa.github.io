@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { AllLoader } from "@/components";
 import {
   Text,
   Email,
@@ -28,7 +29,7 @@ const FamilyInfo = ({
   setOfficePincodeError,
 }) => {
   const [officePincode, setOfficePincode] = useState("");
-  // const [officePincodeError, setOfficePincodeError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -47,7 +48,6 @@ const FamilyInfo = ({
     };
   }, [officePincode, setOfficePincodeError, formData, handleChange]);
 
-  //fetches data from local storfage
   useEffect(() => {
     const savedFamilyInfo = JSON.parse(localStorage.getItem("family_info"));
     if (savedFamilyInfo) {
@@ -58,8 +58,8 @@ const FamilyInfo = ({
     }
   }, [setFormData]);
 
-  // set data to local storfage and sends data to database
   async function onSubmitHandler() {
+    setLoading(true);
     localStorage.setItem("family_info", JSON.stringify(formData.family_info));
     const data = JSON.stringify(formData.family_info);
     const type = "family";
@@ -67,6 +67,8 @@ const FamilyInfo = ({
     try {
       const response = await updateAppplicantData(user_id, type, data);
       console.log(response);
+      alert(response.message);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -74,6 +76,7 @@ const FamilyInfo = ({
 
   return (
     <Fragment>
+      {loading && <AllLoader />}
       <form
         className="page--content"
         onSubmit={(event) => {

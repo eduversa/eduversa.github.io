@@ -1,4 +1,5 @@
 import React, { useState, Fragment } from "react";
+import { AllLoader } from "@/components";
 import Image from "next/image";
 import { FormButtons } from "../inputComponent/InputComponent";
 import { updateAppplicantData } from "@/functions";
@@ -12,7 +13,7 @@ const FileUpload = ({
   totalSteps,
 }) => {
   const [imagePreview, setImagePreview] = useState(formData.image);
-
+  const [loading, setLoading] = useState(false);
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -25,6 +26,7 @@ const FileUpload = ({
     }
   };
   async function onSubmitHandler() {
+    setLoading(true);
     const image = document.getElementById("user-image");
     const profileData = new FormData();
     profileData.append("image", image.files[0]);
@@ -41,12 +43,15 @@ const FileUpload = ({
         fileTypes
       );
       console.log(response);
+      alert(response.message);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
   }
   return (
     <Fragment>
+      {loading && <AllLoader />}
       <form
         className="page--content"
         onSubmit={(event) => {
@@ -65,7 +70,6 @@ const FileUpload = ({
                 width={200}
                 height={200}
               />
-              {/* <img src={imagePreview} alt="Preview" /> */}
             </div>
           )}
 

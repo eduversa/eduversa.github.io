@@ -21,7 +21,6 @@ const AcademicInfo = ({
 }) => {
   let year = new Date().getFullYear().toString();
   const [loading, setLoading] = useState(false);
-  //fetches data from local storfage
   useEffect(() => {
     const savedFamilyInfo = JSON.parse(localStorage.getItem("academic_info"));
     if (savedFamilyInfo) {
@@ -32,7 +31,6 @@ const AcademicInfo = ({
     }
   }, [setFormData]);
 
-  // set data to local storfage and sends data to database
   async function onSubmitHandler() {
     setLoading(true);
     localStorage.setItem(
