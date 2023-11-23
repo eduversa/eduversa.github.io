@@ -43,22 +43,43 @@ const CourseInfo = ({
     try {
       const collegeData = await getCollegeDetailsApi(304);
       console.log(collegeData);
-      setCourses(collegeData.data.college_courses); // set the state
+      setCourses(collegeData.data.college_courses);
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
-    const savedFamilyInfo = JSON.parse(localStorage.getItem("course_info"));
-    if (savedFamilyInfo) {
+    const savedCourseInfo = JSON.parse(localStorage.getItem("course_info"));
+    if (savedCourseInfo) {
+      const { course_name, stream, admission_year } = savedCourseInfo;
+
       setFormData((prevFormData) => ({
         ...prevFormData,
-        course_info: savedFamilyInfo,
+        course_info: savedCourseInfo,
       }));
+
+      setSelectedCourse(course_name);
       setShowStream(true);
+
+      if (Array.isArray(courses)) {
+        const selectedCourse = courses.find(
+          (course) => course.name === course_name
+        );
+        if (selectedCourse) {
+          setStreams(selectedCourse.streams);
+
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            course_info: {
+              ...prevFormData.course_info,
+              duration: selectedCourse.duration,
+            },
+          }));
+        }
+      }
     }
-  }, [setFormData]);
+  }, [setFormData, courses]);
 
   const handleCourseChange = (event) => {
     handleChange(event);
@@ -78,6 +99,10 @@ const CourseInfo = ({
 
     setSelectedCourse(selectedCourseName);
     setShowStream(true);
+
+    if (selectedCourse) {
+      setStreams(selectedCourse.streams);
+    }
   };
 
   async function onSubmitHandler() {
