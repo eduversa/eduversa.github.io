@@ -1,7 +1,16 @@
 import React, { useState, Fragment } from "react";
 import Image from "next/image";
+import { FormButtons } from "../inputComponent/InputComponent";
 
-const FileUpload = ({ formData, setFormData, handleChange }) => {
+const FileUpload = ({
+  formData,
+  setFormData,
+  handleChange,
+  handlePreviousClick,
+  handleNextClick,
+  currentStep,
+  totalSteps
+}) => {
   const [imagePreview, setImagePreview] = useState(formData.image);
 
   const handleFileInputChange = (e) => {
@@ -29,32 +38,45 @@ const FileUpload = ({ formData, setFormData, handleChange }) => {
   }
   return (
     <Fragment>
-      <div className="image-upload">
-        {imagePreview && (
-          <div className="image-preview">
-            <Image
-              className="image"
-              src={imagePreview}
-              alt="Preview"
-              width={200}
-              height={200}
-            />
-            {/* <img src={imagePreview} alt="Preview" /> */}
-          </div>
-        )}
+      <form className="page--content" onSubmit={(event) => {
+        event.preventDefault();
+        onSubmitHandler();
+        handleNextClick();
+      }}>
+        <div className="image-upload">
+          {imagePreview && (
+            <div className="image-preview">
+              <Image
+                className="image"
+                src={imagePreview}
+                alt="Preview"
+                width={200}
+                height={200}
+              />
+              {/* <img src={imagePreview} alt="Preview" /> */}
+            </div>
+          )}
 
-        <label htmlFor="user-image" className="btn">
-          Upload Image
-        </label>
-        <input
-          type="file"
-          accept="image/*"
-          name="user-image"
-          id="user-image"
-          onChange={handleFileInputChange}
-          style={{ display: "none" }}
+          <label htmlFor="user-image" className="btn">
+            Upload Image
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            name="user-image"
+            id="user-image"
+            onChange={handleFileInputChange}
+            style={{ display: "none" }}
+          />
+        </div>
+        <FormButtons 
+          handlePreviousClick={handlePreviousClick} 
+          clearFormData={() => clearFormData(currentStep)} 
+          onSubmitHandler={onSubmitHandler} 
+          currentStep={currentStep}
+          totalSteps={totalSteps}
         />
-      </div>
+      </form>
     </Fragment>
   );
 };
