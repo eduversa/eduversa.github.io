@@ -33,7 +33,7 @@
     padding: 20px;
   }
   @media (max-width: $breakpoint-phone) {
-    max-width: 300px;
+    max-width: 320px;
     max-height: 650px;
   }
   &:hover {
@@ -246,6 +246,7 @@
       }
 
       &__email {
+        cursor: pointer;
         @include flex-container(row, nowrap, center, center);
         gap: 10px;
         @media (max-width: $breakpoint-desktop-wide) {
@@ -348,6 +349,7 @@
   }
 
   .contact-email {
+    cursor: pointer;
     margin: 3% 0 0 0;
     @media (max-width: $breakpoint-desktop-wide) {
     }

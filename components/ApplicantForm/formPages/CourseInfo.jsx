@@ -43,7 +43,17 @@ const CourseInfo = ({ formData, handleChange }) => {
     setSelectedCourse(event.target.value);
     setShowStream(true);
   };
-
+  async function onSubmitHandler() {
+    const data = formData.course_info;
+    const type = "course";
+    const user_id = localStorage.getItem("userid");
+    try {
+      const response = await updateAppplicantData(user_id, type, data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <Fragment>
       {/* enrollment no */}

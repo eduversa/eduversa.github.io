@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
-import { ApplicantNavbar, Footer } from "@/containers";
-function ApplicantLayout({ children }) {
+import { AdminNavbar, Footer } from "@/containers";
+
+function AdminLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -11,21 +12,21 @@ function ApplicantLayout({ children }) {
     console.log("UserType", userType);
     if (!authToken) {
       router.push("/");
-      if (userType !== "applicant") {
+      if (userType !== "admin") {
         localStorage.removeItem("authToken");
       }
     }
-    if (userType !== "applicant") {
-      localStorage.removeItem("authToken");
+    if (userType !== "admin") {
+      router.push("/");
     }
   }, []);
   return (
     <Fragment>
-      <ApplicantNavbar />
+      <AdminNavbar></AdminNavbar>
       {children}
-      <Footer />
+      <Footer></Footer>
     </Fragment>
   );
 }
 
-export default ApplicantLayout;
+export default AdminLayout;

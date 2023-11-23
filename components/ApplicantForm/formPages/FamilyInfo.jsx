@@ -1,40 +1,73 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { Text, Email, Number, Select, DateInput, Aadhar, Pan, PhoneNumber, Pincode } from "../inputComponent/InputComponent";
+import {
+  Text,
+  Email,
+  Number,
+  Select,
+  DateInput,
+  Aadhar,
+  Pan,
+  PhoneNumber,
+  Pincode,
+} from "../inputComponent/InputComponent";
 import fetchAddressFromPincode from "../inputComponent/fetchAddressFromPincode";
 
-const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePincodeError }) => {
+const FamilyInfo = ({
+  formData,
+  handleChange,
+  officePincodeError,
+  setOfficePincodeError,
+}) => {
   const [officePincode, setOfficePincode] = useState("");
   // const [officePincodeError, setOfficePincodeError] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
     if (officePincode.length === 6) {
-      fetchAddressFromPincode(formData, handleChange, 'family_info.guardian.office_address', officePincode, setOfficePincodeError, controller);
+      fetchAddressFromPincode(
+        formData,
+        handleChange,
+        "family_info.guardian.office_address",
+        officePincode,
+        setOfficePincodeError,
+        controller
+      );
     }
     return () => {
       controller.abort();
     };
   }, [officePincode, setOfficePincodeError, formData, handleChange]);
-
+  async function onSubmitHandler() {
+    const data = formData.family_info;
+    const type = "family";
+    const user_id = localStorage.getItem("userid");
+    try {
+      const response = await updateAppplicantData(user_id, type, data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
-    <Fragment >
+    <Fragment>
       {/* father */}
       <h3 className="sub-heading">Father&apos;s Information</h3>
-      <Text 
+      <Text
         label="Full Name"
         name="family_info.father.name"
         value={formData.family_info.father.name}
         onChange={handleChange}
         required
       />
-      <div className="grid-col-2"> {/* email contact */}
+      <div className="grid-col-2">
+        {" "}
+        {/* email contact */}
         <Email
           label="Email"
           name="family_info.father.email"
           value={formData.family_info.father.email}
           onChange={handleChange}
         />
-
         <PhoneNumber
           label="Contact Number"
           name="family_info.father.contact"
@@ -42,26 +75,25 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
           onChange={handleChange}
         />
       </div>
-
       <hr />
-
       {/* mother */}
       <h3 className="sub-heading">Mother&apos;s Information</h3>
-      <Text 
+      <Text
         label="Full Name"
         name="family_info.mother.name"
         value={formData.family_info.mother.name}
         onChange={handleChange}
         required
       />
-      <div className="grid-col-2"> {/* email contact */}
+      <div className="grid-col-2">
+        {" "}
+        {/* email contact */}
         <Email
           label="Email"
           name="family_info.mother.email"
           value={formData.family_info.mother.email}
           onChange={handleChange}
         />
-
         <PhoneNumber
           label="Contact Number"
           name="family_info.mother.contact"
@@ -69,19 +101,19 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
           onChange={handleChange}
         />
       </div>
-
       <hr />
-
       {/* guardian */}
       <h3 className="sub-heading">Guardian&apos;s Information</h3>
-      <Text 
+      <Text
         label="Full Name"
         name="family_info.guardian.name"
         value={formData.family_info.guardian.name}
         onChange={handleChange}
         required
       />
-      <div className="grid-col-2"> {/* relation occupation*/}
+      <div className="grid-col-2">
+        {" "}
+        {/* relation occupation*/}
         <Text
           label="Relation"
           name="family_info.guardian.relation"
@@ -89,7 +121,6 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
           onChange={handleChange}
           required
         />
-
         <Text
           label="Occupation"
           name="family_info.guardian.occupation"
@@ -98,7 +129,9 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
           required
         />
       </div>
-      <div className="grid-col-2"> {/* email contact */}
+      <div className="grid-col-2">
+        {" "}
+        {/* email contact */}
         <Email
           label="Email"
           name="family_info.guardian.email"
@@ -106,7 +139,6 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
           onChange={handleChange}
           required
         />
-
         <PhoneNumber
           label="Contact Number"
           name="family_info.guardian.contact"
@@ -115,7 +147,9 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
           required
         />
       </div>
-      <div className="grid-col-3"> {/* designation office_contact income */}
+      <div className="grid-col-3">
+        {" "}
+        {/* designation office_contact income */}
         <Text
           label="Designation"
           name="family_info.guardian.designation"
@@ -123,7 +157,6 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
           onChange={handleChange}
           required
         />
-
         <PhoneNumber
           label="Office Contact"
           name="family_info.guardian.office_contact"
@@ -131,7 +164,6 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
           onChange={handleChange}
           required
         />
-
         <Number
           label="Income"
           name="family_info.guardian.income"
@@ -140,7 +172,9 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
           required
         />
       </div>
-      <div className="grid-col-2"> {/* aadhar pan */}
+      <div className="grid-col-2">
+        {" "}
+        {/* aadhar pan */}
         <Aadhar
           label="Aadhar Number"
           name="family_info.guardian.aadhar_number"
@@ -155,9 +189,7 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
           onChange={handleChange}
           required
         />
-
       </div>
-
       <h4 className="sub-sub-heading">Office Address</h4> {/* office address */}
       <div>
         {/* street */}
@@ -168,7 +200,9 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
           onChange={handleChange}
         />
 
-        <div className="grid-col-2"> {/* pin city */}
+        <div className="grid-col-2">
+          {" "}
+          {/* pin city */}
           <Pincode
             label="Pincode"
             name="family_info.guardian.office_address.pincode"
@@ -177,12 +211,11 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
               handleChange(e);
               if (e.target.value.length === 6) {
                 setOfficePincode(e.target.value);
-                setOfficePincodeError(false); 
+                setOfficePincodeError(false);
               }
             }}
             className={officePincodeError ? "invalid" : ""}
           />
-
           <Text
             label="City"
             name="family_info.guardian.office_address.city"
@@ -191,14 +224,15 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
           />
         </div>
 
-        <div className="grid-col-2"> {/* district state */}
+        <div className="grid-col-2">
+          {" "}
+          {/* district state */}
           <Text
             label="District"
             name="family_info.guardian.office_address.district"
             value={formData.family_info.guardian.office_address.district}
             onChange={handleChange}
           />
-
           <Text
             label="State"
             name="family_info.guardian.office_address.state"
@@ -206,7 +240,6 @@ const FamilyInfo = ({ formData, handleChange, officePincodeError, setOfficePinco
             onChange={handleChange}
           />
         </div>
-
       </div>
     </Fragment>
   );
