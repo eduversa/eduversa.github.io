@@ -24,7 +24,8 @@ const CourseInfo = ({
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [streams, setStreams] = useState([]);
-  const [showStrem, setShowStream] = useState(false);
+  const [showStream, setShowStream] = useState(false);
+
   useEffect(() => {
     getCollegeDetails();
   }, []);
@@ -48,13 +49,6 @@ const CourseInfo = ({
     }
   }
 
-  const handleCourseChange = (event) => {
-    handleChange(event);
-    setSelectedCourse(event.target.value);
-    setShowStream(true);
-  };
-
-  //fetches data from local storfage
   useEffect(() => {
     const savedFamilyInfo = JSON.parse(localStorage.getItem("course_info"));
     if (savedFamilyInfo) {
@@ -66,7 +60,26 @@ const CourseInfo = ({
     }
   }, [setFormData]);
 
-  // set data to local storfage and sends data to database
+  const handleCourseChange = (event) => {
+    handleChange(event);
+    const selectedCourseName = event.target.value;
+    const selectedCourse = courses.find(
+      (course) => course.name === selectedCourseName
+    );
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      course_info: {
+        ...prevFormData.course_info,
+        course_name: selectedCourseName,
+        duration: selectedCourse ? selectedCourse.duration : "",
+      },
+    }));
+
+    setSelectedCourse(selectedCourseName);
+    setShowStream(true);
+  };
+
   async function onSubmitHandler() {
     localStorage.setItem("course_info", JSON.stringify(formData.course_info));
     const data = formData.course_info;
@@ -79,6 +92,7 @@ const CourseInfo = ({
       console.log(error);
     }
   }
+
   return (
     <Fragment>
       <form
@@ -89,10 +103,7 @@ const CourseInfo = ({
           handleNextClick();
         }}
       >
-        {/* enrollment no */}
         <div className="grid-col-2">
-          {" "}
-          {/* course duration */}
           <Select
             label="Course Name"
             name="course_info.course_name"
@@ -113,16 +124,14 @@ const CourseInfo = ({
             label="Duration"
             name="course_info.duration"
             value={formData.course_info.duration}
-            onChange={handleChange}
+            onChange={handleCourseChange}
             required
             min="1"
             max="10"
           />
         </div>
         <div className="grid-col-2">
-          {" "}
-          {/* stream admission_year */}
-          {!showStrem ? (
+          {!showStream ? (
             ""
           ) : (
             <Select
@@ -131,7 +140,6 @@ const CourseInfo = ({
               value={formData.course_info.stream}
               onChange={handleChange}
               required
-              // options={Array.isArray(streams) ? streams.map(stream => ({ key: stream.name, value: stream.name })) : []}
               options={[
                 { key: "Select your stream", value: "" },
                 ...(Array.isArray(streams)
@@ -143,7 +151,6 @@ const CourseInfo = ({
               ]}
             />
           )}
-          {/* <button onClick={getCollegeDetails}>College Details</button> */}
           <Number
             label="Admission Year"
             name="course_info.admission_year"
