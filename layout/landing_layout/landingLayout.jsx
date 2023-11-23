@@ -31,7 +31,6 @@ function LandingLayout({ children }) {
         <LandingPage></LandingPage>
         <div className="homepage-right">{children}</div>
       </div>
-  
     </Fragment>
   );
 }

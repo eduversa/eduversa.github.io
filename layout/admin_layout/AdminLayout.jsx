@@ -16,6 +16,9 @@ function AdminLayout({ children }) {
         localStorage.removeItem("authToken");
       }
     }
+    if (userType !== "admin") {
+      router.push("/");
+    }
   }, []);
   return (
     <Fragment>

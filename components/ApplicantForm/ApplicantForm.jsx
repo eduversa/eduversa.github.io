@@ -182,7 +182,8 @@ const ApplicantForm = () => {
   
   // function to move to the next page
   const handleNextClick = (event) => {
-    event.preventDefault(); 
+    console.log(formData);
+    // event.preventDefault(); 
     if (presentPincodeError || permanentPincodeError || officePincodeError) {
       alert("Please enter a valid pincode.");
       return;
