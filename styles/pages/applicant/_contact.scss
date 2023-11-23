@@ -20,6 +20,7 @@
     left: 0;
     pointer-events: none;
     z-index: -1;
+    transition: transform 0.5s ease-in-out;
   }
 
   &::before {
@@ -32,11 +33,21 @@
     clip-path: polygon(0% 15%, 100% 0%, 100% 100%, 0% 100%);
   }
 
+  &:hover::before,
+  &:hover::after {
+    transform: scale(1.1);
+  }
+
   .contact-us-heading {
     font-size: 36px;
     margin-bottom: 30px;
     text-align: center;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    transition: color 0.3s ease;
+  }
+
+  &:hover .contact-us-heading {
+    color: #ff5722;
   }
 
   .contact-content {
@@ -46,14 +57,24 @@
   }
 
   .team-members {
-    width: 100%;
-    max-width: 400px;
+    width: calc(100% - 420px);
+    position: relative;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
     margin-bottom: 40px;
 
     .team-members-heading {
       font-size: 28px;
       margin-bottom: 20px;
       color: #fff;
+      grid-column: 1 / -1;
+      transition: color 0.3s ease;
+    }
+
+    &:hover .team-members-heading {
+      color: #ff5722;
     }
 
     .member {
@@ -61,7 +82,6 @@
       border: 1px solid #ddd;
       padding: 20px;
       border-radius: 10px;
-      margin-bottom: 20px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
 
       &:hover {
@@ -73,6 +93,11 @@
         font-size: 24px;
         margin-bottom: 10px;
         color: #222;
+        transition: color 0.3s ease;
+      }
+
+      &:hover .member__heading {
+        color: #ff5722;
       }
 
       .member__email {
@@ -85,6 +110,11 @@
 
         .member__email__icon {
           margin-right: 8px;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover .member__email__icon {
+          transform: rotate(360deg);
         }
 
         .member__email__link {
@@ -112,69 +142,80 @@
     }
   }
 
-  .contact-details {
-    width: calc(100% - 420px);
+  .contact-email,
+  .team-objective,
+  .social-media {
+    margin-bottom: 40px;
 
-    .contact-email,
-    .team-objective,
+    h3 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #fff;
+      transition: color 0.3s ease;
+    }
+
+    &:hover h3 {
+      color: #ff5722;
+    }
+
+    p,
+    .contact-email__container__content {
+      color: #ddd;
+    }
+
+    .contact-email__container,
     .social-media {
-      margin-bottom: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      transition: color 0.3s ease;
 
-      h3 {
-        font-size: 28px;
-        margin-bottom: 20px;
-        color: #fff;
+      .contact-email__container__icon {
+        margin-right: 8px;
+        transition: transform 0.3s ease;
       }
 
-      p,
       .contact-email__container__content {
-        color: #ddd;
+        text-decoration: none;
+        font-weight: bold;
+        transition: text-decoration 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          text-decoration: underline;
+          color: #ff5722;
+        }
       }
 
-      .contact-email__container,
-      .social-media {
+      &:hover .contact-email__container__icon {
+        transform: rotate(360deg);
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
         cursor: pointer;
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        color: #ff8c00;
+        margin-bottom: 20px;
         transition: color 0.3s ease;
 
-        .contact-email__container__icon {
-          margin-right: 8px;
+        img {
+          margin-right: 10px;
+          transition: transform 0.3s ease;
         }
 
-        .contact-email__container__content {
-          text-decoration: none;
-          font-weight: bold;
-          transition: text-decoration 0.3s ease, color 0.3s ease;
-
-          &:hover {
-            text-decoration: underline;
-            color: #ff5722;
-          }
+        &:hover {
+          color: #ff5722;
         }
-      }
 
-      ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-
-        li {
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          color: #ff8c00;
-          margin-bottom: 20px;
-          transition: color 0.3s ease;
-
-          img {
-            margin-right: 10px;
-          }
-
-          &:hover {
-            color: #ff5722;
-          }
+        &:hover img {
+          transform: scale(1.2);
         }
       }
     }
