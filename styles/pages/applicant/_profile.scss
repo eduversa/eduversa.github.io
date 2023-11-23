@@ -44,12 +44,37 @@
         align-items: center;
         gap: 1rem;
         padding: 10px;
-
+    }
+    &__personal-details{
+        grid-column: 1/13;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 10px;
     }
 
     &__data{
-        display: flex;
-        flex-direction: row;
-        // justify-content: ;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 4fr 8fr;
+
+    }
+
+    &__field, &__value{
+        text-align: left;
+        padding: 10px 20px;
+        // background-color: grey;
+    }
+
+    &__field{
+        text-align: left;
+        background-color: rgb(194, 194, 194);
+        text-transform: capitalize;
+    }
+
+    &__value{
+        text-align: left;
+        background-color: rgb(216, 216, 216);
     }
 }
