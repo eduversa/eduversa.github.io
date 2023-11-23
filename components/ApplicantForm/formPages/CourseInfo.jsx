@@ -5,10 +5,20 @@ import {
   Number,
   Select,
   DateInput,
+  FormButtons,
 } from "../inputComponent/InputComponent";
-import { getCollegeDetailsApi } from "@/functions";
+import { getCollegeDetailsApi, updateAppplicantData } from "@/functions";
 
-const CourseInfo = ({ formData, handleChange }) => {
+const CourseInfo = ({
+  formData,
+  setFormData,
+  handleChange,
+  handlePreviousClick,
+  handleNextClick,
+  handleSubmit,
+  currentStep,
+  totalSteps
+}) => {
   let year = new Date().getFullYear().toString();
 
   const [courses, setCourses] = useState([]);
@@ -43,7 +53,24 @@ const CourseInfo = ({ formData, handleChange }) => {
     setSelectedCourse(event.target.value);
     setShowStream(true);
   };
+
+  //fetches data from local storfage
+  useEffect(() => {
+    const savedFamilyInfo = JSON.parse(localStorage.getItem('course_info'));
+    if (savedFamilyInfo) {
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        course_info: savedFamilyInfo
+      }));
+    }
+  }, [setFormData]);
+
+  // set data to local storfage and sends data to database
   async function onSubmitHandler() {
+    localStorage.setItem(
+      "course_info",
+      JSON.stringify(formData.course_info)
+    );
     const data = formData.course_info;
     const type = "course";
     const user_id = localStorage.getItem("userid");
@@ -56,71 +83,85 @@ const CourseInfo = ({ formData, handleChange }) => {
   }
   return (
     <Fragment>
-      {/* enrollment no */}
-      <div className="grid-col-2">
-        {" "}
-        {/* course duration */}
-        <Select
-          label="Course Name"
-          name="course_info.course_name"
-          value={formData.course_info.course_name}
-          onChange={handleCourseChange}
-          required
-          options={[
-            { key: "Select your course", value: "" },
-            ...(Array.isArray(courses)
-              ? courses.map((course) => ({
-                  key: course.name,
-                  value: course.name,
-                }))
-              : []),
-          ]}
-        />
-        <Number
-          label="Duration"
-          name="course_info.duration"
-          value={formData.course_info.duration}
-          onChange={handleChange}
-          required
-          min="1"
-          max="10"
-        />
-      </div>
-      <div className="grid-col-2">
-        {" "}
-        {/* stream admission_year */}
-        {!showStrem ? (
-          ""
-        ) : (
+      <form className="page--content" onSubmit={(event) => {
+        event.preventDefault();
+        onSubmitHandler();
+        handleNextClick();
+      }}>
+
+        {/* enrollment no */}
+        <div className="grid-col-2">
+          {" "}
+          {/* course duration */}
           <Select
-            label="Stream"
-            name="course_info.stream"
-            value={formData.course_info.stream}
-            onChange={handleChange}
+            label="Course Name"
+            name="course_info.course_name"
+            value={formData.course_info.course_name}
+            onChange={handleCourseChange}
             required
-            // options={Array.isArray(streams) ? streams.map(stream => ({ key: stream.name, value: stream.name })) : []}
             options={[
-              { key: "Select your stream", value: "" },
-              ...(Array.isArray(streams)
-                ? streams.map((stream) => ({
-                    key: stream.name,
-                    value: stream.name,
+              { key: "Select your course", value: "" },
+              ...(Array.isArray(courses)
+                ? courses.map((course) => ({
+                    key: course.name,
+                    value: course.name,
                   }))
                 : []),
             ]}
           />
-        )}
-        {/* <button onClick={getCollegeDetails}>College Details</button> */}
-        <Number
-          label="Admission Year"
-          name="course_info.admission_year"
-          value={formData.course_info.admission_year}
-          onChange={handleChange}
-          required
-          min={year - 10}
-          max={year}
+          <Number
+            label="Duration"
+            name="course_info.duration"
+            value={formData.course_info.duration}
+            onChange={handleChange}
+            required
+            min="1"
+            max="10"
+          />
+        </div>
+        <div className="grid-col-2">
+          {" "}
+          {/* stream admission_year */}
+          {!showStrem ? (
+            ""
+          ) : (
+            <Select
+              label="Stream"
+              name="course_info.stream"
+              value={formData.course_info.stream}
+              onChange={handleChange}
+              required
+              // options={Array.isArray(streams) ? streams.map(stream => ({ key: stream.name, value: stream.name })) : []}
+              options={[
+                { key: "Select your stream", value: "" },
+                ...(Array.isArray(streams)
+                  ? streams.map((stream) => ({
+                      key: stream.name,
+                      value: stream.name,
+                    }))
+                  : []),
+              ]}
+            />
+          )}
+          {/* <button onClick={getCollegeDetails}>College Details</button> */}
+          <Number
+            label="Admission Year"
+            name="course_info.admission_year"
+            value={formData.course_info.admission_year}
+            onChange={handleChange}
+            required
+            min={year - 10}
+            max={year}
+          />
+        </div>
+        <FormButtons 
+          handlePreviousClick={handlePreviousClick} 
+          clearFormData={() => clearFormData(currentStep)} 
+          onSubmitHandler={onSubmitHandler} 
+          currentStep={currentStep}
+          totalSteps={totalSteps}
         />
-      </div>
+      </form>
     </Fragment>
   );
 };
