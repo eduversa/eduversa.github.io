@@ -19,8 +19,7 @@ const CourseInfo = ({
   currentStep,
   totalSteps,
 }) => {
-  let year = new Date().getFullYear().toString();
-
+  const currentYear = new Date().getFullYear().toString();
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [streams, setStreams] = useState([]);
@@ -105,6 +104,16 @@ const CourseInfo = ({
     }
   };
 
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      course_info: {
+        ...prevFormData.course_info,
+        admission_year: currentYear,
+      },
+    }));
+  }, [setFormData, currentYear]);
+
   async function onSubmitHandler() {
     localStorage.setItem("course_info", JSON.stringify(formData.course_info));
     const data = formData.course_info;
@@ -179,11 +188,9 @@ const CourseInfo = ({
           <Number
             label="Admission Year"
             name="course_info.admission_year"
-            value={formData.course_info.admission_year}
-            onChange={handleChange}
+            value={currentYear}
+            readOnly
             required
-            min={year - 10}
-            max={year}
           />
         </div>
         <FormButtons
