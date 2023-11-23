@@ -46,25 +46,22 @@ const FamilyInfo = ({
       controller.abort();
     };
   }, [officePincode, setOfficePincodeError, formData, handleChange]);
-  
+
   //fetches data from local storfage
   useEffect(() => {
-    const savedFamilyInfo = JSON.parse(localStorage.getItem('family_info'));
+    const savedFamilyInfo = JSON.parse(localStorage.getItem("family_info"));
     if (savedFamilyInfo) {
-      setFormData(prevFormData => ({
+      setFormData((prevFormData) => ({
         ...prevFormData,
-        family_info: savedFamilyInfo
+        family_info: savedFamilyInfo,
       }));
     }
   }, [setFormData]);
 
   // set data to local storfage and sends data to database
   async function onSubmitHandler() {
-    localStorage.setItem(
-      "family_info",
-      JSON.stringify(formData.family_info)
-    );
-    const data = formData.family_info;
+    localStorage.setItem("family_info", JSON.stringify(formData.family_info));
+    const data = JSON.stringify(formData.family_info);
     const type = "family";
     const user_id = localStorage.getItem("userid");
     try {
@@ -77,11 +74,14 @@ const FamilyInfo = ({
 
   return (
     <Fragment>
-      <form className="page--content" onSubmit={(event) => {
-        event.preventDefault();
-        onSubmitHandler();
-        handleNextClick();
-      }}>
+      <form
+        className="page--content"
+        onSubmit={(event) => {
+          event.preventDefault();
+          onSubmitHandler();
+          handleNextClick();
+        }}
+      >
         {/* father */}
         <h3 className="sub-heading">Father&apos;s Information</h3>
         <Text
@@ -222,7 +222,8 @@ const FamilyInfo = ({
             required
           />
         </div>
-        <h4 className="sub-sub-heading">Office Address</h4> {/* office address */}
+        <h4 className="sub-sub-heading">Office Address</h4>{" "}
+        {/* office address */}
         <div>
           {/* street */}
           <Text
@@ -273,11 +274,10 @@ const FamilyInfo = ({
             />
           </div>
         </div>
-
-        <FormButtons 
-          handlePreviousClick={handlePreviousClick} 
-          clearFormData={() => clearFormData(currentStep)} 
-          onSubmitHandler={onSubmitHandler} 
+        <FormButtons
+          handlePreviousClick={handlePreviousClick}
+          clearFormData={() => clearFormData(currentStep)}
+          onSubmitHandler={onSubmitHandler}
           currentStep={currentStep}
           totalSteps={totalSteps}
         />

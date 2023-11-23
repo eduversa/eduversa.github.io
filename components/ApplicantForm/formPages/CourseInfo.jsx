@@ -116,7 +116,7 @@ const CourseInfo = ({
 
   async function onSubmitHandler() {
     localStorage.setItem("course_info", JSON.stringify(formData.course_info));
-    const data = formData.course_info;
+    const data = JSON.stringify(formData.course_info);
     const type = "course";
     const user_id = localStorage.getItem("userid");
     try {
@@ -159,9 +159,8 @@ const CourseInfo = ({
             name="course_info.duration"
             value={formData.course_info.duration}
             onChange={handleCourseChange}
+            readOnly
             required
-            min="1"
-            max="10"
           />
         </div>
         <div className="grid-col-2">

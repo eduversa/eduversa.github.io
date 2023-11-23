@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import Image from "next/image";
 import { FormButtons } from "../inputComponent/InputComponent";
-
+import { updateAppplicantData } from "@/functions";
 const FileUpload = ({
   formData,
   setFormData,
@@ -9,7 +9,7 @@ const FileUpload = ({
   handlePreviousClick,
   handleNextClick,
   currentStep,
-  totalSteps
+  totalSteps,
 }) => {
   const [imagePreview, setImagePreview] = useState(formData.image);
 
@@ -25,12 +25,21 @@ const FileUpload = ({
     }
   };
   async function onSubmitHandler() {
-    const image = formData.image;
-    const data = { image: image };
+    const image = document.getElementById("user-image");
+    const profileData = new FormData();
+    profileData.append("image", image.files[0]);
+    const data = profileData;
     const type = "files";
     const user_id = localStorage.getItem("userid");
+    const fileTypes = "files";
     try {
-      const response = await updateAppplicantData(user_id, type, data);
+      console.log(type, data, user_id);
+      const response = await updateAppplicantData(
+        user_id,
+        type,
+        data,
+        fileTypes
+      );
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -38,11 +47,14 @@ const FileUpload = ({
   }
   return (
     <Fragment>
-      <form className="page--content" onSubmit={(event) => {
-        event.preventDefault();
-        onSubmitHandler();
-        handleNextClick();
-      }}>
+      <form
+        className="page--content"
+        onSubmit={(event) => {
+          event.preventDefault();
+          onSubmitHandler();
+          handleNextClick();
+        }}
+      >
         <div className="image-upload">
           {imagePreview && (
             <div className="image-preview">
@@ -69,10 +81,10 @@ const FileUpload = ({
             style={{ display: "none" }}
           />
         </div>
-        <FormButtons 
-          handlePreviousClick={handlePreviousClick} 
-          clearFormData={() => clearFormData(currentStep)} 
-          onSubmitHandler={onSubmitHandler} 
+        <FormButtons
+          handlePreviousClick={handlePreviousClick}
+          clearFormData={() => clearFormData(currentStep)}
+          onSubmitHandler={onSubmitHandler}
           currentStep={currentStep}
           totalSteps={totalSteps}
         />
