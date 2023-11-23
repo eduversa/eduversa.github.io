@@ -28,6 +28,7 @@ function Login() {
       localStorage.setItem("email", apiResponse.data.email);
       localStorage.setItem("userType", apiResponse.data.type);
       localStorage.setItem("userid", apiResponse.data.user_id);
+      localStorage.setItem("applicant_profile", JSON.stringify(apiResponse.profileData));
       console.log("AuthToken", localStorage.getItem("authToken"));
       console.log("Email", localStorage.getItem("email"));
       console.log("UserType", localStorage.getItem("userType"));
