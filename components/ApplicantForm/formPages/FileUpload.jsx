@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment } from "react";
 import Image from "next/image";
 
 const FileUpload = ({ formData, setFormData, handleChange }) => {
@@ -10,30 +10,49 @@ const FileUpload = ({ formData, setFormData, handleChange }) => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
-        handleChange({ target: { name: 'image', value: reader.result } });
+        handleChange({ target: { name: "image", value: reader.result } });
       };
       reader.readAsDataURL(file);
     }
   };
-
+  async function onSubmitHandler() {
+    const image = formData.image;
+    const data = { image: image };
+    const type = "files";
+    const user_id = localStorage.getItem("userid");
+    try {
+      const response = await updateAppplicantData(user_id, type, data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <Fragment>
       <div className="image-upload">
         {imagePreview && (
-          <div className="image-preview" >
-            <Image className="image" src={imagePreview} alt="Preview" width={200} height={200} />
+          <div className="image-preview">
+            <Image
+              className="image"
+              src={imagePreview}
+              alt="Preview"
+              width={200}
+              height={200}
+            />
             {/* <img src={imagePreview} alt="Preview" /> */}
           </div>
         )}
 
-        <label htmlFor="user-image" className="btn">Upload Image</label>
+        <label htmlFor="user-image" className="btn">
+          Upload Image
+        </label>
         <input
           type="file"
           accept="image/*"
           name="user-image"
           id="user-image"
           onChange={handleFileInputChange}
-          style={{ display: 'none' }}
+          style={{ display: "none" }}
         />
       </div>
     </Fragment>

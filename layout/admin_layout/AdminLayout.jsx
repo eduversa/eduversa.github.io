@@ -12,9 +12,12 @@ function AdminLayout({ children }) {
     console.log("UserType", userType);
     if (!authToken) {
       router.push("/");
-      if (userType !== "applicant") {
+      if (userType !== "admin") {
         localStorage.removeItem("authToken");
       }
+    }
+    if (userType !== "admin") {
+      router.push("/");
     }
   }, []);
   return (

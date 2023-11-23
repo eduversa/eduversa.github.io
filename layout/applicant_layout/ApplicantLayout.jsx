@@ -15,6 +15,9 @@ function ApplicantLayout({ children }) {
         localStorage.removeItem("authToken");
       }
     }
+    if (userType !== "applicant") {
+      localStorage.removeItem("authToken");
+    }
   }, []);
   return (
     <Fragment>
