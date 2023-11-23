@@ -77,7 +77,7 @@ function AdminNavbar() {
           <div id="navContainer" className="sidenavbar">
             <div className="sidenavbar__container">
               <div className="sidenavbar__brand">
-                <p className="sidenavbar__brand___name">Eduversa</p>
+                <p className="sidenavbar__brand__name">Eduversa</p>
                 <div
                   className={`menu ${isMenuOpen && "open"}`}
                   onClick={toggleSideNavbar}
