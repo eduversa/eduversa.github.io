@@ -27,6 +27,7 @@ function ApplicantNavbar() {
       localStorage.removeItem("email");
       localStorage.removeItem("userType");
       localStorage.removeItem("userid");
+      localStorage.removeItem("applicant_profile");
       localStorage.clear();
       alert(apiResponse.message);
       setIsLoading(false);

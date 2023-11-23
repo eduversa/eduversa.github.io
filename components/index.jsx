@@ -15,3 +15,9 @@ export { default as Roller } from "./Loading/Roller";
 export { default as Spinner } from "./Loading/Spinner";
 
 export { default as AllLoader } from "./AllLoader";
+
+// Form Componets
+export { default as PersonalInfoForm } from "./form/PersonalInfoForm";
+export { default as AcademicInfoForm } from "./form/AcademicInfoForm";
+export { default as FamilyInfoForm } from "./form/FamilyInfoForm";
+export { default as ApplicantCourseForm } from "./form/ApplicantCourseForm";

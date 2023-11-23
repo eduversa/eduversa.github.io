@@ -5,12 +5,10 @@ export { default as generateOtpApi } from "./generateOtp";
 export { default as resetPasswordApi } from "./resetPasswordApi";
 export { default as resetUserNameApi } from "./resetUserNameApi";
 
-export { default as deleteApplicantsByYearApi } from "./deleteApplicantsByYearApi";
+// applicant
 
-export { default as deleteSingleApplicantApi } from "./deleteSingleApplicantApi";
-
-export { default as getApplicantsByYearApi } from "./getApplicantsByYearApi";
-
-export { default as getCollegeDetailsApi } from "./getCollegeDetailsApi";
-
-export { default as getSingleApplicantApi } from "./getSingleApplicantApi";
+export { default as updateAppplicantApi } from "./Applicant/updateApplicant";
+export { default as getApplicantsByYearApi } from "./Applicant/getApplicantsByYearApi";
+export { default as getApplicantsByYear } from "./Applicant/getApplicantsByYearApi";
+export { default as deleteApplicantsByYear } from "./Applicant/deleteApplicantsByYearApi";
+export { default as deleteSingleApplicantApi } from "./Applicant/deleteSingleApplicantApi";
