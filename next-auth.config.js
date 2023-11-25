@@ -12,6 +12,7 @@ const nextAuthConfig = {
       profileUrl: "https://www.googleapis.com/oauth2/v1/userinfo",
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     },
   ],
 };
