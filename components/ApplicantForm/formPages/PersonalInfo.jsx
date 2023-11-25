@@ -134,6 +134,14 @@ const PersonalInfo = ({
     }
   }
 
+  // let email = '';
+  // if (typeof window !== 'undefined') {
+  //   email = localStorage.getItem('email');
+  // }
+
+
+  // const email = localStorage.getItem('email');
+
   return (
     <Fragment>
       {loading && <AllLoader />}
@@ -161,6 +169,8 @@ const PersonalInfo = ({
             name="personal_info.email"
             value={formData.personal_info.email}
             onChange={handleChange}
+            // value={email}
+            // readOnly
             required
           />
           <PhoneNumber
