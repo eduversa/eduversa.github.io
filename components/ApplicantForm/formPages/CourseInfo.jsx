@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { AllLoader } from "@/components";
 import {
   Text,
   Email,
@@ -25,7 +26,7 @@ const CourseInfo = ({
   const [selectedCourse, setSelectedCourse] = useState("");
   const [streams, setStreams] = useState([]);
   const [showStream, setShowStream] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     getCollegeDetails();
   }, []);
@@ -116,6 +117,7 @@ const CourseInfo = ({
   }, [setFormData, currentYear]);
 
   async function onSubmitHandler() {
+    setLoading(true);
     localStorage.setItem("course_info", JSON.stringify(formData.course_info));
     const data = JSON.stringify(formData.course_info);
     const type = "course";
@@ -123,6 +125,8 @@ const CourseInfo = ({
     try {
       const response = await updateAppplicantData(user_id, type, data);
       console.log(response);
+      alert(response.message);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -130,6 +134,7 @@ const CourseInfo = ({
 
   return (
     <Fragment>
+      {loading && <AllLoader />}
       <form
         className="page--content"
         onSubmit={(event) => {
