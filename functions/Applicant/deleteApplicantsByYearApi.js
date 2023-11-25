@@ -3,7 +3,7 @@ const BASE_URL = "https://eduversa-api.onrender.com";
 const deleteApplicantsByYearApi = async (year) => {
   const url = `${BASE_URL}/applicant/year?year=${year}`;
   console.log("URL:", url);
-
+  const authToken = localStorage.getItem("authToken");
   try {
     console.log("Delete Applicants By Year Function Called");
     console.log("Year:", year);
@@ -12,6 +12,7 @@ const deleteApplicantsByYearApi = async (year) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        authorization: authToken,
       },
     });
 
