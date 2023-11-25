@@ -3,7 +3,7 @@ const BASE_URL = "https://eduversa-api.onrender.com";
 const getApplicantsByYearApi = async (year) => {
   const url = `${BASE_URL}/applicant/year?year=${year}`;
   console.log("URL:", url);
-
+  const authToken = localStorage.getItem("authToken");
   try {
     console.log("Get Applicants By Year Function Called");
     console.log("Year:", year);
@@ -12,6 +12,7 @@ const getApplicantsByYearApi = async (year) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        authorization: authToken,
       },
     });
 

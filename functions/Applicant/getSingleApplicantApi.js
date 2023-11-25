@@ -3,7 +3,7 @@ const BASE_URL = "https://eduversa-api.onrender.com";
 const getSingleApplicantApi = async (userId) => {
   const url = `${BASE_URL}/applicant/?user_id=${userId}`;
   console.log("URL:", url);
-
+  const authToken = localStorage.getItem("authToken");
   try {
     console.log("Get Single Applicant Function Called");
     console.log("User ID:", userId);
@@ -12,6 +12,7 @@ const getSingleApplicantApi = async (userId) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        authorization: authToken,
       },
     });
 

@@ -202,6 +202,7 @@
       cursor: pointer;
       position: relative;
       overflow: hidden;
+      border-color: var(--yellow);
       box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
       transition: background 0.3s ease, box-shadow 0.3s ease,
         transform 0.3s ease, border-color 0.3s ease;
@@ -278,7 +279,7 @@
         );
         box-shadow: 0px 8px 20px -5px var(--black-shadow);
         transform: translateY(-2px);
-        border-color: var(--yellow);
+        // border-color: var(--yellow);
         animation: pulse 2s infinite;
       }
     }
