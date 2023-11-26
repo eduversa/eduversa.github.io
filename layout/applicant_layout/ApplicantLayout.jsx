@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ApplicantNavbar, Footer } from "@/containers";
@@ -7,8 +6,10 @@ function ApplicantLayout({ children }) {
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     const userType = localStorage.getItem("userType");
-    console.log("AuthToken", authToken);
-    console.log("UserType", userType);
+    if (process.env.NODE_ENV === "development") {
+      console.log("AuthToken", authToken);
+      console.log("UserType", userType);
+    }
     if (!authToken) {
       localStorage.clear();
       router.push("/");
@@ -16,7 +17,7 @@ function ApplicantLayout({ children }) {
     if (userType !== "applicant") {
       router.push("/");
     }
-  }, []);
+  }, [router]);
   return (
     <Fragment>
       <ApplicantNavbar />

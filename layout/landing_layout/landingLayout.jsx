@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Fragment, useEffect } from "react";
 import { LandingNavbar, LandingPage } from "@/containers";
 
@@ -8,8 +7,10 @@ function LandingLayout({ children }) {
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     const userType = localStorage.getItem("userType");
-    console.log("AuthToken", authToken);
-    console.log("UserType", userType);
+    if (process.env.NODE_ENV === "development") {
+      console.log("AuthToken", authToken);
+      console.log("UserType", userType);
+    }
     if (authToken) {
       if (userType === "applicant") {
         router.push("/applicant");
@@ -23,7 +24,7 @@ function LandingLayout({ children }) {
         localStorage.removeItem("authToken");
       }
     }
-  }, []);
+  }, [router]);
   return (
     <Fragment>
       <LandingNavbar></LandingNavbar>

@@ -8,8 +8,10 @@ function AdminLayout({ children }) {
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     const userType = localStorage.getItem("userType");
-    console.log("AuthToken", authToken);
-    console.log("UserType", userType);
+    if (process.env.NODE_ENV === "development") {
+      console.log("AuthToken", authToken);
+      console.log("UserType", userType);
+    }
     if (!authToken) {
       localStorage.clear();
       router.push("/");
