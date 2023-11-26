@@ -5,6 +5,31 @@
   background: #f3f3f3;
   border-radius: 20px;
   box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
+  position: relative;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: inherit;
+    border-radius: 25px;
+    z-index: -1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  }
+
+  &:before {
+    transform: rotate(2deg);
+    box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+  }
+
+  &:after {
+    transform: rotate(-2deg);
+    box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+  }
 
   .contact-us-heading,
   .team-members__heading,
@@ -23,6 +48,7 @@
 
   .team-members {
     .member {
+      position: relative;
       margin-bottom: 30px;
       padding: 25px;
       border: 1px solid #ddd;
@@ -33,6 +59,31 @@
 
       &:hover {
         transform: translateY(-5px);
+        box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        background: inherit;
+        border-radius: 15px;
+        z-index: -1;
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          background 0.3s ease;
+      }
+
+      &::before {
+        transform: rotate(2deg);
+        box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+      }
+
+      &::after {
+        transform: rotate(-2deg);
         box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
       }
 
@@ -105,6 +156,7 @@
       padding: 0;
 
       li {
+        position: relative;
         font-size: 20px;
         margin-bottom: 20px;
         display: flex;
@@ -120,6 +172,31 @@
           transform: translateY(-5px);
           box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
           color: #007bff;
+        }
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          top: 5px;
+          left: 5px;
+          right: 5px;
+          bottom: 5px;
+          background: inherit;
+          border-radius: 15px;
+          z-index: -1;
+          transition: transform 0.3s ease, box-shadow 0.3s ease,
+            background 0.3s ease;
+        }
+
+        &::before {
+          transform: rotate(2deg);
+          box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+        }
+
+        &::after {
+          transform: rotate(-2deg);
+          box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
         }
 
         .github-icon,
