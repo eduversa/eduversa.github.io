@@ -39,7 +39,7 @@
     font-weight: 400;
     letter-spacing: 3px;
     text-transform: uppercase;
-    margin: 0 0 1.5% 0;
+    margin: 0 0 1% 0;
     &::before {
       content: "";
       display: block;
@@ -64,7 +64,8 @@
   .team-members {
     &__heading {
       text-align: center;
-      font-family: var(--font-blackpast);
+      font-family: var(--font-elianto);
+      text-transform: uppercase;
       font-size: var(--font-8);
       font-weight: 600;
       letter-spacing: 3px;
@@ -178,12 +179,13 @@
   .contact-email {
     &__heading {
       text-align: center;
-      font-family: var(--font-blackpast);
-      font-size: var(--font-8);
+      font-family: var(--font-roboto);
+      text-transform: uppercase;
+      font-size: var(--font-9);
       font-weight: 600;
       letter-spacing: 3px;
       color: var(--blue-13);
-      margin: 0 0 1.5% 0;
+      margin: 0 0 0 0;
     }
     &__container {
       @include flex-container(row, nowrap, center, center);
@@ -217,8 +219,9 @@
   .team-objective {
     &__heading {
       text-align: center;
-      font-family: var(--font-blackpast);
-      font-size: var(--font-8);
+      font-family: var(--font-roboto);
+      text-transform: uppercase;
+      font-size: var(--font-9);
       font-weight: 600;
       letter-spacing: 3px;
       color: var(--blue-13);
@@ -236,8 +239,9 @@
   .social-media {
     &__heading {
       text-align: center;
-      font-family: var(--font-blackpast);
-      font-size: var(--font-8);
+      font-family: var(--font-roboto);
+      text-transform: uppercase;
+      font-size: var(--font-9);
       font-weight: 600;
       letter-spacing: 3px;
       color: var(--blue-13);
@@ -246,41 +250,29 @@
     ul {
       list-style: none;
       padding: 0;
-
+      @include flex-container(row, nowrap, center, center);
+      gap: 40px;
       li {
-        position: relative;
+        @include flex-container(row, nowrap, center, center);
+        gap: 10px;
+        width: 100%;
+        padding: 16px;
+        background: var(--white-1);
+        font-family: var(--font-tektur);
+        font-size: var(--font-10);
+        color: var(--black);
+        letter-spacing: 2px;
+        font-weight: 500;
+        border: none;
+        border-radius: 15px;
         cursor: pointer;
-        margin: 0 0 2% 0;
-        @include flex-container(row, nowrap, flex-start, center);
-        background: var(--white-9);
-        padding: 20px;
-        border-radius: 100px;
-        box-shadow: 10px 10px 20px var(--white-10),
-          -10px -10px 20px var(--white-11);
-        transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+        transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        text-transform: uppercase;
+        box-shadow: -5px -5px 10px #ffffffb3, 5px 5px 10px #0003;
         &:hover {
-          transform: translateY(-10px) scale(1.01);
-          box-shadow: 20px 20px 40px var(--white-10),
-            -20px -20px 40px var(--white-11);
-          color: var(--blue-1);
-
-          transition: transform 0.5s ease, box-shadow 0.5s ease,
-            background 0.5s ease, color 0.5s ease;
-        }
-
-        &::before,
-        &::after {
-          content: "";
-          position: absolute;
-          top: 5px;
-          left: 5px;
-          right: 5px;
-          bottom: 5px;
-          background: inherit;
-          border-radius: 15px;
-          z-index: -1;
-          transition: transform 0.5s ease, box-shadow 0.5s ease,
-            background 0.5s ease;
+          background: var(--white-2);
+          transform: scale(1.02);
+          box-shadow: -10px -10px 20px #ffffffb3, 10px 10px 20px #0003;
         }
 
         .github-icon,
@@ -288,29 +280,10 @@
         .linkedin-icon,
         .facebook-icon,
         .instagram-icon {
-          margin-right: 12px;
           transition: transform 0.5s ease;
-        }
-
-        &:hover {
-          .github-icon {
-            transform: rotate(360deg) translateY(-5px);
-          }
-
-          .twitter-icon {
-            transform: rotate(360deg) translateY(-5px);
-          }
-
-          .linkedin-icon {
-            transform: rotate(360deg) translateY(-5px);
-          }
-
-          .facebook-icon {
-            transform: rotate(360deg) translateY(-5px);
-          }
-
-          .instagram-icon {
-            transform: rotate(360deg) translateY(-5px);
+          transform: scale(1.2);
+          &:hover {
+            transform: scale(1.5);
           }
         }
       }
