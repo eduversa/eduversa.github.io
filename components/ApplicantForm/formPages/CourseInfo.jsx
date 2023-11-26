@@ -13,6 +13,7 @@ import { getCollegeDetailsApi, updateAppplicantData } from "@/functions";
 const CourseInfo = ({
   formData,
   setFormData,
+  clearFormData,
   handleChange,
   handlePreviousClick,
   handleNextClick,
@@ -172,23 +173,36 @@ const CourseInfo = ({
           {!showStream ? (
             ""
           ) : (
-            <Select
-              label="Stream"
-              name="course_info.stream"
-              value={formData.course_info.stream}
-              onChange={handleChange}
-              required
-              options={[
-                { key: "Select your stream", value: "" },
-                ...(Array.isArray(streams)
-                  ? streams.map((stream) => ({
-                      key: stream.name,
-                      value: stream.name,
-                    }))
-                  : []),
-              ]}
-            />
+          <Select
+            label="Stream"
+            name="course_info.stream"
+            value={formData.course_info.stream}
+            onChange={handleChange}
+            required
+            options={[
+              { key: "Select your stream", value: "" },
+              ...(Array.isArray(streams) && streams.length > 0
+                ? streams.map((stream) => ({
+                    key: stream.name,
+                    value: stream.name,
+                  }))
+                : [{ key: "NA", value: "NA" }]),
+            ]}
+            // options={
+            //   Array.isArray(streams) && streams.length > 0
+            //     ? [
+            //         { key: "Select your stream", value: "" },
+            //         ...streams.map((stream) => ({
+            //             key: stream.name,
+            //             value: stream.name,
+            //           })),
+            //       ]
+            //     : [{ key: "NA", value: "NA" }]
+            // }
+            
+          />
           )}
+
           <Number
             label="Admission Year"
             name="course_info.admission_year"

@@ -16,6 +16,10 @@
     margin-bottom: 0.3rem;
     font-size: var(--font-12);
     color: var(--blue-6);
+    span {
+      font-weight: normal;
+      padding-left: 0.5rem;
+    }
   }
   input[type="radio"] {
     margin-right: 0.3rem;
@@ -38,7 +42,7 @@
     background-image: none;
     border: 1px solid #ccc;
     border-radius: 0.25rem;
-    margin-bottom: 1.25rem;
+    // margin-bottom: 1.25rem;
     &:invalid,
     &.invalid {
       color: red;
@@ -47,6 +51,10 @@
   }
   input[type="checkbox"] {
     margin: 0 10px;
+  }
+
+  .inputs {
+    margin-bottom: 1.25rem;
   }
 
   @media (max-width: $breakpoint-desktop-wide) {
