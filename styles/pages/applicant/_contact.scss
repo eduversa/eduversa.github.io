@@ -41,10 +41,11 @@
     font-size: 32px;
     margin-bottom: 20px;
     color: #333;
-    transition: color 0.5s ease;
+    transition: color 0.3s ease;
 
     &:hover {
       color: #007bff;
+      transition: color 0.3s ease;
     }
   }
 
@@ -56,12 +57,14 @@
       border: 1px solid #ddd;
       border-radius: 20px;
       background: #f3f3f3;
-      box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease,
+        background 0.3s ease;
 
       &:hover {
-        transform: translateY(-10px);
+        transform: translateY(-10px) rotateX(5deg);
         box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
 
       &::before,
@@ -75,8 +78,8 @@
         background: inherit;
         border-radius: 15px;
         z-index: -1;
-        transition: transform 0.5s ease, box-shadow 0.5s ease,
-          background 0.5s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          background 0.3s ease;
       }
 
       &::before {
@@ -102,6 +105,7 @@
 
         &__icon {
           margin-right: 12px;
+          transition: transform 0.3s ease;
         }
 
         &__link {
@@ -133,14 +137,28 @@
       display: flex;
       align-items: center;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
 
       &__icon {
         margin-right: 12px;
+        transition: transform 0.3s ease;
       }
 
       &__content {
         font-size: 20px;
         color: #333;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover {
+        .contact-email__icon {
+          transform: rotate(360deg);
+        }
+
+        .contact-email__content {
+          transform: translateX(10px);
+        }
       }
     }
   }
@@ -149,6 +167,7 @@
     &__content {
       font-size: 20px;
       color: #333;
+      transition: color 0.3s ease;
     }
   }
 
@@ -168,13 +187,15 @@
         padding: 20px;
         border-radius: 20px;
         box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
-        transition: transform 0.5s ease, box-shadow 0.5s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
 
         &:hover {
-          transform: translateY(-10px);
+          transform: translateY(-10px) scale(1.1);
           box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
           color: #007bff;
           background: linear-gradient(45deg, #e0f7fa, #80deea);
+          transition: transform 0.3s ease, box-shadow 0.3s ease,
+            background 0.3s ease, color 0.3s ease;
         }
 
         &::before,
@@ -188,8 +209,8 @@
           background: inherit;
           border-radius: 15px;
           z-index: -1;
-          transition: transform 0.5s ease, box-shadow 0.5s ease,
-            background 0.5s ease;
+          transition: transform 0.3s ease, box-shadow 0.3s ease,
+            background 0.3s ease;
         }
 
         &::before {
@@ -208,6 +229,29 @@
         .facebook-icon,
         .instagram-icon {
           margin-right: 12px;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover {
+          .github-icon {
+            transform: rotate(360deg) translateY(-5px);
+          }
+
+          .twitter-icon {
+            transform: rotate(360deg) translateY(-5px);
+          }
+
+          .linkedin-icon {
+            transform: rotate(360deg) translateY(-5px);
+          }
+
+          .facebook-icon {
+            transform: rotate(360deg) translateY(-5px);
+          }
+
+          .instagram-icon {
+            transform: rotate(360deg) translateY(-5px);
+          }
         }
       }
     }
