@@ -6,6 +6,8 @@
   border-radius: 20px;
   box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
   position: relative;
+  overflow: hidden;
+  transition: background 0.5s ease;
 
   &:before,
   &:after {
@@ -18,17 +20,17 @@
     background: inherit;
     border-radius: 25px;
     z-index: -1;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
   }
 
   &:before {
     transform: rotate(2deg);
-    box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+    box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
   }
 
   &:after {
     transform: rotate(-2deg);
-    box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+    box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
   }
 
   .contact-us-heading,
@@ -39,7 +41,7 @@
     font-size: 32px;
     margin-bottom: 20px;
     color: #333;
-    transition: color 0.3s ease;
+    transition: color 0.5s ease;
 
     &:hover {
       color: #007bff;
@@ -54,12 +56,12 @@
       border: 1px solid #ddd;
       border-radius: 20px;
       background: #f3f3f3;
-      box-shadow: 12px 12px 24px #d9d9d9, -12px -12px 24px #ffffff;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
 
       &:hover {
-        transform: translateY(-5px);
-        box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+        transform: translateY(-10px);
+        box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
       }
 
       &::before,
@@ -73,8 +75,8 @@
         background: inherit;
         border-radius: 15px;
         z-index: -1;
-        transition: transform 0.3s ease, box-shadow 0.3s ease,
-          background 0.3s ease;
+        transition: transform 0.5s ease, box-shadow 0.5s ease,
+          background 0.5s ease;
       }
 
       &::before {
@@ -166,12 +168,13 @@
         padding: 20px;
         border-radius: 20px;
         box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
 
         &:hover {
-          transform: translateY(-5px);
-          box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+          transform: translateY(-10px);
+          box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
           color: #007bff;
+          background: linear-gradient(45deg, #e0f7fa, #80deea);
         }
 
         &::before,
@@ -185,8 +188,8 @@
           background: inherit;
           border-radius: 15px;
           z-index: -1;
-          transition: transform 0.3s ease, box-shadow 0.3s ease,
-            background 0.3s ease;
+          transition: transform 0.5s ease, box-shadow 0.5s ease,
+            background 0.5s ease;
         }
 
         &::before {
