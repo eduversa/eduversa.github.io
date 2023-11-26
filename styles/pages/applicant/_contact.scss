@@ -16,6 +16,7 @@
   @media (max-width: $breakpoint-tablet) {
   }
   @media (max-width: $breakpoint-phone) {
+    overflow: hidden;
   }
   &:before,
   &:after {
@@ -217,6 +218,8 @@
           color: var(--blue-1);
           text-decoration: none;
           transition: text-decoration 0.5s ease-in-out;
+          overflow: auto;
+          overflow-wrap: break-word;
           @media (max-width: $breakpoint-desktop-wide) {
           }
           @media (max-width: $breakpoint-desktop) {
@@ -472,6 +475,7 @@
           width: 30%;
         }
         @media (max-width: $breakpoint-tablet) {
+          width: 40%;
         }
         @media (max-width: $breakpoint-phone) {
         }
