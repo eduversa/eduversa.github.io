@@ -64,7 +64,7 @@
     }
     .logo-text {
       cursor: pointer;
-      color: var(--blue-4);
+      color: var(--black);
       text-decoration: none;
       transition: transform 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
       @media (max-width: $breakpoint-desktop-wide) {

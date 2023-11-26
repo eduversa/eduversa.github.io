@@ -41,7 +41,7 @@ const ContactUs = () => {
   const authToken =
     typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
   const containerClass = authToken
-    ? "contact-us-container"
+    ? "wrapper contact-us-container"
     : "contact-us-landing-container";
   const handleSocialLoginClick = (provider) => {
     alert(`We are coming on ${provider} soon!`);
@@ -125,7 +125,7 @@ const ContactUs = () => {
                 className="facebook-icon"
               ></Image>
             </li>
-            <li>
+            <li onClick={() => handleSocialLoginClick("Instagram")}>
               Instagram:
               <Image
                 src="/contactus/instagram.png"
