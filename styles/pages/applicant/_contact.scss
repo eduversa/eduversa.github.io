@@ -176,6 +176,15 @@
   }
 
   .contact-email {
+    &__heading {
+      text-align: center;
+      font-family: var(--font-blackpast);
+      font-size: var(--font-8);
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--blue-13);
+      margin: 0 0 1.5% 0;
+    }
     &__container {
       @include flex-container(row, nowrap, flex-start, center);
       cursor: pointer;
@@ -199,16 +208,6 @@
         transition: text-decoration 0.5s ease-in-out;
         &:hover {
           text-decoration: underline;
-        }
-      }
-
-      &:hover {
-        .contact-email__icon {
-          transform: rotate(360deg);
-        }
-
-        .contact-email__content {
-          transform: translateX(10px);
         }
       }
     }
