@@ -2,30 +2,39 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 40px;
-  background: #f3f3f3; /* Light background color */
+  background: #f3f3f3;
   border-radius: 20px;
-  box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff; /* Subtle box shadow */
+  box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
 
-  .contact-us-heading {
-    font-size: 40px;
+  .contact-us-heading,
+  .team-members__heading,
+  .contact-email__heading,
+  .team-objective__heading,
+  .social-media__heading {
+    font-size: 32px;
     margin-bottom: 20px;
     color: #333;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #007bff;
+    }
   }
 
   .team-members {
-    &__heading {
-      font-size: 32px;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
     .member {
       margin-bottom: 30px;
       padding: 25px;
       border: 1px solid #ddd;
       border-radius: 20px;
-      background: #f3f3f3; /* Light background color */
-      box-shadow: 12px 12px 24px #d9d9d9, -12px -12px 24px #ffffff; /* Subtle box shadow */
+      background: #f3f3f3;
+      box-shadow: 12px 12px 24px #d9d9d9, -12px -12px 24px #ffffff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+      }
 
       &__heading {
         font-size: 28px;
@@ -67,12 +76,6 @@
   }
 
   .contact-email {
-    &__heading {
-      font-size: 32px;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
     &__container {
       display: flex;
       align-items: center;
@@ -90,12 +93,6 @@
   }
 
   .team-objective {
-    &__heading {
-      font-size: 32px;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
     &__content {
       font-size: 20px;
       color: #333;
@@ -103,12 +100,6 @@
   }
 
   .social-media {
-    &__heading {
-      font-size: 28px;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
     ul {
       list-style: none;
       padding: 0;
@@ -119,12 +110,15 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-        background: #f3f3f3; /* Light background color */
+        background: #f3f3f3;
         padding: 20px;
         border-radius: 20px;
-        box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff; /* Subtle box shadow */
+        box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
 
         &:hover {
+          transform: translateY(-5px);
+          box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
           color: #007bff;
         }
 
