@@ -198,6 +198,8 @@
           @media (max-width: $breakpoint-desktop) {
           }
           @media (max-width: $breakpoint-large-tablet) {
+            height: 25px;
+            width: 25px;
           }
           @media (max-width: $breakpoint-tablet) {
           }
@@ -324,6 +326,8 @@
         @media (max-width: $breakpoint-desktop) {
         }
         @media (max-width: $breakpoint-large-tablet) {
+          height: 25px;
+          width: 25px;
         }
         @media (max-width: $breakpoint-tablet) {
         }
@@ -434,6 +438,7 @@
       @media (max-width: $breakpoint-desktop) {
       }
       @media (max-width: $breakpoint-large-tablet) {
+        @include flex-container(column, nowrap, center, center);
       }
       @media (max-width: $breakpoint-tablet) {
       }
@@ -464,6 +469,7 @@
           gap: 5px;
         }
         @media (max-width: $breakpoint-large-tablet) {
+          width: 30%;
         }
         @media (max-width: $breakpoint-tablet) {
         }
