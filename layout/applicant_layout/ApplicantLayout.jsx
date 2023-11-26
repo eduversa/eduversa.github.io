@@ -10,13 +10,11 @@ function ApplicantLayout({ children }) {
     console.log("AuthToken", authToken);
     console.log("UserType", userType);
     if (!authToken) {
+      localStorage.clear();
       router.push("/");
-      if (userType !== "applicant") {
-        localStorage.removeItem("authToken");
-      }
     }
     if (userType !== "applicant") {
-      localStorage.removeItem("authToken");
+      router.push("/");
     }
   }, []);
   return (

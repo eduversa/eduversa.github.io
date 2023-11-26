@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
-import { AdminNavbar, Footer } from "@/containers";
-
-function AdminLayout({ children }) {
+import { Footer } from "@/containers";
+function StudentLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -14,17 +13,16 @@ function AdminLayout({ children }) {
       localStorage.clear();
       router.push("/");
     }
-    if (userType !== "admin") {
+    if (userType !== "student") {
       router.push("/");
     }
   }, []);
   return (
     <Fragment>
-      <AdminNavbar></AdminNavbar>
       {children}
       <Footer></Footer>
     </Fragment>
   );
 }
 
-export default AdminLayout;
+export default StudentLayout;
