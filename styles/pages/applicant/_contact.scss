@@ -251,7 +251,7 @@
       list-style: none;
       padding: 0;
       @include flex-container(row, nowrap, center, center);
-      gap: 40px;
+      gap: 20px;
       li {
         @include flex-container(row, nowrap, center, center);
         gap: 10px;
@@ -259,7 +259,7 @@
         padding: 16px;
         background: var(--white-1);
         font-family: var(--font-tektur);
-        font-size: var(--font-10);
+        font-size: var(--font-11);
         color: var(--black);
         letter-spacing: 2px;
         font-weight: 500;
