@@ -5,12 +5,13 @@ import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
 import { loginUser } from "@/functions";
 import { AllLoader } from "@/components";
-
+import { useSession, signIn, signOut } from "next-auth/react";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -55,9 +56,14 @@ function Login() {
       console.error("Error in login:", error);
     }
   };
+
   const handleSocialLoginClick = (provider) => {
     alert(`Login with ${provider} is coming soon!`);
   };
+  const handleGoogleSignIn = async () => {
+    await signIn();
+  };
+  console.log("Session:", session);
   return (
     <Fragment>
       <LandingLayout>
@@ -115,7 +121,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="google-icon"
-                  onClick={() => handleSocialLoginClick("Google")}
+                  onClick={handleGoogleSignIn}
                 ></Image>
                 <Image
                   src="/login/facebook.png"

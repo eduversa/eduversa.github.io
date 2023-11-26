@@ -1,22 +1,34 @@
 const apiBaseUrl = "https://eduversa-api.onrender.com";
 
-const updateApplicantData = async (user_id, type, data) => {
-  const tempUserId = "2023005266";
+const updateApplicantData = async (user_id, type, data, fileType) => {
+  console.log(user_id, type, data, fileType);
   const userEmail = localStorage.getItem("email");
-  const apiUrl = `${apiBaseUrl}/applicant/?user_id=${tempUserId}&type=${type}&email=${userEmail}`;
+  const authToken = localStorage.getItem("authToken");
+  const apiUrl = `${apiBaseUrl}/applicant/?user_id=${user_id}&type=${type}&email=${userEmail}`;
   try {
     console.log("Update Applicant Data Function Called");
     console.log("User ID:", user_id);
     console.log("Type:", type);
     console.log("Data:", data);
-
-    const response = await fetch(apiUrl, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    let response;
+    if (!fileType) {
+      response = await fetch(apiUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: authToken,
+        },
+        body: data,
+      });
+    } else {
+      response = await fetch(apiUrl, {
+        method: "PUT",
+        headers: {
+          authorization: authToken,
+        },
+        body: data,
+      });
+    }
 
     if (!response.ok) {
       console.log(response);

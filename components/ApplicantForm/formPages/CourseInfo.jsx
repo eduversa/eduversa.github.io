@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { AllLoader } from "@/components";
 import {
   Text,
   Email,
@@ -17,14 +18,14 @@ const CourseInfo = ({
   handleNextClick,
   handleSubmit,
   currentStep,
-  totalSteps
+  totalSteps,
 }) => {
-  let year = new Date().getFullYear().toString();
-
+  const currentYear = new Date().getFullYear().toString();
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [streams, setStreams] = useState([]);
-  const [showStrem, setShowStream] = useState(false);
+  const [showStream, setShowStream] = useState(false);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     getCollegeDetails();
   }, []);
@@ -34,7 +35,6 @@ const CourseInfo = ({
       const course = courses.find((course) => course.name === selectedCourse);
       if (course) {
         setStreams(course.streams);
-        setShowStream(true);
       }
     }
   }, [selectedCourse, courses]);
@@ -43,57 +43,106 @@ const CourseInfo = ({
     try {
       const collegeData = await getCollegeDetailsApi(304);
       console.log(collegeData);
-      setCourses(collegeData.data.college_courses); // set the state
+      setCourses(collegeData.data.college_courses);
     } catch (error) {
       console.log(error);
     }
   }
 
+  useEffect(() => {
+    const savedCourseInfo = JSON.parse(localStorage.getItem("course_info"));
+    if (savedCourseInfo) {
+      const { course_name, stream, admission_year } = savedCourseInfo;
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        course_info: savedCourseInfo,
+      }));
+
+      setSelectedCourse(course_name);
+      setShowStream(true);
+
+      if (Array.isArray(courses)) {
+        const selectedCourse = courses.find(
+          (course) => course.name === course_name
+        );
+        if (selectedCourse) {
+          setStreams(selectedCourse.streams);
+
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            course_info: {
+              ...prevFormData.course_info,
+              duration: selectedCourse.duration,
+            },
+          }));
+        }
+      }
+    }
+  }, [setFormData, courses]);
+
   const handleCourseChange = (event) => {
     handleChange(event);
-    setSelectedCourse(event.target.value);
+    const selectedCourseName = event.target.value;
+    const selectedCourse = courses.find(
+      (course) => course.name === selectedCourseName
+    );
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      course_info: {
+        ...prevFormData.course_info,
+        course_name: selectedCourseName,
+        duration: selectedCourse ? selectedCourse.duration : "",
+      },
+    }));
+
+    setSelectedCourse(selectedCourseName);
     setShowStream(true);
+
+    if (selectedCourse) {
+      setStreams(selectedCourse.streams);
+    }
   };
 
-  //fetches data from local storfage
   useEffect(() => {
-    const savedFamilyInfo = JSON.parse(localStorage.getItem('course_info'));
-    if (savedFamilyInfo) {
-      setFormData(prevFormData => ({
-        ...prevFormData,
-        course_info: savedFamilyInfo
-      }));
-    }
-  }, [setFormData]);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      course_info: {
+        ...prevFormData.course_info,
+        admission_year: currentYear,
+      },
+    }));
+  }, [setFormData, currentYear]);
 
-  // set data to local storfage and sends data to database
   async function onSubmitHandler() {
-    localStorage.setItem(
-      "course_info",
-      JSON.stringify(formData.course_info)
-    );
-    const data = formData.course_info;
+    setLoading(true);
+    localStorage.setItem("course_info", JSON.stringify(formData.course_info));
+    const data = JSON.stringify(formData.course_info);
     const type = "course";
     const user_id = localStorage.getItem("userid");
     try {
       const response = await updateAppplicantData(user_id, type, data);
       console.log(response);
+      alert(response.message);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
   }
+
   return (
     <Fragment>
-      <form className="page--content" onSubmit={(event) => {
-        event.preventDefault();
-        onSubmitHandler();
-        handleNextClick();
-      }}>
-
-        {/* enrollment no */}
+      {loading && <AllLoader />}
+      <form
+        className="page--content"
+        onSubmit={(event) => {
+          event.preventDefault();
+          onSubmitHandler();
+          handleNextClick();
+        }}
+      >
         <div className="grid-col-2">
-          {" "}
-          {/* course duration */}
           <Select
             label="Course Name"
             name="course_info.course_name"
@@ -114,16 +163,13 @@ const CourseInfo = ({
             label="Duration"
             name="course_info.duration"
             value={formData.course_info.duration}
-            onChange={handleChange}
+            onChange={handleCourseChange}
+            readOnly
             required
-            min="1"
-            max="10"
           />
         </div>
         <div className="grid-col-2">
-          {" "}
-          {/* stream admission_year */}
-          {!showStrem ? (
+          {!showStream ? (
             ""
           ) : (
             <Select
@@ -132,7 +178,6 @@ const CourseInfo = ({
               value={formData.course_info.stream}
               onChange={handleChange}
               required
-              // options={Array.isArray(streams) ? streams.map(stream => ({ key: stream.name, value: stream.name })) : []}
               options={[
                 { key: "Select your stream", value: "" },
                 ...(Array.isArray(streams)
@@ -144,21 +189,18 @@ const CourseInfo = ({
               ]}
             />
           )}
-          {/* <button onClick={getCollegeDetails}>College Details</button> */}
           <Number
             label="Admission Year"
             name="course_info.admission_year"
-            value={formData.course_info.admission_year}
-            onChange={handleChange}
+            value={currentYear}
+            readOnly
             required
-            min={year - 10}
-            max={year}
           />
         </div>
-        <FormButtons 
-          handlePreviousClick={handlePreviousClick} 
-          clearFormData={() => clearFormData(currentStep)} 
-          onSubmitHandler={onSubmitHandler} 
+        <FormButtons
+          handlePreviousClick={handlePreviousClick}
+          clearFormData={() => clearFormData(currentStep)}
+          onSubmitHandler={onSubmitHandler}
           currentStep={currentStep}
           totalSteps={totalSteps}
         />
