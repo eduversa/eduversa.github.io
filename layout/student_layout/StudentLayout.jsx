@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
-import { AdminNavbar, Footer } from "@/containers";
-
+import { Footer } from "@/containers";
 function AdminLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
@@ -14,13 +13,12 @@ function AdminLayout({ children }) {
       localStorage.clear();
       router.push("/");
     }
-    if (userType !== "admin") {
+    if (userType !== "student") {
       router.push("/");
     }
   }, []);
   return (
     <Fragment>
-      <AdminNavbar></AdminNavbar>
       {children}
       <Footer></Footer>
     </Fragment>
