@@ -2,9 +2,9 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background: #f0f0f0; /* Light background color */
   border-radius: 8px;
+  box-shadow: 10px 10px 20px #c4c4c4, -10px -10px 20px #ffffff; /* Subtle box shadow */
 
   .contact-us-heading {
     font-size: 28px;
@@ -21,9 +21,11 @@
 
     .member {
       margin-bottom: 20px;
-      padding: 10px;
+      padding: 15px;
       border: 1px solid #ddd;
-      border-radius: 4px;
+      border-radius: 8px;
+      background: #f0f0f0; /* Light background color */
+      box-shadow: 5px 5px 10px #c4c4c4, -5px -5px 10px #ffffff; /* Subtle box shadow */
 
       &__heading {
         font-size: 20px;
@@ -116,6 +118,10 @@
         display: flex;
         align-items: center;
         cursor: pointer;
+        background: #f0f0f0; /* Light background color */
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 5px 5px 10px #c4c4c4, -5px -5px 10px #ffffff; /* Subtle box shadow */
 
         &:hover {
           color: #007bff;
