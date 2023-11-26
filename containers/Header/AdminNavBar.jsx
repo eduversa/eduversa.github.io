@@ -53,6 +53,21 @@ function AdminNavbar() {
       className: "nav-item",
       src: "/admin/manage/applicants",
     },
+    {
+      label: "Manage Applicants",
+      className: "nav-item",
+      src: "/admin/manage/students",
+    },
+    {
+      label: "Manage Applicants",
+      className: "nav-item",
+      src: "/admin/update/applicants",
+    },
+    {
+      label: "Manage Applicants",
+      className: "nav-item",
+      src: "/admin/update/students",
+    },
   ];
 
   return (
