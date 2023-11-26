@@ -2,7 +2,7 @@
   max-width: 1200px;
   margin: 2.5% auto 2.5% auto;
   padding: 40px;
-  background: #f3f3f3;
+  background: var(--white-9);
   border-radius: 20px;
   box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
   position: relative;
@@ -56,7 +56,7 @@
       padding: 25px;
       border: 1px solid #ddd;
       border-radius: 20px;
-      background: #f3f3f3;
+      background: var(--white-9);
       box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
       transition: transform 0.3s ease, box-shadow 0.3s ease,
         background 0.3s ease;
@@ -183,7 +183,7 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-        background: #f3f3f3;
+        background: var(--white-9);
         padding: 20px;
         border-radius: 20px;
         box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
