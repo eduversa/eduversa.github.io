@@ -177,21 +177,29 @@
 
   .contact-email {
     &__container {
-      display: flex;
-      align-items: center;
+      @include flex-container(row, nowrap, flex-start, center);
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-
       &__icon {
-        margin-right: 12px;
-        transition: transform 0.3s ease;
+        position: relative;
+        margin: 0 0.8% 0 0;
+        height: 35px;
+        width: 35px;
+        transition: transform 0.5s ease;
+        &:hover {
+          transform: scale(1.5);
+        }
       }
 
       &__content {
-        font-size: 20px;
-        color: #333;
-        transition: transform 0.3s ease;
+        font-family: var(--font-elianto);
+        font-size: var(--font-11);
+        letter-spacing: 2px;
+        color: var(--blue-1);
+        text-decoration: none;
+        transition: text-decoration 0.5s ease-in-out;
+        &:hover {
+          text-decoration: underline;
+        }
       }
 
       &:hover {
