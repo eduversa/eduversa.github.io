@@ -99,9 +99,9 @@
         background: inherit;
         border-radius: 15px;
         z-index: -1;
-        transition: all 0.5s ease-in-out;
+        transition: transform 0.5s ease, box-shadow 0.5s ease,
+          background 0.5s ease;
       }
-
       &::before {
         transform: rotate(2deg);
         box-shadow: 15px 15px 30px var(--white-10),
@@ -234,6 +234,15 @@
   }
 
   .social-media {
+    &__heading {
+      text-align: center;
+      font-family: var(--font-blackpast);
+      font-size: var(--font-8);
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--blue-13);
+      margin: 0 0 1.5% 0;
+    }
     ul {
       list-style: none;
       padding: 0;
