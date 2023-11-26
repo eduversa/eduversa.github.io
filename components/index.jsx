@@ -21,3 +21,4 @@ export { default as PersonalInfoForm } from "./form/PersonalInfoForm";
 export { default as AcademicInfoForm } from "./form/AcademicInfoForm";
 export { default as FamilyInfoForm } from "./form/FamilyInfoForm";
 export { default as ApplicantCourseForm } from "./form/ApplicantCourseForm";
+export {default as CollegeDropdowns} from "./DropDown"
