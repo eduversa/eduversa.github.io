@@ -20,7 +20,7 @@ function ApplicantLayout({ children }) {
   return (
     <Fragment>
       <ApplicantNavbar />
-      {children}
+      <div className="wrapper">{children}</div>
       <Footer />
     </Fragment>
   );

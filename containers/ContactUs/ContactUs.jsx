@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
 
 import contactUs from "../../data/ContactUs";
@@ -6,7 +6,7 @@ import contactUs from "../../data/ContactUs";
 const ContactUs = () => {
   const { teamMembers, contactEmail, teamObjective, additionalInformation } =
     contactUs;
-
+  const [containerClass, setContainerClass] = useState("");
   function emailHandler(contactEmail) {
     window.location.href = `mailto:${contactEmail}`;
   }
@@ -14,6 +14,16 @@ const ContactUs = () => {
   function contactEduversa() {
     window.location.href = `mailto:${eduversaEmail}`;
   }
+
+  useEffect(() => {
+    const authToken =
+      typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+    const newContainerClass = authToken
+      ? "contact-us-container"
+      : "contact-us-landing-container";
+    setContainerClass(newContainerClass);
+  }, []);
+
   const renderTeamMembers = () => {
     return teamMembers.map((member, index) => (
       <div key={index} className="member">
@@ -38,11 +48,7 @@ const ContactUs = () => {
       </div>
     ));
   };
-  const authToken =
-    typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
-  const containerClass = authToken
-    ? "wrapper contact-us-container"
-    : "contact-us-landing-container";
+
   const handleSocialLoginClick = (provider) => {
     alert(`We are coming on ${provider} soon!`);
   };
