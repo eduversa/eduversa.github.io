@@ -14,7 +14,7 @@ const Footer = () => {
       { label: "update data application", href: "/student/update" },
       { label: "About Us", href: "/student/about" },
       { label: "Contact Us", href: "/student/contact" },
-      { label: "Logout", href: "/logout" },
+      { label: "Logout", href: "/student/logout" },
     ],
     applicant: [
       { label: "Dashboard", href: "/applicant" },
