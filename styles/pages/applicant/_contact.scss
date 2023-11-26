@@ -94,6 +94,7 @@
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
+        font-size: var(--font-9);
       }
       @media (max-width: $breakpoint-large-tablet) {
       }
@@ -115,6 +116,7 @@
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
+        padding: 20px;
       }
       @media (max-width: $breakpoint-large-tablet) {
       }
@@ -288,6 +290,7 @@
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
+        font-size: var(--font-10);
       }
       @media (max-width: $breakpoint-large-tablet) {
       }
@@ -368,6 +371,7 @@
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
+        font-size: var(--font-10);
       }
       @media (max-width: $breakpoint-large-tablet) {
       }
@@ -385,6 +389,8 @@
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
+        font-size: var(--font-13);
+        letter-spacing: 1px;
       }
       @media (max-width: $breakpoint-large-tablet) {
       }
@@ -408,6 +414,7 @@
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
+        font-size: var(--font-10);
       }
       @media (max-width: $breakpoint-large-tablet) {
       }
@@ -452,6 +459,9 @@
           gap: 5px;
         }
         @media (max-width: $breakpoint-desktop) {
+          padding: 10px;
+          font-size: var(--font-13);
+          gap: 5px;
         }
         @media (max-width: $breakpoint-large-tablet) {
         }
@@ -479,6 +489,7 @@
             transform: scale(1);
           }
           @media (max-width: $breakpoint-desktop) {
+            transform: scale(0.9);
           }
           @media (max-width: $breakpoint-large-tablet) {
           }
