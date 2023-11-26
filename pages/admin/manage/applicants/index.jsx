@@ -1,21 +1,22 @@
 import { AdminLayout } from "@/layout";
-import React, { Fragment } from "react";
-import { getCollegeDetailsApi } from "@/functions";
-const manageApplicants = () => {
+import React, { Fragment, useEffect } from "react";
+import { getCollegeDetailsApi, getApplicantsByYear } from "@/functions";
+
+const ManageApplicants = () => {
+  useEffect(() => {
+    onLoadHandler();
+  }, []);
+
+  function onLoadHandler() {
+    getCollegeDetailsApi(304);
+    getApplicantsByYear(2023);
+  }
+
   return (
     <Fragment>
-      <AdminLayout>
-        <button
-          onClick={() => {
-            getCollegeDetailsApi(304);
-          }}
-        >
-          {" "}
-          Get Dropdown Data
-        </button>
-      </AdminLayout>
+      <AdminLayout></AdminLayout>
     </Fragment>
   );
 };
 
-export default manageApplicants;
+export default ManageApplicants;
