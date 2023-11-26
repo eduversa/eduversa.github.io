@@ -2,7 +2,7 @@
 import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Footer } from "@/containers";
-function AdminLayout({ children }) {
+function StudentLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -25,4 +25,4 @@ function AdminLayout({ children }) {
   );
 }
 
-export default AdminLayout;
+export default StudentLayout;

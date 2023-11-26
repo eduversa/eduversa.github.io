@@ -1,5 +1,13 @@
+import { Fragment } from "react";
+import { StudentLayout } from "@/layout";
 function index() {
-  return <div></div>;
+  return (
+    <Fragment>
+      <StudentLayout>
+        <h1>Student Dashboard</h1>
+      </StudentLayout>
+    </Fragment>
+  );
 }
 
 export default index;

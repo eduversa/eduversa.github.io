@@ -10,8 +10,8 @@ const Footer = () => {
 
   const footerContent = {
     student: [
-      { label: "Update ID Card", href: "/update-id-card" },
-      { label: "Dashboard", href: "/dashboard" },
+      { label: "update data application", href: "/student/update" },
+      { label: "Dashboard", href: "/student" },
     ],
     applicant: [
       { label: "Dashboard", href: "/applicant" },
