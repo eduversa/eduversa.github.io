@@ -35,7 +35,6 @@ const PersonalInfo = ({
 
     let updatedFormData;
     if (isChecked) {
-      // Copy present address to permanent address
       const presentAddress = formData.personal_info.present_address;
       updatedFormData = {
         ...formData,
@@ -46,7 +45,6 @@ const PersonalInfo = ({
         },
       };
     } else {
-      // Clear the permanent address fields
       updatedFormData = {
         ...formData,
         personal_info: {
@@ -68,8 +66,6 @@ const PersonalInfo = ({
   const [presentPincode, setPresentPincode] = useState("");
   const [permanentPincode, setPermanentPincode] = useState("");
   const [loading, setLoading] = useState(false);
-  // const [presentPincodeError, setPresentPincodeError] = useState(false);
-  // const [permanentPincodeError, setPermanentPincodeError] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -126,21 +122,17 @@ const PersonalInfo = ({
     const user_id = localStorage.getItem("userid");
     try {
       const response = await updateAppplicantData(user_id, type, data);
-      console.log(response);
+      if (process.env.NODE_ENV === "development") {
+        console.log(response);
+      }
       alert(response.message);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      if (process.env.NODE_ENV === "development") {
+        console.log(error);
+      }
     }
   }
-
-  // let email = '';
-  // if (typeof window !== 'undefined') {
-  //   email = localStorage.getItem('email');
-  // }
-
-
-  // const email = localStorage.getItem('email');
 
   return (
     <Fragment>
@@ -153,7 +145,6 @@ const PersonalInfo = ({
           handleNextClick();
         }}
       >
-        {/* name */}
         <Text
           label="Full Name"
           name="personal_info.name"
@@ -162,15 +153,11 @@ const PersonalInfo = ({
           required
         />
         <div className="grid-col-2">
-          {" "}
-          {/* email contact */}
           <Email
             label="Email"
             name="personal_info.email"
             value={formData.personal_info.email}
             onChange={handleChange}
-            // value={email}
-            // readOnly
             required
           />
           <PhoneNumber
@@ -182,8 +169,6 @@ const PersonalInfo = ({
           />
         </div>
         <div className="grid-col-2">
-          {" "}
-          {/* gender dob */}
           <Select
             label="Gender"
             name="personal_info.gender"
@@ -206,8 +191,6 @@ const PersonalInfo = ({
           />
         </div>
         <div className="grid-col-2">
-          {" "}
-          {/* category blood_group */}
           <Select
             label="Category"
             name="personal_info.category"
@@ -244,8 +227,6 @@ const PersonalInfo = ({
           />
         </div>
         <div className="grid-col-2">
-          {" "}
-          {/* aadhar pan */}
           <Aadhar
             label="Aadhar Number"
             name="personal_info.aadhar_number"
@@ -264,7 +245,7 @@ const PersonalInfo = ({
           />
         </div>
         <hr />
-        <h3 className="sub-heading">Present Address</h3> {/* present address */}
+        <h3 className="sub-heading">Present Address</h3>
         <Text
           label="Street"
           name="personal_info.present_address.street"
@@ -273,21 +254,15 @@ const PersonalInfo = ({
           required
         />
         <div className="grid-col-2">
-          {" "}
-          {/* pin city */}
           <Pincode
             label="Pincode"
             name="personal_info.present_address.pincode"
             value={formData.personal_info.present_address.pincode}
-            // onChange={handleChange}
             onChange={(e) => {
               handleChange(e);
               setPresentPincode(e.target.value);
             }}
             required
-            // className={presentPincodeError ? "invalid" : ""}
-            // data-isvalid={presentPincodeError ? "false" : "true"}
-            // ref={input => input && input.setCustomValidity(presentPincodeError ? 'Invalid pincode' : '')}
             className={presentPincodeError ? "invalid" : ""}
           />
           <Text
@@ -299,8 +274,6 @@ const PersonalInfo = ({
           />
         </div>
         <div className="grid-col-2">
-          {" "}
-          {/* district state */}
           <Text
             label="District"
             name="personal_info.present_address.district"
@@ -317,9 +290,7 @@ const PersonalInfo = ({
           />
         </div>
         <hr />
-        <h3 className="sub-heading">Permanent Address</h3>{" "}
-        {/* permanent address */}
-        {/* is permanent address same as present address */}
+        <h3 className="sub-heading">Permanent Address</h3>
         <div>
           <label>
             <input
@@ -338,13 +309,10 @@ const PersonalInfo = ({
           onChange={handleChange}
         />
         <div className="grid-col-2">
-          {" "}
-          {/* pin city */}
           <Pincode
             label="Pincode"
             name="personal_info.permanent_address.pincode"
             value={formData.personal_info.permanent_address.pincode}
-            // onChange={handleChange}
             onChange={(e) => {
               handleChange(e);
               setPermanentPincode(e.target.value);
@@ -359,8 +327,6 @@ const PersonalInfo = ({
           />
         </div>
         <div className="grid-col-2">
-          {" "}
-          {/* district state */}
           <Text
             label="District"
             name="personal_info.permanent_address.district"

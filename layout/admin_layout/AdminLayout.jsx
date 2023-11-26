@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
 import { AdminNavbar, Footer } from "@/containers";
@@ -19,7 +18,7 @@ function AdminLayout({ children }) {
     if (userType !== "admin") {
       router.push("/");
     }
-  }, []);
+  }, [router]);
   return (
     <Fragment>
       <AdminNavbar></AdminNavbar>

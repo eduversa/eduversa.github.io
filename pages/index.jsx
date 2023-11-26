@@ -19,12 +19,16 @@ function Login() {
       setLoading(true);
       const apiResponse = await loginUser(username, password);
       if (apiResponse.status === false) {
-        console.log("Login data:", apiResponse);
+        if (process.env.NODE_ENV === "development") {
+          console.log("Login data:", apiResponse);
+        }
         alert(apiResponse.message);
         setLoading(false);
         return;
       }
-      console.log("Login data:", apiResponse);
+      if (process.env.NODE_ENV === "development") {
+        console.log("Login data:", apiResponse);
+      }
       localStorage.setItem("authToken", apiResponse.authToken);
       localStorage.setItem("email", apiResponse.data.email);
       localStorage.setItem("userType", apiResponse.data.type);
@@ -33,10 +37,12 @@ function Login() {
         "applicant_profile",
         JSON.stringify(apiResponse.profileData)
       );
-      console.log("AuthToken", localStorage.getItem("authToken"));
-      console.log("Email", localStorage.getItem("email"));
-      console.log("UserType", localStorage.getItem("userType"));
-      console.log("UserId", localStorage.getItem("userid"));
+      if (process.env.NODE_ENV === "development") {
+        console.log("AuthToken", localStorage.getItem("authToken"));
+        console.log("Email", localStorage.getItem("email"));
+        console.log("UserType", localStorage.getItem("userType"));
+        console.log("UserId", localStorage.getItem("userid"));
+      }
       alert(apiResponse.message);
       setLoading(false);
       if (apiResponse.data.type === "applicant") {
@@ -52,7 +58,9 @@ function Login() {
         alert("Invalid User Type");
       }
     } catch (error) {
-      console.error("Error in login:", error);
+      if (process.env.NODE_ENV === "development") {
+        console.error("Error in login:", error);
+      }
     }
   };
 
@@ -62,7 +70,9 @@ function Login() {
   const handleGoogleSignIn = async () => {
     await signIn();
   };
-  console.log("Session:", session);
+  if (process.env.NODE_ENV === "development") {
+    console.log("Session:", session);
+  }
   return (
     <Fragment>
       <LandingLayout>

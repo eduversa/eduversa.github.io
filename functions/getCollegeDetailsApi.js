@@ -5,8 +5,10 @@ const getCollegeDetailsApi = async (collegeId) => {
   console.log("URL:", url);
 
   try {
-    console.log("Get College Details Function Called");
-    console.log("College ID:", collegeId);
+    if (process.env.NODE_ENV === "development") {
+      console.log("College ID:", collegeId);
+      console.log("Get College Details Function Called");
+    }
 
     const response = await fetch(url, {
       method: "GET",
@@ -16,15 +18,20 @@ const getCollegeDetailsApi = async (collegeId) => {
     });
 
     if (!response.ok) {
-      console.log(response);
+      if (process.env.NODE_ENV === "development") {
+        console.log(response);
+      }
       throw new Error(
         `Get College Details request failed with status ${response.status}`
       );
     }
-
-    console.log("Response:", response);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Response:", response);
+    }
     const data = await response.json();
-    console.log("Data:", data);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Data:", data);
+    }
     return data;
   } catch (error) {
     console.error("Get College Details request error:", error.message);

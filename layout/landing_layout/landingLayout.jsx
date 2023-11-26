@@ -1,6 +1,5 @@
 import { Fragment, useEffect } from "react";
 import { LandingNavbar, LandingPage } from "@/containers";
-
 import { useRouter } from "next/router";
 function LandingLayout({ children }) {
   const router = useRouter();

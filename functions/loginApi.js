@@ -4,9 +4,11 @@ const loginUser = async (username, password) => {
   const apiUrl = `${apiBaseUrl}/account/auth`;
 
   try {
-    console.log("Login Function Called");
-    console.log("Username:", username);
-    console.log("Password:", password);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Login Function Called");
+      console.log("Username:", username);
+      console.log("Password:", password);
+    }
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
@@ -18,15 +20,21 @@ const loginUser = async (username, password) => {
       }),
     });
     if (!response.ok) {
-      console.log(response);
+      if (process.env.NODE_ENV === "development") {
+        console.log(response);
+      }
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    console.log("Response:", response);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Response:", response);
+    }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error during API call:", error);
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error during API call:", error);
+    }
     throw error;
   }
 };

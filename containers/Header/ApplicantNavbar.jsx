@@ -9,7 +9,7 @@ function ApplicantNavbar() {
   const logoText = "eduversa";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const handleLogout = async () => {
     const userId = localStorage.getItem("userid");
     const authToken = localStorage.getItem("authToken");
@@ -22,7 +22,9 @@ function ApplicantNavbar() {
         setIsLoading(false);
         return;
       }
-      console.log("Logout data:", apiResponse);
+      if (process.env.NODE_ENV === "development") {
+        console.log("Logout data:", apiResponse);
+      }
       localStorage.removeItem("authToken");
       localStorage.removeItem("email");
       localStorage.removeItem("userType");
@@ -33,7 +35,9 @@ function ApplicantNavbar() {
       setIsLoading(false);
       router.push("/");
     } catch (error) {
-      console.error("Logout error:", error.message);
+      if (process.env.NODE_ENV === "development") {
+        console.error("Logout error:", error.message);
+      }
     }
   };
   const menuItems = [

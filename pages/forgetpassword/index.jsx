@@ -37,14 +37,18 @@ function ForgetPassword() {
       }
 
       const otpResponse = await generateOtpApi(userIdOrEmail);
-      console.log(otpResponse);
+      if (process.env.NODE_ENV === "development") {
+        console.log(otpResponse);
+      }
       alert(otpResponse.message);
 
       if (otpResponse.status) {
         setOtpResponse(otpResponse);
       }
     } catch (error) {
-      console.error("Error generating OTP:", error);
+      if (process.env.NODE_ENV === "development") {
+        console.error("Error generating OTP:", error);
+      }
       alert(otpResponse.message);
     } finally {
       setLoading(false);
@@ -121,8 +125,9 @@ function ForgetPassword() {
         newPassword,
         confirmPassword
       );
-
-      console.log(resetPasswordResponse);
+      if (process.env.NODE_ENV === "development") {
+        console.log(resetPasswordResponse);
+      }
 
       if (resetPasswordResponse.status) {
         setNewPassword("");
@@ -136,7 +141,9 @@ function ForgetPassword() {
         alert(resetPasswordResponse.message);
       }
     } catch (error) {
-      console.error("Error updating password:", error.message);
+      if (process.env.NODE_ENV === "development") {
+        console.error("Error updating password:", error.message);
+      }
       alert("An error occurred while updating the password.");
     } finally {
       setLoading(false);

@@ -67,11 +67,15 @@ const FamilyInfo = ({
     const user_id = localStorage.getItem("userid");
     try {
       const response = await updateAppplicantData(user_id, type, data);
-      console.log(response);
+      if (process.env.NODE_ENV === "development") {
+        console.log(response);
+      }
       alert(response.message);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      if (process.env.NODE_ENV === "development") {
+        console.log(error);
+      }
     }
   }
 
@@ -86,7 +90,6 @@ const FamilyInfo = ({
           handleNextClick();
         }}
       >
-        {/* father */}
         <h3 className="sub-heading">Father&apos;s Information</h3>
         <Text
           label="Full Name"
@@ -96,8 +99,6 @@ const FamilyInfo = ({
           required
         />
         <div className="grid-col-2">
-          {" "}
-          {/* email contact */}
           <Email
             label="Email"
             name="family_info.father.email"
@@ -112,7 +113,6 @@ const FamilyInfo = ({
           />
         </div>
         <hr />
-        {/* mother */}
         <h3 className="sub-heading">Mother&apos;s Information</h3>
         <Text
           label="Full Name"
@@ -122,8 +122,6 @@ const FamilyInfo = ({
           required
         />
         <div className="grid-col-2">
-          {" "}
-          {/* email contact */}
           <Email
             label="Email"
             name="family_info.mother.email"
@@ -138,7 +136,6 @@ const FamilyInfo = ({
           />
         </div>
         <hr />
-        {/* guardian */}
         <h3 className="sub-heading">Guardian&apos;s Information</h3>
         <Text
           label="Full Name"
@@ -148,8 +145,6 @@ const FamilyInfo = ({
           required
         />
         <div className="grid-col-2">
-          {" "}
-          {/* relation occupation*/}
           <Text
             label="Relation"
             name="family_info.guardian.relation"
@@ -166,8 +161,6 @@ const FamilyInfo = ({
           />
         </div>
         <div className="grid-col-2">
-          {" "}
-          {/* email contact */}
           <Email
             label="Email"
             name="family_info.guardian.email"
@@ -184,8 +177,6 @@ const FamilyInfo = ({
           />
         </div>
         <div className="grid-col-3">
-          {" "}
-          {/* designation office_contact income */}
           <Text
             label="Designation"
             name="family_info.guardian.designation"
@@ -209,8 +200,6 @@ const FamilyInfo = ({
           />
         </div>
         <div className="grid-col-2">
-          {" "}
-          {/* aadhar pan */}
           <Aadhar
             label="Aadhar Number"
             name="family_info.guardian.aadhar_number"
@@ -227,9 +216,7 @@ const FamilyInfo = ({
           />
         </div>
         <h4 className="sub-sub-heading">Office Address</h4>{" "}
-        {/* office address */}
         <div>
-          {/* street */}
           <Text
             label="Street"
             name="family_info.guardian.office_address.street"
@@ -238,8 +225,6 @@ const FamilyInfo = ({
           />
 
           <div className="grid-col-2">
-            {" "}
-            {/* pin city */}
             <Pincode
               label="Pincode"
               name="family_info.guardian.office_address.pincode"
@@ -262,8 +247,6 @@ const FamilyInfo = ({
           </div>
 
           <div className="grid-col-2">
-            {" "}
-            {/* district state */}
             <Text
               label="District"
               name="family_info.guardian.office_address.district"
