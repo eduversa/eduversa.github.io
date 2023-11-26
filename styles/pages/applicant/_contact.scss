@@ -9,6 +9,7 @@
   @media (max-width: $breakpoint-desktop-wide) {
   }
   @media (max-width: $breakpoint-desktop) {
+    padding: 30px;
   }
   @media (max-width: $breakpoint-large-tablet) {
   }
@@ -421,6 +422,7 @@
       @include flex-container(row, nowrap, center, center);
       gap: 20px;
       @media (max-width: $breakpoint-desktop-wide) {
+        gap: 10px;
       }
       @media (max-width: $breakpoint-desktop) {
       }
@@ -445,6 +447,9 @@
         border-radius: 15px;
         cursor: pointer;
         @media (max-width: $breakpoint-desktop-wide) {
+          padding: 15px;
+          font-size: var(--font-12);
+          gap: 5px;
         }
         @media (max-width: $breakpoint-desktop) {
         }
@@ -471,6 +476,7 @@
           transition: transform 0.5s ease;
           transform: scale(1.2);
           @media (max-width: $breakpoint-desktop-wide) {
+            transform: scale(1);
           }
           @media (max-width: $breakpoint-desktop) {
           }

@@ -16,6 +16,7 @@
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {
+      max-width: max(500px, 60%);
     }
     @media (max-width: $breakpoint-large-tablet) {
     }
