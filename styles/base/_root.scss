@@ -12,19 +12,19 @@
 
   .wrapper {
     width: 100%;
-    max-width: max(900px, 75%);
+    max-width: max(900px, 60%);
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {
-      max-width: max(500px, 75%);
+      max-width: max(800px, 60%);
     }
     @media (max-width: $breakpoint-large-tablet) {
+      max-width: max(600px, 60%);
     }
     @media (max-width: $breakpoint-tablet) {
-      max-width: max(300px, 75%);
+      max-width: max(300px, 60%);
     }
     @media (max-width: $breakpoint-phone) {
-      max-width: max(250px, 75%);
     }
   }
 }
