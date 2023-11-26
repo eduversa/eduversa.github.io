@@ -1,9 +1,8 @@
 .contact-us-container {
-  max-width: 1200px;
   margin: 2.5% auto 2.5% auto;
   padding: 40px;
   background: var(--white-9);
-  border-radius: 20px;
+  border-radius: 200px;
   box-shadow: 10px 10px 20px var(--white-10), -10px -10px 20px var(--white-11);
   position: relative;
   transition: all 0.5s ease-in-out;
@@ -74,7 +73,7 @@
     }
     .member {
       position: relative;
-      margin-bottom: 30px;
+      margin: 0 0 3% 0;
       padding: 25px;
       border: 1px solid var(--white-2);
       border-radius: 20px;
