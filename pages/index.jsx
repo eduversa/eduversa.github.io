@@ -42,8 +42,7 @@ function Login() {
       if (apiResponse.data.type === "applicant") {
         router.push("/applicant");
       } else if (apiResponse.data.type === "student") {
-        alert("Student is not ready yet");
-        localStorage.clear();
+        router.push("/student");
       } else if (apiResponse.data.type === "faculty") {
         alert("Faculty is not ready yet");
         localStorage.clear();
@@ -63,6 +62,7 @@ function Login() {
   const handleGoogleSignIn = async () => {
     await signIn();
   };
+  console.log("Session:", session);
   return (
     <Fragment>
       <LandingLayout>

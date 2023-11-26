@@ -59,7 +59,7 @@ function ForgetPassword() {
     const hasUpperCase = /[A-Z]/.test(newPasswordValue);
     const hasLowerCase = /[a-z]/.test(newPasswordValue);
     const hasDigit = /\d/.test(newPasswordValue);
-    const hasSpecialChar = /[@$!%*?&]/.test(newPasswordValue);
+    const hasSpecialChar = /[!@#$%^]/.test(newPasswordValue);
 
     setPasswordStatus({
       isLengthValid,
@@ -145,7 +145,7 @@ function ForgetPassword() {
 
   const isStrongPassword = (password) => {
     const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordRegex.test(password);
   };
 
@@ -246,8 +246,8 @@ function ForgetPassword() {
                         </li>
                         <li>
                           {passwordStatus.hasSpecialChar
-                            ? "✅ At least one special character (@$!%*?&)"
-                            : "❌ At least one special character (@$!%*?&)"}
+                            ? "✅ At least one special character (!@#$%^)"
+                            : "❌ At least one special character (!@#$%^)"}
                         </li>
                       </ul>
                     </div>
