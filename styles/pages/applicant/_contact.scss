@@ -6,8 +6,7 @@
   border-radius: 20px;
   box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
   position: relative;
-  overflow: hidden;
-  transition: background 0.5s ease;
+  transition: all 0.5s ease-in-out;
 
   &:before,
   &:after {
@@ -31,22 +30,6 @@
   &:after {
     transform: rotate(-2deg);
     box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
-  }
-
-  .contact-us-heading,
-  .team-members__heading,
-  .contact-email__heading,
-  .team-objective__heading,
-  .social-media__heading {
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: #333;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: #007bff;
-      transition: color 0.3s ease;
-    }
   }
 
   .team-members {
