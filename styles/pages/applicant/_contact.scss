@@ -13,7 +13,7 @@
   }
 
   .team-members {
-    .team-members__heading {
+    &__heading {
       font-size: 24px;
       margin-bottom: 10px;
       color: #333;
@@ -25,22 +25,22 @@
       border: 1px solid #ddd;
       border-radius: 4px;
 
-      .member__heading {
+      &__heading {
         font-size: 20px;
         margin-bottom: 5px;
         color: #333;
       }
 
-      .member__email {
+      &__email {
         display: flex;
         align-items: center;
         cursor: pointer;
 
-        .member__email__icon {
+        &__icon {
           margin-right: 5px;
         }
 
-        .member__email__link {
+        &__link {
           color: #007bff;
           text-decoration: none;
           &:hover {
@@ -49,13 +49,13 @@
         }
       }
 
-      .member__expertise {
+      &__expertise {
         font-size: 14px;
         margin-top: 5px;
         color: #555;
       }
 
-      .member__description {
+      &__description {
         font-size: 16px;
         margin-top: 10px;
         color: #333;
@@ -64,22 +64,22 @@
   }
 
   .contact-email {
-    .contact-email__heading {
+    &__heading {
       font-size: 24px;
       margin-bottom: 10px;
       color: #333;
     }
 
-    .contact-email__container {
+    &__container {
       display: flex;
       align-items: center;
       cursor: pointer;
 
-      .contact-email__container__icon {
+      &__icon {
         margin-right: 5px;
       }
 
-      .contact-email__container__content {
+      &__content {
         font-size: 16px;
         color: #333;
       }
@@ -87,20 +87,20 @@
   }
 
   .team-objective {
-    .team-objective__heading {
+    &__heading {
       font-size: 24px;
       margin-bottom: 10px;
       color: #333;
     }
 
-    .team-objective__content {
+    &__content {
       font-size: 16px;
       color: #333;
     }
   }
 
   .social-media {
-    .social-media__heading {
+    &__heading {
       font-size: 20px;
       margin-bottom: 10px;
       color: #333;
