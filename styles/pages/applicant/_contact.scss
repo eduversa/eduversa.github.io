@@ -21,7 +21,38 @@
     z-index: -1;
     transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
   }
-
+  .contact-us-heading {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    z-index: 1;
+    color: var(--black);
+    font-family: var(--font-oswald);
+    font-size: var(--font-7);
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 0 0 3% 0;
+    &::before {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--pink-3), var(--purple-4));
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      border-radius: 20px;
+      transform: translateX(-50%);
+      transition: width 2s ease-in-out;
+      animation: underlineAnimation 2s infinite alternate;
+    }
+    @keyframes underlineAnimation {
+      to {
+        width: 20%;
+      }
+    }
+  }
   &:before {
     transform: rotate(2deg);
     box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
