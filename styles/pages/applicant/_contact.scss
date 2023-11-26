@@ -21,6 +21,14 @@
     z-index: -1;
     transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
   }
+  &:before {
+    transform: rotate(2deg);
+    box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
+  }
+  &:after {
+    transform: rotate(-2deg);
+    box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
+  }
   .contact-us-heading {
     position: relative;
     text-align: center;
@@ -52,15 +60,6 @@
         width: 20%;
       }
     }
-  }
-  &:before {
-    transform: rotate(2deg);
-    box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
-  }
-
-  &:after {
-    transform: rotate(-2deg);
-    box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
   }
 
   .team-members {
