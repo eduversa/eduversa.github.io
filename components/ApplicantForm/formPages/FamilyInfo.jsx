@@ -18,6 +18,7 @@ import { updateAppplicantData } from "@/functions";
 const FamilyInfo = ({
   formData,
   setFormData,
+  clearFormData,
   handleChange,
   handlePreviousClick,
   handleNextClick,

@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const Text =({label, name, value, ...props}) =>{
+export const Text =({label, details, name, value, ...props}) =>{
   return (
-    <div>
-      <label htmlFor={name}>{label}</label>
+    <div className='inputs'>
+      <label htmlFor={name}>{label} <span>{details}</span></label>
       <input
         type="text"
         id={name}
@@ -18,7 +18,7 @@ export const Text =({label, name, value, ...props}) =>{
 
 export const Email =({label, name, value, ...props}) =>{
   return (
-    <div>
+    <div className='inputs'>
       <label htmlFor={name}>{label}</label>
       <input
         type="email"
@@ -33,8 +33,8 @@ export const Email =({label, name, value, ...props}) =>{
 
 export const Number =({label, name, value, ...props}) =>{
   return (
-    <div htmlFor={name}>
-      <label>{label}</label>
+    <div className='inputs'>
+      <label htmlFor={name}>{label}</label>
       <input
         type="number"
         id={name}
@@ -48,15 +48,18 @@ export const Number =({label, name, value, ...props}) =>{
 
 export const PhoneNumber =({label, name, value, ...props}) =>{
   return (
-    <div htmlFor={name}>
-      <label>{label}</label>
+    <div className='inputs'>
+      <label htmlFor={name}>{label}</label>
       <input
         type="text"
         id={name}
         name={name}
         value={value}
         // pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"
-        pattern="^\+?[1-9][0-9]{7,14}$"
+        // pattern="^\+?[1-9][0-9]{7,14}$"
+        // pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$"
+        // pattern="^\+?\d{1,3}\s?\d{1,14}$"
+        pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$"
         {...props}
       />
     </div>
@@ -65,8 +68,8 @@ export const PhoneNumber =({label, name, value, ...props}) =>{
 
 export const Pincode =({label, name, value, ...props}) =>{
   return (
-    <div htmlFor={name}>
-      <label>{label}</label>
+    <div className='inputs'>
+      <label htmlFor={name}>{label}</label>
       <input
         type="text"
         id={name}
@@ -82,8 +85,8 @@ export const Pincode =({label, name, value, ...props}) =>{
 
 export const Aadhar =({label, name, value, ...props}) =>{
   return (
-    <div htmlFor={name}>
-      <label>{label}</label>
+    <div className='inputs'>
+      <label htmlFor={name}>{label}</label>
       <input
         type="text"
         id={name}
@@ -98,8 +101,8 @@ export const Aadhar =({label, name, value, ...props}) =>{
 
 export const Pan =({label, name, value, ...props}) =>{
   return (
-    <div htmlFor={name}>
-      <label>{label}</label>
+    <div className='inputs'>
+      <label htmlFor={name}>{label}</label>
       <input
         type="text"
         id={name}
@@ -114,7 +117,7 @@ export const Pan =({label, name, value, ...props}) =>{
 
 export const DateInput =({label, name, value, ...props}) =>{
   return (
-    <div>
+    <div className='inputs'>
       <label htmlFor={name}>{label}</label>
       <input
         type="date"
@@ -129,7 +132,7 @@ export const DateInput =({label, name, value, ...props}) =>{
 
 export const Select =({label, name, value, options, ...props}) =>{
   return (
-    <div>
+    <div className='inputs'>
       <label htmlFor={name}>{label}</label>
       <select
         id={name}

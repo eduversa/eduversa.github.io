@@ -6,6 +6,7 @@ import { updateAppplicantData } from "@/functions";
 const FileUpload = ({
   formData,
   setFormData,
+  clearFormData,
   handleChange,
   handlePreviousClick,
   handleNextClick,
