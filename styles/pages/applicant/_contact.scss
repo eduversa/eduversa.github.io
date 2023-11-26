@@ -83,7 +83,7 @@
       transition: all 0.5s ease-in-out;
 
       &:hover {
-        transform: translateY(-10px) rotateX(5deg);
+        transform: translateY(-10px) rotateX(20deg);
         box-shadow: 20px 20px 40px var(--white-10),
           -20px -20px 40px var(--white-11);
         transition: all 0.5s ease-in-out;
@@ -116,19 +116,24 @@
       }
 
       &__heading {
-        font-size: 28px;
-        margin-bottom: 15px;
-        color: var(--black);
+        font-family: var(--font-bodwars);
+        font-size: var(--font-10);
+        font-weight: 400;
+        letter-spacing: 2px;
       }
 
       &__email {
-        display: flex;
-        align-items: center;
+        @include flex-container(row, nowrap, flex-start, center);
         cursor: pointer;
-
         &__icon {
-          margin-right: 12px;
-          transition: transform 0.3s ease;
+          position: relative;
+          margin: 0 0.8% 0 0;
+          height: 35px;
+          width: 35px;
+          transition: transform 0.5s ease;
+          &:hover {
+            transform: scale(1.5);
+          }
         }
 
         &__link {
