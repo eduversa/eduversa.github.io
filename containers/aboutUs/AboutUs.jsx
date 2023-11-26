@@ -9,7 +9,7 @@ function AboutUs() {
   const authToken =
     typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
   const containerClass = authToken
-    ? "about-us-container"
+    ? "about-us-container wrapper"
     : "about-us-landing-container";
 
   const toggleSection = (section) => {

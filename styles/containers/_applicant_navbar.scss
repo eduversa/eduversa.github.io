@@ -235,6 +235,7 @@
   .menu {
     cursor: pointer;
     display: none;
+    transition: all 3s ease-in-out;
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {
@@ -288,6 +289,7 @@
     right: 1%;
     border-radius: 16px;
     box-shadow: 0 8px 16px var(--black-shadow-light-1);
+    transition: all 3s ease-in-out;
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {

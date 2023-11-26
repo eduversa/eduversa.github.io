@@ -125,7 +125,7 @@ const ContactUs = () => {
                 className="facebook-icon"
               ></Image>
             </li>
-            <li>
+            <li onClick={() => handleSocialLoginClick("Instagram")}>
               Instagram:
               <Image
                 src="/contactus/instagram.png"
