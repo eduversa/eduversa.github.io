@@ -44,6 +44,7 @@ const CourseInfo = ({
     try {
       const collegeData = await getCollegeDetailsApi(304);
       if (process.env.NODE_ENV === "development") {
+        const collegeData = await getCollegeDetailsApi(304);
         console.log(collegeData);
       }
       setCourses(collegeData.data.college_courses);

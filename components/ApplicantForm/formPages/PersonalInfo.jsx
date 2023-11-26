@@ -123,6 +123,7 @@ const PersonalInfo = ({
     try {
       const response = await updateAppplicantData(user_id, type, data);
       if (process.env.NODE_ENV === "development") {
+        const response = await updateAppplicantData(user_id, type, data);
         console.log(response);
       }
       alert(response.message);

@@ -45,9 +45,7 @@ const updateApplicantData = async (user_id, type, data, fileType) => {
     }
 
     const responseData = await response.json();
-    if (process.env.NODE_ENV === "development") {
-      return responseData;
-    }
+    return responseData;
   } catch (error) {
     if (process.env.NODE_ENV === "development") {
       console.error("Error during API call:", error);
