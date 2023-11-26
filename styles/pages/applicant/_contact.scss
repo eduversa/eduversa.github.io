@@ -2,7 +2,7 @@
   margin: 2.5% auto 2.5% auto;
   padding: 40px;
   background: var(--white-9);
-  border-radius: 200px;
+  border-radius: 20px;
   box-shadow: 10px 10px 20px var(--white-10), -10px -10px 20px var(--white-11);
   position: relative;
   transition: all 0.5s ease-in-out;
@@ -39,7 +39,7 @@
     font-weight: 400;
     letter-spacing: 3px;
     text-transform: uppercase;
-    margin: 0 0 3% 0;
+    margin: 0 0 1.5% 0;
     &::before {
       content: "";
       display: block;
@@ -69,7 +69,7 @@
       font-weight: 600;
       letter-spacing: 3px;
       color: var(--blue-13);
-      margin: 0 0 3% 0;
+      margin: 0 0 1.5% 0;
     }
     .member {
       position: relative;
@@ -78,13 +78,12 @@
       border: 1px solid var(--white-2);
       border-radius: 20px;
       background: var(--white-9);
-      box-shadow: 10px 10px 20px var(--white-10),
+      box-shadow: 10px 10px 20px var(--white-7),
         -10px -10px 20px var(--white-11);
       transition: all 0.5s ease-in-out;
 
       &:hover {
-        transform: translateY(-10px) rotateX(20deg);
-        box-shadow: 20px 20px 40px var(--white-10),
+        box-shadow: 20px 20px 40px var(--white-7),
           -20px -20px 40px var(--white-11);
         transition: all 0.5s ease-in-out;
       }
@@ -120,6 +119,7 @@
         font-size: var(--font-10);
         font-weight: 400;
         letter-spacing: 2px;
+        margin: 0 0 0.5% 0;
       }
 
       &__email {
@@ -137,9 +137,12 @@
         }
 
         &__link {
-          font-size: 20px;
+          font-family: var(--font-elianto);
+          font-size: var(--font-11);
+          letter-spacing: 2px;
           color: var(--blue-1);
           text-decoration: none;
+          transition: text-decoration 0.5s ease-in-out;
           &:hover {
             text-decoration: underline;
           }
