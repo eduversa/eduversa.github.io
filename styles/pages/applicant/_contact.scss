@@ -60,6 +60,7 @@
     @media (max-width: $breakpoint-tablet) {
     }
     @media (max-width: $breakpoint-phone) {
+      margin: 0 0 3% 0;
     }
     &::before {
       content: "";

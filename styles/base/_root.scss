@@ -13,6 +13,7 @@
   .wrapper {
     width: 100%;
     max-width: max(900px, 60%);
+    min-height: 100dvh;
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {
