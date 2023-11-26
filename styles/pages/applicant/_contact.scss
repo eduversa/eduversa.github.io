@@ -186,7 +186,8 @@
       margin: 0 0 1.5% 0;
     }
     &__container {
-      @include flex-container(row, nowrap, flex-start, center);
+      @include flex-container(row, nowrap, center, center);
+      margin: 0 0 1% 0;
       cursor: pointer;
       &__icon {
         position: relative;
@@ -214,6 +215,15 @@
   }
 
   .team-objective {
+    &__heading {
+      text-align: center;
+      font-family: var(--font-blackpast);
+      font-size: var(--font-8);
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--blue-13);
+      margin: 0 0 1.5% 0;
+    }
     &__content {
       font-size: 20px;
       color: #333;
