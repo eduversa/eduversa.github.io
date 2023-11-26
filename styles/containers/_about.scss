@@ -4,6 +4,7 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   overflow: hidden;
+  padding: 40px;
 
   h3.aboutus-heading {
     color: #3498db;
@@ -46,6 +47,7 @@
     .grid {
       display: grid;
       grid-gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
       div {
         padding: 20px;
