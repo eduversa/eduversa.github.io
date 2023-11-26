@@ -2,7 +2,9 @@ const BASE_URL = "https://eduversa-api.onrender.com";
 
 const getCollegeDetailsApi = async (collegeId) => {
   const url = `${BASE_URL}/college/?college_id=${collegeId}`;
-  console.log("URL:", url);
+  if (process.env.NODE_ENV === "development") {
+    console.log("URL:", url);
+  }
 
   try {
     if (process.env.NODE_ENV === "development") {
