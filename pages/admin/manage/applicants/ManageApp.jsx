@@ -1,12 +1,9 @@
-import { AdminLayout } from "@/layout";
-import React, { Fragment } from "react";
-import { useState } from "react";
-import { CollegeDropdowns } from "@/components";
-import ManageApp from "./ManageApp";
-const ManageApplicants = () => {
-  const [selectedCourse, setSelectedCourse] = useState('');
-  const [selectedStream, setSelectedStream] = useState('');
-  const MockData = [
+import { Fragment,useState } from "react";
+
+const ManageApp = ({ data }) => {
+ 
+
+    const MockData = [
     {
         "personal_info": {
             "present_address": {
@@ -308,50 +305,31 @@ const ManageApplicants = () => {
         "image": "http://res.cloudinary.com/djpywdqfq/image/upload/v1701008612/tanayghoriwala001%40gmail.com_profile.png"
     }
     ]
-  const handleCourseChange = (newCourse) => {
-    setSelectedCourse(newCourse);
    
-  };
-
-  const handleStreamChange = (newStream) => {
-    setSelectedStream(newStream);
-  }
-
-  const filterData = () => {
-    let filteredResult = MockData;
-
-    if (selectedCourse) {
-      filteredResult = filteredResult.filter(item => item.course_info.course_name === selectedCourse);
-    }
-
-    if (selectedStream) {
-      filteredResult = filteredResult.filter(item => item.course_info.stream === selectedStream);
-    }
-
-    return filteredResult;
-  };
-  return (
-    <Fragment>
-      <AdminLayout>
-        <div className="manage-applicant-container">
-    <h1>Manage Applicant</h1>
-    <div>
-      <CollegeDropdowns
-        selectedCourse={selectedCourse}
-        selectedStream={selectedStream}
-        onCourseChange={handleCourseChange}
-        onStreamChange={handleStreamChange}
-      />
-      <ManageApp data = {filterData()}
+    const [appData, setappData] = useState(MockData);
+    const [filterData, setfilterData] = useState(MockData);
     
-      />
-  <p>{selectedCourse}</p>
-  <p>{selectedStream}</p>
-    </div>
-    </div>
-      </AdminLayout>
-    </Fragment>
-  );
-};
 
-export default ManageApplicants;
+
+
+    return(
+        <Fragment>
+
+<   div>
+      <h2>Data</h2>
+      <ul>
+        {data.map(item => (
+          <li key={item._id}>
+            <p>Name: {item.personal_info.first_name} {item.personal_info.last_name}</p>
+            <p>Course: {item.course_info.course_name}</p>
+            <p>Stream: {item.course_info.stream}</p>
+          
+          </li>
+        ))}
+      </ul>
+    </div>
+        </Fragment>
+    )
+}
+
+export default ManageApp;
