@@ -4,7 +4,7 @@
   padding: 40px;
   background: var(--white-9);
   border-radius: 20px;
-  box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
+  box-shadow: 10px 10px 20px var(--white-10), -10px -10px 20px var(--white-11);
   position: relative;
   transition: all 0.5s ease-in-out;
 
@@ -19,15 +19,15 @@
     background: inherit;
     border-radius: 25px;
     z-index: -1;
-    transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
+    transition: al 0.5s ease-in-out;
   }
   &:before {
     transform: rotate(2deg);
-    box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
+    box-shadow: 20px 20px 40px var(--white-10), -20px -20px 40px var(--white-11);
   }
   &:after {
     transform: rotate(-2deg);
-    box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
+    box-shadow: 20px 20px 40px var(--white-10), -20px -20px 40px var(--white-11);
   }
   .contact-us-heading {
     position: relative;
@@ -63,21 +63,31 @@
   }
 
   .team-members {
+    &__heading {
+      text-align: center;
+      font-family: var(--font-blackpast);
+      font-size: var(--font-8);
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--blue-13);
+      margin: 0 0 3% 0;
+    }
     .member {
       position: relative;
       margin-bottom: 30px;
       padding: 25px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--white-2);
       border-radius: 20px;
       background: var(--white-9);
-      box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
-      transition: transform 0.3s ease, box-shadow 0.3s ease,
-        background 0.3s ease;
+      box-shadow: 10px 10px 20px var(--white-10),
+        -10px -10px 20px var(--white-11);
+      transition: all 0.5s ease-in-out;
 
       &:hover {
         transform: translateY(-10px) rotateX(5deg);
-        box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 20px 20px 40px var(--white-10),
+          -20px -20px 40px var(--white-11);
+        transition: all 0.5s ease-in-out;
       }
 
       &::before,
@@ -91,24 +101,25 @@
         background: inherit;
         border-radius: 15px;
         z-index: -1;
-        transition: transform 0.3s ease, box-shadow 0.3s ease,
-          background 0.3s ease;
+        transition: all 0.5s ease-in-out;
       }
 
       &::before {
         transform: rotate(2deg);
-        box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+        box-shadow: 15px 15px 30px var(--white-10),
+          -15px -15px 30px var(--white-11);
       }
 
       &::after {
         transform: rotate(-2deg);
-        box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+        box-shadow: 15px 15px 30px var(--white-10),
+          -15px -15px 30px var(--white-11);
       }
 
       &__heading {
         font-size: 28px;
         margin-bottom: 15px;
-        color: #333;
+        color: var(--black);
       }
 
       &__email {
@@ -123,7 +134,7 @@
 
         &__link {
           font-size: 20px;
-          color: #007bff;
+          color: var(--blue-1);
           text-decoration: none;
           &:hover {
             text-decoration: underline;
@@ -199,13 +210,15 @@
         background: var(--white-9);
         padding: 20px;
         border-radius: 20px;
-        box-shadow: 10px 10px 20px #d9d9d9, -10px -10px 20px #ffffff;
+        box-shadow: 10px 10px 20px var(--white-10),
+          -10px -10px 20px var(--white-11);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
 
         &:hover {
           transform: translateY(-10px) scale(1.1);
-          box-shadow: 20px 20px 40px #d9d9d9, -20px -20px 40px #ffffff;
-          color: #007bff;
+          box-shadow: 20px 20px 40px var(--white-10),
+            -20px -20px 40px var(--white-11);
+          color: var(--blue-1);
           background: linear-gradient(45deg, #e0f7fa, #80deea);
           transition: transform 0.3s ease, box-shadow 0.3s ease,
             background 0.3s ease, color 0.3s ease;
@@ -228,12 +241,14 @@
 
         &::before {
           transform: rotate(2deg);
-          box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+          box-shadow: 15px 15px 30px var(--white-10),
+            -15px -15px 30px var(--white-11);
         }
 
         &::after {
           transform: rotate(-2deg);
-          box-shadow: 15px 15px 30px #d9d9d9, -15px -15px 30px #ffffff;
+          box-shadow: 15px 15px 30px var(--white-10),
+            -15px -15px 30px var(--white-11);
         }
 
         .github-icon,
