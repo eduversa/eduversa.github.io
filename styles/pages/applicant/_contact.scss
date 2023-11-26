@@ -2,38 +2,43 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
-  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to right, #f8f8f8, #eaeaea);
+  border-radius: 20px;
+  font-family: "Poppins", sans-serif;
 
   .contact-us-heading {
-    font-size: 36px;
+    font-size: 48px;
     margin-bottom: 30px;
-    color: #333;
+    color: #3498db;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .team-members {
     &__heading {
-      font-size: 28px;
+      font-size: 36px;
       margin-bottom: 20px;
-      color: #333;
+      color: #2c3e50;
     }
 
     .member {
       margin-bottom: 30px;
-      padding: 20px;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      transition: transform 0.3s;
+      padding: 30px;
+      border: 2px solid #bdc3c7;
+      border-radius: 12px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      background-color: #ecf0f1;
 
       &:hover {
-        transform: translateY(-5px);
+        transform: translateY(-8px);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
       }
 
       &__heading {
-        font-size: 24px;
-        margin-bottom: 10px;
-        color: #333;
+        font-size: 32px;
+        margin-bottom: 15px;
+        color: #3498db;
       }
 
       &__email {
@@ -42,75 +47,88 @@
         cursor: pointer;
 
         &__icon {
-          margin-right: 10px;
+          margin-right: 15px;
+          filter: brightness(0.8);
         }
 
         &__link {
-          font-size: 16px;
-          color: #3498db;
+          font-size: 20px;
+          color: #e74c3c;
           text-decoration: none;
+          transition: color 0.3s;
 
           &:hover {
-            text-decoration: underline;
+            color: #c0392b;
           }
         }
       }
 
       &__expertise {
-        font-size: 14px;
-        margin-top: 10px;
-        color: #555;
+        font-size: 18px;
+        margin-top: 15px;
+        color: #7f8c8d;
       }
 
       &__description {
-        font-size: 18px;
-        margin-top: 15px;
-        color: #666;
+        font-size: 22px;
+        margin-top: 20px;
+        color: #555;
       }
     }
   }
 
   .contact-email {
     &__heading {
-      font-size: 28px;
+      font-size: 36px;
       margin-bottom: 20px;
-      color: #333;
+      color: #2c3e50;
     }
 
     &__container {
       display: flex;
       align-items: center;
       cursor: pointer;
+      transition: transform 0.3s;
+
+      &:hover {
+        transform: scale(1.05);
+      }
 
       &__icon {
-        margin-right: 10px;
+        margin-right: 15px;
+        filter: brightness(0.8);
       }
 
       &__content {
-        font-size: 18px;
-        color: #333;
+        font-size: 24px;
+        color: #3498db;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #2980b9;
+        }
       }
     }
   }
 
   .team-objective {
     &__heading {
-      font-size: 28px;
+      font-size: 36px;
       margin-bottom: 20px;
-      color: #333;
+      color: #2c3e50;
     }
 
     &__content {
-      font-size: 18px;
-      color: #333;
+      font-size: 22px;
+      color: #2c3e50;
     }
   }
 
   .social-media {
     &__heading {
-      font-size: 24px;
+      font-size: 32px;
       margin-bottom: 20px;
-      color: #333;
+      color: #2c3e50;
     }
 
     ul {
@@ -118,7 +136,7 @@
       padding: 0;
 
       li {
-        font-size: 18px;
+        font-size: 20px;
         margin-bottom: 15px;
         display: flex;
         align-items: center;
@@ -134,7 +152,8 @@
         .linkedin-icon,
         .facebook-icon,
         .instagram-icon {
-          margin-right: 10px;
+          margin-right: 15px;
+          filter: brightness(0.8);
         }
       }
     }
