@@ -7,13 +7,17 @@ const resetPasswordApi = async (
   confirmPassword
 ) => {
   const url = `${BASE_URL}/account/password?query=${userIdOrEmail}&otp=${otp}`;
-  console.log("URL:", url);
+  if (process.env.NODE_ENV === "development") {
+    console.log("URL:", url);
+  }
 
   try {
-    console.log("Reset Password Function Called");
-    console.log("User ID or Email:", userIdOrEmail);
-    console.log("OTP:", otp);
-    console.log(newPassword, confirmPassword);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Reset Password Function Called");
+      console.log("User ID or Email:", userIdOrEmail);
+      console.log("OTP:", otp);
+      console.log(newPassword, confirmPassword);
+    }
 
     const response = await fetch(url, {
       method: "PUT",
@@ -27,15 +31,20 @@ const resetPasswordApi = async (
     });
 
     if (!response.ok) {
-      console.log(response);
+      if (process.env.NODE_ENV === "development") {
+        console.log(response);
+      }
       throw new Error(
         `Reset Password request failed with status ${response.status}`
       );
     }
-
-    console.log("Response:", response);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Response:", response);
+    }
     const data = await response.json();
-    console.log("Data:", data);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Data:", data);
+    }
     return data;
   } catch (error) {
     console.error("Reset Password request error:", error.message);

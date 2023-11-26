@@ -10,48 +10,18 @@ import { FormButtons } from "./inputComponent/InputComponent";
 
 const ApplicantForm = () => {
   let year = new Date().getFullYear().toString();
-  //TEST
-  //initial Form Data
-  const initialFormData = useMemo(() => ({
-    personal_info: {
-      present_address: {
-        street: "",
-        pincode: "",
-        city: "",
-        district: "",
-        state: "",
-      },
-      permanent_address: {
-        street: "",
-        pincode: "",
-        city: "",
-        district: "",
-        state: "",
-      },
-      name: "",
-      email: "",
-      contact: "",
-      gender: "",
-      dob: "",
-      are_addresses_same: true,
-      category: "",
-      blood_group: "",
-      aadhar_number: "",
-      pan_number: "",
-    },
-    family_info: {
-      father: {
-        name: "",
-        email: "",
-        contact: "",
-      },
-      mother: {
-        name: "",
-        email: "",
-        contact: "",
-      },
-      guardian: {
-        office_address: {
+
+  const initialFormData = useMemo(
+    () => ({
+      personal_info: {
+        present_address: {
+          street: "",
+          pincode: "",
+          city: "",
+          district: "",
+          state: "",
+        },
+        permanent_address: {
           street: "",
           pincode: "",
           city: "",
@@ -59,123 +29,239 @@ const ApplicantForm = () => {
           state: "",
         },
         name: "",
-        relation: "",
-        occupation: "",
-        designation: "",
-        office_contact: "",
-        contact: "",
-        income: "",
         email: "",
-        pan_number: "",
+        contact: "",
+        gender: "",
+        dob: "",
+        are_addresses_same: true,
+        category: "",
+        blood_group: "",
         aadhar_number: "",
+        pan_number: "",
       },
-    },
-    academic_info: {
-      admission: {
-        exam_name: "",
-        year_of_exam: "",
-        roll_number: "",
-        rank: "",
+      family_info: {
+        father: {
+          name: "",
+          email: "",
+          contact: "",
+        },
+        mother: {
+          name: "",
+          email: "",
+          contact: "",
+        },
+        guardian: {
+          office_address: {
+            street: "",
+            pincode: "",
+            city: "",
+            district: "",
+            state: "",
+          },
+          name: "",
+          relation: "",
+          occupation: "",
+          designation: "",
+          office_contact: "",
+          contact: "",
+          income: "",
+          email: "",
+          pan_number: "",
+          aadhar_number: "",
+        },
       },
-      secondary: {
-        exam_name: "",
-        year_of_exam: "",
-        board: "",
-        aggregate: "",
-        school_name: "",
-        subjects: "",
+      academic_info: {
+        admission: {
+          exam_name: "",
+          year_of_exam: "",
+          roll_number: "",
+          rank: "",
+        },
+        secondary: {
+          exam_name: "",
+          year_of_exam: "",
+          board: "",
+          aggregate: "",
+          school_name: "",
+          subjects: "",
+        },
+        higher_secondary: {
+          exam_name: "",
+          year_of_exam: "",
+          board: "",
+          aggregate: "",
+          school_name: "",
+          subjects: "",
+        },
       },
-      higher_secondary: {
-        exam_name: "",
-        year_of_exam: "",
-        board: "",
-        aggregate: "",
-        school_name: "",
-        subjects: "",
+      course_info: {
+        course_name: "",
+        duration: "",
+        stream: "",
+        admission_year: { year },
       },
-    },
-    course_info: {
-      course_name: "",
-      duration: "",
-      stream: "",
-      admission_year: { year },
-    },
-    image: null,
-  }), [year]);
+      image: null,
+    }),
+    [year]
+  );
   const [formData, setFormData] = useState(initialFormData);
 
   const concatenateNames = (first, middle, last) => {
     const nameParts = [first, middle, last];
-    return nameParts.filter(Boolean).join(' ');
-  }
+    return nameParts.filter(Boolean).join(" ");
+  };
 
   const formatSubjects = (marks) => {
     return Object.entries(marks)
       .map(([subject, mark]) => `${subject.trim()} - ${mark.trim()}`)
-      .join(', ');
-  }
+      .join(", ");
+  };
 
   const mergeObjects = (defaultObj, savedObj) => {
     if (!savedObj) return defaultObj;
     return { ...defaultObj, ...savedObj };
-  }
+  };
 
-  // Load saved form data from local storage on component mount
   useEffect(() => {
     const savedFormData = JSON.parse(localStorage.getItem("applicant_profile"));
     const savedCurrentStep = JSON.parse(localStorage.getItem("currentStep"));
-    
+
     if (savedFormData) {
-      
-      const fullName = savedFormData.personal_info ? concatenateNames(savedFormData.personal_info.first_name, savedFormData.personal_info.middle_name, savedFormData.personal_info.last_name) : '';
-      const fatherFullName = savedFormData.family_info && savedFormData.family_info.father ? concatenateNames(savedFormData.family_info.father.first_name, savedFormData.family_info.father.middle_name, savedFormData.family_info.father.last_name) : '';
-      const motherFullName = savedFormData.family_info && savedFormData.family_info.mother ? concatenateNames(savedFormData.family_info.mother.first_name, savedFormData.family_info.mother.middle_name, savedFormData.family_info.mother.last_name) : '';
-      const guardianFullName = savedFormData.family_info && savedFormData.family_info.guardian ? concatenateNames(savedFormData.family_info.guardian.first_name, savedFormData.family_info.guardian.middle_name, savedFormData.family_info.guardian.last_name) : '';
-      
-      const dob = savedFormData.personal_info && savedFormData.personal_info.dob ? new Date(savedFormData.personal_info.dob) : null;
-      const dobString = dob ? dob.toISOString().split('T')[0] : '';
-      
-      const secondarySubjects = savedFormData.academic_info && savedFormData.academic_info.secondary && savedFormData.academic_info.secondary.marks ? formatSubjects(savedFormData.academic_info.secondary.marks) : '';
-      
-      const higherSecondarySubjects = savedFormData.academic_info && savedFormData.academic_info.higher_secondary && savedFormData.academic_info.higher_secondary.marks ? formatSubjects(savedFormData.academic_info.higher_secondary.marks) : '';
-  
+      const fullName = savedFormData.personal_info
+        ? concatenateNames(
+            savedFormData.personal_info.first_name,
+            savedFormData.personal_info.middle_name,
+            savedFormData.personal_info.last_name
+          )
+        : "";
+      const fatherFullName =
+        savedFormData.family_info && savedFormData.family_info.father
+          ? concatenateNames(
+              savedFormData.family_info.father.first_name,
+              savedFormData.family_info.father.middle_name,
+              savedFormData.family_info.father.last_name
+            )
+          : "";
+      const motherFullName =
+        savedFormData.family_info && savedFormData.family_info.mother
+          ? concatenateNames(
+              savedFormData.family_info.mother.first_name,
+              savedFormData.family_info.mother.middle_name,
+              savedFormData.family_info.mother.last_name
+            )
+          : "";
+      const guardianFullName =
+        savedFormData.family_info && savedFormData.family_info.guardian
+          ? concatenateNames(
+              savedFormData.family_info.guardian.first_name,
+              savedFormData.family_info.guardian.middle_name,
+              savedFormData.family_info.guardian.last_name
+            )
+          : "";
+
+      const dob =
+        savedFormData.personal_info && savedFormData.personal_info.dob
+          ? new Date(savedFormData.personal_info.dob)
+          : null;
+      const dobString = dob ? dob.toISOString().split("T")[0] : "";
+
+      const secondarySubjects =
+        savedFormData.academic_info &&
+        savedFormData.academic_info.secondary &&
+        savedFormData.academic_info.secondary.marks
+          ? formatSubjects(savedFormData.academic_info.secondary.marks)
+          : "";
+
+      const higherSecondarySubjects =
+        savedFormData.academic_info &&
+        savedFormData.academic_info.higher_secondary &&
+        savedFormData.academic_info.higher_secondary.marks
+          ? formatSubjects(savedFormData.academic_info.higher_secondary.marks)
+          : "";
+
       const mergedFormData = {
         ...mergeObjects(initialFormData, savedFormData),
         personal_info: {
-          ...mergeObjects(initialFormData.personal_info, savedFormData.personal_info),
+          ...mergeObjects(
+            initialFormData.personal_info,
+            savedFormData.personal_info
+          ),
           name: fullName,
           dob: dobString,
-          present_address: mergeObjects(initialFormData.personal_info.present_address, savedFormData.personal_info.present_address),
-          permanent_address: mergeObjects(initialFormData.personal_info.permanent_address, savedFormData.personal_info.permanent_address)
+          present_address: mergeObjects(
+            initialFormData.personal_info.present_address,
+            savedFormData.personal_info.present_address
+          ),
+          permanent_address: mergeObjects(
+            initialFormData.personal_info.permanent_address,
+            savedFormData.personal_info.permanent_address
+          ),
         },
         family_info: {
-          ...mergeObjects(initialFormData.family_info, savedFormData.family_info),
-          father: savedFormData.family_info && savedFormData.family_info.father ? {
-            ...mergeObjects(initialFormData.family_info.father, savedFormData.family_info.father),
-            name: fatherFullName
-          } : {},
-          mother: savedFormData.family_info && savedFormData.family_info.mother ? {
-            ...mergeObjects(initialFormData.family_info.mother, savedFormData.family_info.mother),
-            name: motherFullName
-          } : {},
-          guardian: savedFormData.family_info && savedFormData.family_info.guardian ? {
-            ...mergeObjects(initialFormData.family_info.guardian, savedFormData.family_info.guardian),
-            name: guardianFullName
-          } : {}
+          ...mergeObjects(
+            initialFormData.family_info,
+            savedFormData.family_info
+          ),
+          father:
+            savedFormData.family_info && savedFormData.family_info.father
+              ? {
+                  ...mergeObjects(
+                    initialFormData.family_info.father,
+                    savedFormData.family_info.father
+                  ),
+                  name: fatherFullName,
+                }
+              : {},
+          mother:
+            savedFormData.family_info && savedFormData.family_info.mother
+              ? {
+                  ...mergeObjects(
+                    initialFormData.family_info.mother,
+                    savedFormData.family_info.mother
+                  ),
+                  name: motherFullName,
+                }
+              : {},
+          guardian:
+            savedFormData.family_info && savedFormData.family_info.guardian
+              ? {
+                  ...mergeObjects(
+                    initialFormData.family_info.guardian,
+                    savedFormData.family_info.guardian
+                  ),
+                  name: guardianFullName,
+                }
+              : {},
         },
         academic_info: {
-          ...mergeObjects(initialFormData.academic_info, savedFormData.academic_info),
-          secondary: savedFormData.academic_info && savedFormData.academic_info.secondary ? {
-            ...mergeObjects(initialFormData.academic_info.secondary, savedFormData.academic_info.secondary),
-            subjects: secondarySubjects
-          } : {},
-          higher_secondary: savedFormData.academic_info && savedFormData.academic_info.higher_secondary ? {
-            ...mergeObjects(initialFormData.academic_info.higher_secondary, savedFormData.academic_info.higher_secondary),
-            subjects: higherSecondarySubjects
-          } : {}
-        }
+          ...mergeObjects(
+            initialFormData.academic_info,
+            savedFormData.academic_info
+          ),
+          secondary:
+            savedFormData.academic_info && savedFormData.academic_info.secondary
+              ? {
+                  ...mergeObjects(
+                    initialFormData.academic_info.secondary,
+                    savedFormData.academic_info.secondary
+                  ),
+                  subjects: secondarySubjects,
+                }
+              : {},
+          higher_secondary:
+            savedFormData.academic_info &&
+            savedFormData.academic_info.higher_secondary
+              ? {
+                  ...mergeObjects(
+                    initialFormData.academic_info.higher_secondary,
+                    savedFormData.academic_info.higher_secondary
+                  ),
+                  subjects: higherSecondarySubjects,
+                }
+              : {},
+        },
       };
-  
+
       setFormData(mergedFormData);
     }
     // ! important shit
@@ -184,10 +270,8 @@ const ApplicantForm = () => {
     }
   }, [initialFormData]);
 
-  //steps in the form
   const [currentStep, setCurrentStep] = useState(1);
 
-  // fn to handle change in the input fields
   const handleChange = (event, callback) => {
     const { name, value } = event.target;
 
@@ -214,20 +298,10 @@ const ApplicantForm = () => {
     }, callback);
   };
 
-  // Save form data to local storage when the SAVE button is pressed
   const handleSave = () => {
     localStorage.setItem("formData", JSON.stringify(formData));
   };
 
-  // // clears all the form data from the state and also localStorage
-  // const clearFormData = () => {
-  //   setFormData(initialFormData);
-  //   localStorage.removeItem('formData');
-  // };
-
-  //testing
-
-  // clears the current page from the state not localStorage
   const clearFormData = (currentStep) => {
     let updatedFormData = { ...formData };
 
@@ -254,23 +328,24 @@ const ApplicantForm = () => {
     setFormData(updatedFormData);
   };
 
-  // function to move to the next page
   const handleNextClick = (event) => {
-    console.log(formData);
-    // event.preventDefault();
+    if (process.env.NODE_ENV === "development") {
+      console.log(formData);
+    }
+
     if (presentPincodeError || permanentPincodeError || officePincodeError) {
       alert("Please enter a valid pincode.");
       return;
     }
-    if (currentStep !== totalSteps){
+    if (currentStep !== totalSteps) {
       const nextStep = currentStep + 1;
       setCurrentStep(nextStep);
       localStorage.setItem("currentStep", JSON.stringify(nextStep));
+    } else {
+      if (process.env.NODE_ENV === "development") {
+        console.log("Form Submitted");
+      }
     }
-    else{
-      console.log("Form Submitted")
-    }
-
   };
 
   // function to move to the previous page
@@ -285,7 +360,9 @@ const ApplicantForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     alert("Form Submitted");
-    console.log("Form submitted:", formData);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Form submitted:", formData);
+    }
   };
 
   // pincode error states

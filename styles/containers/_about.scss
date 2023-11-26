@@ -1,0 +1,78 @@
+.about-us-container {
+  font-family: "Arial", sans-serif;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 40px;
+
+  h3.aboutus-heading {
+    color: #3498db;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .description,
+  .technologies {
+    .description-heading,
+    .technologies-heading {
+      color: #555;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #777;
+      font-size: 1.2em;
+      line-height: 1.5;
+    }
+  }
+
+  .problems,
+  .key-solution-and-objective,
+  .future-plans {
+    h2 {
+      color: #3498db;
+      cursor: pointer;
+      font-size: 2em;
+      margin-bottom: 15px;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #2980b9;
+      }
+    }
+
+    .grid {
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+      div {
+        padding: 20px;
+        background-color: #ecf0f1;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: translateY(-5px);
+        }
+
+        span {
+          color: #333;
+          font-size: 1.6em;
+          font-weight: bold;
+          display: block;
+          margin-bottom: 10px;
+        }
+
+        p {
+          color: #555;
+          font-size: 1.3em;
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+}
