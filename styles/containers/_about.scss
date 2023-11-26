@@ -1,0 +1,70 @@
+.about-us-container {
+  font-family: "Arial", sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+
+  .aboutus-heading {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  .description,
+  .technologies,
+  .problems,
+  .key-solution-and-objective,
+  .future-plans {
+    margin-bottom: 30px;
+
+    h4 {
+      color: #555;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #777;
+      font-size: 1.2em;
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-gap: 15px;
+  }
+
+  .problems,
+  .key-solution-and-objective,
+  .future-plans {
+    h2 {
+      color: #3498db;
+      cursor: pointer;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #2980b9;
+      }
+    }
+
+    .problem-grid-heading,
+    .solution-and-object-grid-heading,
+    .future-plans-grid-heading {
+      color: #333;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+
+    div[class*="-container"] {
+      padding: 15px;
+      background-color: #ecf0f1;
+      border-radius: 5px;
+
+      p {
+        margin-top: 10px;
+        color: #555;
+      }
+    }
+  }
+}
