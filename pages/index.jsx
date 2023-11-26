@@ -63,6 +63,7 @@ function Login() {
   const handleGoogleSignIn = async () => {
     await signIn();
   };
+  console.log("Session:", session);
   return (
     <Fragment>
       <LandingLayout>
