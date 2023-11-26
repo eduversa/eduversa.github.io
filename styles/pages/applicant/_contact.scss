@@ -150,9 +150,16 @@
       }
 
       &__expertise {
-        font-size: 18px;
-        margin-top: 12px;
-        color: #555;
+        font-family: var(--font-blackpast);
+        font-size: var(--font-12);
+        margin: 1% 0 0 0;
+        letter-spacing: 1px;
+        font-weight: 400;
+        color: var(--light-black-4);
+        transition: color 0.3s ease-in-out;
+        &:hover {
+          color: var(--black);
+        }
       }
 
       &__description {
