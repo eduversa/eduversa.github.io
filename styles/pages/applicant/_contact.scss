@@ -225,9 +225,11 @@
       margin: 0 0 1.5% 0;
     }
     &__content {
-      font-size: 20px;
-      color: #333;
-      transition: color 0.3s ease;
+      font-family: var(--font-blackpast);
+      font-size: var(--font-11);
+      margin: 1% 0 2% 0;
+      letter-spacing: 3px;
+      font-weight: 400;
     }
   }
 
