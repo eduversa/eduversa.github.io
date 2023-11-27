@@ -7,6 +7,7 @@
   // justify-content: center;
   padding: 2rem 5rem;
   transition: background 800ms ease-in-out;
+  background: #ecf0f3;
 
   --gradient: linear-gradient(45deg, hsl(240, 100%, 65%), hsl(303, 100%, 65%));
 
@@ -36,12 +37,22 @@
     width: 100%;
     padding: 0.3rem 0.75rem;
     font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
+    line-height: 1.5;
+    // color: #555;
+    // background-color: #fff;
+    // background-image: none;
+    // border: 1px solid #ccc;
     border-radius: 0.25rem;
+
+    background: #ffffff;
+    // border-radius: 8%;
+    box-shadow: 10px 10px 15px #d9dade, 10px 10px 15px #ffffff;
+
+    &:focus {
+      border: none;
+      box-shadow: inset 10px 10px 15px #d9dade, inset 10px 10px 15px #ffffff;
+    }
+
     // margin-bottom: 1.25rem;
     &:invalid,
     &.invalid {
@@ -96,10 +107,11 @@
     height: fit-content;
     border-radius: 10px;
     // box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
-    box-shadow: 0px 0px 20px 10px hsla(0, 0%, 100%, 0.75);
+    // box-shadow: 0px 0px 20px 10px hsla(0, 0%, 100%, 0.75);
+    background: linear-gradient(145deg, #ced0d3, #ffffff);
+    box-shadow: 18.92px 18.92px 15px #c4c6c9, -18.92px -18.92px 15px #ffffff;
     width: 1100px;
     overflow: hidden;
-    background: white;
 
     hr {
       height: 2px;

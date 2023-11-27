@@ -22,7 +22,6 @@ const FamilyInfo = ({
   handleChange,
   handlePreviousClick,
   handleNextClick,
-  handleSubmit,
   currentStep,
   totalSteps,
 
@@ -85,9 +84,9 @@ const FamilyInfo = ({
       {loading && <AllLoader />}
       <form
         className="page--content"
-        onSubmit={(event) => {
+        onSubmit={async (event) => {
           event.preventDefault();
-          onSubmitHandler();
+          await onSubmitHandler();
           handleNextClick();
         }}
       >
