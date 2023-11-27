@@ -1,17 +1,34 @@
-import { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { ApplicantLayout } from "@/layout";
 import { getSingleApplicantApi } from "@/functions";
+
+function renderFields(data) {
+  return Object.entries(data).map(([key, value]) => {
+    if (typeof value === "object" && value !== null) {
+      return (
+        <Fragment key={key}>
+          <div className="field-group">
+            <h3>{key}</h3>
+            {renderFields(value)}
+          </div>
+        </Fragment>
+      );
+    } else {
+      return (
+        <div key={key} className="field">
+          <label>{key}:</label>
+          <span>{JSON.stringify(value)}</span>
+        </div>
+      );
+    }
+  });
+}
 
 function ApplicantDashboard() {
   const [profileData, setProfileData] = useState({});
 
   useEffect(() => {
     const userType = localStorage.getItem("userType");
-    const profiledata = JSON.parse(localStorage.getItem("applicant_profile"));
-
-    if (process.env.NODE_ENV === "development") {
-      // console.log("profileData:", profiledata);
-    }
 
     if (userType === "applicant") {
       const applicantId = localStorage.getItem("userid");
@@ -25,15 +42,9 @@ function ApplicantDashboard() {
             return;
           }
 
-          if (process.env.NODE_ENV === "development") {
-            console.log("Applicant Data:", response);
-          }
-
           setProfileData(response.data);
         } catch (error) {
-          if (process.env.NODE_ENV === "development") {
-            console.error("Error fetching applicant data:", error.message);
-          }
+          console.error("Error fetching applicant data:", error.message);
         }
       };
 
@@ -44,7 +55,7 @@ function ApplicantDashboard() {
   return (
     <Fragment>
       <ApplicantLayout>
-        <div>{JSON.stringify(profileData)}</div>
+        <div className="profile-fields">{renderFields(profileData)}</div>
       </ApplicantLayout>
     </Fragment>
   );
