@@ -27,93 +27,95 @@ function renderImage(imageUrl) {
 }
 
 function renderFields(data, parentKey = "") {
-  return Object.entries(data).map(([key, value]) => {
-    const currentKey = parentKey ? `${parentKey}-${key}` : key;
-    const className = generateClassName("field", currentKey);
+  return Object.entries(data)
+    .filter(([key]) => key !== "__v" && key !== "_id")
+    .map(([key, value]) => {
+      const currentKey = parentKey ? `${parentKey}-${key}` : key;
+      const className = generateClassName("field", currentKey);
 
-    if (
-      typeof value === "object" &&
-      value !== null &&
-      key.toLowerCase() !== "image"
-    ) {
-      if (Array.isArray(value)) {
-        return (
-          <Fragment key={currentKey}>
-            <p className={className}>{key}:</p>
-            <ul className={className}>
-              {value.map((item, index) => (
-                <li key={index} className={className}>
-                  {renderFields(item, currentKey)}
-                </li>
-              ))}
-            </ul>
-          </Fragment>
-        );
-      } else {
-        if (
-          key.toLowerCase() === "marks" &&
-          typeof value === "object" &&
-          value !== null
-        ) {
+      if (
+        typeof value === "object" &&
+        value !== null &&
+        key.toLowerCase() !== "image"
+      ) {
+        if (Array.isArray(value)) {
           return (
             <Fragment key={currentKey}>
               <p className={className}>{key}:</p>
               <ul className={className}>
-                {Object.entries(value).map(([subject, marks], index) => (
+                {value.map((item, index) => (
                   <li key={index} className={className}>
-                    <strong>{subject}:</strong> {marks}
+                    {renderFields(item, currentKey)}
                   </li>
                 ))}
               </ul>
             </Fragment>
           );
         } else {
+          if (
+            key.toLowerCase() === "marks" &&
+            typeof value === "object" &&
+            value !== null
+          ) {
+            return (
+              <Fragment key={currentKey}>
+                <p className={className}>{key}:</p>
+                <ul className={className}>
+                  {Object.entries(value).map(([subject, marks], index) => (
+                    <li key={index} className={className}>
+                      <strong>{subject}:</strong> {marks}
+                    </li>
+                  ))}
+                </ul>
+              </Fragment>
+            );
+          } else {
+            return (
+              <Fragment key={currentKey}>
+                <div className={className}>
+                  <h3 className={generateClassName("heading", currentKey)}>
+                    {key}
+                  </h3>
+                  {renderFields(value, currentKey)}
+                </div>
+              </Fragment>
+            );
+          }
+        }
+      } else {
+        if (key.toLowerCase().includes("email")) {
           return (
-            <Fragment key={currentKey}>
-              <div className={className}>
-                <h3 className={generateClassName("heading", currentKey)}>
-                  {key}
-                </h3>
-                {renderFields(value, currentKey)}
-              </div>
-            </Fragment>
+            <a
+              key={currentKey}
+              href={`mailto:${value}`}
+              className={className}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {key}: {value}
+            </a>
+          );
+        } else if (key.toLowerCase() === "dob") {
+          return (
+            <p key={currentKey} className={className}>
+              <strong className={generateClassName("label", currentKey)}>
+                {key}:
+              </strong>{" "}
+              {formatDateOfBirth(value)}
+            </p>
+          );
+        } else {
+          return (
+            <p key={currentKey} className={className}>
+              <strong className={generateClassName("label", currentKey)}>
+                {key}:
+              </strong>{" "}
+              {JSON.stringify(value)}
+            </p>
           );
         }
       }
-    } else {
-      if (key.toLowerCase().includes("email")) {
-        return (
-          <a
-            key={currentKey}
-            href={`mailto:${value}`}
-            className={className}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {key}: {value}
-          </a>
-        );
-      } else if (key.toLowerCase() === "dob") {
-        return (
-          <p key={currentKey} className={className}>
-            <strong className={generateClassName("label", currentKey)}>
-              {key}:
-            </strong>{" "}
-            {formatDateOfBirth(value)}
-          </p>
-        );
-      } else {
-        return (
-          <p key={currentKey} className={className}>
-            <strong className={generateClassName("label", currentKey)}>
-              {key}:
-            </strong>{" "}
-            {JSON.stringify(value)}
-          </p>
-        );
-      }
-    }
-  });
+    });
 }
 
 function ApplicantDashboard() {
