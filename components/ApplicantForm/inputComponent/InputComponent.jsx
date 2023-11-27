@@ -21,15 +21,32 @@ export const Email = ({ label, name, value, ...props }) => {
 };
 
 export const Number = ({ label, name, value, ...props }) => {
+  const preventE = (e) => {
+    if (e.key === 'e' || e.key === 'E') {
+      e.preventDefault();
+    }
+  };
   return (
     <div className="inputs">
       <label htmlFor={name}>{label}</label>
-      <input type="number" id={name} name={name} value={value} {...props} />
+      <input 
+        type="number" 
+        id={name} 
+        name={name} 
+        value={value}
+        onKeyDown={preventE}
+        {...props} 
+      />
     </div>
   );
 };
 
 export const PhoneNumber = ({ label, name, value, ...props }) => {
+  const handleKeyDown = (e) => {
+    if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+    }
+  };
   return (
     <div className="inputs">
       <label htmlFor={name}>{label}</label>
@@ -43,13 +60,48 @@ export const PhoneNumber = ({ label, name, value, ...props }) => {
         // pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$"
         // pattern="^\+?\d{1,3}\s?\d{1,14}$"
         pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$"
+        onKeyDown={handleKeyDown}
+        maxLength={10}
         {...props}
       />
     </div>
   );
 };
 
+// export const PhoneNumber = ({ label, name, value, ...props }) => {
+//   const preventE = (e) => {
+//     if (e.key === 'e' || e.key === 'E') {
+//       e.preventDefault();
+//     }
+//   };
+
+//   return (
+//     <div className="inputs">
+//       <label htmlFor={name}>{label}</label>
+//       <input
+//         type="number"
+//         id={name}
+//         name={name}
+//         value={value}
+//         min={1000000000}
+//         max={9999999999}
+//         onInput={(e) => {
+//           e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 10)
+//         }}
+//         onKeyDown={preventE}
+//         {...props}
+//       />
+//     </div>
+//   );
+// };
+
+
 export const Pincode = ({ label, name, value, ...props }) => {
+  const handleKeyDown = (e) => {
+    if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+    }
+  };
   return (
     <div className="inputs">
       <label htmlFor={name}>{label}</label>
@@ -60,6 +112,8 @@ export const Pincode = ({ label, name, value, ...props }) => {
         value={value}
         pattern="^[1-9]{1}[0-9]{2}[0-9]{3}$"
         // pattern="^[1-9][0-9]{5}$"
+        onKeyDown={handleKeyDown}
+        maxLength={6}
         {...props}
       />
     </div>
@@ -67,6 +121,11 @@ export const Pincode = ({ label, name, value, ...props }) => {
 };
 
 export const Aadhar = ({ label, name, value, ...props }) => {
+  const handleKeyDown = (e) => {
+    if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+    }
+  };
   return (
     <div className="inputs">
       <label htmlFor={name}>{label}</label>
@@ -76,6 +135,8 @@ export const Aadhar = ({ label, name, value, ...props }) => {
         name={name}
         value={value}
         pattern="^[2-9]{1}[0-9]{3}\s[0-9]{4}\s[0-9]{4}$"
+        onKeyDown={handleKeyDown}
+        maxLength={14}
         {...props}
       />
     </div>
@@ -92,6 +153,7 @@ export const Pan = ({ label, name, value, ...props }) => {
         name={name}
         value={value}
         pattern="^[A-Z]{5}[0-9]{4}[A-Z]{1}$"
+        maxLength={10}
         {...props}
       />
     </div>

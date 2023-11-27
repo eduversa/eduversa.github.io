@@ -16,7 +16,7 @@ function ApplicantDashboard() {
   return (
     <Fragment>
       <ApplicantLayout>
-        <div>{JSON.stringify(profileData)}</div>
+        {/* <div>{JSON.stringify(profileData)}</div> */}
       </ApplicantLayout>
     </Fragment>
   );

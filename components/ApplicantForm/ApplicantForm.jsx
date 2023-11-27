@@ -114,14 +114,16 @@ const ApplicantForm = () => {
 
   const formatSubjects = (marks) => {
     return Object.entries(marks)
-      .map(([subject, mark]) => `${subject.trim()} - ${mark.trim()}`)
+      .map(
+        ([subject, mark]) => `${subject.trim()} - ${mark ? mark.trim() : ""}`
+      )
       .join(", ");
   };
 
   const deepMergeObject = useCallback((obj1, obj2) => {
-    let output = {...obj1};
+    let output = { ...obj1 };
     if (isObject(obj1) && isObject(obj2)) {
-      Object.keys(obj1).forEach(key => {
+      Object.keys(obj1).forEach((key) => {
         if (isObject(obj1[key])) {
           if (!(key in obj2)) {
             // If the key does not exist in obj2, preserve the property from obj1
@@ -131,11 +133,14 @@ const ApplicantForm = () => {
           }
         } else {
           // If the key does not exist in obj2 or is undefined in obj2, preserve the property from obj1
-          output[key] = (key in obj2 && typeof obj2[key] !== 'undefined') ? obj2[key] : obj1[key];
+          output[key] =
+            key in obj2 && typeof obj2[key] !== "undefined"
+              ? obj2[key]
+              : obj1[key];
         }
       });
       // Also include properties that exist in obj2 but not in obj1
-      Object.keys(obj2).forEach(key => {
+      Object.keys(obj2).forEach((key) => {
         if (!(key in obj1)) {
           output[key] = obj2[key];
         }
@@ -145,9 +150,9 @@ const ApplicantForm = () => {
   }, []);
 
   const isObject = (item) => {
-    return (item && typeof item === 'object' && !Array.isArray(item));
-  }
-  
+    return item && typeof item === "object" && !Array.isArray(item);
+  };
+
   const loadSavedFormData = useCallback(() => {
     const savedFormData = JSON.parse(localStorage.getItem("applicant_profile"));
 
@@ -156,11 +161,12 @@ const ApplicantForm = () => {
     } else if (!savedFormData.family_info.guardian) {
       savedFormData.family_info.guardian = initialFormData.family_info.guardian;
     } else if (!savedFormData.family_info.guardian.office_address) {
-      savedFormData.family_info.guardian.office_address = initialFormData.family_info.guardian.office_address;
+      savedFormData.family_info.guardian.office_address =
+        initialFormData.family_info.guardian.office_address;
     }
     return savedFormData;
   }, [initialFormData]);
-  
+
   const processFormData = useCallback((savedFormData) => {
     const fullName = savedFormData.personal_info
       ? concatenateNames(
@@ -193,27 +199,27 @@ const ApplicantForm = () => {
             savedFormData.family_info.guardian.last_name
           )
         : "";
-  
+
     const dob =
       savedFormData.personal_info && savedFormData.personal_info.dob
         ? new Date(savedFormData.personal_info.dob)
         : null;
     const dobString = dob ? dob.toISOString().split("T")[0] : "";
-  
+
     const secondarySubjects =
       savedFormData.academic_info &&
       savedFormData.academic_info.secondary &&
       savedFormData.academic_info.secondary.marks
         ? formatSubjects(savedFormData.academic_info.secondary.marks)
         : "";
-  
+
     const higherSecondarySubjects =
       savedFormData.academic_info &&
       savedFormData.academic_info.higher_secondary &&
       savedFormData.academic_info.higher_secondary.marks
         ? formatSubjects(savedFormData.academic_info.higher_secondary.marks)
         : "";
-  
+
     return {
       ...savedFormData,
       personal_info: {
@@ -223,49 +229,55 @@ const ApplicantForm = () => {
       },
       family_info: {
         ...savedFormData.family_info,
-        father: savedFormData.family_info && savedFormData.family_info.father
-          ? {
-              ...savedFormData.family_info.father,
-              name: fatherFullName,
-            }
-          : {},
-        mother: savedFormData.family_info && savedFormData.family_info.mother
-          ? {
-              ...savedFormData.family_info.mother,
-              name: motherFullName,
-            }
-          : {},
-        guardian: savedFormData.family_info && savedFormData.family_info.guardian
-          ? {
-              ...savedFormData.family_info.guardian,
-              name: guardianFullName,
-            }
-          : {},
+        father:
+          savedFormData.family_info && savedFormData.family_info.father
+            ? {
+                ...savedFormData.family_info.father,
+                name: fatherFullName,
+              }
+            : {},
+        mother:
+          savedFormData.family_info && savedFormData.family_info.mother
+            ? {
+                ...savedFormData.family_info.mother,
+                name: motherFullName,
+              }
+            : {},
+        guardian:
+          savedFormData.family_info && savedFormData.family_info.guardian
+            ? {
+                ...savedFormData.family_info.guardian,
+                name: guardianFullName,
+              }
+            : {},
       },
       academic_info: {
         ...savedFormData.academic_info,
-        secondary: savedFormData.academic_info && savedFormData.academic_info.secondary
-          ? {
-              ...savedFormData.academic_info.secondary,
-              subjects: secondarySubjects,
-            }
-          : {},
-        higher_secondary: savedFormData.academic_info && savedFormData.academic_info.higher_secondary
-          ? {
-              ...savedFormData.academic_info.higher_secondary,
-              subjects: higherSecondarySubjects,
-            }
-          : {},
+        secondary:
+          savedFormData.academic_info && savedFormData.academic_info.secondary
+            ? {
+                ...savedFormData.academic_info.secondary,
+                subjects: secondarySubjects,
+              }
+            : {},
+        higher_secondary:
+          savedFormData.academic_info &&
+          savedFormData.academic_info.higher_secondary
+            ? {
+                ...savedFormData.academic_info.higher_secondary,
+                subjects: higherSecondarySubjects,
+              }
+            : {},
       },
     };
   }, []);
-  
+
   useEffect(() => {
     const savedFormData = loadSavedFormData();
     const processedFormData = processFormData(savedFormData);
     const mergedFormData = deepMergeObject(initialFormData, processedFormData);
     setFormData(mergedFormData);
-  
+
     const savedCurrentStep = JSON.parse(localStorage.getItem("currentStep"));
     if (savedCurrentStep) {
       setCurrentStep(savedCurrentStep);
@@ -283,8 +295,8 @@ const ApplicantForm = () => {
       return;
     }
 
-    const nameArray = name.split(".");
     setFormData((prevFormData) => {
+      const nameArray = name.split(".");
       let updatedData = { ...prevFormData };
       let currentLevel = updatedData;
 
@@ -292,7 +304,6 @@ const ApplicantForm = () => {
         if (i === nameArray.length - 1) {
           currentLevel[nameArray[i]] = value;
         } else {
-          currentLevel[nameArray[i]] = { ...currentLevel[nameArray[i]] };
           currentLevel = currentLevel[nameArray[i]];
         }
       }
