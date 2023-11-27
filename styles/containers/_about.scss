@@ -9,7 +9,6 @@
   .aboutus-heading {
     position: relative;
     text-align: center;
-    overflow: hidden;
     z-index: 1;
     color: var(--black);
     font-family: var(--font-oswald);
@@ -53,8 +52,11 @@
     }
 
     p {
+      font-family: var(--font-roboto);
+      font-size: var(--font-11);
+      font-weight: 400;
+      letter-spacing: 1px;
       color: #777;
-      font-size: 1.2em;
       line-height: 1.5;
     }
   }
