@@ -22,7 +22,7 @@ function AdminLayout({ children }) {
   return (
     <Fragment>
       <AdminNavbar></AdminNavbar>
-      {children}
+      <div className="wrapper">{children}</div>
       <Footer></Footer>
     </Fragment>
   );
