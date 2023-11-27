@@ -23,7 +23,7 @@
       display: block;
       width: 50%;
       height: 5px;
-      background: linear-gradient(90deg, var(--blue-7), var(--pink-4));
+      background: linear-gradient(90deg, var(--pink-3), var(--purple-4));
       position: absolute;
       bottom: 0;
       left: 50%;
@@ -40,40 +40,15 @@
   }
 
   .description,
-  .technologies,
-  .problems,
-  .key-solution-and-objective,
-  .future-plans {
-    position: relative;
-
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      width: 20%;
-      height: 2px;
-      background: linear-gradient(90deg, #ecf0f1, #dce1e3);
-      transition: transform 0.3s ease;
-    }
-
-    &::before {
-      top: 0;
-      left: 10%;
-    }
-
-    &::after {
-      bottom: 0;
-      right: 10%;
-    }
-  }
-
-  .description,
   .technologies {
     .description-heading,
     .technologies-heading {
-      color: #555;
-      font-size: 1.8em;
-      margin-bottom: 10px;
+      font-family: var(--font-elianto);
+      font-size: var(--font-8);
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: capitalize;
+      color: var(--light-black-3);
       text-shadow: 1px 1px 2px var(--black-shadow-light);
     }
 
