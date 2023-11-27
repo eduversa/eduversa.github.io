@@ -343,7 +343,7 @@ const ApplicantForm = () => {
   return (
     <div
       className="form"
-      style={{ background: `hsl(${(currentStep - 1) * 62.5}, 40% , 85%)` }}
+      // style={{ background: `hsl(${(currentStep - 1) * 62.5}, 40% , 85%)` }}
     >
       <h1 className="form--heading">Applicant Form</h1>
 
