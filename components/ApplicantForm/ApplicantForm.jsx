@@ -33,7 +33,7 @@ const ApplicantForm = () => {
         contact: "",
         gender: "",
         dob: "",
-        are_addresses_same: true,
+        are_addresses_same: false,
         category: "",
         blood_group: "",
         aadhar_number: "",
@@ -126,20 +126,17 @@ const ApplicantForm = () => {
       Object.keys(obj1).forEach((key) => {
         if (isObject(obj1[key])) {
           if (!(key in obj2)) {
-            // If the key does not exist in obj2, preserve the property from obj1
             output[key] = obj1[key];
           } else {
             output[key] = deepMergeObject(obj1[key], obj2[key]);
           }
         } else {
-          // If the key does not exist in obj2 or is undefined in obj2, preserve the property from obj1
           output[key] =
             key in obj2 && typeof obj2[key] !== "undefined"
               ? obj2[key]
               : obj1[key];
         }
       });
-      // Also include properties that exist in obj2 but not in obj1
       Object.keys(obj2).forEach((key) => {
         if (!(key in obj1)) {
           output[key] = obj2[key];
@@ -155,16 +152,18 @@ const ApplicantForm = () => {
 
   const loadSavedFormData = useCallback(() => {
     const savedFormData = JSON.parse(localStorage.getItem("applicant_profile"));
-
-    if (!savedFormData.family_info) {
-      savedFormData.family_info = initialFormData.family_info;
-    } else if (!savedFormData.family_info.guardian) {
-      savedFormData.family_info.guardian = initialFormData.family_info.guardian;
-    } else if (!savedFormData.family_info.guardian.office_address) {
-      savedFormData.family_info.guardian.office_address =
-        initialFormData.family_info.guardian.office_address;
+    if (savedFormData) {
+      if (!savedFormData.family_info) {
+        savedFormData.family_info = initialFormData.family_info;
+      } else if (!savedFormData.family_info.guardian) {
+        savedFormData.family_info.guardian = initialFormData.family_info.guardian;
+      } else if (!savedFormData.family_info.guardian.office_address) {
+        savedFormData.family_info.guardian.office_address =
+          initialFormData.family_info.guardian.office_address;
+      }
+      return savedFormData;
     }
-    return savedFormData;
+    return null;
   }, [initialFormData]);
 
   const processFormData = useCallback((savedFormData) => {
@@ -274,10 +273,12 @@ const ApplicantForm = () => {
 
   useEffect(() => {
     const savedFormData = loadSavedFormData();
-    const processedFormData = processFormData(savedFormData);
-    const mergedFormData = deepMergeObject(initialFormData, processedFormData);
-    setFormData(mergedFormData);
-
+    if (savedFormData) {
+      const processedFormData = processFormData(savedFormData);
+      const mergedFormData = deepMergeObject(initialFormData, processedFormData);
+      setFormData(mergedFormData);
+    }
+  
     const savedCurrentStep = JSON.parse(localStorage.getItem("currentStep"));
     if (savedCurrentStep) {
       setCurrentStep(savedCurrentStep);
