@@ -68,7 +68,7 @@ function Login() {
     alert(`Login with ${provider} is coming soon!`);
   };
   const handleGoogleSignIn = async () => {
-    await signIn();
+    await signIn("google");
   };
   if (process.env.NODE_ENV === "development") {
     console.log("Session:", session);
