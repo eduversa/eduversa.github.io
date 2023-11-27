@@ -9,9 +9,9 @@ function ApplicantDashboard() {
     if (process.env.NODE_ENV === "development") {
       console.log("profileData:", profiledata);
     }
-    // if (profiledata) {
-    //   setProfileData(profiledata);
-    // }
+    if (profiledata) {
+      setProfileData(profiledata);
+    }
   }, []);
   return (
     <Fragment>
