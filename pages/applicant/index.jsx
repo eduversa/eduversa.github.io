@@ -1,16 +1,27 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { ApplicantLayout } from "@/layout";
 import { getSingleApplicantApi } from "@/functions";
+import Image from "next/image";
 
-// Helper function to generate a unique class name
 function generateClassName(prefix, key) {
   return `${prefix}-${key.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
+}
+
+function formatDateOfBirth(dateString) {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
 function renderImage(imageUrl) {
   return (
     <div className="profile-image-container">
-      <img src={imageUrl} alt="Applicant Profile" className="profile-image" />
+      <Image
+        src={imageUrl}
+        alt="Applicant Profile"
+        className="profile-image"
+        width={300}
+        height={200}
+      />
     </div>
   );
 }
@@ -26,7 +37,6 @@ function renderFields(data, parentKey = "") {
       key.toLowerCase() !== "image"
     ) {
       if (Array.isArray(value)) {
-        // Use ul for arrays
         return (
           <Fragment key={currentKey}>
             <p className={className}>{key}:</p>
@@ -40,21 +50,38 @@ function renderFields(data, parentKey = "") {
           </Fragment>
         );
       } else {
-        // Use div for other objects
-        return (
-          <Fragment key={currentKey}>
-            <div className={className}>
-              <h3 className={generateClassName("heading", currentKey)}>
-                {key}
-              </h3>
-              {renderFields(value, currentKey)}
-            </div>
-          </Fragment>
-        );
+        if (
+          key.toLowerCase() === "marks" &&
+          typeof value === "object" &&
+          value !== null
+        ) {
+          return (
+            <Fragment key={currentKey}>
+              <p className={className}>{key}:</p>
+              <ul className={className}>
+                {Object.entries(value).map(([subject, marks], index) => (
+                  <li key={index} className={className}>
+                    <strong>{subject}:</strong> {marks}
+                  </li>
+                ))}
+              </ul>
+            </Fragment>
+          );
+        } else {
+          return (
+            <Fragment key={currentKey}>
+              <div className={className}>
+                <h3 className={generateClassName("heading", currentKey)}>
+                  {key}
+                </h3>
+                {renderFields(value, currentKey)}
+              </div>
+            </Fragment>
+          );
+        }
       }
     } else {
       if (key.toLowerCase().includes("email")) {
-        // Use mailto link for email fields
         return (
           <a
             key={currentKey}
@@ -66,8 +93,16 @@ function renderFields(data, parentKey = "") {
             {key}: {value}
           </a>
         );
+      } else if (key.toLowerCase() === "dob") {
+        return (
+          <p key={currentKey} className={className}>
+            <strong className={generateClassName("label", currentKey)}>
+              {key}:
+            </strong>{" "}
+            {formatDateOfBirth(value)}
+          </p>
+        );
       } else {
-        // Use p for other non-object values
         return (
           <p key={currentKey} className={className}>
             <strong className={generateClassName("label", currentKey)}>
