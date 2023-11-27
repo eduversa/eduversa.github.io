@@ -1,25 +1,25 @@
-import { getCollegeDetailsApi } from '@/functions';
+
 import { useState, useEffect, Fragment } from 'react';
 
 
 
-const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onStreamChange }) => {
-  const [collegeData, setCollegeData] = useState(null);
+const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onStreamChange, maincollegeData }) => {
+  const [collegeData, setCollegeData] = useState(maincollegeData);
   const [streams, setStreams] = useState([]);
 
-  useEffect(() => {
-    fetchCollegeData();
-  }, []); 
+  // useEffect(() => {
+  //   fetchCollegeData();
+  // }, []); 
 
-  const fetchCollegeData = async () => {
-    try {
-      const response = await getCollegeDetailsApi(304); 
-      console.log(response);
-      setCollegeData(response);
-    } catch (error) {
-      console.error('Error fetching college data:', error);
-    }
-  };
+  // const fetchCollegeData = async () => {
+  //   try {
+  //     const response = await getCollegeDetailsApi(304); 
+  //     console.log(response);
+  //     setCollegeData(response);
+  //   } catch (error) {
+  //     console.error('Error fetching college data:', error);
+  //   }
+  // };
 
   useEffect(() => {
     const selectedCourseData = collegeData?.data.college_courses.find(course => course.name === selectedCourse);
@@ -46,9 +46,7 @@ const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onSt
 
   };
 
-  if (!collegeData) {
-    return(<p>loading...</p>)
-  }
+
 
   const courseOptions = collegeData?.data.college_courses.map(course => (
     <option key={course.code} value={course.name}>{course.name}</option>
@@ -71,7 +69,6 @@ const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onSt
 
         {streams.length>0 && (
           <>
-        
             <label htmlFor="streamDropdown">Select Stream:</label>
             <select id="streamDropdown" value={selectedStream} onChange={handleStreamChange}>
               <option value="" disabled>Please select the stream</option>
