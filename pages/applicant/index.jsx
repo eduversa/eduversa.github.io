@@ -5,21 +5,45 @@ import { getSingleApplicantApi } from "@/functions";
 function renderFields(data) {
   return Object.entries(data).map(([key, value]) => {
     if (typeof value === "object" && value !== null) {
-      return (
-        <Fragment key={key}>
-          <div className="field-group">
-            <h3>{key}</h3>
-            {renderFields(value)}
-          </div>
-        </Fragment>
-      );
+      if (Array.isArray(value)) {
+        // Use ul for arrays
+        return (
+          <Fragment key={key}>
+            <p>{key}:</p>
+            <ul>
+              {value.map((item, index) => (
+                <li key={index}>{renderFields(item)}</li>
+              ))}
+            </ul>
+          </Fragment>
+        );
+      } else {
+        // Use div for other objects
+        return (
+          <Fragment key={key}>
+            <div className="field-group">
+              <h3>{key}</h3>
+              {renderFields(value)}
+            </div>
+          </Fragment>
+        );
+      }
     } else {
-      return (
-        <div key={key} className="field">
-          <label>{key}:</label>
-          <span>{JSON.stringify(value)}</span>
-        </div>
-      );
+      if (key.toLowerCase().includes("email")) {
+        // Use mailto link for email fields
+        return (
+          <a key={key} href={`mailto:${value}`}>
+            {key}: {value}
+          </a>
+        );
+      } else {
+        // Use p for other non-object values
+        return (
+          <p key={key}>
+            <strong>{key}:</strong> {JSON.stringify(value)}
+          </p>
+        );
+      }
     }
   });
 }
