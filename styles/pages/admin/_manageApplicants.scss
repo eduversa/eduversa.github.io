@@ -1,0 +1,221 @@
+.admin-manage-applicants {
+  background: linear-gradient(45deg, var(--white-1), var(--white-12));
+  box-shadow: 20px 20px 40px var(--black-shadow-light-1),
+    -20px -20px 40px var(--white-shadow-0);
+  border-radius: 15px;
+  position: relative;
+  background-size: cover;
+  background-attachment: fixed;
+  .manage-applicant-container h1 {
+    text-align: center;
+    padding-top: 20px;
+    font-size: var(--font-6);
+    margin-block-end: 20px;
+  }
+
+  .manage-applicant-container .filters-dropdowns {
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .manage-applicant-container select {
+    padding: 4px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .manage-applicant-container option {
+    background-color: var(--purple-1);
+    color: rgb(255, 253, 251);
+  }
+
+  @media (max-width: 600px) {
+    .manage-applicant-container .filters-dropdowns {
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .manage-applicant-container option {
+      overflow: hidden;
+      max-width: 100px;
+    }
+  }
+
+  .applicant-container-box {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 50px 0;
+  }
+
+  .applicant-item {
+    flex-basis: calc(33.33333% - 30px);
+    margin: 0 15px 30px;
+    overflow: hidden;
+    border-radius: 28px;
+
+    &--inner {
+      height: 200px;
+      display: block;
+      padding: 30px 20px;
+      background-color: #121212;
+      overflow: hidden;
+      position: relative;
+
+      &:hover {
+        text-decoration: none;
+        .applicant-item-bg {
+          transform: scale(10);
+        }
+      }
+    }
+
+    &-item_stream {
+      text-decoration: none;
+      position: relative;
+      font-weight: bold;
+      color: #fff;
+      transition: color 0.5s ease;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &--name {
+      overflow: hidden;
+      font-weight: bold;
+      font-size: 24px;
+      color: #fff;
+      position: relative;
+    }
+
+    &--course {
+      font-size: 18px;
+      color: #fff;
+      position: relative;
+    }
+
+    &-bg {
+      height: 128px;
+      width: 128px;
+      background-color: #f9b234;
+      position: absolute;
+      top: -75px;
+      right: -75px;
+      border-radius: 50%;
+      transition: all 0.5s ease;
+    }
+  }
+
+  // .applicant-item--inner {
+  //     height: 200px;
+  //     display: block;
+  //     padding: 30px 20px;
+  //     background-color: #121212;
+  //     overflow: hidden;
+  //     position: relative;
+  // }
+
+  // .applicant-item--inner:hover .applicant-item-item_stream,
+  // .applicant-item-item_stream:hover {
+  //     text-decoration: none;
+  // }
+
+  // .applicant-item--inner:hover .applicant-item-bg {
+  //     transform: scale(10);
+  // }
+
+  // .applicant-item--name {
+  //     overflow: hidden;
+  //     font-weight: bold;
+  //     font-size: 24px;
+  //     color: #FFF;
+  //     position: relative;
+  // }
+
+  // .applicant-item--course {
+  //     font-size: 18px;
+  //     color: #FFF;
+  //     position: relative;
+  // }
+
+  // .applicant-item-item_stream {
+  //     position: relative;
+  //     font-weight: bold;
+  //     color: #fff;
+  //     transition: color .5s ease;
+  // }
+  .applicant-item-item_stream:hover {
+    color: #fff;
+  }
+
+  // .applicant-item-bg {
+  //     height: 128px;
+  //     width: 128px;
+  //     background-color: #f9b234;
+  //     position: absolute;
+  //     top: -75px;
+  //     right: -75px;
+  //     border-radius: 50%;
+  //     transition: all .5s ease;
+  // }
+
+  .applicant-item:nth-child(2n) .applicant-item-bg {
+    background-color: #3ecd5e;
+  }
+
+  .applicant-item:nth-child(3n) .applicant-item-bg {
+    background-color: #e44002;
+  }
+
+  .applicant-item:nth-child(4n) .applicant-item-bg {
+    background-color: #952aff;
+  }
+
+  .applicant-item:nth-child(5n) .applicant-item-bg {
+    background-color: #cd3e94;
+  }
+
+  .applicant-item:nth-child(6n) .applicant-item-bg {
+    background-color: #4c49ea;
+  }
+
+  @media only screen and (max-width: 979px) {
+    .applicant-item {
+      flex-basis: calc(50% - 30px);
+    }
+    .applicant-item--name {
+      font-size: 24px;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    .main-applicant-container {
+      width: 96%;
+    }
+  }
+
+  @media only screen and (max-width: 639px) {
+    .applicant-item {
+      flex-basis: 100%;
+    }
+    .applicant-item--name {
+      min-height: 72px;
+      line-height: 1;
+      font-size: 24px;
+    }
+    .applicant-item--inner {
+      padding: 22px 40px;
+    }
+    .applicant-item-item_stream {
+      font-size: 16px;
+    }
+  }
+}
