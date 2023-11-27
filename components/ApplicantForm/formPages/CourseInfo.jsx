@@ -7,6 +7,7 @@ import {
   Select,
   DateInput,
   FormButtons,
+  Year,
 } from "../inputComponent/InputComponent";
 import { getCollegeDetailsApi, updateAppplicantData } from "@/functions";
 
@@ -199,7 +200,7 @@ const CourseInfo = ({
             />
           )}
 
-          <Number
+          <Year
             label="Admission Year"
             name="course_info.admission_year"
             value={currentYear}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import { AllLoader } from "@/components";
 import {
   Text,
@@ -31,22 +31,31 @@ const FamilyInfo = ({
   const [officePincode, setOfficePincode] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [fetching, setFetching] = useState(false);
+  const controller = useRef(null);
+  const [prevOfficePincode, setPrevOfficePincode] = useState("");
+
+  
   useEffect(() => {
-    const controller = new AbortController();
-    if (officePincode.length === 6) {
+    if (officePincode.length === 6 && officePincode !== prevOfficePincode) {
+      if (fetching) {
+        controller.current.abort();
+      }
+      setFetching(true);
+      controller.current = new AbortController();
       fetchAddressFromPincode(
         formData,
         handleChange,
         "family_info.guardian.office_address",
         officePincode,
         setOfficePincodeError,
-        controller
-      );
+        controller.current
+      ).then(() => {
+        setFetching(false);
+        setPrevOfficePincode(officePincode);
+      });
     }
-    return () => {
-      controller.abort();
-    };
-  }, [officePincode, setOfficePincodeError, formData, handleChange]);
+  }, [officePincode, setOfficePincodeError, formData, handleChange, prevOfficePincode, fetching]);
 
   useEffect(() => {
     const savedFamilyInfo = JSON.parse(localStorage.getItem("family_info"));

@@ -9,6 +9,7 @@ import {
   DateInput,
   FormButtons,
   TextArea,
+  Year,
 } from "../inputComponent/InputComponent";
 const AcademicInfo = ({
   formData,
@@ -75,7 +76,7 @@ const AcademicInfo = ({
             onChange={handleChange}
             required
           />
-          <Number
+          <Year
             label="Year of Exam"
             name="academic_info.admission.year_of_exam"
             value={formData.academic_info.admission.year_of_exam}
@@ -118,7 +119,7 @@ const AcademicInfo = ({
             onChange={handleChange}
             required
           />
-          <Number
+          <Year
             label="Year of Exam"
             name="academic_info.secondary.year_of_exam"
             value={formData.academic_info.secondary.year_of_exam}
@@ -172,7 +173,7 @@ const AcademicInfo = ({
             onChange={handleChange}
             required
           />
-          <Number
+          <Year
             label="Year of Exam"
             name="academic_info.higher_secondary.year_of_exam"
             value={formData.academic_info.higher_secondary.year_of_exam}

@@ -41,6 +41,30 @@ export const Number = ({ label, name, value, ...props }) => {
   );
 };
 
+export const Year = ({ label, name, value, ...props }) => {
+  const preventE = (e) => {
+    if (e.key === 'e' || e.key === 'E') {
+      e.preventDefault();
+    }
+  };
+  return (
+    <div className="inputs">
+      <label htmlFor={name}>{label}</label>
+      <input 
+        type="number" 
+        id={name} 
+        name={name} 
+        value={value}
+        onKeyDown={preventE}
+        onInput={(e) => {
+          e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 4)
+        }}
+        {...props} 
+      />
+    </div>
+  );
+};
+
 export const PhoneNumber = ({ label, name, value, ...props }) => {
   const handleKeyDown = (e) => {
     if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
