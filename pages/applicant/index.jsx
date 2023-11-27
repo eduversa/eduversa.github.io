@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { ApplicantLayout } from "@/layout";
-import Image from "next/image";
+import { getSingleApplicantApi } from "@/functions";
 function ApplicantDashboard() {
   const [profileData, setProfileData] = useState({});
 
@@ -16,7 +16,7 @@ function ApplicantDashboard() {
   return (
     <Fragment>
       <ApplicantLayout>
-        <div>{JSON.stringify(profileData)}</div>
+        {/* <div>{JSON.stringify(profileData)}</div> */}
       </ApplicantLayout>
     </Fragment>
   );

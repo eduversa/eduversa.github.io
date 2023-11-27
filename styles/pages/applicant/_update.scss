@@ -1,24 +1,19 @@
 .form {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  // justify-content: center;
-  // padding: 2rem 5rem;
+  @include flex-container(column, nowrap, center, center);
   transition: background 800ms ease-in-out;
-  // background: #ecf0f3;
 
   --gradient: linear-gradient(45deg, hsl(240, 100%, 65%), hsl(303, 100%, 65%));
 
   --input-background: #ffffff;
   label {
-    font-weight: bold;
-    display: flex;
+    @include flex-container(row, nowrap, flex-start, center);
     align-items: center;
-    margin-bottom: 0.3rem;
+    font-family: var(--font-elianto);
+    margin: 0 0 0.7% 0;
+    letter-spacing: 1px;
+    text-transform: capitalize;
     font-size: var(--font-12);
-    color: var(--blue-6);
+    color: var(--purple-4);
     span {
       font-weight: normal;
       padding-left: 0.5rem;
@@ -60,13 +55,15 @@
     // appearance: none;
     width: 100%;
     background-color: transparent;
-    font-size: var(--font-13);
-    letter-spacing: 0.1em;
     // color: #61677c;
     // text-shadow: 1px 1px 0 #fff;
     padding: 12px;
     outline: none;
     border: none;
+    font-family: var(--font-tektur);
+    font-size: var(--font-13);
+    letter-spacing: 2px;
+    font-weight: 400;
     border-radius: 0.25rem;
     box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
     transition: all 0.2s ease-in-out;
@@ -139,7 +136,7 @@
     &::before {
       content: "";
       display: block;
-      width: 50%;
+      width: 90%;
       height: 5px;
       background: linear-gradient(90deg, var(--pink-3), var(--purple-4));
       position: absolute;
@@ -216,6 +213,7 @@
       &--title {
         font-family: var(--font-elianto);
         font-size: var(--font-9);
+        text-decoration: underline;
         text-align: center;
         padding: 1.5rem 0;
 
@@ -252,13 +250,11 @@
         //   }
         // }
         .sub-heading {
-          font-family: var(--font-moleth);
+          font-family: var(--font-elianto);
           font-size: var(--font-10);
-          font-weight: 400;
           text-align: center;
-          letter-spacing: 2px;
-          // margin: 0 0 0.5% 0;
-          padding: 1rem 0.5rem;
+          padding: 1.5rem 0;
+          color: var(--blue-2);
 
           @media (max-width: $breakpoint-desktop-wide) {
           }
@@ -267,6 +263,7 @@
           @media (max-width: $breakpoint-large-tablet) {
           }
           @media (max-width: $breakpoint-tablet) {
+            font-size: var(--font-7);
           }
           @media (max-width: $breakpoint-phone) {
           }

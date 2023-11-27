@@ -9,6 +9,7 @@ const ManageApplicants = () => {
   const [applicantData, setapplicantData] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchCollegeData();
@@ -55,6 +56,20 @@ const ManageApplicants = () => {
         (item) => item.course_info.stream === selectedStream
       );
     }
+    if (searchQuery) {
+
+      const searchLowerCase = searchQuery.toLowerCase();
+      filteredResult = filteredResult.filter((item) => {
+        const firstName = (item.personal_info.first_name || '').toLowerCase();
+        const lastName = (item.personal_info.last_name || '').toLowerCase();
+    
+        return (
+          firstName.includes(searchLowerCase) ||
+          lastName.includes(searchLowerCase)
+        );
+      });
+    }
+    
     console.log(filteredResult);
     return filteredResult;
   };
@@ -65,6 +80,10 @@ const ManageApplicants = () => {
 
   const handleStreamChange = (newStream) => {
     setSelectedStream(newStream);
+  };
+
+  const handleSearchChange = (query) => {
+    setSearchQuery(query);
   };
 
   if (!maincollegeData || !applicantData) return <p>Loading...</p>;
@@ -80,6 +99,7 @@ const ManageApplicants = () => {
               onCourseChange={handleCourseChange}
               onStreamChange={handleStreamChange}
               maincollegeData={maincollegeData}
+              onSearchChange={handleSearchChange}
             />
             <ManageApp data={filterData()}></ManageApp>
           </div>

@@ -32,11 +32,13 @@ function Login() {
       localStorage.setItem("authToken", apiResponse.authToken);
       localStorage.setItem("email", apiResponse.data.email);
       localStorage.setItem("userType", apiResponse.data.type);
+      if (apiResponse.data.type === "applicant") {
+        localStorage.setItem(
+          "applicant_profile",
+          JSON.stringify(apiResponse.profileData)
+        );
+      }
       localStorage.setItem("userid", apiResponse.data.user_id);
-      localStorage.setItem(
-        "applicant_profile",
-        JSON.stringify(apiResponse.profileData)
-      );
       if (process.env.NODE_ENV === "development") {
         console.log("AuthToken", localStorage.getItem("authToken"));
         console.log("Email", localStorage.getItem("email"));

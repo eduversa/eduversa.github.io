@@ -11,6 +11,7 @@ export { default as getCollegeDetailsApi } from "./getCollegeDetailsApi";
 
 export { default as updateAppplicantData } from "./Applicant/updateApplicant";
 export { default as getApplicantsByYearApi } from "./Applicant/getApplicantsByYearApi";
+export { default as getSingleApplicantApi } from "./Applicant/getSingleApplicantApi";
 export { default as getApplicantsByYear } from "./Applicant/getApplicantsByYearApi";
 export { default as deleteApplicantsByYear } from "./Applicant/deleteApplicantsByYearApi";
 export { default as deleteSingleApplicantApi } from "./Applicant/deleteSingleApplicantApi";
