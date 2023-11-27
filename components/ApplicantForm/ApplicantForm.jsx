@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {
   PersonalInfo,
   FamilyInfo,
@@ -106,6 +106,7 @@ const ApplicantForm = () => {
   );
   const [formData, setFormData] = useState(initialFormData);
 
+  // all for getting data from applicant_profile
   const concatenateNames = (first, middle, last) => {
     const nameParts = [first, middle, last];
     return nameParts.filter(Boolean).join(" ");
@@ -117,159 +118,161 @@ const ApplicantForm = () => {
       .join(", ");
   };
 
-  const mergeObjects = (defaultObj, savedObj) => {
-    if (!savedObj) return defaultObj;
-    return { ...defaultObj, ...savedObj };
-  };
+  const deepMergeObject = useCallback((obj1, obj2) => {
+    let output = {...obj1};
+    if (isObject(obj1) && isObject(obj2)) {
+      Object.keys(obj1).forEach(key => {
+        if (isObject(obj1[key])) {
+          if (!(key in obj2)) {
+            // If the key does not exist in obj2, preserve the property from obj1
+            output[key] = obj1[key];
+          } else {
+            output[key] = deepMergeObject(obj1[key], obj2[key]);
+          }
+        } else {
+          // If the key does not exist in obj2 or is undefined in obj2, preserve the property from obj1
+          output[key] = (key in obj2 && typeof obj2[key] !== 'undefined') ? obj2[key] : obj1[key];
+        }
+      });
+      // Also include properties that exist in obj2 but not in obj1
+      Object.keys(obj2).forEach(key => {
+        if (!(key in obj1)) {
+          output[key] = obj2[key];
+        }
+      });
+    }
+    return output;
+  }, []);
 
-  useEffect(() => {
+  const isObject = (item) => {
+    return (item && typeof item === 'object' && !Array.isArray(item));
+  }
+  
+  const loadSavedFormData = useCallback(() => {
     const savedFormData = JSON.parse(localStorage.getItem("applicant_profile"));
-    const savedCurrentStep = JSON.parse(localStorage.getItem("currentStep"));
 
-    if (savedFormData) {
-      const fullName = savedFormData.personal_info
+    if (!savedFormData.family_info) {
+      savedFormData.family_info = initialFormData.family_info;
+    } else if (!savedFormData.family_info.guardian) {
+      savedFormData.family_info.guardian = initialFormData.family_info.guardian;
+    } else if (!savedFormData.family_info.guardian.office_address) {
+      savedFormData.family_info.guardian.office_address = initialFormData.family_info.guardian.office_address;
+    }
+    return savedFormData;
+  }, [initialFormData]);
+  
+  const processFormData = useCallback((savedFormData) => {
+    const fullName = savedFormData.personal_info
+      ? concatenateNames(
+          savedFormData.personal_info.first_name,
+          savedFormData.personal_info.middle_name,
+          savedFormData.personal_info.last_name
+        )
+      : "";
+    const fatherFullName =
+      savedFormData.family_info && savedFormData.family_info.father
         ? concatenateNames(
-            savedFormData.personal_info.first_name,
-            savedFormData.personal_info.middle_name,
-            savedFormData.personal_info.last_name
+            savedFormData.family_info.father.first_name,
+            savedFormData.family_info.father.middle_name,
+            savedFormData.family_info.father.last_name
           )
         : "";
-      const fatherFullName =
-        savedFormData.family_info && savedFormData.family_info.father
-          ? concatenateNames(
-              savedFormData.family_info.father.first_name,
-              savedFormData.family_info.father.middle_name,
-              savedFormData.family_info.father.last_name
-            )
-          : "";
-      const motherFullName =
-        savedFormData.family_info && savedFormData.family_info.mother
-          ? concatenateNames(
-              savedFormData.family_info.mother.first_name,
-              savedFormData.family_info.mother.middle_name,
-              savedFormData.family_info.mother.last_name
-            )
-          : "";
-      const guardianFullName =
-        savedFormData.family_info && savedFormData.family_info.guardian
-          ? concatenateNames(
-              savedFormData.family_info.guardian.first_name,
-              savedFormData.family_info.guardian.middle_name,
-              savedFormData.family_info.guardian.last_name
-            )
-          : "";
-
-      const dob =
-        savedFormData.personal_info && savedFormData.personal_info.dob
-          ? new Date(savedFormData.personal_info.dob)
-          : null;
-      const dobString = dob ? dob.toISOString().split("T")[0] : "";
-
-      const secondarySubjects =
-        savedFormData.academic_info &&
-        savedFormData.academic_info.secondary &&
-        savedFormData.academic_info.secondary.marks
-          ? formatSubjects(savedFormData.academic_info.secondary.marks)
-          : "";
-
-      const higherSecondarySubjects =
-        savedFormData.academic_info &&
-        savedFormData.academic_info.higher_secondary &&
-        savedFormData.academic_info.higher_secondary.marks
-          ? formatSubjects(savedFormData.academic_info.higher_secondary.marks)
-          : "";
-
-      const mergedFormData = {
-        ...mergeObjects(initialFormData, savedFormData),
-        personal_info: {
-          ...mergeObjects(
-            initialFormData.personal_info,
-            savedFormData.personal_info
-          ),
-          name: fullName,
-          dob: dobString,
-          present_address: mergeObjects(
-            initialFormData.personal_info.present_address,
-            savedFormData.personal_info.present_address
-          ),
-          permanent_address: mergeObjects(
-            initialFormData.personal_info.permanent_address,
-            savedFormData.personal_info.permanent_address
-          ),
-        },
-        family_info: {
-          ...mergeObjects(
-            initialFormData.family_info,
-            savedFormData.family_info
-          ),
-          father:
-            savedFormData.family_info && savedFormData.family_info.father
-              ? {
-                  ...mergeObjects(
-                    initialFormData.family_info.father,
-                    savedFormData.family_info.father
-                  ),
-                  name: fatherFullName,
-                }
-              : {},
-          mother:
-            savedFormData.family_info && savedFormData.family_info.mother
-              ? {
-                  ...mergeObjects(
-                    initialFormData.family_info.mother,
-                    savedFormData.family_info.mother
-                  ),
-                  name: motherFullName,
-                }
-              : {},
-          guardian:
-            savedFormData.family_info && savedFormData.family_info.guardian
-              ? {
-                  ...mergeObjects(
-                    initialFormData.family_info.guardian,
-                    savedFormData.family_info.guardian
-                  ),
-                  name: guardianFullName,
-                }
-              : {},
-        },
-        academic_info: {
-          ...mergeObjects(
-            initialFormData.academic_info,
-            savedFormData.academic_info
-          ),
-          secondary:
-            savedFormData.academic_info && savedFormData.academic_info.secondary
-              ? {
-                  ...mergeObjects(
-                    initialFormData.academic_info.secondary,
-                    savedFormData.academic_info.secondary
-                  ),
-                  subjects: secondarySubjects,
-                }
-              : {},
-          higher_secondary:
-            savedFormData.academic_info &&
-            savedFormData.academic_info.higher_secondary
-              ? {
-                  ...mergeObjects(
-                    initialFormData.academic_info.higher_secondary,
-                    savedFormData.academic_info.higher_secondary
-                  ),
-                  subjects: higherSecondarySubjects,
-                }
-              : {},
-        },
-      };
-
-      setFormData(mergedFormData);
-    }
-    // ! important shit
+    const motherFullName =
+      savedFormData.family_info && savedFormData.family_info.mother
+        ? concatenateNames(
+            savedFormData.family_info.mother.first_name,
+            savedFormData.family_info.mother.middle_name,
+            savedFormData.family_info.mother.last_name
+          )
+        : "";
+    const guardianFullName =
+      savedFormData.family_info && savedFormData.family_info.guardian
+        ? concatenateNames(
+            savedFormData.family_info.guardian.first_name,
+            savedFormData.family_info.guardian.middle_name,
+            savedFormData.family_info.guardian.last_name
+          )
+        : "";
+  
+    const dob =
+      savedFormData.personal_info && savedFormData.personal_info.dob
+        ? new Date(savedFormData.personal_info.dob)
+        : null;
+    const dobString = dob ? dob.toISOString().split("T")[0] : "";
+  
+    const secondarySubjects =
+      savedFormData.academic_info &&
+      savedFormData.academic_info.secondary &&
+      savedFormData.academic_info.secondary.marks
+        ? formatSubjects(savedFormData.academic_info.secondary.marks)
+        : "";
+  
+    const higherSecondarySubjects =
+      savedFormData.academic_info &&
+      savedFormData.academic_info.higher_secondary &&
+      savedFormData.academic_info.higher_secondary.marks
+        ? formatSubjects(savedFormData.academic_info.higher_secondary.marks)
+        : "";
+  
+    return {
+      ...savedFormData,
+      personal_info: {
+        ...savedFormData.personal_info,
+        name: fullName,
+        dob: dobString,
+      },
+      family_info: {
+        ...savedFormData.family_info,
+        father: savedFormData.family_info && savedFormData.family_info.father
+          ? {
+              ...savedFormData.family_info.father,
+              name: fatherFullName,
+            }
+          : {},
+        mother: savedFormData.family_info && savedFormData.family_info.mother
+          ? {
+              ...savedFormData.family_info.mother,
+              name: motherFullName,
+            }
+          : {},
+        guardian: savedFormData.family_info && savedFormData.family_info.guardian
+          ? {
+              ...savedFormData.family_info.guardian,
+              name: guardianFullName,
+            }
+          : {},
+      },
+      academic_info: {
+        ...savedFormData.academic_info,
+        secondary: savedFormData.academic_info && savedFormData.academic_info.secondary
+          ? {
+              ...savedFormData.academic_info.secondary,
+              subjects: secondarySubjects,
+            }
+          : {},
+        higher_secondary: savedFormData.academic_info && savedFormData.academic_info.higher_secondary
+          ? {
+              ...savedFormData.academic_info.higher_secondary,
+              subjects: higherSecondarySubjects,
+            }
+          : {},
+      },
+    };
+  }, []);
+  
+  useEffect(() => {
+    const savedFormData = loadSavedFormData();
+    const processedFormData = processFormData(savedFormData);
+    const mergedFormData = deepMergeObject(initialFormData, processedFormData);
+    setFormData(mergedFormData);
+  
+    const savedCurrentStep = JSON.parse(localStorage.getItem("currentStep"));
     if (savedCurrentStep) {
       setCurrentStep(savedCurrentStep);
     }
-  }, [initialFormData]);
+  }, [initialFormData, deepMergeObject, loadSavedFormData, processFormData]);
 
+  //other functions
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleChange = (event, callback) => {
@@ -296,10 +299,6 @@ const ApplicantForm = () => {
 
       return updatedData;
     }, callback);
-  };
-
-  const handleSave = () => {
-    localStorage.setItem("formData", JSON.stringify(formData));
   };
 
   const clearFormData = (currentStep) => {
@@ -356,22 +355,12 @@ const ApplicantForm = () => {
     localStorage.setItem("currentStep", JSON.stringify(previousStep));
   };
 
-  // function to submit the form
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert("Form Submitted");
-    if (process.env.NODE_ENV === "development") {
-      console.log("Form submitted:", formData);
-    }
-  };
-
   // pincode error states
   const [presentPincodeError, setPresentPincodeError] = useState(false);
   const [permanentPincodeError, setPermanentPincodeError] = useState(false);
   const [officePincodeError, setOfficePincodeError] = useState(false);
 
   // all the pages
-
   const formSteps = [
     PersonalInfo,
     FamilyInfo,
@@ -380,11 +369,6 @@ const ApplicantForm = () => {
     FileUpload,
   ];
   const totalSteps = formSteps.length;
-
-  // const pageTitles = formSteps.map(step => {
-  //   const stepName = step.name;
-  //   return stepName.replace(/([A-Z])/g, ' $1').trim();
-  // });
 
   const pageTitles = [
     "Personal Information",
@@ -403,7 +387,6 @@ const ApplicantForm = () => {
       clearFormData={clearFormData}
       handlePreviousClick={handlePreviousClick}
       handleNextClick={handleNextClick}
-      handleSubmit={handleSubmit}
       currentStep={currentStep}
       totalSteps={totalSteps}
       presentPincodeError={presentPincodeError}
@@ -420,7 +403,7 @@ const ApplicantForm = () => {
   return (
     <div
       className="form"
-      style={{ background: `hsl(${(currentStep - 1) * 62.5}, 40% , 85%)` }}
+      // style={{ background: `hsl(${(currentStep - 1) * 62.5}, 40% , 85%)` }}
     >
       <h1 className="form--heading">Applicant Form</h1>
 
