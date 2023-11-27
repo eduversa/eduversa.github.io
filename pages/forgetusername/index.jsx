@@ -36,14 +36,18 @@ function ForgetUsername() {
       }
 
       const otpResponse = await generateOtpApi(userIdOrEmail);
-      console.log(otpResponse);
+      if (process.env.NODE_ENV === "development") {
+        console.log(otpResponse);
+      }
       alert(otpResponse.message);
 
       if (otpResponse.status) {
         setOtpResponse(otpResponse);
       }
     } catch (error) {
-      console.error("Error generating OTP:", error);
+      if (process.env.NODE_ENV === "development") {
+        console.error("Error generating OTP:", error);
+      }
       alert("An error occurred while generating OTP.");
     } finally {
       setLoading(false);
@@ -59,8 +63,9 @@ function ForgetUsername() {
         return;
       }
       const verifyOtpResponse = await resetUserNameApi(inputValue.trim(), otp);
-
-      console.log(verifyOtpResponse);
+      if (process.env.NODE_ENV === "development") {
+        console.log(verifyOtpResponse);
+      }
 
       if (verifyOtpResponse.status) {
         alert(verifyOtpResponse.message);
@@ -69,7 +74,9 @@ function ForgetUsername() {
         alert("OTP verification failed. Please try again.");
       }
     } catch (error) {
-      console.error("Error verifying OTP:", error);
+      if (process.env.NODE_ENV === "development") {
+        console.error("Error verifying OTP:", error);
+      }
       alert("An error occurred while verifying OTP.");
     } finally {
       setLoading(false);

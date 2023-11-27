@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 
 const aboutUs = require("../../data/aboutUs");
 
@@ -6,11 +6,16 @@ function AboutUs() {
   const [showProblems, setShowProblems] = useState(false);
   const [showKeySolution, setShowKeySolution] = useState(false);
   const [showFuturePlans, setShowFuturePlans] = useState(false);
-  const authToken =
-    typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
-  const containerClass = authToken
-    ? "about-us-container"
-    : "about-us-landing-container";
+  const [containerClass, setContainerClass] = useState("");
+
+  useEffect(() => {
+    const authToken =
+      typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+    const newContainerClass = authToken
+      ? "about-us-container"
+      : "about-us-landing-container";
+    setContainerClass(newContainerClass);
+  }, []);
 
   const toggleSection = (section) => {
     switch (section) {

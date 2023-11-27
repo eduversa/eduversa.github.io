@@ -6,7 +6,9 @@ function ApplicantDashboard() {
 
   useEffect(() => {
     const profiledata = JSON.parse(localStorage.getItem("applicant_profile"));
-    console.log("profileData:", profiledata);
+    if (process.env.NODE_ENV === "development") {
+      console.log("profileData:", profiledata);
+    }
     if (profiledata) {
       setProfileData(profiledata);
     }

@@ -1,5 +1,4 @@
 .contact-us-container {
-  margin: 2.5% auto 2.5% auto;
   padding: 40px;
   background: var(--white-9);
   border-radius: 20px;
@@ -60,6 +59,7 @@
     @media (max-width: $breakpoint-tablet) {
     }
     @media (max-width: $breakpoint-phone) {
+      margin: 0 0 3% 0;
     }
     &::before {
       content: "";
@@ -105,6 +105,7 @@
       }
     }
     .member {
+      text-align: center;
       position: relative;
       margin: 0 0 3% 0;
       padding: 25px;
@@ -124,6 +125,7 @@
       @media (max-width: $breakpoint-tablet) {
       }
       @media (max-width: $breakpoint-phone) {
+        margin: 0 0 5% 0;
       }
       &:hover {
         box-shadow: 20px 20px 40px var(--white-7),
@@ -205,6 +207,8 @@
           @media (max-width: $breakpoint-tablet) {
           }
           @media (max-width: $breakpoint-phone) {
+            height: 15px;
+            width: 15px;
           }
           &:hover {
             transform: scale(1.5);
@@ -277,6 +281,7 @@
         @media (max-width: $breakpoint-tablet) {
         }
         @media (max-width: $breakpoint-phone) {
+          text-align: center;
         }
       }
     }
@@ -335,6 +340,8 @@
         @media (max-width: $breakpoint-tablet) {
         }
         @media (max-width: $breakpoint-phone) {
+          height: 25px;
+          width: 25px;
         }
         &:hover {
           transform: scale(1.5);
@@ -478,6 +485,7 @@
           width: 40%;
         }
         @media (max-width: $breakpoint-phone) {
+          width: 50%;
         }
         transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
         text-transform: uppercase;

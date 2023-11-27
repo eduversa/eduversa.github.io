@@ -1,0 +1,134 @@
+.about-us-container {
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(45deg, var(--white-1), var(--white-12));
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 20px 20px 40px var(--black-shadow-light-1),
+    -20px -20px 40px var(--white-shadow-0);
+
+  .aboutus-heading {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    z-index: 1;
+    color: var(--black);
+    font-family: var(--font-oswald);
+    font-size: var(--font-7);
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 0 0 3% 0;
+    &::before {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--pink-3), var(--purple-4));
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      border-radius: 20px;
+      transform: translateX(-50%);
+      transition: width 2s ease-in-out;
+      animation: underlineAnimation 2s infinite alternate;
+    }
+    @keyframes underlineAnimation {
+      to {
+        width: 20%;
+      }
+    }
+  }
+
+  .description,
+  .technologies {
+    .description-heading,
+    .technologies-heading {
+      font-family: var(--font-elianto);
+      font-size: var(--font-8);
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: capitalize;
+      color: var(--light-black-3);
+      text-shadow: 1px 1px 2px var(--black-shadow-light);
+    }
+
+    p {
+      color: #777;
+      font-size: 1.2em;
+      line-height: 1.5;
+    }
+  }
+
+  .problems,
+  .key-solution-and-objective,
+  .future-plans {
+    h2 {
+      color: var(--blue-13);
+      cursor: pointer;
+      font-size: 2em;
+      margin-bottom: 15px;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #2980b9;
+      }
+    }
+
+    .grid {
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+      div {
+        position: relative;
+        padding: 20px;
+        background: linear-gradient(45deg, #ecf0f1, #dce1e3);
+        border-radius: 15px;
+        box-shadow: 10px 10px 20px var(--black-shadow-light-1),
+          -10px -10px 20px var(--white-shadow-0);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 0 20px var(--black-shadow-light-1),
+            0 0 40px var(--black-shadow-light) inset;
+        }
+
+        span {
+          color: #333;
+          font-size: 1.6em;
+          font-weight: bold;
+          display: block;
+          margin-bottom: 10px;
+          text-shadow: 1px 1px 2px var(--black-shadow-light);
+        }
+
+        p {
+          color: #555;
+          font-size: 1.3em;
+          line-height: 1.4;
+        }
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          width: 20%;
+          height: 2px;
+          background: linear-gradient(90deg, #ecf0f1, #dce1e3);
+          transition: transform 0.3s ease;
+        }
+
+        &::before {
+          top: 0;
+          left: 10%;
+        }
+
+        &::after {
+          bottom: 0;
+          right: 10%;
+        }
+      }
+    }
+  }
+}

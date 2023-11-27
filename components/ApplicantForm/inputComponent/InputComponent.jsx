@@ -1,54 +1,37 @@
-import React from 'react'
+import React from "react";
 
-export const Text =({label, details, name, value, ...props}) =>{
+export const Text = ({ label, details, name, value, ...props }) => {
   return (
-    <div className='inputs'>
-      <label htmlFor={name}>{label} <span>{details}</span></label>
-      <input
-        type="text"
-        id={name}
-        name={name}
-        value={value}
-        {...props}
-      />
+    <div className="inputs">
+      <label htmlFor={name}>
+        {label} <span>{details}</span>
+      </label>
+      <input type="text" id={name} name={name} value={value} {...props} />
     </div>
-  )
-}
+  );
+};
 
-
-export const Email =({label, name, value, ...props}) =>{
+export const Email = ({ label, name, value, ...props }) => {
   return (
-    <div className='inputs'>
+    <div className="inputs">
       <label htmlFor={name}>{label}</label>
-      <input
-        type="email"
-        id={name}
-        name={name}
-        value={value}
-        {...props}
-      />
+      <input type="email" id={name} name={name} value={value} {...props} />
     </div>
-  )
-}
+  );
+};
 
-export const Number =({label, name, value, ...props}) =>{
+export const Number = ({ label, name, value, ...props }) => {
   return (
-    <div className='inputs'>
+    <div className="inputs">
       <label htmlFor={name}>{label}</label>
-      <input
-        type="number"
-        id={name}
-        name={name}
-        value={value}
-        {...props}
-      />
+      <input type="number" id={name} name={name} value={value} {...props} />
     </div>
-  )
-}
+  );
+};
 
-export const PhoneNumber =({label, name, value, ...props}) =>{
+export const PhoneNumber = ({ label, name, value, ...props }) => {
   return (
-    <div className='inputs'>
+    <div className="inputs">
       <label htmlFor={name}>{label}</label>
       <input
         type="text"
@@ -63,12 +46,12 @@ export const PhoneNumber =({label, name, value, ...props}) =>{
         {...props}
       />
     </div>
-  )
-}
+  );
+};
 
-export const Pincode =({label, name, value, ...props}) =>{
+export const Pincode = ({ label, name, value, ...props }) => {
   return (
-    <div className='inputs'>
+    <div className="inputs">
       <label htmlFor={name}>{label}</label>
       <input
         type="text"
@@ -80,12 +63,12 @@ export const Pincode =({label, name, value, ...props}) =>{
         {...props}
       />
     </div>
-  )
-}
+  );
+};
 
-export const Aadhar =({label, name, value, ...props}) =>{
+export const Aadhar = ({ label, name, value, ...props }) => {
   return (
-    <div className='inputs'>
+    <div className="inputs">
       <label htmlFor={name}>{label}</label>
       <input
         type="text"
@@ -96,12 +79,12 @@ export const Aadhar =({label, name, value, ...props}) =>{
         {...props}
       />
     </div>
-  )
-}
+  );
+};
 
-export const Pan =({label, name, value, ...props}) =>{
+export const Pan = ({ label, name, value, ...props }) => {
   return (
-    <div className='inputs'>
+    <div className="inputs">
       <label htmlFor={name}>{label}</label>
       <input
         type="text"
@@ -112,34 +95,23 @@ export const Pan =({label, name, value, ...props}) =>{
         {...props}
       />
     </div>
-  )
-}
+  );
+};
 
-export const DateInput =({label, name, value, ...props}) =>{
+export const DateInput = ({ label, name, value, ...props }) => {
   return (
-    <div className='inputs'>
+    <div className="inputs">
       <label htmlFor={name}>{label}</label>
-      <input
-        type="date"
-        id={name}
-        name={name}
-        value={value}
-        {...props}
-      />
+      <input type="date" id={name} name={name} value={value} {...props} />
     </div>
-  )
-}
+  );
+};
 
-export const Select =({label, name, value, options, ...props}) =>{
+export const Select = ({ label, name, value, options, ...props }) => {
   return (
-    <div className='inputs'>
+    <div className="inputs">
       <label htmlFor={name}>{label}</label>
-      <select
-        id={name}
-        name={name}
-        value={value}
-        {...props}
-      >
+      <select id={name} name={name} value={value} {...props}>
         {options.map((option) => {
           return (
             <option key={option.key} value={option.value}>
@@ -149,57 +121,16 @@ export const Select =({label, name, value, options, ...props}) =>{
         })}
       </select>
     </div>
-  )
-}
+  );
+};
 
-// export const Checkbox =({label, name, value, options, ...props}) =>{
-//   return (
-//     <div>
-//       {options.map((option) => {
-//         return (
-//           <div>
-//             <label htmlFor={option.value}>{option.key}</label>
-//             <input 
-//               type="checkbox" 
-//               id={name}
-//               name={name}
-//               value={value}
-//               {...props}
-//             />
-//           </div>
-//         );
-//       })}
-//     </div>
-//   )
-// }
-
-
-// export const Image =({label, name, imagePreview, handleFileInputChange}) => {
-//   return(
-//     <div className='image-upload'>
-//       {/* Image preview */}
-//       {imagePreview && (
-//         <div className="image-preview" >
-//           <img src={imagePreview} alt="Preview"/>
-//         </div>
-//       )}
-//       <label htmlFor="user-image" className="btn">{label}</label>
-//       {/* Input for file upload */}
-//       <input
-//         type="file"
-//         accept="image/*"
-//         name={name}
-//         id={name}
-//         onChange={handleFileInputChange}
-//         style={{ display: 'none' }}
-//       />
-
-//     </div>
-//   )
-// }
-
-
-export const FormButtons = ({ handlePreviousClick, clearFormData, onSubmitHandler, currentStep, totalSteps }) => {
+export const FormButtons = ({
+  handlePreviousClick,
+  clearFormData,
+  onSubmitHandler,
+  currentStep,
+  totalSteps,
+}) => {
   return (
     <div className="btns">
       <button
@@ -211,25 +142,14 @@ export const FormButtons = ({ handlePreviousClick, clearFormData, onSubmitHandle
       >
         Prev
       </button>
-      <button 
-        type="button" 
-        className="btn" 
-        onClick={clearFormData}
-      >
+      <button type="button" className="btn" onClick={clearFormData}>
         Clear
       </button>
-      <button 
-        type="button" 
-        className="btn" 
-        onClick={onSubmitHandler}
-      >
+      <button type="button" className="btn" onClick={onSubmitHandler}>
         Save
       </button>
-      <button 
-        className="btn" 
-        type="submit" 
-      >
-        {currentStep===totalSteps ? "Submit" : "Next" }
+      <button className="btn" type="submit">
+        {currentStep === totalSteps ? "Submit" : "Next"}
       </button>
     </div>
   );
