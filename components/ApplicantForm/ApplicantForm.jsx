@@ -114,7 +114,7 @@ const ApplicantForm = () => {
 
   const formatSubjects = (marks) => {
     return Object.entries(marks)
-      .map(([subject, mark]) => `${subject.trim()} - ${mark.trim()}`)
+      .map(([subject, mark]) => `${subject.trim()} - ${mark ? mark.trim() : ""}`)
       .join(", ");
   };
 
@@ -274,29 +274,28 @@ const ApplicantForm = () => {
 
   //other functions
   const [currentStep, setCurrentStep] = useState(1);
-
+  
   const handleChange = (event, callback) => {
     const { name, value } = event.target;
-
+  
     if (name === "formData") {
       setFormData((prevFormData) => ({ ...prevFormData, ...value }), callback);
       return;
     }
-
-    const nameArray = name.split(".");
+  
     setFormData((prevFormData) => {
+      const nameArray = name.split(".");
       let updatedData = { ...prevFormData };
       let currentLevel = updatedData;
-
+  
       for (let i = 0; i < nameArray.length; i++) {
         if (i === nameArray.length - 1) {
           currentLevel[nameArray[i]] = value;
         } else {
-          currentLevel[nameArray[i]] = { ...currentLevel[nameArray[i]] };
           currentLevel = currentLevel[nameArray[i]];
         }
       }
-
+  
       return updatedData;
     }, callback);
   };
