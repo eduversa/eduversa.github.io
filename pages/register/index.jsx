@@ -16,13 +16,16 @@ function Register() {
       setLoading(true);
       const registrationData = await registerUser(email);
       if (registrationData.status === false) {
-        console.log("Registration data:", registrationData);
+        if (process.env.NODE_ENV === "development") {
+          console.log("Registration data:", registrationData);
+        }
         alert(registrationData.message);
         setLoading(false);
         return;
       }
-
-      console.log("Registration data:", registrationData);
+      if (process.env.NODE_ENV === "development") {
+        console.log("Registration data:", registrationData);
+      }
       // localStorage.setItem("registeredUserId", registrationData.data.user_id);
       alert(
         "Registration Was Successful! Check Your Email For Login Credentials"
@@ -30,7 +33,9 @@ function Register() {
       setLoading(false);
       router.push("/");
     } catch (error) {
-      console.error("Error during registration:", error.message);
+      if (process.env.NODE_ENV === "development") {
+        console.error("Error during registration:", error.message);
+      }
     }
   };
   const handleSocialRegisterClick = (provider) => {

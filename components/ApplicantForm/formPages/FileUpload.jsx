@@ -36,18 +36,30 @@ const FileUpload = ({
     const user_id = localStorage.getItem("userid");
     const fileTypes = "files";
     try {
-      console.log(type, data, user_id);
+      if (process.env.NODE_ENV === "development") {
+        console.log(type, data, user_id);
+      }
       const response = await updateAppplicantData(
         user_id,
         type,
         data,
         fileTypes
       );
-      console.log(response);
+      if (process.env.NODE_ENV === "development") {
+        const response = await updateAppplicantData(
+          user_id,
+          type,
+          data,
+          fileTypes
+        );
+        console.log(response);
+      }
       alert(response.message);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      if (process.env.NODE_ENV === "development") {
+        console.log(error);
+      }
     }
   }
   return (

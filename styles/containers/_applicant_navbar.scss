@@ -64,7 +64,7 @@
     }
     .logo-text {
       cursor: pointer;
-      color: var(--blue-4);
+      color: var(--black);
       text-decoration: none;
       transition: transform 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
       @media (max-width: $breakpoint-desktop-wide) {
@@ -139,7 +139,7 @@
           text-decoration: none;
           cursor: pointer;
           color: var(--yellow-1);
-          color: var(--blue-4);
+          color: var(--black);
           font-family: var(--font-tektur);
           font-size: var(--font-11);
           font-weight: 500;
@@ -235,6 +235,7 @@
   .menu {
     cursor: pointer;
     display: none;
+    transition: all 3s ease-in-out;
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {
@@ -288,6 +289,7 @@
     right: 1%;
     border-radius: 16px;
     box-shadow: 0 8px 16px var(--black-shadow-light-1);
+    transition: all 3s ease-in-out;
     @media (max-width: $breakpoint-desktop-wide) {
     }
     @media (max-width: $breakpoint-desktop) {

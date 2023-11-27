@@ -22,7 +22,9 @@ function AdminNavbar() {
         setIsLoading(false);
         return;
       }
-      console.log("Logout data:", apiResponse);
+      if (process.env.NODE_ENV === "development") {
+        console.log("Logout data:", apiResponse);
+      }
       localStorage.removeItem("authToken");
       localStorage.removeItem("email");
       localStorage.removeItem("userType");
@@ -32,7 +34,9 @@ function AdminNavbar() {
       setIsLoading(false);
       router.push("/");
     } catch (error) {
-      console.error("Logout error:", error.message);
+      if (process.env.NODE_ENV === "development") {
+        console.error("Logout error:", error.message);
+      }
     }
   };
 
@@ -54,17 +58,17 @@ function AdminNavbar() {
       src: "/admin/manage/applicants",
     },
     {
-      label: "Manage Applicants",
+      label: "Manage Students",
       className: "nav-item",
       src: "/admin/manage/students",
     },
     {
-      label: "Manage Applicants",
+      label: "Update Applicants",
       className: "nav-item",
       src: "/admin/update/applicants",
     },
     {
-      label: "Manage Applicants",
+      label: "Update Students",
       className: "nav-item",
       src: "/admin/update/students",
     },

@@ -44,11 +44,16 @@ const AcademicInfo = ({
     const user_id = localStorage.getItem("userid");
     try {
       const response = await updateAppplicantData(user_id, type, data);
-      console.log(response);
+      if (process.env.NODE_ENV === "development") {
+        const response = await updateAppplicantData(user_id, type, data);
+        console.log(response);
+      }
       alert(response.message);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      if (process.env.NODE_ENV === "development") {
+        console.log(error);
+      }
     }
   }
   return (
@@ -62,10 +67,8 @@ const AcademicInfo = ({
           handleNextClick();
         }}
       >
-        <h3 className="sub-heading">Admission Details</h3> {/* Admission */}
+        <h3 className="sub-heading">Admission Details</h3>
         <div className="grid-col-2">
-          {" "}
-          {/*exam_name year_of_exam */}
           <Text
             label="Exam Name"
             name="academic_info.admission.exam_name"
@@ -84,8 +87,6 @@ const AcademicInfo = ({
           />
         </div>
         <div className="grid-col-2">
-          {" "}
-          {/*roll rank */}
           <Text
             label="Roll Number"
             name="academic_info.admission.roll_number"
@@ -102,8 +103,7 @@ const AcademicInfo = ({
           />
         </div>
         <hr />
-        <h3 className="sub-heading">Secondary Education</h3> {/* Secondary */}
-        {/* school_name */}
+        <h3 className="sub-heading">Secondary Education</h3>
         <Text
           label="School Name"
           name="academic_info.secondary.school_name"
@@ -112,8 +112,6 @@ const AcademicInfo = ({
           required
         />
         <div className="grid-col-2">
-          {" "}
-          {/* exam_name year_of_exam*/}
           <Text
             label="Exam Name"
             name="academic_info.secondary.exam_name"
@@ -132,8 +130,6 @@ const AcademicInfo = ({
           />
         </div>
         <div className="grid-col-2">
-          {" "}
-          {/* board aggregate */}
           <Text
             label="Board"
             name="academic_info.secondary.board"
@@ -149,28 +145,19 @@ const AcademicInfo = ({
             required
           />
         </div>
-        
-          <Text
-            style={{
-              marginBottom: '2.25rem'
-            }}
-            label="Subject Marks"
-            details="(write as subject- marks, subject- marks...)"
-            name="academic_info.secondary.subjects"
-            value={formData.academic_info.secondary.subjects}
-            onChange={handleChange}
-            required
-          ></Text>
-
-        {/* <br /> */}
+        <Text
+          style={{
+            marginBottom: "2.25rem",
+          }}
+          label="Subject Marks"
+          details="(write as subject- marks, subject- marks...)"
+          name="academic_info.secondary.subjects"
+          value={formData.academic_info.secondary.subjects}
+          onChange={handleChange}
+          required
+        ></Text>
         <hr />
-        {/* <div className="section--splitter">
-          <hr />
-        </div> */}
-
         <h3 className="sub-heading">Higher Secondary Education</h3>{" "}
-        {/* Higher Secondary */}
-        {/* school_name */}
         <Text
           label="School Name"
           name="academic_info.higher_secondary.school_name"
@@ -179,8 +166,6 @@ const AcademicInfo = ({
           required
         />
         <div className="grid-col-2">
-          {" "}
-          {/* exam_name year_of_exam */}
           <Text
             label="Exam Name"
             name="academic_info.higher_secondary.exam_name"
@@ -199,8 +184,6 @@ const AcademicInfo = ({
           />
         </div>
         <div className="grid-col-2">
-          {" "}
-          {/* board aggregate */}
           <Text
             label="Board"
             name="academic_info.higher_secondary.board"
@@ -216,10 +199,9 @@ const AcademicInfo = ({
             required
           />
         </div>
-
         <Text
           style={{
-            marginBottom: '1rem'
+            marginBottom: "1rem",
           }}
           label="Subject Marks"
           details="(write as subject- marks, subject- marks...)"
@@ -228,7 +210,6 @@ const AcademicInfo = ({
           onChange={handleChange}
           required
         ></Text>
-
         <FormButtons
           handlePreviousClick={handlePreviousClick}
           clearFormData={() => clearFormData(currentStep)}

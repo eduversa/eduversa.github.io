@@ -4,8 +4,10 @@ async function registerUser(email) {
   const endpoint = "/account/";
 
   try {
-    console.log("Registration Function Called");
-    console.log("Email:", email);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Registration Function Called");
+      console.log("Email:", email);
+    }
     const response = await fetch(apiUrl + endpoint, {
       method: "POST",
       headers: {
@@ -15,14 +17,20 @@ async function registerUser(email) {
     });
 
     if (!response.ok) {
-      console.log(response);
+      if (process.env.NODE_ENV === "development") {
+        console.log(response);
+      }
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    console.log("Response:", response);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Response:", response);
+    }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error registering user:", error.message);
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error registering user:", error.message);
+    }
     throw error;
   }
 }

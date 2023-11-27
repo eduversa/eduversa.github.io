@@ -125,7 +125,9 @@ const FormLayout = () => {
   };
 
   const handleApplicantCourseSubmit = (formData) => {
-    console.log("All Form Data:", { ...formData, ...applicantCourseData });
+    if (process.env.NODE_ENV === "development") {
+      console.log("All Form Data:", { ...formData, ...applicantCourseData });
+    }
   };
 
   return (

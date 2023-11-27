@@ -43,10 +43,15 @@ const CourseInfo = ({
   async function getCollegeDetails() {
     try {
       const collegeData = await getCollegeDetailsApi(304);
-      console.log(collegeData);
+      if (process.env.NODE_ENV === "development") {
+        const collegeData = await getCollegeDetailsApi(304);
+        console.log(collegeData);
+      }
       setCourses(collegeData.data.college_courses);
     } catch (error) {
-      console.log(error);
+      if (process.env.NODE_ENV === "development") {
+        console.log(error);
+      }
     }
   }
 
@@ -124,11 +129,15 @@ const CourseInfo = ({
     const user_id = localStorage.getItem("userid");
     try {
       const response = await updateAppplicantData(user_id, type, data);
-      console.log(response);
+      if (process.env.NODE_ENV === "development") {
+        console.log(response);
+      }
       alert(response.message);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      if (process.env.NODE_ENV === "development") {
+        console.log(error);
+      }
     }
   }
 
@@ -173,34 +182,22 @@ const CourseInfo = ({
           {!showStream ? (
             ""
           ) : (
-          <Select
-            label="Stream"
-            name="course_info.stream"
-            value={formData.course_info.stream}
-            onChange={handleChange}
-            required
-            options={[
-              { key: "Select your stream", value: "" },
-              ...(Array.isArray(streams) && streams.length > 0
-                ? streams.map((stream) => ({
-                    key: stream.name,
-                    value: stream.name,
-                  }))
-                : [{ key: "NA", value: "NA" }]),
-            ]}
-            // options={
-            //   Array.isArray(streams) && streams.length > 0
-            //     ? [
-            //         { key: "Select your stream", value: "" },
-            //         ...streams.map((stream) => ({
-            //             key: stream.name,
-            //             value: stream.name,
-            //           })),
-            //       ]
-            //     : [{ key: "NA", value: "NA" }]
-            // }
-            
-          />
+            <Select
+              label="Stream"
+              name="course_info.stream"
+              value={formData.course_info.stream}
+              onChange={handleChange}
+              required
+              options={[
+                { key: "Select your stream", value: "" },
+                ...(Array.isArray(streams) && streams.length > 0
+                  ? streams.map((stream) => ({
+                      key: stream.name,
+                      value: stream.name,
+                    }))
+                  : [{ key: "NA", value: "NA" }]),
+              ]}
+            />
           )}
 
           <Number
