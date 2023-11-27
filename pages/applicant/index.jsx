@@ -7,9 +7,17 @@ function generateClassName(prefix, key) {
   return `${prefix}-${key.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
 }
 
-function formatDateOfBirth(dateString) {
-  const options = { year: "numeric", month: "long", day: "numeric" };
-  return new Date(dateString).toLocaleDateString(undefined, options);
+function formatDate(dateString) {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZoneName: "short",
+  };
+  return new Date(dateString).toLocaleString(undefined, options);
 }
 
 function renderImage(imageUrl) {
@@ -27,14 +35,35 @@ function renderImage(imageUrl) {
 }
 
 function renderFields(data, parentKey = "") {
+  let imageRendered = false;
+
   return Object.entries(data)
     .filter(([key]) => key !== "__v" && key !== "_id")
     .map(([key, value]) => {
       const currentKey = parentKey ? `${parentKey}-${key}` : key;
       const className = generateClassName("field", currentKey);
-      if (key.toLowerCase() === "image" && value) {
-        return null;
+
+      if (!imageRendered && key.toLowerCase() === "image" && value) {
+        // Render image at the top
+        imageRendered = true;
+        return <Fragment key={currentKey}>{renderImage(value)}</Fragment>;
       }
+
+      if (
+        key.toLowerCase() === "createdat" ||
+        key.toLowerCase() === "updatedat"
+      ) {
+        // Format createdAt and updatedAt dates
+        return (
+          <p key={currentKey} className={className}>
+            <strong className={generateClassName("label", currentKey)}>
+              {key}:
+            </strong>{" "}
+            {formatDate(value)}
+          </p>
+        );
+      }
+
       if (
         typeof value === "object" &&
         value !== null &&
@@ -103,7 +132,7 @@ function renderFields(data, parentKey = "") {
               <strong className={generateClassName("label", currentKey)}>
                 {key}:
               </strong>{" "}
-              {formatDateOfBirth(value)}
+              {formatDate(value)}
             </p>
           );
         } else {
