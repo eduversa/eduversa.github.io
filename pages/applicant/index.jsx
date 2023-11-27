@@ -7,12 +7,24 @@ function generateClassName(prefix, key) {
   return `${prefix}-${key.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
 }
 
+function renderImage(imageUrl) {
+  return (
+    <div className="profile-image-container">
+      <img src={imageUrl} alt="Applicant Profile" className="profile-image" />
+    </div>
+  );
+}
+
 function renderFields(data, parentKey = "") {
   return Object.entries(data).map(([key, value]) => {
     const currentKey = parentKey ? `${parentKey}-${key}` : key;
     const className = generateClassName("field", currentKey);
 
-    if (typeof value === "object" && value !== null) {
+    if (
+      typeof value === "object" &&
+      value !== null &&
+      key.toLowerCase() !== "image"
+    ) {
       if (Array.isArray(value)) {
         // Use ul for arrays
         return (
@@ -100,7 +112,10 @@ function ApplicantDashboard() {
   return (
     <Fragment>
       <ApplicantLayout>
-        <div className="profile-fields">{renderFields(profileData)}</div>
+        <div className="profile-container">
+          {profileData.image && renderImage(profileData.image)}
+          <div className="profile-fields">{renderFields(profileData)}</div>
+        </div>
       </ApplicantLayout>
     </Fragment>
   );
