@@ -12,6 +12,7 @@
   @media (max-width: $breakpoint-large-tablet) {
   }
   @media (max-width: $breakpoint-tablet) {
+    padding: 30px;
   }
   @media (max-width: $breakpoint-phone) {
   }
@@ -33,6 +34,7 @@
     @media (max-width: $breakpoint-large-tablet) {
     }
     @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-6);
     }
     @media (max-width: $breakpoint-phone) {
     }
@@ -76,6 +78,7 @@
       @media (max-width: $breakpoint-large-tablet) {
       }
       @media (max-width: $breakpoint-tablet) {
+        font-size: var(--font-7);
       }
       @media (max-width: $breakpoint-phone) {
       }
@@ -97,6 +100,7 @@
       @media (max-width: $breakpoint-large-tablet) {
       }
       @media (max-width: $breakpoint-tablet) {
+        font-size: var(--font-10);
       }
       @media (max-width: $breakpoint-phone) {
       }
@@ -117,6 +121,7 @@
       cursor: pointer;
       transition: all 0.3s ease-in-out;
       margin: 2% 0 2% 0;
+      text-decoration: underline;
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
@@ -124,6 +129,8 @@
       @media (max-width: $breakpoint-large-tablet) {
       }
       @media (max-width: $breakpoint-tablet) {
+        font-size: var(--font-8);
+        margin: 4% 0 4% 0;
       }
       @media (max-width: $breakpoint-phone) {
       }
@@ -138,15 +145,18 @@
       grid-gap: 20px;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       @media (max-width: $breakpoint-desktop-wide) {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       }
       @media (max-width: $breakpoint-desktop) {
       }
       @media (max-width: $breakpoint-large-tablet) {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       }
       @media (max-width: $breakpoint-tablet) {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       }
       @media (max-width: $breakpoint-phone) {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       }
       div {
         @include flex-container(column, nowrap, flex-start, center);
@@ -180,6 +190,7 @@
           font-size: var(--font-10);
           margin: 0 0 2% 0;
           text-shadow: 1px 1px 2px var(--black-shadow-light);
+
           @media (max-width: $breakpoint-desktop-wide) {
           }
           @media (max-width: $breakpoint-desktop) {
@@ -187,6 +198,7 @@
           @media (max-width: $breakpoint-large-tablet) {
           }
           @media (max-width: $breakpoint-tablet) {
+            font-size: var(--font-9);
           }
           @media (max-width: $breakpoint-phone) {
           }
@@ -209,6 +221,7 @@
           @media (max-width: $breakpoint-large-tablet) {
           }
           @media (max-width: $breakpoint-tablet) {
+            font-size: var(--font-10);
           }
           @media (max-width: $breakpoint-phone) {
           }
