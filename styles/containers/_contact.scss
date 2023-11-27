@@ -211,7 +211,7 @@
             width: 15px;
           }
           &:hover {
-            transform: scale(1.5);
+            transform: scale(1.2);
           }
         }
 
@@ -344,7 +344,7 @@
           width: 25px;
         }
         &:hover {
-          transform: scale(1.5);
+          transform: scale(1.2);
         }
       }
 
@@ -400,6 +400,7 @@
       margin: 1% 0 2% 0;
       letter-spacing: 3px;
       font-weight: 400;
+      line-height: 1.8;
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
@@ -502,7 +503,7 @@
         .facebook-icon,
         .instagram-icon {
           transition: transform 0.5s ease;
-          transform: scale(1.2);
+          transform: scale(1.05);
           @media (max-width: $breakpoint-desktop-wide) {
             transform: scale(1);
           }
@@ -516,7 +517,7 @@
           @media (max-width: $breakpoint-phone) {
           }
           &:hover {
-            transform: scale(1.5);
+            transform: scale(1.1);
           }
         }
       }
