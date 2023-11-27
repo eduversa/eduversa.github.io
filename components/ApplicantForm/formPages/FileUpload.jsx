@@ -1,8 +1,10 @@
 import React, { useState, Fragment } from "react";
+import { useRouter } from "next/router";
 import { AllLoader } from "@/components";
 import Image from "next/image";
 import { FormButtons } from "../inputComponent/InputComponent";
 import { updateAppplicantData } from "@/functions";
+
 const FileUpload = ({
   formData,
   setFormData,
@@ -15,6 +17,7 @@ const FileUpload = ({
 }) => {
   const [imagePreview, setImagePreview] = useState(formData.image);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -56,6 +59,7 @@ const FileUpload = ({
       }
       alert(response.message);
       setLoading(false);
+      router.push("/applicant");
     } catch (error) {
       if (process.env.NODE_ENV === "development") {
         console.log(error);

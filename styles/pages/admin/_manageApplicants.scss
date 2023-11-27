@@ -12,6 +12,17 @@
     font-size: var(--font-6);
     margin-block-end: 20px;
   }
+.filter--search{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-block-end: 10px;
+  font-size: 14px;
+
+  label{
+    padding-inline-end: 5px;
+  }
+}
 
   .manage-applicant-container .filters-dropdowns {
     font-size: 14px;
@@ -22,7 +33,7 @@
     gap: 10px;
   }
 
-  .manage-applicant-container select {
+  .manage-applicant-container select,.search-input {
     padding: 4px;
     border: none;
     cursor: pointer;
@@ -40,6 +51,9 @@
       display: flex;
       flex-direction: column;
       gap: 5px;
+    }
+    .filter--search{
+      flex-direction: column;
     }
 
     .manage-applicant-container option {
@@ -65,7 +79,7 @@
       height: 200px;
       display: block;
       padding: 30px 20px;
-      background-color: #121212;
+      background-color: #fff;
       overflow: hidden;
       position: relative;
 
@@ -81,7 +95,7 @@
       text-decoration: none;
       position: relative;
       font-weight: bold;
-      color: #fff;
+      color: black;
       transition: color 0.5s ease;
       &:hover {
         text-decoration: none;
@@ -92,13 +106,13 @@
       overflow: hidden;
       font-weight: bold;
       font-size: 24px;
-      color: #fff;
+      color: black;
       position: relative;
     }
 
     &--course {
       font-size: 18px;
-      color: #fff;
+      color: black;
       position: relative;
     }
 
