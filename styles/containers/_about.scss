@@ -30,6 +30,26 @@
       font-size: 1.2em;
       line-height: 1.5;
     }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 20%;
+      height: 2px;
+      background: linear-gradient(90deg, #ecf0f1, #dce1e3);
+      transition: transform 0.3s ease;
+    }
+
+    &::before {
+      top: 0;
+      left: 10%;
+    }
+
+    &::after {
+      bottom: 0;
+      right: 10%;
+    }
   }
 
   .problems,
@@ -53,6 +73,7 @@
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
       div {
+        position: relative;
         padding: 20px;
         background: linear-gradient(45deg, #ecf0f1, #dce1e3);
         border-radius: 15px;
@@ -79,6 +100,26 @@
           color: #555;
           font-size: 1.3em;
           line-height: 1.4;
+        }
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          width: 20%;
+          height: 2px;
+          background: linear-gradient(90deg, #ecf0f1, #dce1e3);
+          transition: transform 0.3s ease;
+        }
+
+        &::before {
+          top: 0;
+          left: 10%;
+        }
+
+        &::after {
+          bottom: 0;
+          right: 10%;
         }
       }
     }
