@@ -75,14 +75,15 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       cursor: pointer;
-      margin-bottom: 15px;
       transition: all 0.3s ease-in-out;
+      margin: 2% 0 2% 0;
       &:hover {
         transform: scale(1.1);
       }
     }
 
     .grid {
+      margin: 2% 0 0 0;
       display: grid;
       grid-gap: 20px;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
