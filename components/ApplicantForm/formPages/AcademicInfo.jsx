@@ -17,7 +17,6 @@ const AcademicInfo = ({
   handleChange,
   handlePreviousClick,
   handleNextClick,
-  handleSubmit,
   currentStep,
   totalSteps,
 }) => {
@@ -61,9 +60,9 @@ const AcademicInfo = ({
       {loading && <AllLoader />}
       <form
         className="page--content"
-        onSubmit={(event) => {
+        onSubmit={async (event) => {
           event.preventDefault();
-          onSubmitHandler();
+          await onSubmitHandler();
           handleNextClick();
         }}
       >

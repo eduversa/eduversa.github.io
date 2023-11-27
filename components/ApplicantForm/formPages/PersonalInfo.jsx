@@ -140,9 +140,9 @@ const PersonalInfo = ({
       {loading && <AllLoader />}
       <form
         className="page--content"
-        onSubmit={(event) => {
+        onSubmit={async (event) => {
           event.preventDefault();
-          onSubmitHandler();
+          await onSubmitHandler();
           handleNextClick();
         }}
       >
