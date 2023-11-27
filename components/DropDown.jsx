@@ -3,9 +3,11 @@ import { useState, useEffect, Fragment } from 'react';
 
 
 
-const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onStreamChange, maincollegeData }) => {
+const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onStreamChange, maincollegeData,onSearchChange
+ }) => {
   const [collegeData, setCollegeData] = useState(maincollegeData);
   const [streams, setStreams] = useState([]);
+  const [searchQuery,setSearchQuery] = useState('');
 
   // useEffect(() => {
   //   fetchCollegeData();
@@ -46,18 +48,34 @@ const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onSt
 
   };
 
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    onSearchChange(query);
+  };
 
 
   const courseOptions = collegeData?.data.college_courses.map(course => (
     <option key={course.code} value={course.name}>{course.name}</option>
   ));
 
-  const streamOptions = streams.map(stream => (
+  const streamOptions = streams?.map(stream => (
     <option key={stream._id} value={stream.name}>{stream.name}</option>
   ));
 
   return (
     <Fragment>
+      <div className='filtering--comps'>
+        <div className='filter--search'>
+        <label htmlFor="searchBox">Search:</label>
+        <input className='search-input'
+          type="text"
+          id="searchBox"
+          placeholder="Search by name"
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
+        </div>
       <div className='filters-dropdowns'>   
         <label htmlFor="courseDropdown">Select Course:</label>
         <select id="courseDropdown" value={selectedCourse} onChange={handleCourseChange}>
@@ -76,6 +94,7 @@ const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onSt
             </select>
             </>
         )}
+      </div>
       </div>
     </Fragment>
   );
