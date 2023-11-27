@@ -45,8 +45,12 @@ function renderFields(data, parentKey = "") {
 
       if (!imageRendered && key.toLowerCase() === "image" && value) {
         // Render image at the top
-        imageRendered = true;
-        return <Fragment key={currentKey}>{renderImage(value)}</Fragment>;
+        // imageRendered = true;
+        return (
+          <Fragment key={currentKey}>
+            <span></span>
+          </Fragment>
+        );
       }
 
       if (
