@@ -2,17 +2,27 @@ import React, { Fragment, useEffect, useState } from "react";
 import { ApplicantLayout } from "@/layout";
 import { getSingleApplicantApi } from "@/functions";
 
-function renderFields(data) {
+// Helper function to generate a unique class name
+function generateClassName(prefix, key) {
+  return `${prefix}-${key.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
+}
+
+function renderFields(data, parentKey = "") {
   return Object.entries(data).map(([key, value]) => {
+    const currentKey = parentKey ? `${parentKey}-${key}` : key;
+    const className = generateClassName("field", currentKey);
+
     if (typeof value === "object" && value !== null) {
       if (Array.isArray(value)) {
         // Use ul for arrays
         return (
-          <Fragment key={key}>
-            <p>{key}:</p>
-            <ul>
+          <Fragment key={currentKey}>
+            <p className={className}>{key}:</p>
+            <ul className={className}>
               {value.map((item, index) => (
-                <li key={index}>{renderFields(item)}</li>
+                <li key={index} className={className}>
+                  {renderFields(item, currentKey)}
+                </li>
               ))}
             </ul>
           </Fragment>
@@ -20,10 +30,12 @@ function renderFields(data) {
       } else {
         // Use div for other objects
         return (
-          <Fragment key={key}>
-            <div className="field-group">
-              <h3>{key}</h3>
-              {renderFields(value)}
+          <Fragment key={currentKey}>
+            <div className={className}>
+              <h3 className={generateClassName("heading", currentKey)}>
+                {key}
+              </h3>
+              {renderFields(value, currentKey)}
             </div>
           </Fragment>
         );
@@ -32,15 +44,24 @@ function renderFields(data) {
       if (key.toLowerCase().includes("email")) {
         // Use mailto link for email fields
         return (
-          <a key={key} href={`mailto:${value}`}>
+          <a
+            key={currentKey}
+            href={`mailto:${value}`}
+            className={className}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {key}: {value}
           </a>
         );
       } else {
         // Use p for other non-object values
         return (
-          <p key={key}>
-            <strong>{key}:</strong> {JSON.stringify(value)}
+          <p key={currentKey} className={className}>
+            <strong className={generateClassName("label", currentKey)}>
+              {key}:
+            </strong>{" "}
+            {JSON.stringify(value)}
           </p>
         );
       }
