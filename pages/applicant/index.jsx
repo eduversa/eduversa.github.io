@@ -32,7 +32,9 @@ function renderFields(data, parentKey = "") {
     .map(([key, value]) => {
       const currentKey = parentKey ? `${parentKey}-${key}` : key;
       const className = generateClassName("field", currentKey);
-
+      if (key.toLowerCase() === "image" && value) {
+        return null;
+      }
       if (
         typeof value === "object" &&
         value !== null &&
@@ -115,7 +117,8 @@ function renderFields(data, parentKey = "") {
           );
         }
       }
-    });
+    })
+    .filter((element) => element !== null);
 }
 
 function ApplicantDashboard() {
