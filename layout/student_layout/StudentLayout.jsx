@@ -20,7 +20,7 @@ function StudentLayout({ children }) {
   }, [router]);
   return (
     <Fragment>
-      {children}
+      <div className="wrapper">{children}</div>
       <Footer></Footer>
     </Fragment>
   );
