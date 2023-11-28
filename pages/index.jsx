@@ -79,9 +79,9 @@ function Login() {
   const handleGithubSignIn = async () => {
     await signIn("github");
   };
-  if (process.env.NODE_ENV === "development") {
-    console.log("Session:", session);
-  }
+  // if (process.env.NODE_ENV === "development") {
+  console.log("Session:", session);
+  // }
   return (
     <Fragment>
       <LandingLayout>
