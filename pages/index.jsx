@@ -68,6 +68,10 @@ function Login() {
 
   const handleSocialLoginClick = (provider) => {
     alert(`Login with ${provider} is coming soon!`);
+    console.log("Session:", session);
+    console.log("signIn Fnction:", signIn);
+    console.log("signOut Fnction:", signOut);
+    console.log("useSession Function:", useSession);
   };
   const handleGoogleSignIn = async () => {
     await signIn("google");
