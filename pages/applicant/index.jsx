@@ -67,7 +67,7 @@ function renderFields(data, parentKey = "") {
             {iconName && (
               <Image
                 src={`/icons/${iconName}`}
-                // alt={`${formattedKey} Icon`}
+                alt={`${formattedKey} Icon`}
                 width={20}
                 height={20}
               />
@@ -161,7 +161,7 @@ function renderFields(data, parentKey = "") {
               {iconName && (
                 <Image
                   src={`/icons/${iconName}`}
-                  // alt={`${formattedKey} Icon`}
+                  alt={`${formattedKey} Icon`}
                   width={20}
                   height={20}
                 />
@@ -178,7 +178,7 @@ function renderFields(data, parentKey = "") {
               {iconName && (
                 <Image
                   src={`/icons/${iconName}`}
-                  // alt={`${formattedKey} Icon`}
+                  alt={`${formattedKey} Icon`}
                   width={20}
                   height={20}
                 />
@@ -228,6 +228,17 @@ function ApplicantDashboard() {
       <ApplicantLayout>
         <div className="applicant-dashboard">
           {profileData.image && renderImage(profileData.image)}
+          {profileData?.personal_info?.first_name &&
+          profileData?.personal_info?.last_name ? (
+            <h1>
+              Welcome{" "}
+              {profileData?.personal_info.first_name +
+                " " +
+                profileData?.personal_info.last_name}
+            </h1>
+          ) : (
+            <h1> Welcome User</h1>
+          )}
           <div className="profile-fields">{renderFields(profileData)}</div>
         </div>
       </ApplicantLayout>
