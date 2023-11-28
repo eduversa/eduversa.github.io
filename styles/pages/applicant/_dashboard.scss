@@ -82,6 +82,21 @@
           margin: 0 0 2% 0;
           text-align: center;
         }
+        p {
+          margin: 15px 0;
+          color: #555;
+          box-shadow: inset 6px 6px 12px var(--black-shadow-light),
+            inset -6px -6px 12px var(--white-shadow-0);
+          padding: 15px;
+          border-radius: 12px;
+          transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+
+          &:hover {
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
+              -10px -10px 20px rgba(255, 255, 255, 0.9);
+            color: #333;
+          }
+        }
       }
 
       .heading-academic-info-secondary,
