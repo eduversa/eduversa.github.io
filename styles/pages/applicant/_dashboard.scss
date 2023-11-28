@@ -72,10 +72,19 @@
         bottom: 10px;
         right: 10px;
       }
+      h3 {
+        font-family: var(--font-oswald);
+        font-size: var(--font-7);
+        letter-spacing: 4px;
+        color: var(--black);
+        font-weight: 400;
+        margin: 0 0 2% 0;
+        text-align: center;
+      }
       div {
         h3 {
           font-family: var(--font-elianto);
-          font-size: var(--font-7);
+          font-size: var(--font-9);
           letter-spacing: 2px;
           color: var(--black);
           font-weight: 600;
