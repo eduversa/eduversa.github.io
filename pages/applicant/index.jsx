@@ -17,10 +17,10 @@ function formatDate(dateString) {
     year: "numeric",
     month: "long",
     day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    timeZoneName: "short",
+    // hour: "2-digit",
+    // minute: "2-digit",
+    // second: "2-digit",
+    // timeZoneName: "long",
   };
   return new Date(dateString).toLocaleString(undefined, options);
 }
@@ -32,7 +32,7 @@ function renderImage(imageUrl) {
         src={imageUrl}
         alt="Applicant Profile"
         className="profile-image"
-        width={300}
+        width={200}
         height={200}
       />
     </div>
