@@ -33,19 +33,33 @@ const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onSt
   }, [selectedCourse, collegeData]);
 
   const handleCourseChange = (e) => {
-    const currCourse = e.target.value;
+    const newCourse = e.target.value;
 
-    const currcourseData = collegeData?.data.college_courses.find(course => currCourse === course.name)
+    // Check if "NA" is selected
+    if (newCourse === "NA") {
+      onCourseChange(""); // Reset to no specific course selected
+      onStreamChange(""); // Reset to no specific stream selected
+    } else {
+      const selectedCourseData =
+        collegeData?.data.college_courses.find(
+          (course) => course.name === newCourse
+        ) || {};
 
-    if(!currcourseData || !currcourseData.streams || currcourseData.streams.length === 0) onStreamChange('');
-
-    onCourseChange(currCourse);
+      onCourseChange(newCourse);
+      setStreams(selectedCourseData.streams || []);
+    }
    
   };
 
   const handleStreamChange = (e) => {
-    onStreamChange(e.target.value);
+    const newStream = e.target.value;
 
+    // Check if "NA" is selected
+    if (newStream === "NA") {
+      onStreamChange(""); // Reset to no specific stream selected
+    } else {
+      onStreamChange(newStream);
+    }
   };
 
   const handleSearchChange = (e) => {
@@ -55,13 +69,27 @@ const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onSt
   };
 
 
-  const courseOptions = collegeData?.data.college_courses.map(course => (
-    <option key={course.code} value={course.name}>{course.name}</option>
-  ));
+  const courseOptions = [
+    <option key="NA" value="NA">
+      NA
+    </option>,
+    ...collegeData?.data.college_courses.map((course) => (
+      <option key={course.code} value={course.name}>
+        {course.name}
+      </option>
+    ))
+  ];
 
-  const streamOptions = streams?.map(stream => (
-    <option key={stream._id} value={stream.name}>{stream.name}</option>
-  ));
+ const streamOptions = [
+    <option key="NA" value="NA">
+      NA
+    </option>,
+    ...streams?.map((stream) => (
+      <option key={stream._id} value={stream.name}>
+        {stream.name}
+      </option>
+    ))
+  ];
 
   return (
     <Fragment>
