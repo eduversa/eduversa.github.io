@@ -1,12 +1,24 @@
+// Fonts
+$font-family: "Poppins", sans-serif;
+$font-size-small: 0.8em;
+$font-size-medium: 1em;
+$font-size-large: 1.2em;
+
+// Colors
+$primary-color: #3498db;
+$secondary-color: #e74c3c;
+$accent-color: #2ecc71;
+
 .applicant-dashboard {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f8f8f8;
+  background: linear-gradient(to bottom right, #e6f7ff, #ccf2ff);
   padding: 30px;
   border-radius: 16px;
   box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1),
     -8px -8px 16px rgba(255, 255, 255, 0.8);
+  font-family: $font-family;
 
   .profile-image-container {
     margin-bottom: 30px;
@@ -14,6 +26,11 @@
       border-radius: 50%;
       box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1),
         -8px -8px 16px rgba(255, 255, 255, 0.8);
+      transition: transform 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 
@@ -27,14 +44,21 @@
       margin-bottom: 30px;
       padding: 30px;
       border-radius: 16px;
-      background-color: #ffffff;
+      background: linear-gradient(to bottom right, #ffffff, #f2f2f2);
       box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1),
         -8px -8px 16px rgba(255, 255, 255, 0.8);
+      transition: box-shadow 0.3s ease-in-out;
+
+      &:hover {
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
+          -10px -10px 20px rgba(255, 255, 255, 0.9);
+      }
 
       h3 {
-        font-size: 1.8em;
-        color: #333333;
+        font-size: $font-size-large;
+        color: $primary-color;
         margin-bottom: 15px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
       }
 
       .heading-academic-info-secondary,
@@ -66,8 +90,8 @@
         transition: box-shadow 0.3s ease-in-out;
 
         &:hover {
-          box-shadow: inset 8px 8px 16px rgba(0, 0, 0, 0.1),
-            inset -8px -8px 16px rgba(255, 255, 255, 0.8);
+          box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
+            -10px -10px 20px rgba(255, 255, 255, 0.9);
         }
       }
 
@@ -83,8 +107,8 @@
           transition: box-shadow 0.3s ease-in-out;
 
           &:hover {
-            box-shadow: inset 8px 8px 16px rgba(0, 0, 0, 0.1),
-              inset -8px -8px 16px rgba(255, 255, 255, 0.8);
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
+              -10px -10px 20px rgba(255, 255, 255, 0.9);
           }
         }
       }
