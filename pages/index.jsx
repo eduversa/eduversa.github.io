@@ -76,9 +76,12 @@ function Login() {
   const handleGoogleSignIn = async () => {
     await signIn("google");
   };
-  if (process.env.NODE_ENV === "development") {
-    console.log("Session:", session);
-  }
+  const handleGithubSignIn = async () => {
+    await signIn("github");
+  };
+  // if (process.env.NODE_ENV === "development") {
+  console.log("Session:", session);
+  // }
   return (
     <Fragment>
       <LandingLayout>
@@ -168,7 +171,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="github-icon"
-                  onClick={() => handleSocialLoginClick("GitHub")}
+                  onClick={handleGithubSignIn}
                 ></Image>
               </div>
             </div>
