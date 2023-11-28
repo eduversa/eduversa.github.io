@@ -1,151 +1,102 @@
 .applicant-dashboard {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-
-  &:hover {
-    transform: scale(1.02);
-  }
+  align-items: center;
+  background-color: #f8f8f8;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1),
+    -8px -8px 16px rgba(255, 255, 255, 0.8);
 
   .profile-image-container {
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-
+    margin-bottom: 30px;
     .profile-image {
-      width: 300px;
-      height: 200px;
-      object-fit: cover;
-      border: 8px solid #fff;
       border-radius: 50%;
-      transition: transform 0.3s ease-in-out;
-
-      &:hover {
-        transform: scale(1.1);
-      }
+      box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1),
+        -8px -8px 16px rgba(255, 255, 255, 0.8);
     }
   }
 
   .profile-fields {
     width: 100%;
-    max-width: 800px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    transition: box-shadow 0.3s ease-in-out;
-
-    &:hover {
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-    }
 
     .field-personal-info,
     .field-academic-info,
     .field-family-info,
     .field-course-info {
       margin-bottom: 30px;
+      padding: 30px;
+      border-radius: 16px;
+      background-color: #ffffff;
+      box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1),
+        -8px -8px 16px rgba(255, 255, 255, 0.8);
 
       h3 {
         font-size: 1.8em;
-        margin-bottom: 10px;
-        color: #333;
-        border-bottom: 2px solid #3498db;
-        padding-bottom: 5px;
+        color: #333333;
+        margin-bottom: 15px;
+      }
+
+      .heading-academic-info-secondary,
+      .heading-academic-info-higher-secondary,
+      .heading-family-info-father,
+      .heading-family-info-mother,
+      .heading-family-info-guardian,
+      .heading-family-info-guardian-office-address {
+        margin-top: 30px;
+      }
+
+      .field-academic-info-secondary-marks,
+      .field-academic-info-higher-secondary-marks {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin: 10px 0;
+        }
       }
 
       p {
-        margin: 10px 0;
+        margin: 15px 0;
         color: #555;
-      }
+        box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.1),
+          inset -6px -6px 12px rgba(255, 255, 255, 0.8);
+        padding: 15px;
+        border-radius: 12px;
+        transition: box-shadow 0.3s ease-in-out;
 
-      strong {
-        margin-right: 5px;
-        color: #333;
-      }
-
-      img {
-        width: 20px;
-        height: 20px;
-        margin-right: 8px;
-        filter: invert(20%) sepia(12%) saturate(360%) hue-rotate(180deg);
-      }
-
-      ul.field-academic-info-secondary-marks,
-      ul.field-academic-info-higher-secondary-marks {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-
-        li {
-          margin: 8px 0;
-          color: #555;
-
-          strong {
-            color: #333;
-            margin-right: 5px;
-          }
+        &:hover {
+          box-shadow: inset 8px 8px 16px rgba(0, 0, 0, 0.1),
+            inset -8px -8px 16px rgba(255, 255, 255, 0.8);
         }
-      }
-    }
-
-    .field-academic-info-secondary-marks,
-    .field-academic-info-higher-secondary-marks {
-      padding-left: 20px;
-    }
-  }
-
-  .field-family-info,
-  .field-course-info {
-    display: flex;
-    flex-direction: column;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out;
-
-    &:hover {
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    .field-family-info-father,
-    .field-family-info-mother,
-    .field-family-info-guardian {
-      margin-bottom: 20px;
-
-      h3 {
-        font-size: 1.5em;
-        margin-bottom: 10px;
-        color: #333;
-        border-bottom: 2px solid #3498db;
-        padding-bottom: 5px;
       }
 
       .field-family-info-father-contact,
       .field-family-info-mother-contact,
       .field-family-info-guardian-contact,
       .field-family-info-guardian-office-contact {
-        margin-top: 10px;
-        color: #555;
+        p {
+          box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.1),
+            inset -6px -6px 12px rgba(255, 255, 255, 0.8);
+          padding: 15px;
+          border-radius: 12px;
+          transition: box-shadow 0.3s ease-in-out;
+
+          &:hover {
+            box-shadow: inset 8px 8px 16px rgba(0, 0, 0, 0.1),
+              inset -8px -8px 16px rgba(255, 255, 255, 0.8);
+          }
+        }
       }
     }
-  }
 
-  .field-createdat,
-  .field-updatedat,
-  .field-user-id {
-    margin-top: 20px;
-    color: #777;
+    .field-user-id,
+    .field-createdat,
+    .field-updatedat {
+      margin-top: 30px;
+      p {
+        color: #777;
+      }
+    }
   }
 }
