@@ -32,13 +32,13 @@ function Login() {
       localStorage.setItem("authToken", apiResponse.authToken);
       localStorage.setItem("email", apiResponse.data.email);
       localStorage.setItem("userType", apiResponse.data.type);
+      localStorage.setItem("userid", apiResponse.data.user_id);
       if (apiResponse.data.type === "applicant") {
         localStorage.setItem(
           "applicant_profile",
           JSON.stringify(apiResponse.profileData)
         );
       }
-      localStorage.setItem("userid", apiResponse.data.user_id);
       if (process.env.NODE_ENV === "development") {
         console.log("AuthToken", localStorage.getItem("authToken"));
         console.log("Email", localStorage.getItem("email"));
@@ -68,6 +68,10 @@ function Login() {
 
   const handleSocialLoginClick = (provider) => {
     alert(`Login with ${provider} is coming soon!`);
+    console.log("Session:", session);
+    console.log("signIn Fnction:", signIn);
+    console.log("signOut Fnction:", signOut);
+    console.log("useSession Function:", useSession);
   };
   const handleGoogleSignIn = async () => {
     await signIn("google");
