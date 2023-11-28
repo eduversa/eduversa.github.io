@@ -12,15 +12,15 @@ function generateClassName(prefix, key) {
   return `${prefix}-${formattedKey.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
 }
 
-function formatDate(dateString) {
+function formatDate(dateString, includeTimeZone = true) {
   const options = {
     year: "numeric",
     month: "long",
     day: "numeric",
-    // hour: "2-digit",
-    // minute: "2-digit",
-    // second: "2-digit",
-    // timeZoneName: "long",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZoneName: includeTimeZone ? "short" : undefined,
   };
   return new Date(dateString).toLocaleString(undefined, options);
 }
@@ -32,7 +32,7 @@ function renderImage(imageUrl) {
         src={imageUrl}
         alt="Applicant Profile"
         className="profile-image"
-        width={200}
+        width={300}
         height={200}
       />
     </div>
@@ -54,6 +54,17 @@ function renderFields(data, parentKey = "") {
 
       if (!imageRendered && key.toLowerCase() === "image" && value) {
         return <Fragment key={currentKey}>{null}</Fragment>;
+      }
+
+      if (key.toLowerCase() === "dob") {
+        return (
+          <p key={currentKey} className={className}>
+            <strong className={generateClassName("label", currentKey)}>
+              {formattedKey}:
+            </strong>{" "}
+            {formatDate(value, false)}
+          </p>
+        );
       }
 
       if (
@@ -136,15 +147,6 @@ function renderFields(data, parentKey = "") {
             >
               {formattedKey}: {displayValue}
             </a>
-          );
-        } else if (key.toLowerCase() === "dob") {
-          return (
-            <p key={currentKey} className={className}>
-              <strong className={generateClassName("label", currentKey)}>
-                {formattedKey}:
-              </strong>{" "}
-              {formatDate(displayValue)}
-            </p>
           );
         } else {
           return (
