@@ -37,8 +37,8 @@ const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onSt
 
     // Check if "NA" is selected
     if (newCourse === "NA") {
-      onCourseChange(""); // Reset to no specific course selected
-      onStreamChange(""); // Reset to no specific stream selected
+      onCourseChange(""); 
+      onStreamChange(""); 
     } else {
       const selectedCourseData =
         collegeData?.data.college_courses.find(
@@ -54,9 +54,9 @@ const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onSt
   const handleStreamChange = (e) => {
     const newStream = e.target.value;
 
-    // Check if "NA" is selected
+  
     if (newStream === "NA") {
-      onStreamChange(""); // Reset to no specific stream selected
+      onStreamChange(""); 
     } else {
       onStreamChange(newStream);
     }
