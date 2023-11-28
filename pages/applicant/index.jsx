@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { Fragment, useEffect, useState } from "react";
 import { ApplicantLayout } from "@/layout";
 import { getSingleApplicantApi } from "@/functions";
@@ -43,7 +44,9 @@ function renderFields(data, parentKey = "") {
   let imageRendered = false;
 
   return Object.entries(data)
-    .filter(([key]) => key !== "__v" && key !== "_id")
+    .filter(
+      ([key]) => key !== "__v" && key !== "_id" && key !== "are_addresses_same"
+    )
     .map(([key, value]) => {
       const currentKey = parentKey ? `${parentKey}-${key}` : key;
       const formattedKey = key
@@ -52,6 +55,8 @@ function renderFields(data, parentKey = "") {
         .join(" ");
       const className = generateClassName("field", currentKey);
 
+      const iconName = formattedKey.replace(/\s+/g, "-").toLowerCase() + ".png";
+
       if (!imageRendered && key.toLowerCase() === "image" && value) {
         return <Fragment key={currentKey}>{null}</Fragment>;
       }
@@ -59,9 +64,17 @@ function renderFields(data, parentKey = "") {
       if (key.toLowerCase() === "dob") {
         return (
           <p key={currentKey} className={className}>
+            {iconName && (
+              <Image
+                src={`/icons/${iconName}`}
+                // alt={`${formattedKey} Icon`}
+                width={20}
+                height={20}
+              />
+            )}
             <strong className={generateClassName("label", currentKey)}>
               {formattedKey}:
-            </strong>{" "}
+            </strong>
             {formatDate(value, false)}
           </p>
         );
@@ -151,9 +164,17 @@ function renderFields(data, parentKey = "") {
         } else {
           return (
             <p key={currentKey} className={className}>
+              {iconName && (
+                <Image
+                  src={`/icons/${iconName}`}
+                  // alt={`${formattedKey} Icon`}
+                  width={20}
+                  height={20}
+                />
+              )}
               <strong className={generateClassName("label", currentKey)}>
                 {formattedKey}:
-              </strong>{" "}
+              </strong>
               {displayValue}
             </p>
           );
