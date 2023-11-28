@@ -19,7 +19,14 @@ jobs:
           node-version: 14
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm ci
+
+      - name: Debug Output
+        run: |
+          echo "Node.js version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          # Add more relevant debugging output
 
       - name: Build Next.js App
         run: npm run build
@@ -29,4 +36,4 @@ jobs:
     needs: build
     steps:
       - name: Deploy to Vercel
-        run: npx vercel --token ${{ secrets.yCeuvaiQjEalLQ8yvqe8Huj3 }} --prod
+        run: npx vercel --token "${{ secrets.yCeuvaiQjEalLQ8yvqe8Huj3 }}" --prod
