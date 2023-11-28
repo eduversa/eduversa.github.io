@@ -30,11 +30,14 @@
   }
 
   .profile-fields {
-    width: 100%;
-    max-width: 600px;
-    margin-top: 20px;
-
-    .field {
+    margin-top: 40px;
+    .field-personal-info,
+    .field-academic-info,
+    .field-family-info,
+    .field-course-info,
+    .field-user-id,
+    .field-createdat,
+    .field-updatedat {
       margin-bottom: 20px;
       background-color: #f8f8f8;
       border-radius: 8px;
@@ -57,25 +60,23 @@
         margin: 0;
         padding: 10px 0;
         font-size: 1.4rem;
-        color: #333;
+        color: #2c3e;
 
         strong {
           font-weight: bold;
-          margin-right: 10px;
-        }
-
-        a {
-          text-decoration: none;
-          color: #3498db;
-          transition: color 0.3s;
-
-          &:hover {
-            text-decoration: underline;
-            color: #2c3e50;
-          }
+          margin-right: 100px;
         }
       }
+      a {
+        text-decoration: none;
+        color: #3498db;
+        transition: color 0.3s;
 
+        &:hover {
+          text-decoration: underline;
+          color: #2c3e50;
+        }
+      }
       ul {
         list-style: none;
         padding: 0;

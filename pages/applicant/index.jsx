@@ -135,7 +135,7 @@ function renderFields(data, parentKey = "") {
           } else {
             return (
               <Fragment key={currentKey}>
-                <div className={`${className} field`}>
+                <div className={className}>
                   <h3 className={generateClassName("heading", currentKey)}>
                     {formattedKey}
                   </h3>
