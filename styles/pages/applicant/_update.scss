@@ -15,7 +15,9 @@
     font-size: var(--font-12);
     color: var(--purple-4);
     span {
-      font-weight: normal;
+      font-family: var(--font-tektur);
+      font-size: var(--font-13);
+      // font-weight: normal;
       padding-left: 0.5rem;
     }
   }
