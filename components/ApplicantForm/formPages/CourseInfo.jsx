@@ -112,6 +112,13 @@ const CourseInfo = ({
   };
 
   useEffect(() => {
+    // const savedCourseInfo = JSON.parse(localStorage.getItem("course_info"));
+    // if (savedCourseInfo){
+    //   setFormData((prevFormData) => ({
+    //     ...prevFormData,
+    //     course_info: savedCourseInfo,
+    //   }));
+    // }
     setFormData((prevFormData) => ({
       ...prevFormData,
       course_info: {
@@ -123,7 +130,10 @@ const CourseInfo = ({
 
   async function onSubmitHandler() {
     setLoading(true);
-    localStorage.setItem("course_info", JSON.stringify(formData.course_info));
+    localStorage.setItem(
+      "applicant_profile",
+      JSON.stringify(formData)
+    );
     const data = JSON.stringify(formData.course_info);
     const type = "course";
     const user_id = localStorage.getItem("userid");
@@ -203,6 +213,7 @@ const CourseInfo = ({
           <Year
             label="Admission Year"
             name="course_info.admission_year"
+            onChange={handleChange}
             value={currentYear}
             readOnly
             required

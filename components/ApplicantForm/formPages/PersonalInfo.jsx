@@ -115,21 +115,11 @@ const PersonalInfo = ({
     }
   }, [permanentPincode, setPermanentPincodeError, formData, handleChange, prevPermanentPincode, fetching]);
 
-  useEffect(() => {
-    const savedPersonalInfo = JSON.parse(localStorage.getItem("personal_info"));
-    if (savedPersonalInfo) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        personal_info: savedPersonalInfo,
-      }));
-    }
-  }, [setFormData]);
-
   async function onSubmitHandler() {
     setLoading(true);
     localStorage.setItem(
-      "personal_info",
-      JSON.stringify(formData.personal_info)
+      "applicant_profile",
+      JSON.stringify(formData)
     );
     const data = JSON.stringify(formData.personal_info);
     const type = "personal";

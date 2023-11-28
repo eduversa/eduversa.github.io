@@ -31,6 +31,10 @@ const FileUpload = ({
   };
   async function onSubmitHandler() {
     setLoading(true);
+    localStorage.setItem(
+      "applicant_profile",
+      JSON.stringify(formData)
+    );
     const image = document.getElementById("user-image");
     const profileData = new FormData();
     profileData.append("image", image.files[0]);

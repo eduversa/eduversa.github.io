@@ -6,7 +6,6 @@ import {
   CourseInfo,
   FileUpload,
 } from "./formPages";
-import { FormButtons } from "./inputComponent/InputComponent";
 
 const ApplicantForm = () => {
   let year = new Date().getFullYear().toString();
@@ -168,7 +167,9 @@ const ApplicantForm = () => {
 
   const processFormData = useCallback((savedFormData) => {
     const fullName = savedFormData.personal_info
-      ? concatenateNames(
+      ? savedFormData.personal_info.name?
+      savedFormData.personal_info.name :
+      concatenateNames(
           savedFormData.personal_info.first_name,
           savedFormData.personal_info.middle_name,
           savedFormData.personal_info.last_name
@@ -176,7 +177,9 @@ const ApplicantForm = () => {
       : "";
     const fatherFullName =
       savedFormData.family_info && savedFormData.family_info.father
-        ? concatenateNames(
+        ? savedFormData.family_info.father.name?
+        savedFormData.family_info.father.name:
+        concatenateNames(
             savedFormData.family_info.father.first_name,
             savedFormData.family_info.father.middle_name,
             savedFormData.family_info.father.last_name
@@ -184,7 +187,9 @@ const ApplicantForm = () => {
         : "";
     const motherFullName =
       savedFormData.family_info && savedFormData.family_info.mother
-        ? concatenateNames(
+        ? savedFormData.family_info.mother.name?
+        savedFormData.family_info.mother.name:
+        concatenateNames(
             savedFormData.family_info.mother.first_name,
             savedFormData.family_info.mother.middle_name,
             savedFormData.family_info.mother.last_name
@@ -192,7 +197,9 @@ const ApplicantForm = () => {
         : "";
     const guardianFullName =
       savedFormData.family_info && savedFormData.family_info.guardian
-        ? concatenateNames(
+        ? savedFormData.family_info.guardian.name?
+        savedFormData.family_info.guardian.name:
+        concatenateNames(
             savedFormData.family_info.guardian.first_name,
             savedFormData.family_info.guardian.middle_name,
             savedFormData.family_info.guardian.last_name

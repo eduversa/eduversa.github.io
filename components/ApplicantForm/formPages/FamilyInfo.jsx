@@ -57,19 +57,12 @@ const FamilyInfo = ({
     }
   }, [officePincode, setOfficePincodeError, formData, handleChange, prevOfficePincode, fetching]);
 
-  useEffect(() => {
-    const savedFamilyInfo = JSON.parse(localStorage.getItem("family_info"));
-    if (savedFamilyInfo) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        family_info: savedFamilyInfo,
-      }));
-    }
-  }, [setFormData]);
-
   async function onSubmitHandler() {
     setLoading(true);
-    localStorage.setItem("family_info", JSON.stringify(formData.family_info));
+    localStorage.setItem(
+      "applicant_profile",
+      JSON.stringify(formData)
+    );
     const data = JSON.stringify(formData.family_info);
     const type = "family";
     const user_id = localStorage.getItem("userid");
