@@ -3,19 +3,18 @@
   background: linear-gradient(to bottom right, #e6f7ff, #ccf2ff);
   padding: 30px;
   border-radius: 16px;
-  box-shadow: 16px 32px 16px rgba(0, 0, 0, 0.1),
-    -8px -8px 16px rgba(255, 255, 255, 0.8);
-  font-family: "Poppins", sans-serif;
+  box-shadow: 16px 32px 16px var(--black-shadow-light),
+    -8px -8px 16px var(--white-shadow-0);
   position: relative;
   .profile-image-container {
-    margin: 0 0 2.5% 0;
+    margin: 0 0 2% 0;
     .profile-image {
       position: relative;
       border-radius: 50%;
       height: 200px;
       width: 200px;
-      box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1),
-        -8px -8px 16px rgba(255, 255, 255, 0.8);
+      box-shadow: 8px 8px 16px var(--black-shadow-light),
+        -8px -8px 16px var(--white-shadow-0);
       transition: transform 0.3s ease-in-out;
 
       &:hover {
@@ -23,7 +22,16 @@
       }
     }
   }
-
+  h1 {
+    font-family: var(--font-blackpast);
+    font-size: var(--font-7);
+    letter-spacing: 2px;
+    color: var(--black);
+    font-weight: 600;
+    margin: 0 0 2% 0;
+    text-align: center;
+    z-index: 10;
+  }
   .profile-fields {
     width: 100%;
 
@@ -35,8 +43,8 @@
       padding: 30px;
       border-radius: 16px;
       background: linear-gradient(to bottom right, #ffffff, #f2f2f2);
-      box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1),
-        -8px -8px 16px rgba(255, 255, 255, 0.8);
+      box-shadow: 8px 8px 16px var(--black-shadow-light),
+        -8px -8px 16px var(--white-shadow-0);
       transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 
       &:hover {
@@ -49,7 +57,7 @@
         font-size: 1.2em;
         color: #3498db;
         margin-bottom: 15px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        text-shadow: 2px 2px 4px var(--black-shadow-light);
       }
 
       &::before,
@@ -59,7 +67,7 @@
         width: 100%;
         height: 100%;
         border-radius: 16px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 20px var(--black-shadow-light);
         z-index: -1;
         transition: box-shadow 0.3s ease-in-out;
       }
@@ -96,8 +104,8 @@
       p {
         margin: 15px 0;
         color: #555;
-        box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.1),
-          inset -6px -6px 12px rgba(255, 255, 255, 0.8);
+        box-shadow: inset 6px 6px 12px var(--black-shadow-light),
+          inset -6px -6px 12px var(--white-shadow-0);
         padding: 15px;
         border-radius: 12px;
         transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -114,8 +122,8 @@
       .field-family-info-guardian-contact,
       .field-family-info-guardian-office-contact {
         p {
-          box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.1),
-            inset -6px -6px 12px rgba(255, 255, 255, 0.8);
+          box-shadow: inset 6px 6px 12px var(--black-shadow-light),
+            inset -6px -6px 12px var(--white-shadow-0);
           padding: 15px;
           border-radius: 12px;
           transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
