@@ -158,7 +158,18 @@ function renderFields(data, parentKey = "") {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {formattedKey}: {displayValue}
+              {iconName && (
+                <Image
+                  src={`/icons/${iconName}`}
+                  // alt={`${formattedKey} Icon`}
+                  width={20}
+                  height={20}
+                />
+              )}
+              <strong className={generateClassName("label", currentKey)}>
+                {formattedKey}:
+              </strong>
+              {displayValue}
             </a>
           );
         } else {
