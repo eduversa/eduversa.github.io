@@ -1,4 +1,4 @@
-.profile-container {
+.applicant-dashboard {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,17 +14,18 @@
 
   .profile-image-container {
     margin-bottom: 20px;
-    transition: transform 0.3s, box-shadow 0.3s;
-
-    &:hover {
-      transform: scale(1.05);
-      box-shadow: 12px 12px 24px #d4d4d4, -12px -12px 24px #ffffff;
-    }
 
     .profile-image {
+      position: relative;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
       box-shadow: 8px 8px 16px #d4d4d4, -8px -8px 16px #ffffff;
-      transition: box-shadow 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 12px 12px 24px #d4d4d4, -12px -12px 24px #ffffff;
+      }
     }
   }
 

@@ -135,7 +135,7 @@ function renderFields(data, parentKey = "") {
           } else {
             return (
               <Fragment key={currentKey}>
-                <div className={className}>
+                <div className={`${className} field`}>
                   <h3 className={generateClassName("heading", currentKey)}>
                     {formattedKey}
                   </h3>
@@ -226,7 +226,7 @@ function ApplicantDashboard() {
   return (
     <Fragment>
       <ApplicantLayout>
-        <div className="profile-container">
+        <div className="applicant-dashboard">
           {profileData.image && renderImage(profileData.image)}
           <div className="profile-fields">{renderFields(profileData)}</div>
         </div>
