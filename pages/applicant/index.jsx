@@ -126,16 +126,19 @@ function renderFields(data, parentKey = "") {
           }
         }
       } else {
+        const displayValue =
+          typeof value === "string" ? value.replace(/"/g, "") : value;
+
         if (key.toLowerCase().includes("email")) {
           return (
             <a
               key={currentKey}
-              href={`mailto:${value}`}
+              href={`mailto:${displayValue}`}
               className={className}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {formattedKey}: {value}
+              {formattedKey}: {displayValue}
             </a>
           );
         } else if (key.toLowerCase() === "dob") {
@@ -144,7 +147,7 @@ function renderFields(data, parentKey = "") {
               <strong className={generateClassName("label", currentKey)}>
                 {formattedKey}:
               </strong>{" "}
-              {formatDate(value)}
+              {formatDate(displayValue)}
             </p>
           );
         } else {
@@ -153,7 +156,7 @@ function renderFields(data, parentKey = "") {
               <strong className={generateClassName("label", currentKey)}>
                 {formattedKey}:
               </strong>{" "}
-              {JSON.stringify(value)}
+              {displayValue}
             </p>
           );
         }
