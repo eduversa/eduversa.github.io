@@ -158,7 +158,18 @@ function renderFields(data, parentKey = "") {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {formattedKey}: {displayValue}
+              {iconName && (
+                <Image
+                  src={`/icons/${iconName}`}
+                  // alt={`${formattedKey} Icon`}
+                  width={20}
+                  height={20}
+                />
+              )}
+              <strong className={generateClassName("label", currentKey)}>
+                {formattedKey}:
+              </strong>
+              {displayValue}
             </a>
           );
         } else {
@@ -215,7 +226,7 @@ function ApplicantDashboard() {
   return (
     <Fragment>
       <ApplicantLayout>
-        <div className="profile-container">
+        <div className="applicant-dashboard">
           {profileData.image && renderImage(profileData.image)}
           <div className="profile-fields">{renderFields(profileData)}</div>
         </div>
