@@ -4,7 +4,12 @@ import { getSingleApplicantApi } from "@/functions";
 import Image from "next/image";
 
 function generateClassName(prefix, key) {
-  return `${prefix}-${key.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
+  const formattedKey = key
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  return `${prefix}-${formattedKey.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
 }
 
 function formatDate(dateString) {
@@ -41,6 +46,10 @@ function renderFields(data, parentKey = "") {
     .filter(([key]) => key !== "__v" && key !== "_id")
     .map(([key, value]) => {
       const currentKey = parentKey ? `${parentKey}-${key}` : key;
+      const formattedKey = key
+        .split("_")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
       const className = generateClassName("field", currentKey);
 
       if (!imageRendered && key.toLowerCase() === "image" && value) {
@@ -55,11 +64,10 @@ function renderFields(data, parentKey = "") {
         key.toLowerCase() === "createdat" ||
         key.toLowerCase() === "updatedat"
       ) {
-        // Format createdAt and updatedAt dates
         return (
           <p key={currentKey} className={className}>
             <strong className={generateClassName("label", currentKey)}>
-              {key}:
+              {formattedKey}:
             </strong>{" "}
             {formatDate(value)}
           </p>
@@ -74,7 +82,9 @@ function renderFields(data, parentKey = "") {
         if (Array.isArray(value)) {
           return (
             <Fragment key={currentKey}>
-              <p className={className}>{key}:</p>
+              <h3 className={generateClassName("heading", currentKey)}>
+                {formattedKey}:
+              </h3>
               <ul className={className}>
                 {value.map((item, index) => (
                   <li key={index} className={className}>
@@ -92,7 +102,7 @@ function renderFields(data, parentKey = "") {
           ) {
             return (
               <Fragment key={currentKey}>
-                <p className={className}>{key}:</p>
+                <h3 className={className}>{formattedKey}:</h3>
                 <ul className={className}>
                   {Object.entries(value).map(([subject, marks], index) => (
                     <li key={index} className={className}>
@@ -107,7 +117,7 @@ function renderFields(data, parentKey = "") {
               <Fragment key={currentKey}>
                 <div className={className}>
                   <h3 className={generateClassName("heading", currentKey)}>
-                    {key}
+                    {formattedKey}
                   </h3>
                   {renderFields(value, currentKey)}
                 </div>
@@ -125,14 +135,14 @@ function renderFields(data, parentKey = "") {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {key}: {value}
+              {formattedKey}: {value}
             </a>
           );
         } else if (key.toLowerCase() === "dob") {
           return (
             <p key={currentKey} className={className}>
               <strong className={generateClassName("label", currentKey)}>
-                {key}:
+                {formattedKey}:
               </strong>{" "}
               {formatDate(value)}
             </p>
@@ -141,7 +151,7 @@ function renderFields(data, parentKey = "") {
           return (
             <p key={currentKey} className={className}>
               <strong className={generateClassName("label", currentKey)}>
-                {key}:
+                {formattedKey}:
               </strong>{" "}
               {JSON.stringify(value)}
             </p>
