@@ -53,11 +53,7 @@ function renderFields(data, parentKey = "") {
       const className = generateClassName("field", currentKey);
 
       if (!imageRendered && key.toLowerCase() === "image" && value) {
-        return (
-          <Fragment key={currentKey}>
-            <span>{null}</span>
-          </Fragment>
-        );
+        return <Fragment key={currentKey}>{null}</Fragment>;
       }
 
       if (
