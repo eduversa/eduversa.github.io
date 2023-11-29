@@ -54,6 +54,7 @@ function Register() {
         }
         alert(apiResponse.message);
         setLoading(false);
+        router.push("/");
         return;
       }
       if (process.env.NODE_ENV === "development") {
