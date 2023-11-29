@@ -35,7 +35,7 @@ const CollegeDropdowns = ({ selectedCourse, selectedStream, onCourseChange, onSt
   const handleCourseChange = (e) => {
     const newCourse = e.target.value;
 
-    // Check if "NA" is selected
+ 
     if (newCourse === "NA") {
       onCourseChange(""); 
       onStreamChange(""); 
