@@ -22,10 +22,10 @@ function ApplicantLayout({ children }) {
   return (
     <Fragment>
       <ApplicantNavbar />
-      <body>
-        <div className="wrapper">{children}</div>
-        {/* <Analytics /> */}
-      </body>
+
+      <div className="wrapper">{children}</div>
+      {/* <Analytics /> */}
+
       <Footer />
     </Fragment>
   );
