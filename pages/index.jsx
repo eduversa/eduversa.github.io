@@ -80,7 +80,7 @@ function Login() {
     await signIn("github");
   };
   const handleFacebookSignIn = async () => {
-    await signIn("facebook");
+    await signIn();
   };
   // if (process.env.NODE_ENV === "development") {
   console.log("Session:", session);
