@@ -2,7 +2,7 @@ import { AdminLayout } from "@/layout";
 import React, { Fragment, useEffect, useState } from "react";
 import { getCollegeDetailsApi, getApplicantsByYear } from "@/functions";
 import { CollegeDropdowns } from "@/components";
-import ManageApp from "./ManageApp";
+import { ManageApp } from "@/components";
 
 const ManageApplicants = () => {
   const [maincollegeData, setmaincollegeData] = useState(null);
