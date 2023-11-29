@@ -24,7 +24,10 @@ const ManageApplicants = () => {
       }
       setmaincollegeData(response);
     } catch (error) {
-      console.error("Error fetching college data:", error);
+      if (process.env.NODE_ENV === "development") {
+        console.error("Error fetching college data:", error);
+      }
+   
     }
   };
 
@@ -36,7 +39,8 @@ const ManageApplicants = () => {
       }
       setapplicantData(response.data);
     } catch (error) {
-      console.error("Error fetching applicant data:", error);
+      if(process.env.NODE_ENV == "development"){
+      console.error("Error fetching applicant data:", error);}
     }
   };
 
@@ -70,7 +74,7 @@ const ManageApplicants = () => {
       });
     }
     
-    console.log(filteredResult);
+    
     return filteredResult;
   };
 
