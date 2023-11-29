@@ -20,6 +20,7 @@ const AcademicInfo = ({
   handleNextClick,
   currentStep,
   totalSteps,
+  userid,
 }) => {
   let year = new Date().getFullYear().toString();
   const [loading, setLoading] = useState(false);
@@ -32,11 +33,11 @@ const AcademicInfo = ({
     );
     const data = JSON.stringify(formData.academic_info);
     const type = "academic";
-    const user_id = localStorage.getItem("userid");
+    // const userid = localStorage.getItem("userid");
     try {
-      const response = await updateAppplicantData(user_id, type, data);
+      const response = await updateAppplicantData(userid, type, data);
       if (process.env.NODE_ENV === "development") {
-        const response = await updateAppplicantData(user_id, type, data);
+        const response = await updateAppplicantData(userid, type, data);
         console.log(response);
       }
       alert(response.message);

@@ -6,7 +6,9 @@ const updateApplicants = () => {
   return (
     <Fragment>
       <AdminLayout>
-        <ApplicantForm/>
+        <ApplicantForm
+          userid="2023007640"
+        />
       </AdminLayout>
     </Fragment>
   );

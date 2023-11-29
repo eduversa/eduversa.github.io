@@ -6,8 +6,9 @@ import {
   CourseInfo,
   FileUpload,
 } from "./formPages";
+import { getSingleApplicantApi } from "@/functions";
 
-const ApplicantForm = () => {
+const ApplicantForm = ({userid}) => {
   let year = new Date().getFullYear().toString();
 
   const initialFormData = useMemo(
@@ -279,6 +280,32 @@ const ApplicantForm = () => {
   }, []);
 
   useEffect(() => {
+    const userType = localStorage.getItem("userType");
+    if (userType === "admin") {
+      // const applicantId = localStorage.getItem("userid");
+      const fetchData = async () => {
+        try {
+          const response = await getSingleApplicantApi(userid);
+          if (response.status === false) {
+            alert(response.message);
+            return;
+          }
+          localStorage.setItem(
+            "applicant_profile",
+            JSON.stringify(response.data)
+          );
+        } catch (error) {
+          if (process.env.NODE_ENV === "development") {
+            console.error("Error fetching applicant data:", error.message);
+          }
+        }
+      };
+  
+      fetchData();
+    }
+  }, [userid]);
+
+  useEffect(() => {
     const savedFormData = loadSavedFormData();
     if (savedFormData) {
       const processedFormData = processFormData(savedFormData);
@@ -408,6 +435,7 @@ const ApplicantForm = () => {
       handleNextClick={handleNextClick}
       currentStep={currentStep}
       totalSteps={totalSteps}
+      userid={userid}
       presentPincodeError={presentPincodeError}
       setPresentPincodeError={setPresentPincodeError}
       permanentPincodeError={permanentPincodeError}

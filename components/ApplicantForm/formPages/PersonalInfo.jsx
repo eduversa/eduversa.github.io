@@ -24,7 +24,7 @@ const PersonalInfo = ({
   handleNextClick,
   currentStep,
   totalSteps,
-
+  userid,
   presentPincodeError,
   setPresentPincodeError,
   permanentPincodeError,
@@ -123,11 +123,11 @@ const PersonalInfo = ({
     );
     const data = JSON.stringify(formData.personal_info);
     const type = "personal";
-    const user_id = localStorage.getItem("userid");
+    // const userid = localStorage.getItem("userid");
     try {
-      const response = await updateAppplicantData(user_id, type, data);
+      const response = await updateAppplicantData(userid, type, data);
       if (process.env.NODE_ENV === "development") {
-        const response = await updateAppplicantData(user_id, type, data);
+        const response = await updateAppplicantData(userid, type, data);
         console.log(response);
       }
       alert(response.message);

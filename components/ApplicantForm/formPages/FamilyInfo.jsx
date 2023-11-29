@@ -24,6 +24,7 @@ const FamilyInfo = ({
   handleNextClick,
   currentStep,
   totalSteps,
+  userid,
 
   officePincodeError,
   setOfficePincodeError,
@@ -65,11 +66,12 @@ const FamilyInfo = ({
     );
     const data = JSON.stringify(formData.family_info);
     const type = "family";
-    const user_id = localStorage.getItem("userid");
+    // const userid = localStorage.getItem("userid");
+
     try {
-      const response = await updateAppplicantData(user_id, type, data);
+      const response = await updateAppplicantData(userid, type, data);
       if (process.env.NODE_ENV === "development") {
-        const response = await updateAppplicantData(user_id, type, data);
+        const response = await updateAppplicantData(userid, type, data);
         console.log(response);
       }
       alert(response.message);

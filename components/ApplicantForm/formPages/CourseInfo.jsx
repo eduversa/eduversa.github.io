@@ -20,6 +20,7 @@ const CourseInfo = ({
   handleNextClick,
   currentStep,
   totalSteps,
+  userid,
 }) => {
   const currentYear = new Date().getFullYear().toString();
   const [courses, setCourses] = useState([]);
@@ -136,9 +137,9 @@ const CourseInfo = ({
     );
     const data = JSON.stringify(formData.course_info);
     const type = "course";
-    const user_id = localStorage.getItem("userid");
+    // const userid = localStorage.getItem("userid");
     try {
-      const response = await updateAppplicantData(user_id, type, data);
+      const response = await updateAppplicantData(userid, type, data);
       if (process.env.NODE_ENV === "development") {
         console.log(response);
       }

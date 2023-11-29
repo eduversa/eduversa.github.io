@@ -14,6 +14,7 @@ const FileUpload = ({
   handleNextClick,
   currentStep,
   totalSteps,
+  userid,
 }) => {
   const [imagePreview, setImagePreview] = useState(formData.image);
   const [loading, setLoading] = useState(false);
@@ -40,21 +41,21 @@ const FileUpload = ({
     profileData.append("image", image.files[0]);
     const data = profileData;
     const type = "files";
-    const user_id = localStorage.getItem("userid");
+    // const userid = localStorage.getItem("userid");
     const fileTypes = "files";
     try {
       if (process.env.NODE_ENV === "development") {
-        console.log(type, data, user_id);
+        console.log(type, data, userid);
       }
       const response = await updateAppplicantData(
-        user_id,
+        userid,
         type,
         data,
         fileTypes
       );
       if (process.env.NODE_ENV === "development") {
         const response = await updateAppplicantData(
-          user_id,
+          userid,
           type,
           data,
           fileTypes
