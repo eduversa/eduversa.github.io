@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,6 +11,44 @@ function Register() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
+
+  // useEffect(() => {
+  //   if (session) {
+  //     const provider = "google";
+  //     async function socialRegister(provider, session) {
+  //       alert("Register with " + provider + " is working!");
+  //       try {
+  //         setLoading(true);
+
+  //         const apiResponse = await createAccountWithSocialPlatform(
+  //           provider,
+  //           session
+  //         );
+  //         console.log("apiResponse", provider, session);
+  //         if (apiResponse.status === false) {
+  //           if (process.env.NODE_ENV === "development") {
+  //             alert(apiResponse.message);
+  //             console.log("Register data data:", apiResponse);
+  //             setLoading(false);
+  //           }
+  //           return;
+  //         }
+  //         if (process.env.NODE_ENV === "development") {
+  //           console.log("Register data data:", apiResponse);
+  //         }
+  //         alert(apiResponse.message);
+  //         setLoading(false);
+  //         router.push("/");
+  //       } catch (error) {
+  //         if (process.env.NODE_ENV === "development") {
+  //           console.error("Error during registration:", error.message);
+  //         }
+  //       }
+  //     }
+  //     socialRegister(provider, session);
+  //   }
+  // }, [router, session]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -39,35 +77,44 @@ function Register() {
       }
     }
   };
-  async function socialRegister() {
-    try {
-      setLoading(true);
-      const platformName = session.provider;
-      const apiResponse = await createAccountWithSocialPlatform(
-        platformName,
-        session
-      );
+  // async function socialRegister(platformname, session) {
+  //   alert("Register with " + platformname + " is working!");
+  //   try {
+  //     setLoading(true);
 
-      if (apiResponse.status === false) {
-        if (process.env.NODE_ENV === "development") {
-          console.log("Login data:", apiResponse);
-        }
-        alert(apiResponse.message);
-        setLoading(false);
-        router.push("/");
-        return;
-      }
-      if (process.env.NODE_ENV === "development") {
-        console.log("Login data:", apiResponse);
-      }
-    } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error during registration:", error.message);
-      }
-    }
-  }
-  const handleSocialRegisterClick = (provider) => {
+  //     const apiResponse = await createAccountWithSocialPlatform(
+  //       platformname,
+  //       session
+  //     );
+  //     console.log("apiResponse", platformname, session);
+  //     if (apiResponse.status === false) {
+  //       if (process.env.NODE_ENV === "development") {
+  //         alert(apiResponse.message);
+  //         console.log("Register data data:", apiResponse);
+  //         setLoading(false);
+  //       }
+  //       return;
+  //     }
+  //     if (process.env.NODE_ENV === "development") {
+  //       console.log("Register data data:", apiResponse);
+  //     }
+  //     alert(apiResponse.message);
+  //     setLoading(false);
+  //     router.push("/");
+  //   } catch (error) {
+  //     if (process.env.NODE_ENV === "development") {
+  //       console.error("Error during registration:", error.message);
+  //     }
+  //   }
+  // }
+  const handleSocialRegisterClick = async (provider) => {
     alert(`Register with ${provider} is coming soon!`);
+    // const platformname = "google";
+    // const apiResponse = await createAccountWithSocialPlatform(
+    //   platformname,
+    //   session
+    // );
+    console.log("apiResponse", apiResponse);
     console.log("Session:", session);
     console.log("signIn Fnction:", signIn);
     console.log("signOut Fnction:", signOut);
@@ -75,15 +122,18 @@ function Register() {
   };
   const handleGoogleSignIn = async () => {
     await signIn("google");
-    socialRegister;
+    // if (session) {
+    //   await socialRegister("google", session);
+    // }
+    // console.log("test");
   };
   const handleGithubSignIn = async () => {
+    await socialRegister("github");
     await signIn("github");
-    socialRegister;
   };
   const handleFacebookSignIn = async () => {
+    await socialRegister("facebook");
     await signIn("facebook");
-    socialRegister;
   };
   if (process.env.NODE_ENV === "development") {
     console.log("Session:", session);
@@ -149,7 +199,9 @@ function Register() {
                   height={25}
                   width={25}
                   className="linkedin-icon"
-                  onClick={() => handleSocialRegisterClick("LinkedIn")}
+                  onClick={async () =>
+                    await handleSocialRegisterClick("LinkedIn")
+                  }
                 ></Image>
                 <Image
                   src="/login/github.png"
