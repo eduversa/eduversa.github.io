@@ -28,13 +28,12 @@ function LandingLayout({ children }) {
   return (
     <Fragment>
       <LandingNavbar></LandingNavbar>
-      <body>
-        <div className="homepage">
-          <LandingPage></LandingPage>
-          <div className="homepage-right">{children}</div>
-        </div>
-        {/* <Analytics /> */}
-      </body>
+
+      <div className="homepage">
+        <LandingPage></LandingPage>
+        <div className="homepage-right">{children}</div>
+      </div>
+      {/* <Analytics /> */}
     </Fragment>
   );
 }

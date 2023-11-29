@@ -115,7 +115,7 @@ const ApplicantForm = ({userid}) => {
   const formatSubjects = (marks) => {
     return Object.entries(marks)
       .map(
-        ([subject, mark]) => `${subject.trim()} - ${mark ? mark.trim() : ""}`
+        ([subject, mark]) => `${subject.trim()} - ${mark.toString().trim()}`
       )
       .join(", ");
   };
