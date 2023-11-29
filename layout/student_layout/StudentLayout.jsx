@@ -21,10 +21,9 @@ function StudentLayout({ children }) {
   }, [router]);
   return (
     <Fragment>
-      <body>
-        <div className="wrapper">{children}</div>
-        <Analytics />
-      </body>
+      <div className="wrapper">{children}</div>
+      {/* <Analytics /> */}
+
       <Footer></Footer>
     </Fragment>
   );

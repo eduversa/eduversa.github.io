@@ -22,10 +22,8 @@ function AdminLayout({ children }) {
   return (
     <Fragment>
       <AdminNavbar></AdminNavbar>
-      <body>
-        <div className="wrapper">{children}</div>
-        <Analytics />
-      </body>
+      <div className="wrapper">{children}</div>
+      {/* <Analytics /> */}
       <Footer></Footer>
     </Fragment>
   );
