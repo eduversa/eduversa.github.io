@@ -92,6 +92,8 @@
           text-align: center;
         }
         p {
+          @include flex-container(row, nowrap, flex-start, center);
+          gap: 10px;
           margin: 0 0 2% 0;
           box-shadow: inset 6px 6px 12px var(--black-shadow-light),
             inset -6px -6px 12px var(--white-shadow-0);
@@ -106,8 +108,13 @@
           }
           img {
             position: relative;
-            height: 100px;
-            width: 100px;
+            height: 30px;
+            width: 30px;
+          }
+          strong {
+            font-weight: 600;
+            font-family: var(--font-elianto);
+            font-size: var(--font-12);
           }
         }
       }
