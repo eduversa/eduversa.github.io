@@ -120,6 +120,22 @@
             color: var(--black);
           }
         }
+        ul {
+          @include flex-container(row, nowrap, flex-start, center);
+          gap: 50px;
+          margin: 0 0 2% 0;
+          li {
+            font-family: var(--font-tektur);
+            font-size: var(--font-11);
+            strong {
+              font-weight: 600;
+              font-family: var(--font-elianto);
+              font-size: var(--font-11);
+              letter-spacing: 2px;
+              color: var(--orange);
+            }
+          }
+        }
       }
       p {
         @include flex-container(row, nowrap, flex-start, center);
@@ -177,16 +193,6 @@
           font-size: var(--font-12);
           letter-spacing: 1px;
           color: var(--black);
-        }
-      }
-
-      .field-academic-info-secondary-marks,
-      .field-academic-info-higher-secondary-marks {
-        list-style: none;
-        padding: 0;
-
-        li {
-          margin: 10px 0;
         }
       }
 
