@@ -76,9 +76,21 @@ function Login() {
   const handleGoogleSignIn = async () => {
     await signIn("google");
   };
-  if (process.env.NODE_ENV === "development") {
-    console.log("Session:", session);
-  }
+  const handleGithubSignIn = async () => {
+    await signIn("github");
+  };
+
+  // red-f// remove below console
+  const handleFacebookSignIn = async () => {
+    try {
+      await signIn("facebook");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // if (process.env.NODE_ENV === "development") {
+  console.log("Session:", session);
+  // }
   return (
     <Fragment>
       <LandingLayout>
@@ -144,7 +156,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="facebook-icon"
-                  onClick={() => handleSocialLoginClick("Facebook")}
+                  onClick={handleFacebookSignIn}
                 ></Image>
                 <Image
                   src="/login/twitter.png"
@@ -168,7 +180,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="github-icon"
-                  onClick={() => handleSocialLoginClick("GitHub")}
+                  onClick={handleGithubSignIn}
                 ></Image>
               </div>
             </div>

@@ -1,7 +1,7 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React, { Fragment, useEffect, useState } from "react";
 import { ApplicantLayout } from "@/layout";
 import { getSingleApplicantApi } from "@/functions";
+import { AllLoader } from "@/components";
 import Image from "next/image";
 
 function generateClassName(prefix, key) {
@@ -67,7 +67,7 @@ function renderFields(data, parentKey = "") {
             {iconName && (
               <Image
                 src={`/icons/${iconName}`}
-                // alt={`${formattedKey} Icon`}
+                alt={`${formattedKey} Icon`}
                 width={20}
                 height={20}
               />
@@ -158,7 +158,18 @@ function renderFields(data, parentKey = "") {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {formattedKey}: {displayValue}
+              {iconName && (
+                <Image
+                  src={`/icons/${iconName}`}
+                  alt={`${formattedKey} Icon`}
+                  width={20}
+                  height={20}
+                />
+              )}
+              <strong className={generateClassName("label", currentKey)}>
+                {formattedKey}:
+              </strong>
+              {displayValue}
             </a>
           );
         } else {
@@ -167,7 +178,7 @@ function renderFields(data, parentKey = "") {
               {iconName && (
                 <Image
                   src={`/icons/${iconName}`}
-                  // alt={`${formattedKey} Icon`}
+                  alt={`${formattedKey} Icon`}
                   width={20}
                   height={20}
                 />
@@ -186,6 +197,7 @@ function renderFields(data, parentKey = "") {
 
 function ApplicantDashboard() {
   const [profileData, setProfileData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const userType = localStorage.getItem("userType");
@@ -195,14 +207,16 @@ function ApplicantDashboard() {
 
       const fetchData = async () => {
         try {
+          setLoading(true);
           const response = await getSingleApplicantApi(applicantId);
 
           if (response.status === false) {
             alert(response.message);
+            setLoading(false);
             return;
           }
-
           setProfileData(response.data);
+          setLoading(false);
         } catch (error) {
           console.error("Error fetching applicant data:", error.message);
         }
@@ -214,9 +228,21 @@ function ApplicantDashboard() {
 
   return (
     <Fragment>
+      {loading && <AllLoader />}
       <ApplicantLayout>
-        <div className="profile-container">
+        <div className="applicant-dashboard">
           {profileData.image && renderImage(profileData.image)}
+          {profileData?.personal_info?.first_name &&
+          profileData?.personal_info?.last_name ? (
+            <h1>
+              Welcome{" "}
+              {profileData?.personal_info.first_name +
+                " " +
+                profileData?.personal_info.last_name}
+            </h1>
+          ) : (
+            <h1> Welcome User</h1>
+          )}
           <div className="profile-fields">{renderFields(profileData)}</div>
         </div>
       </ApplicantLayout>
