@@ -90,7 +90,7 @@
           font-family: var(--font-elianto);
           font-size: var(--font-9);
           letter-spacing: 2px;
-          color: var(--black);
+          color: var(--blue-1);
           font-weight: 600;
           margin: 0 0 2% 0;
           text-align: center;
@@ -123,7 +123,7 @@
           strong {
             font-weight: 600;
             font-family: var(--font-elianto);
-            font-size: var(--font-12);
+            font-size: var(--font-11);
             letter-spacing: 1px;
             color: var(--black);
           }
@@ -139,7 +139,7 @@
               font-weight: 600;
               font-family: var(--font-elianto);
               font-size: var(--font-11);
-              letter-spacing: 2px;
+              letter-spacing: 1px;
               color: var(--orange);
             }
           }
@@ -216,7 +216,7 @@
   p {
     @include flex-container(row, nowrap, center, center);
     font-family: var(--font-tektur);
-    font-size: var(--font-12);
+    font-size: var(--font-11);
     color: var(--black);
     gap: 10px;
     letter-spacing: 4px;
