@@ -23,7 +23,7 @@ function StudentLayout({ children }) {
     <Fragment>
       <body>
         <div className="wrapper">{children}</div>
-        <Analytics />
+        {/* <Analytics /> */}
       </body>
       <Footer></Footer>
     </Fragment>
