@@ -41,13 +41,17 @@
       margin: 0 0 5% 0;
       padding: 30px;
       border-radius: 10px;
-      background: linear-gradient(to bottom right, #ffffff, #f2f2f2);
+      background: linear-gradient(
+        to bottom right,
+        var(--white-11),
+        var(--white-8)
+      );
       box-shadow: 8px 8px 16px var(--black-shadow-light),
         -8px -8px 16px var(--white-shadow-0);
       transition: box-shadow 0.5s ease-in-out, transform 0.5s ease-in-out;
 
       &:hover {
-        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
+        box-shadow: 10px 10px 20px var(--black-shadow-light-1),
           -10px -10px 20px var(--white-shadow);
         transform: translateY(-5px);
       }
@@ -105,7 +109,7 @@
           &:hover {
             box-shadow: 10px 10px 20px var(--black-shadow-light-1),
               -10px -10px 20px var(--white-shadow);
-            color: #333;
+            color: var(--light-black-2);
           }
           img {
             position: relative;
@@ -153,9 +157,9 @@
         letter-spacing: 2px;
         font-size: var(--font-12);
         &:hover {
-          box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
+          box-shadow: 10px 10px 20px var(--black-shadow-light-1),
             -10px -10px 20px var(--white-shadow);
-          color: #333;
+          color: var(--light-black-2);
         }
         img {
           position: relative;
@@ -186,9 +190,9 @@
         letter-spacing: 2px;
         font-size: var(--font-12);
         &:hover {
-          box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
+          box-shadow: 10px 10px 20px var(--black-shadow-light-1),
             -10px -10px 20px var(--white-shadow);
-          color: #333;
+          color: var(--light-black-2);
         }
         img {
           position: relative;
