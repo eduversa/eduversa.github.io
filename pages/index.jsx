@@ -83,7 +83,7 @@ function Login() {
   // red-f// remove below console
   const handleFacebookSignIn = async () => {
     try {
-      await signIn();
+      await signIn("facebook");
     } catch (error) {
       console.log(error);
     }
