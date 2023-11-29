@@ -100,7 +100,8 @@
           padding: 15px;
           border-radius: 12px;
           transition: all 1s ease-in-out;
-
+          letter-spacing: 2px;
+          font-size: var(--font-12);
           &:hover {
             box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
               -10px -10px 20px rgba(255, 255, 255, 0.9);
@@ -115,6 +116,8 @@
             font-weight: 600;
             font-family: var(--font-elianto);
             font-size: var(--font-12);
+            letter-spacing: 1px;
+            color: var(--black);
           }
         }
       }
@@ -137,22 +140,6 @@
           margin: 10px 0;
         }
       }
-
-      // p {
-      //   margin: 15px 0;
-      //   color: #555;
-      //   box-shadow: inset 6px 6px 12px var(--black-shadow-light),
-      //     inset -6px -6px 12px var(--white-shadow-0);
-      //   padding: 15px;
-      //   border-radius: 12px;
-      //   transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
-
-      //   &:hover {
-      //     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
-      //       -10px -10px 20px rgba(255, 255, 255, 0.9);
-      //     color: #333;
-      //   }
-      // }
 
       .field-family-info-father-contact,
       .field-family-info-mother-contact,
