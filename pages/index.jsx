@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,6 +12,56 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
+
+  useEffect(() => {
+    const platformName = localStorage.getItem("platformName");
+    if (session) {
+      console.log("session--->", session);
+      setLoading(true);
+      fetch(
+        `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(session),
+        }
+      )
+        .then((response) => response.json())
+        .then(async (res) => {
+          console.log(res);
+          alert(res.message);
+          if (!res.status) {
+            setLoading(false);
+            return;
+          }
+          localStorage.removeItem("platformName");
+          if (res.data.type === "applicant") {
+            // router.push("/applicant");
+            await signOut({ callbackUrl: "/applicant" });
+          } else if (res.data.type === "student") {
+            // router.push("/student");
+            await signOut({ callbackUrl: "/student" });
+          } else if (res.data.type === "faculty") {
+            alert("Faculty is not ready yet");
+            // await signOut({ callbackUrl: "/faculty" }); //uncomment later
+            localStorage.clear();
+          } else if (res.data.type === "admin") {
+            // router.push("/admin");
+            await signOut({ callbackUrl: "/admin" });
+          } else {
+            alert("Invalid User Type");
+          }
+
+          // setLoading(false);
+          // console.log("1234-->", session);
+          // router.push("/");
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [session]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -66,36 +116,36 @@ function Login() {
     }
   };
 
-  async function socialLogin(platformname) {
-    try {
-      setLoading(true);
-      const apiResponse = await logIntoAccountWithSocialPlatform(
-        platformname,
-        session
-      );
+  // async function socialLogin(platformname) {
+  //   try {
+  //     setLoading(true);
+  //     const apiResponse = await logIntoAccountWithSocialPlatform(
+  //       platformname,
+  //       session
+  //     );
 
-      if (apiResponse.status === false) {
-        if (process.env.NODE_ENV === "development") {
-          console.log("Login data:", apiResponse);
-        }
-        alert(apiResponse.message);
-        setLoading(false);
-        router.push("/");
-        return;
-      }
-      if (process.env.NODE_ENV === "development") {
-        console.log("Login data:", apiResponse);
-      }
-      localStorage.setItem("authToken", apiResponse.authToken);
-      localStorage.setItem("email", apiResponse.data.email);
-      localStorage.setItem("userType", apiResponse.data.type);
-      localStorage.setItem("userid", apiResponse.data.user_id);
-    } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error during registration:", error.message);
-      }
-    }
-  }
+  //     if (apiResponse.status === false) {
+  //       if (process.env.NODE_ENV === "development") {
+  //         console.log("Login data:", apiResponse);
+  //       }
+  //       alert(apiResponse.message);
+  //       setLoading(false);
+  //       router.push("/");
+  //       return;
+  //     }
+  //     if (process.env.NODE_ENV === "development") {
+  //       console.log("Login data:", apiResponse);
+  //     }
+  //     localStorage.setItem("authToken", apiResponse.authToken);
+  //     localStorage.setItem("email", apiResponse.data.email);
+  //     localStorage.setItem("userType", apiResponse.data.type);
+  //     localStorage.setItem("userid", apiResponse.data.user_id);
+  //   } catch (error) {
+  //     if (process.env.NODE_ENV === "development") {
+  //       console.error("Error during registration:", error.message);
+  //     }
+  //   }
+  // }
   const handleSocialLoginClick = (provider) => {
     alert(`Login with ${provider} is coming soon!`);
     console.log("Session:", session);
@@ -104,16 +154,16 @@ function Login() {
     console.log("useSession Function:", useSession);
   };
   const handleGoogleSignIn = async () => {
-    socialLogin("google");
     await signIn("google");
+    localStorage.setItem("platformName", "google");
   };
   const handleGithubSignIn = async () => {
-    socialLogin("github");
     await signIn("github");
+    localStorage.setItem("platformName", "github");
   };
   const handleFacebookSignIn = async () => {
-    socialLogin("facebook");
     await signIn("facebook");
+    localStorage.setItem("platformName", "facebook");
   };
   if (process.env.NODE_ENV === "development") {
     console.log("Session:", session);

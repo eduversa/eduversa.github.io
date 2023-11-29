@@ -35,6 +35,7 @@ function Register() {
             setLoading(false);
             return;
           }
+          localStorage.removeItem("platformName");
           await signOut({ callbackUrl: "/" });
           // setLoading(false);
           // console.log("1234-->", session);
@@ -153,20 +154,16 @@ function Register() {
     console.log("useSession Function:", useSession);
   };
   const handleGoogleSignIn = async () => {
-    const data = await signIn("google");
+    await signIn("google");
     localStorage.setItem("platformName", "google");
-    // if (session) {
-    //   await socialRegister("google", session);
-    // }
-    // console.log("test");
   };
   const handleGithubSignIn = async () => {
-    await socialRegister("github");
     await signIn("github");
+    localStorage.setItem("platformName", "github");
   };
   const handleFacebookSignIn = async () => {
-    await socialRegister("facebook");
     await signIn("facebook");
+    localStorage.setItem("platformName", "facebook");
   };
   if (process.env.NODE_ENV === "development") {
     console.log("Session:", session);
