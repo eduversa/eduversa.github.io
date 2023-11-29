@@ -12,6 +12,39 @@ function Register() {
   const router = useRouter();
   const { data: session } = useSession();
 
+  useEffect(() => {
+    const platformName = localStorage.getItem("platformName");
+    if (session) {
+      console.log("session--->", session);
+      setLoading(true);
+      fetch(
+        `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(session),
+        }
+      )
+        .then((response) => response.json())
+        .then(async (res) => {
+          console.log(res);
+          alert(res.message);
+          if (!res.status) {
+            setLoading(false);
+            return;
+          }
+          localStorage.removeItem("platformName");
+          await signOut({ callbackUrl: "/" });
+          // setLoading(false);
+          // console.log("1234-->", session);
+          // router.push("/");
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [session]);
+
   // useEffect(() => {
   //   if (session) {
   //     const provider = "google";
@@ -122,18 +155,15 @@ function Register() {
   };
   const handleGoogleSignIn = async () => {
     await signIn("google");
-    // if (session) {
-    //   await socialRegister("google", session);
-    // }
-    // console.log("test");
+    localStorage.setItem("platformName", "google");
   };
   const handleGithubSignIn = async () => {
-    await socialRegister("github");
     await signIn("github");
+    localStorage.setItem("platformName", "github");
   };
   const handleFacebookSignIn = async () => {
-    await socialRegister("facebook");
     await signIn("facebook");
+    localStorage.setItem("platformName", "facebook");
   };
   if (process.env.NODE_ENV === "development") {
     console.log("Session:", session);
