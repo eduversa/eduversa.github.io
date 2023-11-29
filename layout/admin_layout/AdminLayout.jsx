@@ -24,7 +24,7 @@ function AdminLayout({ children }) {
       <AdminNavbar></AdminNavbar>
       <body>
         <div className="wrapper">{children}</div>
-        <Analytics />
+        {/* <Analytics /> */}
       </body>
       <Footer></Footer>
     </Fragment>

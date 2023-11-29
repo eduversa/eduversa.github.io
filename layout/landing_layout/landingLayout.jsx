@@ -33,7 +33,7 @@ function LandingLayout({ children }) {
           <LandingPage></LandingPage>
           <div className="homepage-right">{children}</div>
         </div>
-        <Analytics />
+        {/* <Analytics /> */}
       </body>
     </Fragment>
   );

@@ -24,7 +24,7 @@ function ApplicantLayout({ children }) {
       <ApplicantNavbar />
       <body>
         <div className="wrapper">{children}</div>
-        <Analytics />
+        {/* <Analytics /> */}
       </body>
       <Footer />
     </Fragment>
