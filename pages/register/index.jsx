@@ -12,6 +12,38 @@ function Register() {
   const router = useRouter();
   const { data: session } = useSession();
 
+  useEffect(() => {
+    const platformName = localStorage.getItem("platformName");
+    if (session) {
+      console.log("session--->", session);
+      setLoading(true);
+      fetch(
+        `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(session),
+        }
+      )
+        .then((response) => response.json())
+        .then(async (res) => {
+          console.log(res);
+          alert(res.message);
+          if (!res.status) {
+            setLoading(false);
+            return;
+          }
+          await signOut({ callbackUrl: "/" });
+          // setLoading(false);
+          // console.log("1234-->", session);
+          // router.push("/");
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [session]);
+
   // useEffect(() => {
   //   if (session) {
   //     const provider = "google";
@@ -121,7 +153,8 @@ function Register() {
     console.log("useSession Function:", useSession);
   };
   const handleGoogleSignIn = async () => {
-    await signIn("google");
+    const data = await signIn("google");
+    localStorage.setItem("platformName", "google");
     // if (session) {
     //   await socialRegister("google", session);
     // }
