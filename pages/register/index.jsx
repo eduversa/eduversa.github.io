@@ -5,10 +5,12 @@ import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
 import { registerUser } from "@/functions";
 import { AllLoader } from "@/components";
+import { useSession, signIn, signOut } from "next-auth/react";
 function Register() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -40,7 +42,23 @@ function Register() {
   };
   const handleSocialRegisterClick = (provider) => {
     alert(`Register with ${provider} is coming soon!`);
+    console.log("Session:", session);
+    console.log("signIn Fnction:", signIn);
+    console.log("signOut Fnction:", signOut);
+    console.log("useSession Function:", useSession);
   };
+  const handleGoogleSignIn = async () => {
+    await signIn("google");
+  };
+  const handleGithubSignIn = async () => {
+    await signIn("github");
+  };
+  const handleFacebookSignIn = async () => {
+    await signIn("facebook");
+  };
+  if (process.env.NODE_ENV === "development") {
+    console.log("Session:", session);
+  }
   return (
     <Fragment>
       <LandingLayout>
@@ -78,7 +96,7 @@ function Register() {
                   height={25}
                   width={25}
                   className="google-icon"
-                  onClick={() => handleSocialRegisterClick("Google")}
+                  onClick={() => handleGoogleSignIn("Google")}
                 ></Image>
                 <Image
                   src="/login/facebook.png"
@@ -86,7 +104,7 @@ function Register() {
                   height={25}
                   width={25}
                   className="facebook-icon"
-                  onClick={() => handleSocialRegisterClick("Facebook")}
+                  onClick={() => handleFacebookSignIn("Facebook")}
                 ></Image>
                 <Image
                   src="/login/twitter.png"
@@ -110,7 +128,7 @@ function Register() {
                   height={25}
                   width={25}
                   className="github-icon"
-                  onClick={() => handleSocialRegisterClick("GitHub")}
+                  onClick={() => handleGithubSignIn("GitHub")}
                 ></Image>
               </div>
             </div>

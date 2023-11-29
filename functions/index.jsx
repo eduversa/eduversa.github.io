@@ -15,3 +15,6 @@ export { default as getSingleApplicantApi } from "./Applicant/getSingleApplicant
 export { default as getApplicantsByYear } from "./Applicant/getApplicantsByYearApi";
 export { default as deleteApplicantsByYear } from "./Applicant/deleteApplicantsByYearApi";
 export { default as deleteSingleApplicantApi } from "./Applicant/deleteSingleApplicantApi";
+
+// provider
+export { default as createAccountWithSocialPlatform } from "./providers/createAccountWithSocialPlatform";
