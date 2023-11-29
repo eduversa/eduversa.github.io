@@ -1,10 +1,15 @@
 import { Fragment } from "react";
 import { AdminLayout } from "@/layout";
+import { ApplicantForm } from "@/components";
 
 const updateApplicants = () => {
   return (
     <Fragment>
-      <AdminLayout>Update Applicants</AdminLayout>
+      <AdminLayout>
+        <ApplicantForm
+          userid="2023007640"
+        />
+      </AdminLayout>
     </Fragment>
   );
 };

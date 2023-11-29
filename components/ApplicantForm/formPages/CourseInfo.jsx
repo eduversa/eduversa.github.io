@@ -7,6 +7,7 @@ import {
   Select,
   DateInput,
   FormButtons,
+  Year,
 } from "../inputComponent/InputComponent";
 import { getCollegeDetailsApi, updateAppplicantData } from "@/functions";
 
@@ -19,6 +20,7 @@ const CourseInfo = ({
   handleNextClick,
   currentStep,
   totalSteps,
+  userid,
 }) => {
   const currentYear = new Date().getFullYear().toString();
   const [courses, setCourses] = useState([]);
@@ -111,6 +113,13 @@ const CourseInfo = ({
   };
 
   useEffect(() => {
+    // const savedCourseInfo = JSON.parse(localStorage.getItem("course_info"));
+    // if (savedCourseInfo){
+    //   setFormData((prevFormData) => ({
+    //     ...prevFormData,
+    //     course_info: savedCourseInfo,
+    //   }));
+    // }
     setFormData((prevFormData) => ({
       ...prevFormData,
       course_info: {
@@ -122,12 +131,15 @@ const CourseInfo = ({
 
   async function onSubmitHandler() {
     setLoading(true);
-    localStorage.setItem("course_info", JSON.stringify(formData.course_info));
+    localStorage.setItem(
+      "applicant_profile",
+      JSON.stringify(formData)
+    );
     const data = JSON.stringify(formData.course_info);
     const type = "course";
-    const user_id = localStorage.getItem("userid");
+    // const userid = localStorage.getItem("userid");
     try {
-      const response = await updateAppplicantData(user_id, type, data);
+      const response = await updateAppplicantData(userid, type, data);
       if (process.env.NODE_ENV === "development") {
         console.log(response);
       }
@@ -199,9 +211,10 @@ const CourseInfo = ({
             />
           )}
 
-          <Number
+          <Year
             label="Admission Year"
             name="course_info.admission_year"
+            onChange={handleChange}
             value={currentYear}
             readOnly
             required

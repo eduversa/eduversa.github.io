@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import { AllLoader } from "@/components";
 import {
   Text,
@@ -24,6 +24,7 @@ const FamilyInfo = ({
   handleNextClick,
   currentStep,
   totalSteps,
+  userid,
 
   officePincodeError,
   setOfficePincodeError,
@@ -31,43 +32,46 @@ const FamilyInfo = ({
   const [officePincode, setOfficePincode] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [fetching, setFetching] = useState(false);
+  const controller = useRef(null);
+  const [prevOfficePincode, setPrevOfficePincode] = useState("");
+
+  
   useEffect(() => {
-    const controller = new AbortController();
-    if (officePincode.length === 6) {
+    if (officePincode.length === 6 && officePincode !== prevOfficePincode) {
+      if (fetching) {
+        controller.current.abort();
+      }
+      setFetching(true);
+      controller.current = new AbortController();
       fetchAddressFromPincode(
         formData,
         handleChange,
         "family_info.guardian.office_address",
         officePincode,
         setOfficePincodeError,
-        controller
-      );
+        controller.current
+      ).then(() => {
+        setFetching(false);
+        setPrevOfficePincode(officePincode);
+      });
     }
-    return () => {
-      controller.abort();
-    };
-  }, [officePincode, setOfficePincodeError, formData, handleChange]);
-
-  useEffect(() => {
-    const savedFamilyInfo = JSON.parse(localStorage.getItem("family_info"));
-    if (savedFamilyInfo) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        family_info: savedFamilyInfo,
-      }));
-    }
-  }, [setFormData]);
+  }, [officePincode, setOfficePincodeError, formData, handleChange, prevOfficePincode, fetching]);
 
   async function onSubmitHandler() {
     setLoading(true);
-    localStorage.setItem("family_info", JSON.stringify(formData.family_info));
+    localStorage.setItem(
+      "applicant_profile",
+      JSON.stringify(formData)
+    );
     const data = JSON.stringify(formData.family_info);
     const type = "family";
-    const user_id = localStorage.getItem("userid");
+    // const userid = localStorage.getItem("userid");
+
     try {
-      const response = await updateAppplicantData(user_id, type, data);
+      const response = await updateAppplicantData(userid, type, data);
       if (process.env.NODE_ENV === "development") {
-        const response = await updateAppplicantData(user_id, type, data);
+        const response = await updateAppplicantData(userid, type, data);
         console.log(response);
       }
       alert(response.message);

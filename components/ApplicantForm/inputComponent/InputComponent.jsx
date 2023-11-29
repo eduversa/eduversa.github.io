@@ -41,6 +41,30 @@ export const Number = ({ label, name, value, ...props }) => {
   );
 };
 
+export const Year = ({ label, name, value, ...props }) => {
+  const preventE = (e) => {
+    if (e.key === 'e' || e.key === 'E') {
+      e.preventDefault();
+    }
+  };
+  return (
+    <div className="inputs">
+      <label htmlFor={name}>{label}</label>
+      <input 
+        type="number" 
+        id={name} 
+        name={name} 
+        value={value}
+        onKeyDown={preventE}
+        onInput={(e) => {
+          e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 4)
+        }}
+        {...props} 
+      />
+    </div>
+  );
+};
+
 export const PhoneNumber = ({ label, name, value, ...props }) => {
   const handleKeyDown = (e) => {
     if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
@@ -68,34 +92,6 @@ export const PhoneNumber = ({ label, name, value, ...props }) => {
   );
 };
 
-// export const PhoneNumber = ({ label, name, value, ...props }) => {
-//   const preventE = (e) => {
-//     if (e.key === 'e' || e.key === 'E') {
-//       e.preventDefault();
-//     }
-//   };
-
-//   return (
-//     <div className="inputs">
-//       <label htmlFor={name}>{label}</label>
-//       <input
-//         type="number"
-//         id={name}
-//         name={name}
-//         value={value}
-//         min={1000000000}
-//         max={9999999999}
-//         onInput={(e) => {
-//           e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 10)
-//         }}
-//         onKeyDown={preventE}
-//         {...props}
-//       />
-//     </div>
-//   );
-// };
-
-
 export const Pincode = ({ label, name, value, ...props }) => {
   const handleKeyDown = (e) => {
     if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
@@ -104,7 +100,9 @@ export const Pincode = ({ label, name, value, ...props }) => {
   };
   return (
     <div className="inputs">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label} <span>(Example: 700140)</span>
+      </label>
       <input
         type="text"
         id={name}
@@ -128,7 +126,9 @@ export const Aadhar = ({ label, name, value, ...props }) => {
   };
   return (
     <div className="inputs">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label} <span>(Example: 2653 8564 4663)</span>
+      </label>
       <input
         type="text"
         id={name}
@@ -146,7 +146,9 @@ export const Aadhar = ({ label, name, value, ...props }) => {
 export const Pan = ({ label, name, value, ...props }) => {
   return (
     <div className="inputs">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label} <span>(Example: ABCTY1234D)</span>
+      </label>
       <input
         type="text"
         id={name}

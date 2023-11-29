@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import { AllLoader } from "@/components";
 import { updateAppplicantData } from "@/functions";
 import {
@@ -24,7 +24,7 @@ const PersonalInfo = ({
   handleNextClick,
   currentStep,
   totalSteps,
-
+  userid,
   presentPincodeError,
   setPresentPincodeError,
   permanentPincodeError,
@@ -67,63 +67,67 @@ const PersonalInfo = ({
   const [permanentPincode, setPermanentPincode] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [prevPresentPincode, setPrevPresentPincode] = useState("");
+  const [prevPermanentPincode, setPrevPermanentPincode] = useState("");
+  
+  const [fetching, setFetching] = useState(false);
+  const controller = useRef(null);
+  
   useEffect(() => {
-    const controller = new AbortController();
-    if (presentPincode.length === 6) {
+    if (presentPincode.length === 6 && presentPincode !== prevPresentPincode) {
+      if (fetching) {
+        controller.current.abort();
+      }
+      setFetching(true);
+      controller.current = new AbortController();
       fetchAddressFromPincode(
         formData,
         handleChange,
         "personal_info.present_address",
         presentPincode,
         setPresentPincodeError,
-        controller
-      );
+        controller.current
+      ).then(() => {
+        setFetching(false);
+        setPrevPresentPincode(presentPincode);
+      });
     }
-    return () => {
-      controller.abort();
-    };
-  }, [presentPincode, setPresentPincodeError, formData, handleChange]);
-
+  }, [presentPincode, setPresentPincodeError, formData, handleChange, prevPresentPincode, fetching]);
+  
   useEffect(() => {
-    const controller = new AbortController();
-    if (permanentPincode.length === 6) {
+    if (permanentPincode.length === 6 && permanentPincode !== prevPermanentPincode) {
+      if (fetching) {
+        controller.current.abort();
+      }
+      setFetching(true);
+      controller.current = new AbortController();
       fetchAddressFromPincode(
         formData,
         handleChange,
         "personal_info.permanent_address",
         permanentPincode,
         setPermanentPincodeError,
-        controller
-      );
+        controller.current
+      ).then(() => {
+        setFetching(false);
+        setPrevPermanentPincode(permanentPincode);
+      });
     }
-    return () => {
-      controller.abort();
-    };
-  }, [permanentPincode, setPermanentPincodeError, formData, handleChange]);
-
-  useEffect(() => {
-    const savedPersonalInfo = JSON.parse(localStorage.getItem("personal_info"));
-    if (savedPersonalInfo) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        personal_info: savedPersonalInfo,
-      }));
-    }
-  }, [setFormData]);
+  }, [permanentPincode, setPermanentPincodeError, formData, handleChange, prevPermanentPincode, fetching]);
 
   async function onSubmitHandler() {
     setLoading(true);
     localStorage.setItem(
-      "personal_info",
-      JSON.stringify(formData.personal_info)
+      "applicant_profile",
+      JSON.stringify(formData)
     );
     const data = JSON.stringify(formData.personal_info);
     const type = "personal";
-    const user_id = localStorage.getItem("userid");
+    // const userid = localStorage.getItem("userid");
     try {
-      const response = await updateAppplicantData(user_id, type, data);
+      const response = await updateAppplicantData(userid, type, data);
       if (process.env.NODE_ENV === "development") {
-        const response = await updateAppplicantData(user_id, type, data);
+        const response = await updateAppplicantData(userid, type, data);
         console.log(response);
       }
       alert(response.message);

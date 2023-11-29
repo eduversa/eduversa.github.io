@@ -15,7 +15,9 @@
     font-size: var(--font-12);
     color: var(--purple-4);
     span {
-      font-weight: normal;
+      font-family: var(--font-tektur);
+      font-size: var(--font-13);
+      // font-weight: normal;
       padding-left: 0.5rem;
     }
   }
@@ -50,9 +52,9 @@
     //   box-shadow: inset 10px 10px 15px #d9dade, inset 10px 10px 15px #ffffff;
     // }
     display: block;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
+    // -moz-appearance: none;
+    // -webkit-appearance: none;
+    // appearance: none;
     width: 100%;
     background-color: transparent;
     // color: #61677c;
@@ -404,6 +406,7 @@
           .btn {
             margin: 1rem 1rem 2rem;
             border: 1px white solid;
+            font-family: var(--font-elianto);
             font-size: var(--font-11);
             background: hsl(235, 17%, 26%);
             color: #fff;

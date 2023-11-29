@@ -6,9 +6,9 @@ import {
   CourseInfo,
   FileUpload,
 } from "./formPages";
-import { FormButtons } from "./inputComponent/InputComponent";
+import { getSingleApplicantApi } from "@/functions";
 
-const ApplicantForm = () => {
+const ApplicantForm = ({userid}) => {
   let year = new Date().getFullYear().toString();
 
   const initialFormData = useMemo(
@@ -33,7 +33,7 @@ const ApplicantForm = () => {
         contact: "",
         gender: "",
         dob: "",
-        are_addresses_same: true,
+        are_addresses_same: false,
         category: "",
         blood_group: "",
         aadhar_number: "",
@@ -126,20 +126,17 @@ const ApplicantForm = () => {
       Object.keys(obj1).forEach((key) => {
         if (isObject(obj1[key])) {
           if (!(key in obj2)) {
-            // If the key does not exist in obj2, preserve the property from obj1
             output[key] = obj1[key];
           } else {
             output[key] = deepMergeObject(obj1[key], obj2[key]);
           }
         } else {
-          // If the key does not exist in obj2 or is undefined in obj2, preserve the property from obj1
           output[key] =
             key in obj2 && typeof obj2[key] !== "undefined"
               ? obj2[key]
               : obj1[key];
         }
       });
-      // Also include properties that exist in obj2 but not in obj1
       Object.keys(obj2).forEach((key) => {
         if (!(key in obj1)) {
           output[key] = obj2[key];
@@ -155,21 +152,25 @@ const ApplicantForm = () => {
 
   const loadSavedFormData = useCallback(() => {
     const savedFormData = JSON.parse(localStorage.getItem("applicant_profile"));
-
-    if (!savedFormData.family_info) {
-      savedFormData.family_info = initialFormData.family_info;
-    } else if (!savedFormData.family_info.guardian) {
-      savedFormData.family_info.guardian = initialFormData.family_info.guardian;
-    } else if (!savedFormData.family_info.guardian.office_address) {
-      savedFormData.family_info.guardian.office_address =
-        initialFormData.family_info.guardian.office_address;
+    if (savedFormData) {
+      if (!savedFormData.family_info) {
+        savedFormData.family_info = initialFormData.family_info;
+      } else if (!savedFormData.family_info.guardian) {
+        savedFormData.family_info.guardian = initialFormData.family_info.guardian;
+      } else if (!savedFormData.family_info.guardian.office_address) {
+        savedFormData.family_info.guardian.office_address =
+          initialFormData.family_info.guardian.office_address;
+      }
+      return savedFormData;
     }
-    return savedFormData;
+    return null;
   }, [initialFormData]);
 
   const processFormData = useCallback((savedFormData) => {
     const fullName = savedFormData.personal_info
-      ? concatenateNames(
+      ? savedFormData.personal_info.name?
+      savedFormData.personal_info.name :
+      concatenateNames(
           savedFormData.personal_info.first_name,
           savedFormData.personal_info.middle_name,
           savedFormData.personal_info.last_name
@@ -177,7 +178,9 @@ const ApplicantForm = () => {
       : "";
     const fatherFullName =
       savedFormData.family_info && savedFormData.family_info.father
-        ? concatenateNames(
+        ? savedFormData.family_info.father.name?
+        savedFormData.family_info.father.name:
+        concatenateNames(
             savedFormData.family_info.father.first_name,
             savedFormData.family_info.father.middle_name,
             savedFormData.family_info.father.last_name
@@ -185,7 +188,9 @@ const ApplicantForm = () => {
         : "";
     const motherFullName =
       savedFormData.family_info && savedFormData.family_info.mother
-        ? concatenateNames(
+        ? savedFormData.family_info.mother.name?
+        savedFormData.family_info.mother.name:
+        concatenateNames(
             savedFormData.family_info.mother.first_name,
             savedFormData.family_info.mother.middle_name,
             savedFormData.family_info.mother.last_name
@@ -193,7 +198,9 @@ const ApplicantForm = () => {
         : "";
     const guardianFullName =
       savedFormData.family_info && savedFormData.family_info.guardian
-        ? concatenateNames(
+        ? savedFormData.family_info.guardian.name?
+        savedFormData.family_info.guardian.name:
+        concatenateNames(
             savedFormData.family_info.guardian.first_name,
             savedFormData.family_info.guardian.middle_name,
             savedFormData.family_info.guardian.last_name
@@ -273,11 +280,39 @@ const ApplicantForm = () => {
   }, []);
 
   useEffect(() => {
-    const savedFormData = loadSavedFormData();
-    const processedFormData = processFormData(savedFormData);
-    const mergedFormData = deepMergeObject(initialFormData, processedFormData);
-    setFormData(mergedFormData);
+    const userType = localStorage.getItem("userType");
+    if (userType === "admin") {
+      // const applicantId = localStorage.getItem("userid");
+      const fetchData = async () => {
+        try {
+          const response = await getSingleApplicantApi(userid);
+          if (response.status === false) {
+            alert(response.message);
+            return;
+          }
+          localStorage.setItem(
+            "applicant_profile",
+            JSON.stringify(response.data)
+          );
+        } catch (error) {
+          if (process.env.NODE_ENV === "development") {
+            console.error("Error fetching applicant data:", error.message);
+          }
+        }
+      };
+  
+      fetchData();
+    }
+  }, [userid]);
 
+  useEffect(() => {
+    const savedFormData = loadSavedFormData();
+    if (savedFormData) {
+      const processedFormData = processFormData(savedFormData);
+      const mergedFormData = deepMergeObject(initialFormData, processedFormData);
+      setFormData(mergedFormData);
+    }
+  
     const savedCurrentStep = JSON.parse(localStorage.getItem("currentStep"));
     if (savedCurrentStep) {
       setCurrentStep(savedCurrentStep);
@@ -400,6 +435,7 @@ const ApplicantForm = () => {
       handleNextClick={handleNextClick}
       currentStep={currentStep}
       totalSteps={totalSteps}
+      userid={userid}
       presentPincodeError={presentPincodeError}
       setPresentPincodeError={setPresentPincodeError}
       permanentPincodeError={permanentPincodeError}

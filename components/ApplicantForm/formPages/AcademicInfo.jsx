@@ -9,6 +9,7 @@ import {
   DateInput,
   FormButtons,
   TextArea,
+  Year,
 } from "../inputComponent/InputComponent";
 const AcademicInfo = ({
   formData,
@@ -19,32 +20,24 @@ const AcademicInfo = ({
   handleNextClick,
   currentStep,
   totalSteps,
+  userid,
 }) => {
   let year = new Date().getFullYear().toString();
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const savedFamilyInfo = JSON.parse(localStorage.getItem("academic_info"));
-    if (savedFamilyInfo) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        academic_info: savedFamilyInfo,
-      }));
-    }
-  }, [setFormData]);
 
   async function onSubmitHandler() {
     setLoading(true);
     localStorage.setItem(
-      "academic_info",
-      JSON.stringify(formData.academic_info)
+      "applicant_profile",
+      JSON.stringify(formData)
     );
     const data = JSON.stringify(formData.academic_info);
     const type = "academic";
-    const user_id = localStorage.getItem("userid");
+    // const userid = localStorage.getItem("userid");
     try {
-      const response = await updateAppplicantData(user_id, type, data);
+      const response = await updateAppplicantData(userid, type, data);
       if (process.env.NODE_ENV === "development") {
-        const response = await updateAppplicantData(user_id, type, data);
+        const response = await updateAppplicantData(userid, type, data);
         console.log(response);
       }
       alert(response.message);
@@ -75,7 +68,7 @@ const AcademicInfo = ({
             onChange={handleChange}
             required
           />
-          <Number
+          <Year
             label="Year of Exam"
             name="academic_info.admission.year_of_exam"
             value={formData.academic_info.admission.year_of_exam}
@@ -118,7 +111,7 @@ const AcademicInfo = ({
             onChange={handleChange}
             required
           />
-          <Number
+          <Year
             label="Year of Exam"
             name="academic_info.secondary.year_of_exam"
             value={formData.academic_info.secondary.year_of_exam}
@@ -172,7 +165,7 @@ const AcademicInfo = ({
             onChange={handleChange}
             required
           />
-          <Number
+          <Year
             label="Year of Exam"
             name="academic_info.higher_secondary.year_of_exam"
             value={formData.academic_info.higher_secondary.year_of_exam}
