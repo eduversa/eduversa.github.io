@@ -79,8 +79,14 @@ function Login() {
   const handleGithubSignIn = async () => {
     await signIn("github");
   };
+
+  // red-f// remove below console
   const handleFacebookSignIn = async () => {
-    await signIn();
+    try {
+      await signIn();
+    } catch (error) {
+      console.log(error);
+    }
   };
   // if (process.env.NODE_ENV === "development") {
   console.log("Session:", session);
