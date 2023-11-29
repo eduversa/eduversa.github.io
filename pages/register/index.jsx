@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
-import { registerUser } from "@/functions";
+import { registerUser, createAccountWithSocialPlatform } from "@/functions";
 import { AllLoader } from "@/components";
 import { useSession, signIn, signOut } from "next-auth/react";
 function Register() {
@@ -28,7 +28,6 @@ function Register() {
       if (process.env.NODE_ENV === "development") {
         console.log("Registration data:", registrationData);
       }
-      // localStorage.setItem("registeredUserId", registrationData.data.user_id);
       alert(
         "Registration Was Successful! Check Your Email For Login Credentials"
       );
@@ -40,6 +39,32 @@ function Register() {
       }
     }
   };
+  async function socialRegister() {
+    try {
+      setLoading(true);
+      const platformName = session.provider;
+      const apiResponse = await createAccountWithSocialPlatform(
+        platformName,
+        session
+      );
+
+      if (apiResponse.status === false) {
+        if (process.env.NODE_ENV === "development") {
+          console.log("Login data:", apiResponse);
+        }
+        alert(apiResponse.message);
+        setLoading(false);
+        return;
+      }
+      if (process.env.NODE_ENV === "development") {
+        console.log("Login data:", apiResponse);
+      }
+    } catch (error) {
+      if (process.env.NODE_ENV === "development") {
+        console.error("Error during registration:", error.message);
+      }
+    }
+  }
   const handleSocialRegisterClick = (provider) => {
     alert(`Register with ${provider} is coming soon!`);
     console.log("Session:", session);
@@ -49,12 +74,15 @@ function Register() {
   };
   const handleGoogleSignIn = async () => {
     await signIn("google");
+    socialRegister;
   };
   const handleGithubSignIn = async () => {
     await signIn("github");
+    socialRegister;
   };
   const handleFacebookSignIn = async () => {
     await signIn("facebook");
+    socialRegister;
   };
   if (process.env.NODE_ENV === "development") {
     console.log("Session:", session);
