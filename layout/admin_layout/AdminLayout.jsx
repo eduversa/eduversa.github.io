@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
 import { AdminNavbar, Footer } from "@/containers";
-
+import { Analytics } from "@vercel/analytics/react";
 function AdminLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
@@ -22,7 +22,10 @@ function AdminLayout({ children }) {
   return (
     <Fragment>
       <AdminNavbar></AdminNavbar>
-      <div className="wrapper">{children}</div>
+      <body>
+        <div className="wrapper">{children}</div>
+        <Analytics />
+      </body>
       <Footer></Footer>
     </Fragment>
   );

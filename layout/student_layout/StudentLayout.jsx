@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Footer } from "@/containers";
+import { Analytics } from "@vercel/analytics/react";
 function StudentLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
@@ -20,7 +21,10 @@ function StudentLayout({ children }) {
   }, [router]);
   return (
     <Fragment>
-      <div className="wrapper">{children}</div>
+      <body>
+        <div className="wrapper">{children}</div>
+        <Analytics />
+      </body>
       <Footer></Footer>
     </Fragment>
   );
