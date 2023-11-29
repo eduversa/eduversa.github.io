@@ -1,14 +1,87 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
-import { registerUser } from "@/functions";
+import { registerUser, createAccountWithSocialPlatform } from "@/functions";
 import { AllLoader } from "@/components";
+import { useSession, signIn, signOut } from "next-auth/react";
 function Register() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    const platformName = localStorage.getItem("platformName");
+    if (session) {
+      console.log("session--->", session);
+      setLoading(true);
+      fetch(
+        `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(session),
+        }
+      )
+        .then((response) => response.json())
+        .then(async (res) => {
+          console.log(res);
+          alert(res.message);
+          if (!res.status) {
+            setLoading(false);
+            return;
+          }
+          localStorage.removeItem("platformName");
+          await signOut({ callbackUrl: "/" });
+          // setLoading(false);
+          // console.log("1234-->", session);
+          // router.push("/");
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [session]);
+
+  // useEffect(() => {
+  //   if (session) {
+  //     const provider = "google";
+  //     async function socialRegister(provider, session) {
+  //       alert("Register with " + provider + " is working!");
+  //       try {
+  //         setLoading(true);
+
+  //         const apiResponse = await createAccountWithSocialPlatform(
+  //           provider,
+  //           session
+  //         );
+  //         console.log("apiResponse", provider, session);
+  //         if (apiResponse.status === false) {
+  //           if (process.env.NODE_ENV === "development") {
+  //             alert(apiResponse.message);
+  //             console.log("Register data data:", apiResponse);
+  //             setLoading(false);
+  //           }
+  //           return;
+  //         }
+  //         if (process.env.NODE_ENV === "development") {
+  //           console.log("Register data data:", apiResponse);
+  //         }
+  //         alert(apiResponse.message);
+  //         setLoading(false);
+  //         router.push("/");
+  //       } catch (error) {
+  //         if (process.env.NODE_ENV === "development") {
+  //           console.error("Error during registration:", error.message);
+  //         }
+  //       }
+  //     }
+  //     socialRegister(provider, session);
+  //   }
+  // }, [router, session]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,7 +99,6 @@ function Register() {
       if (process.env.NODE_ENV === "development") {
         console.log("Registration data:", registrationData);
       }
-      // localStorage.setItem("registeredUserId", registrationData.data.user_id);
       alert(
         "Registration Was Successful! Check Your Email For Login Credentials"
       );
@@ -38,9 +110,64 @@ function Register() {
       }
     }
   };
-  const handleSocialRegisterClick = (provider) => {
+  // async function socialRegister(platformname, session) {
+  //   alert("Register with " + platformname + " is working!");
+  //   try {
+  //     setLoading(true);
+
+  //     const apiResponse = await createAccountWithSocialPlatform(
+  //       platformname,
+  //       session
+  //     );
+  //     console.log("apiResponse", platformname, session);
+  //     if (apiResponse.status === false) {
+  //       if (process.env.NODE_ENV === "development") {
+  //         alert(apiResponse.message);
+  //         console.log("Register data data:", apiResponse);
+  //         setLoading(false);
+  //       }
+  //       return;
+  //     }
+  //     if (process.env.NODE_ENV === "development") {
+  //       console.log("Register data data:", apiResponse);
+  //     }
+  //     alert(apiResponse.message);
+  //     setLoading(false);
+  //     router.push("/");
+  //   } catch (error) {
+  //     if (process.env.NODE_ENV === "development") {
+  //       console.error("Error during registration:", error.message);
+  //     }
+  //   }
+  // }
+  const handleSocialRegisterClick = async (provider) => {
     alert(`Register with ${provider} is coming soon!`);
+    // const platformname = "google";
+    // const apiResponse = await createAccountWithSocialPlatform(
+    //   platformname,
+    //   session
+    // );
+    console.log("apiResponse", apiResponse);
+    console.log("Session:", session);
+    console.log("signIn Fnction:", signIn);
+    console.log("signOut Fnction:", signOut);
+    console.log("useSession Function:", useSession);
   };
+  const handleGoogleSignIn = async () => {
+    await signIn("google");
+    localStorage.setItem("platformName", "google");
+  };
+  const handleGithubSignIn = async () => {
+    await signIn("github");
+    localStorage.setItem("platformName", "github");
+  };
+  const handleFacebookSignIn = async () => {
+    await signIn("facebook");
+    localStorage.setItem("platformName", "facebook");
+  };
+  if (process.env.NODE_ENV === "development") {
+    console.log("Session:", session);
+  }
   return (
     <Fragment>
       <LandingLayout>
@@ -78,7 +205,7 @@ function Register() {
                   height={25}
                   width={25}
                   className="google-icon"
-                  onClick={() => handleSocialRegisterClick("Google")}
+                  onClick={() => handleGoogleSignIn("Google")}
                 ></Image>
                 <Image
                   src="/login/facebook.png"
@@ -86,7 +213,7 @@ function Register() {
                   height={25}
                   width={25}
                   className="facebook-icon"
-                  onClick={() => handleSocialRegisterClick("Facebook")}
+                  onClick={() => handleFacebookSignIn("Facebook")}
                 ></Image>
                 <Image
                   src="/login/twitter.png"
@@ -102,7 +229,9 @@ function Register() {
                   height={25}
                   width={25}
                   className="linkedin-icon"
-                  onClick={() => handleSocialRegisterClick("LinkedIn")}
+                  onClick={async () =>
+                    await handleSocialRegisterClick("LinkedIn")
+                  }
                 ></Image>
                 <Image
                   src="/login/github.png"
@@ -110,7 +239,7 @@ function Register() {
                   height={25}
                   width={25}
                   className="github-icon"
-                  onClick={() => handleSocialRegisterClick("GitHub")}
+                  onClick={() => handleGithubSignIn("GitHub")}
                 ></Image>
               </div>
             </div>
