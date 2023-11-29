@@ -79,6 +79,9 @@ function Login() {
   const handleGithubSignIn = async () => {
     await signIn("github");
   };
+  const handleFacebookSignIn = async () => {
+    await signIn("facebook");
+  };
   // if (process.env.NODE_ENV === "development") {
   console.log("Session:", session);
   // }
@@ -147,7 +150,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="facebook-icon"
-                  onClick={() => handleSocialLoginClick("Facebook")}
+                  onClick={handleFacebookSignIn}
                 ></Image>
                 <Image
                   src="/login/twitter.png"
