@@ -48,7 +48,7 @@
 
       &:hover {
         box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
-          -10px -10px 20px rgba(255, 255, 255, 0.9);
+          -10px -10px 20px var(--white-shadow);
         transform: translateY(-5px);
       }
       &::before,
@@ -103,8 +103,8 @@
           letter-spacing: 2px;
           font-size: var(--font-12);
           &:hover {
-            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
-              -10px -10px 20px rgba(255, 255, 255, 0.9);
+            box-shadow: 10px 10px 20px var(--black-shadow-light-1),
+              -10px -10px 20px var(--white-shadow);
             color: #333;
           }
           img {
@@ -154,7 +154,7 @@
         font-size: var(--font-12);
         &:hover {
           box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
-            -10px -10px 20px rgba(255, 255, 255, 0.9);
+            -10px -10px 20px var(--white-shadow);
           color: #333;
         }
         img {
@@ -187,7 +187,7 @@
         font-size: var(--font-12);
         &:hover {
           box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
-            -10px -10px 20px rgba(255, 255, 255, 0.9);
+            -10px -10px 20px var(--white-shadow);
           color: #333;
         }
         img {
@@ -205,39 +205,6 @@
           font-size: var(--font-12);
           letter-spacing: 1px;
           color: var(--black);
-        }
-      }
-
-      .field-family-info-father-contact,
-      .field-family-info-mother-contact,
-      .field-family-info-guardian-contact,
-      .field-family-info-guardian-office-contact {
-        p {
-          box-shadow: inset 6px 6px 12px var(--black-shadow-light),
-            inset -6px -6px 12px var(--white-shadow-0);
-          padding: 15px;
-          border-radius: 12px;
-          transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
-
-          &:hover {
-            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2),
-              -10px -10px 20px rgba(255, 255, 255, 0.9);
-            color: #333;
-          }
-        }
-      }
-    }
-
-    .field-user-id,
-    .field-createdat,
-    .field-updatedat {
-      margin-top: 30px;
-      p {
-        color: #777;
-        transition: color 0.3s ease-in-out;
-
-        &:hover {
-          color: #555;
         }
       }
     }
