@@ -1,7 +1,6 @@
 import { Fragment, useEffect } from "react";
 import { LandingNavbar, LandingPage } from "@/containers";
 import { useRouter } from "next/router";
-import { Analytics } from "@vercel/analytics/react";
 function LandingLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
@@ -33,7 +32,6 @@ function LandingLayout({ children }) {
         <LandingPage></LandingPage>
         <div className="homepage-right">{children}</div>
       </div>
-      {/* <Analytics /> */}
     </Fragment>
   );
 }

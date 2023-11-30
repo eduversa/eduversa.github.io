@@ -15,7 +15,9 @@ function Register() {
   useEffect(() => {
     const platformName = localStorage.getItem("platformName");
     if (session) {
-      console.log("session--->", session);
+      if (process.env.NODE_ENV === "development") {
+        console.log("Session:", session);
+      }
       setLoading(true);
       fetch(
         `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
@@ -37,50 +39,10 @@ function Register() {
           }
           localStorage.removeItem("platformName");
           await signOut({ callbackUrl: "/" });
-          // setLoading(false);
-          // console.log("1234-->", session);
-          // router.push("/");
         })
         .catch((error) => console.log(error));
     }
   }, [session]);
-
-  // useEffect(() => {
-  //   if (session) {
-  //     const provider = "google";
-  //     async function socialRegister(provider, session) {
-  //       alert("Register with " + provider + " is working!");
-  //       try {
-  //         setLoading(true);
-
-  //         const apiResponse = await createAccountWithSocialPlatform(
-  //           provider,
-  //           session
-  //         );
-  //         console.log("apiResponse", provider, session);
-  //         if (apiResponse.status === false) {
-  //           if (process.env.NODE_ENV === "development") {
-  //             alert(apiResponse.message);
-  //             console.log("Register data data:", apiResponse);
-  //             setLoading(false);
-  //           }
-  //           return;
-  //         }
-  //         if (process.env.NODE_ENV === "development") {
-  //           console.log("Register data data:", apiResponse);
-  //         }
-  //         alert(apiResponse.message);
-  //         setLoading(false);
-  //         router.push("/");
-  //       } catch (error) {
-  //         if (process.env.NODE_ENV === "development") {
-  //           console.error("Error during registration:", error.message);
-  //         }
-  //       }
-  //     }
-  //     socialRegister(provider, session);
-  //   }
-  // }, [router, session]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -110,48 +72,11 @@ function Register() {
       }
     }
   };
-  // async function socialRegister(platformname, session) {
-  //   alert("Register with " + platformname + " is working!");
-  //   try {
-  //     setLoading(true);
 
-  //     const apiResponse = await createAccountWithSocialPlatform(
-  //       platformname,
-  //       session
-  //     );
-  //     console.log("apiResponse", platformname, session);
-  //     if (apiResponse.status === false) {
-  //       if (process.env.NODE_ENV === "development") {
-  //         alert(apiResponse.message);
-  //         console.log("Register data data:", apiResponse);
-  //         setLoading(false);
-  //       }
-  //       return;
-  //     }
-  //     if (process.env.NODE_ENV === "development") {
-  //       console.log("Register data data:", apiResponse);
-  //     }
-  //     alert(apiResponse.message);
-  //     setLoading(false);
-  //     router.push("/");
-  //   } catch (error) {
-  //     if (process.env.NODE_ENV === "development") {
-  //       console.error("Error during registration:", error.message);
-  //     }
-  //   }
-  // }
   const handleSocialRegisterClick = async (provider) => {
     alert(`Register with ${provider} is coming soon!`);
-    // const platformname = "google";
-    // const apiResponse = await createAccountWithSocialPlatform(
-    //   platformname,
-    //   session
-    // );
     console.log("apiResponse", apiResponse);
     console.log("Session:", session);
-    console.log("signIn Fnction:", signIn);
-    console.log("signOut Fnction:", signOut);
-    console.log("useSession Function:", useSession);
   };
   const handleGoogleSignIn = async () => {
     await signIn("google");

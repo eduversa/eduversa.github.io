@@ -37,26 +37,35 @@ function Login() {
             return;
           }
           localStorage.removeItem("platformName");
+          localStorage.setItem("authToken", res.authToken);
+          localStorage.setItem("email", res.data.email);
+          localStorage.setItem("userType", res.data.type);
+          localStorage.setItem("userid", res.data.user_id);
           if (res.data.type === "applicant") {
-            // router.push("/applicant");
+            localStorage.setItem(
+              "applicant_profile",
+              JSON.stringify(res.profileData)
+            );
+          }
+          if (process.env.NODE_ENV === "development") {
+            console.log("AuthToken", localStorage.getItem("authToken"));
+            console.log("Email", localStorage.getItem("email"));
+            console.log("UserType", localStorage.getItem("userType"));
+            console.log("UserId", localStorage.getItem("userid"));
+          }
+          alert(res.message);
+          if (res.data.type === "applicant") {
             await signOut({ callbackUrl: "/applicant" });
           } else if (res.data.type === "student") {
-            // router.push("/student");
             await signOut({ callbackUrl: "/student" });
           } else if (res.data.type === "faculty") {
             alert("Faculty is not ready yet");
-            // await signOut({ callbackUrl: "/faculty" }); //uncomment later
             localStorage.clear();
           } else if (res.data.type === "admin") {
-            // router.push("/admin");
             await signOut({ callbackUrl: "/admin" });
           } else {
             alert("Invalid User Type");
           }
-
-          // setLoading(false);
-          // console.log("1234-->", session);
-          // router.push("/");
         })
         .catch((error) => console.log(error));
     }
@@ -116,36 +125,6 @@ function Login() {
     }
   };
 
-  // async function socialLogin(platformname) {
-  //   try {
-  //     setLoading(true);
-  //     const apiResponse = await logIntoAccountWithSocialPlatform(
-  //       platformname,
-  //       session
-  //     );
-
-  //     if (apiResponse.status === false) {
-  //       if (process.env.NODE_ENV === "development") {
-  //         console.log("Login data:", apiResponse);
-  //       }
-  //       alert(apiResponse.message);
-  //       setLoading(false);
-  //       router.push("/");
-  //       return;
-  //     }
-  //     if (process.env.NODE_ENV === "development") {
-  //       console.log("Login data:", apiResponse);
-  //     }
-  //     localStorage.setItem("authToken", apiResponse.authToken);
-  //     localStorage.setItem("email", apiResponse.data.email);
-  //     localStorage.setItem("userType", apiResponse.data.type);
-  //     localStorage.setItem("userid", apiResponse.data.user_id);
-  //   } catch (error) {
-  //     if (process.env.NODE_ENV === "development") {
-  //       console.error("Error during registration:", error.message);
-  //     }
-  //   }
-  // }
   const handleSocialLoginClick = (provider) => {
     alert(`Login with ${provider} is coming soon!`);
     console.log("Session:", session);
