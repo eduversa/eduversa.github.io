@@ -44,7 +44,7 @@ function Login() {
           if (res.data.type === "applicant") {
             localStorage.setItem(
               "applicant_profile",
-              JSON.stringify(apiResponse.profileData)
+              JSON.stringify(res.profileData)
             );
           }
           if (process.env.NODE_ENV === "development") {
@@ -53,7 +53,7 @@ function Login() {
             console.log("UserType", localStorage.getItem("userType"));
             console.log("UserId", localStorage.getItem("userid"));
           }
-          alert(apiResponse.message);
+          alert(res.message);
           if (res.data.type === "applicant") {
             await signOut({ callbackUrl: "/applicant" });
           } else if (res.data.type === "student") {
