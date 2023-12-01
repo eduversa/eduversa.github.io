@@ -120,7 +120,7 @@ export const Pincode = ({ label, name, value, ...props }) => {
 
 export const Aadhar = ({ label, name, value, ...props }) => {
   const handleKeyDown = (e) => {
-    if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
+    if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
     }
   };
