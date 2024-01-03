@@ -34,3 +34,9 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+
+# Added by Ankur
+/.github/workflows/nextjs.yml
+.github/workflows/nextjs.yml
+*.github/workflows/nextjs.yml
