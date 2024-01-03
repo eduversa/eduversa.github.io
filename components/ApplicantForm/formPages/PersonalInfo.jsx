@@ -69,10 +69,10 @@ const PersonalInfo = ({
 
   const [prevPresentPincode, setPrevPresentPincode] = useState("");
   const [prevPermanentPincode, setPrevPermanentPincode] = useState("");
-  
+
   const [fetching, setFetching] = useState(false);
   const controller = useRef(null);
-  
+
   useEffect(() => {
     if (presentPincode.length === 6 && presentPincode !== prevPresentPincode) {
       if (fetching) {
@@ -92,10 +92,20 @@ const PersonalInfo = ({
         setPrevPresentPincode(presentPincode);
       });
     }
-  }, [presentPincode, setPresentPincodeError, formData, handleChange, prevPresentPincode, fetching]);
-  
+  }, [
+    presentPincode,
+    setPresentPincodeError,
+    formData,
+    handleChange,
+    prevPresentPincode,
+    fetching,
+  ]);
+
   useEffect(() => {
-    if (permanentPincode.length === 6 && permanentPincode !== prevPermanentPincode) {
+    if (
+      permanentPincode.length === 6 &&
+      permanentPincode !== prevPermanentPincode
+    ) {
       if (fetching) {
         controller.current.abort();
       }
@@ -113,19 +123,29 @@ const PersonalInfo = ({
         setPrevPermanentPincode(permanentPincode);
       });
     }
-  }, [permanentPincode, setPermanentPincodeError, formData, handleChange, prevPermanentPincode, fetching]);
+  }, [
+    permanentPincode,
+    setPermanentPincodeError,
+    formData,
+    handleChange,
+    prevPermanentPincode,
+    fetching,
+  ]);
 
   async function onSubmitHandler() {
     setLoading(true);
-    localStorage.setItem(
-      "applicant_profile",
-      JSON.stringify(formData)
-    );
+    localStorage.setItem("applicant_profile", JSON.stringify(formData));
     const data = JSON.stringify(formData.personal_info);
     const type = "personal";
     // const userid = localStorage.getItem("userid");
     try {
       const response = await updateAppplicantData(userid, type, data);
+      console.log(response);
+      if (!response.ok) {
+        alert(response.message);
+        setLoading(false);
+        return;
+      }
       if (process.env.NODE_ENV === "development") {
         const response = await updateAppplicantData(userid, type, data);
         console.log(response);
