@@ -33,7 +33,7 @@
     "university"
   ],
   "engines": {
-    "node": ">=21.0.0",
+    "node": ">=18.0.0",
     "npm": ">=7.0.0"
   },
   "browserslist": [
