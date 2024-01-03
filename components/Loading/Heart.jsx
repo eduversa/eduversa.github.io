@@ -1,11 +1,19 @@
-import React, { Fragment } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 
 const Heart = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <Fragment>
-      <div className="lds-heart">
-        <div></div>
-      </div>
+      {isClient && (
+        <div className="lds-heart">
+          <div></div>
+        </div>
+      )}
     </Fragment>
   );
 };

@@ -42,11 +42,39 @@ function renderImage(imageUrl) {
 
 function renderFields(data, parentKey = "") {
   let imageRendered = false;
+  let fullNameRendered = false;
 
   return Object.entries(data)
     .filter(
       ([key]) => key !== "__v" && key !== "_id" && key !== "are_addresses_same"
     )
+    .sort(([keyA], [keyB]) => {
+      const priorityOrder = [
+        "user_id",
+        "personal_info",
+        "first_name",
+        "last_name",
+        "gender",
+        "dob",
+        "email",
+        "contact",
+        "category",
+        "blood_group",
+        "pan_number",
+        "aadhar_number",
+        "present_address",
+        "permanent_address",
+        "course_info",
+        "academic_info",
+        "family_info",
+        "createdat",
+        "updatedat",
+      ];
+      return (
+        priorityOrder.indexOf(keyA.toLowerCase()) -
+        priorityOrder.indexOf(keyB.toLowerCase())
+      );
+    })
     .map(([key, value]) => {
       const currentKey = parentKey ? `${parentKey}-${key}` : key;
       const formattedKey = key
@@ -92,6 +120,36 @@ function renderFields(data, parentKey = "") {
             {formatDate(value)}
           </p>
         );
+      }
+
+      if (
+        key.toLowerCase() === "first_name" ||
+        key.toLowerCase() === "middle_name" ||
+        key.toLowerCase() === "last_name"
+      ) {
+        if (!fullNameRendered) {
+          fullNameRendered = true;
+          return (
+            <p key={currentKey} className={className}>
+              {iconName && (
+                <Image
+                  src={`/icons/${iconName}`}
+                  alt={`${formattedKey} Icon`}
+                  width={20}
+                  height={20}
+                />
+              )}
+              <strong className={generateClassName("label", currentKey)}>
+                Full Name:
+              </strong>
+              {`${data["first_name"] || ""} ${data["middle_name"] || ""} ${
+                data["last_name"] || ""
+              }`}
+            </p>
+          );
+        } else {
+          return null;
+        }
       }
 
       if (
