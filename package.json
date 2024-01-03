@@ -20,8 +20,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "predeploy": "npm run build",
-    "deploy": "vercel --prod"
+    "predeploy": "vercel deploy",
+    "deploy": "vercel deploy --prod"
   },
   "keywords": [
     "eduversa",
@@ -43,6 +43,7 @@
   ],
   "dependencies": {
     "@vercel/analytics": "^1.1.1",
+    "@vercel/speed-insights": "^1.0.2",
     "fs": "^0.0.1-security",
     "next": "^14.0.4",
     "next-auth": "^4.24.5",
