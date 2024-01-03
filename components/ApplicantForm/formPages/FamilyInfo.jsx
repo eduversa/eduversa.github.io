@@ -11,6 +11,7 @@ import {
   PhoneNumber,
   Pincode,
   FormButtons,
+  Name,
 } from "../inputComponent/InputComponent";
 import fetchAddressFromPincode from "../inputComponent/fetchAddressFromPincode";
 import { updateAppplicantData } from "@/functions";
@@ -95,7 +96,7 @@ const FamilyInfo = ({
         }}
       >
         <h3 className="sub-heading">Father&apos;s Information</h3>
-        <Text
+        <Name
           label="Full Name"
           name="family_info.father.name"
           value={formData.family_info.father.name}
@@ -118,7 +119,7 @@ const FamilyInfo = ({
         </div>
         <hr />
         <h3 className="sub-heading">Mother&apos;s Information</h3>
-        <Text
+        <Name
           label="Full Name"
           name="family_info.mother.name"
           value={formData.family_info.mother.name}
@@ -141,7 +142,7 @@ const FamilyInfo = ({
         </div>
         <hr />
         <h3 className="sub-heading">Guardian&apos;s Information</h3>
-        <Text
+        <Name
           label="Full Name"
           name="family_info.guardian.name"
           value={formData.family_info.guardian.name}

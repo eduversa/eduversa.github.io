@@ -1,5 +1,29 @@
 import React from "react";
-
+const preventE = (e) => {
+  if (e.key === 'e' || e.key === 'E') {
+    e.preventDefault();
+  }
+};
+const preventSpace = (e) => {
+  if (e.key === ' ') {
+    e.preventDefault();
+  }
+};
+const onlyNumber = (e) => {
+  if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
+    e.preventDefault();
+  }
+};
+const onlyNumberWithSpace = (e) => {
+  if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
+    e.preventDefault();
+  }
+};
+const onlyLetters = (e) => {
+  if (!/[a-zA-Z]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
+    e.preventDefault();
+  }
+};
 export const Text = ({ label, details, name, value, required, ...props }) => {
   return (
     <div className="inputs">
@@ -12,6 +36,24 @@ export const Text = ({ label, details, name, value, required, ...props }) => {
         id={name} 
         name={name} 
         value={value} 
+        {...props} />
+    </div>
+  );
+};
+
+export const Name = ({ label, name, value, required, ...props }) => {
+  return (
+    <div className="inputs">
+      <label htmlFor={name}>
+        {label} <span>(Example: Ankur Halder)</span>
+        {required && <span style={{ color: 'red' }}>*</span>}
+      </label>
+      <input 
+        type="text" 
+        id={name} 
+        name={name} 
+        value={value}
+        onKeyDown={onlyLetters}
         {...props} />
     </div>
   );
@@ -30,35 +72,25 @@ export const Email = ({ label, name, value, required,  ...props }) => {
 };
 
 export const Number = ({ label, name, value, required, ...props }) => {
-  const preventE = (e) => {
-    if (e.key === 'e' || e.key === 'E') {
-      e.preventDefault();
-    }
-  };
   return (
     <div className="inputs">
       <label htmlFor={name}>
         {label}
         {required && <span style={{ color: 'red' }}>*</span>}
       </label>
-      <input 
-        type="number" 
-        id={name} 
-        name={name} 
+      <input
+        type="text"
+        id={name}
+        name={name}
         value={value}
-        onKeyDown={preventE}
-        {...props} 
+        onKeyDown={onlyNumber}
+        {...props}
       />
     </div>
   );
 };
 
 export const Year = ({ label, name, value, required, ...props }) => {
-  const preventE = (e) => {
-    if (e.key === 'e' || e.key === 'E') {
-      e.preventDefault();
-    }
-  };
   return (
     <div className="inputs">
       <label htmlFor={name}>
@@ -81,11 +113,6 @@ export const Year = ({ label, name, value, required, ...props }) => {
 };
 
 export const PhoneNumber = ({ label, name, value, required, ...props }) => {
-  const handleKeyDown = (e) => {
-    if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-    }
-  };
   return (
     <div className="inputs">
       <label htmlFor={name}>
@@ -102,7 +129,7 @@ export const PhoneNumber = ({ label, name, value, required, ...props }) => {
         // pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$"
         // pattern="^\+?\d{1,3}\s?\d{1,14}$"
         pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$"
-        onKeyDown={handleKeyDown}
+        onKeyDown={onlyNumber}
         maxLength={10}
         {...props}
       />
@@ -111,11 +138,6 @@ export const PhoneNumber = ({ label, name, value, required, ...props }) => {
 };
 
 export const Pincode = ({ label, name, value, required, ...props }) => {
-  const handleKeyDown = (e) => {
-    if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-    }
-  };
   return (
     <div className="inputs">
       <label htmlFor={name}>
@@ -129,7 +151,7 @@ export const Pincode = ({ label, name, value, required, ...props }) => {
         value={value}
         pattern="^[1-9]{1}[0-9]{2}[0-9]{3}$"
         // pattern="^[1-9][0-9]{5}$"
-        onKeyDown={handleKeyDown}
+        onKeyDown={onlyNumber}
         maxLength={6}
         {...props}
       />
@@ -138,11 +160,6 @@ export const Pincode = ({ label, name, value, required, ...props }) => {
 };
 
 export const Aadhar = ({ label, name, value, required, ...props }) => {
-  const handleKeyDown = (e) => {
-    if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-    }
-  };
   return (
     <div className="inputs">
       <label htmlFor={name}>
@@ -155,7 +172,7 @@ export const Aadhar = ({ label, name, value, required, ...props }) => {
         name={name}
         value={value}
         pattern="^[2-9]{1}[0-9]{3}\s[0-9]{4}\s[0-9]{4}$"
-        onKeyDown={handleKeyDown}
+        onKeyDown={onlyNumberWithSpace}
         maxLength={14}
         {...props}
       />
@@ -176,6 +193,7 @@ export const Pan = ({ label, name, value, required, ...props }) => {
         name={name}
         value={value}
         pattern="^[A-Z]{5}[0-9]{4}[A-Z]{1}$"
+        onKeyDown={preventSpace}
         maxLength={10}
         {...props}
       />
@@ -195,12 +213,12 @@ export const DateInput = ({ label, name, value, required, ...props }) => {
   );
 };
 
-export const Select = ({ label, name, value, options, required, ...props }) => {
+export const Select = ({ label, name, value, options, ...props }) => {
   return (
     <div className="inputs">
       <label htmlFor={name}>
         {label}
-        {required && <span style={{ color: 'red' }}>*</span>}
+        {props.required && <span style={{ color: 'red' }}>*</span>}
       </label>
       <select id={name} name={name} value={value} {...props}>
         {options.map((option) => {

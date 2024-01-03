@@ -3,6 +3,7 @@ import { AllLoader } from "@/components";
 import { updateAppplicantData } from "@/functions";
 import {
   Text,
+  Name,
   Email,
   Number,
   Select,
@@ -32,6 +33,7 @@ const PersonalInfo = ({
 }) => {
   const copyAddress = (e) => {
     const isChecked = e.target.checked;
+    setAreAddressesSame(isChecked);
 
     let updatedFormData;
     if (isChecked) {
@@ -70,6 +72,8 @@ const PersonalInfo = ({
   const [prevPresentPincode, setPrevPresentPincode] = useState("");
   const [prevPermanentPincode, setPrevPermanentPincode] = useState("");
   
+  const [areAddressesSame, setAreAddressesSame] = useState(formData.personal_info.are_addresses_same);
+
   const [fetching, setFetching] = useState(false);
   const controller = useRef(null);
   
@@ -115,6 +119,24 @@ const PersonalInfo = ({
     }
   }, [permanentPincode, setPermanentPincodeError, formData, handleChange, prevPermanentPincode, fetching]);
 
+  useEffect(() => {
+    if (areAddressesSame) {
+      const presentAddress = formData.personal_info.present_address;
+      const permanentAddress = formData.personal_info.permanent_address;
+      
+      if (JSON.stringify(presentAddress) !== JSON.stringify(permanentAddress)) {
+        const updatedFormData = {
+          ...formData,
+          personal_info: {
+            ...formData.personal_info,
+            permanent_address: { ...presentAddress },
+          },
+        };
+        handleChange({ target: { name: "formData", value: updatedFormData } });
+      }
+    }
+  }, [formData, areAddressesSame, handleChange]);
+
   async function onSubmitHandler() {
     setLoading(true);
     localStorage.setItem(
@@ -150,7 +172,7 @@ const PersonalInfo = ({
           handleNextClick();
         }}
       >
-        <Text
+        <Name
           label="Full Name"
           name="personal_info.name"
           value={formData.personal_info.name}
@@ -182,9 +204,9 @@ const PersonalInfo = ({
             required
             options={[
               { key: "Select Gender", value: "" },
-              { key: "Male", value: "Male" },
-              { key: "Female", value: "Female" },
-              { key: "Other", value: "Other" },
+              { key: "Male", value: "male" },
+              { key: "Female", value: "female" },
+              { key: "Other", value: "other" },
             ]}
           />
           <DateInput
@@ -204,11 +226,10 @@ const PersonalInfo = ({
             required
             options={[
               { key: "Select Category", value: "" },
-              { key: "General", value: "GN" },
-              { key: "Scheduled Caste", value: "SC" },
-              { key: "Scheduled Tribe", value: "ST" },
-              { key: "Other Backward Classes", value: "OBC" },
-              { key: "Economically Weaker Section", value: "EWS" },
+              { key: "General", value: "general" },
+              { key: "Scheduled Caste", value: "sc" },
+              { key: "Scheduled Tribe", value: "st" },
+              { key: "Economically Weaker Section", value: "ews" },
               { key: "Other", value: "Other" },
             ]}
           />
