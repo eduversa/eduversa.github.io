@@ -53,6 +53,7 @@ function renderFields(data, parentKey = "") {
         "user_id",
         "personal_info",
         "first_name",
+        "middle_name",
         "last_name",
         "gender",
         "dob",
@@ -67,6 +68,10 @@ function renderFields(data, parentKey = "") {
         "course_info",
         "academic_info",
         "family_info",
+        "father",
+        "mother",
+        "guardian",
+        "Office Address",
         "createdat",
         "updatedat",
       ];
@@ -180,7 +185,7 @@ function renderFields(data, parentKey = "") {
           ) {
             return (
               <Fragment key={currentKey}>
-                <h3 className={className}>{formattedKey}:</h3>
+                <h4 className={className}>{formattedKey}:</h4>
                 <ul className={className}>
                   {Object.entries(value).map(([subject, marks], index) => (
                     <li key={index} className={className}>
@@ -188,6 +193,17 @@ function renderFields(data, parentKey = "") {
                     </li>
                   ))}
                 </ul>
+              </Fragment>
+            );
+          } else if (
+            key.toLowerCase() === "office_address" &&
+            typeof value === "object" &&
+            value !== null
+          ) {
+            return (
+              <Fragment key={currentKey}>
+                <h4 className={className}>{formattedKey}:</h4>
+                {renderFields(value, currentKey)}
               </Fragment>
             );
           } else {
