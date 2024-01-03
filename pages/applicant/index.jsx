@@ -42,11 +42,44 @@ function renderImage(imageUrl) {
 
 function renderFields(data, parentKey = "") {
   let imageRendered = false;
+  let fullNameRendered = false;
 
   return Object.entries(data)
     .filter(
       ([key]) => key !== "__v" && key !== "_id" && key !== "are_addresses_same"
     )
+    .sort(([keyA], [keyB]) => {
+      const priorityOrder = [
+        "user_id",
+        "personal_info",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "gender",
+        "dob",
+        "email",
+        "contact",
+        "category",
+        "blood_group",
+        "pan_number",
+        "aadhar_number",
+        "present_address",
+        "permanent_address",
+        "course_info",
+        "academic_info",
+        "family_info",
+        "father",
+        "mother",
+        "guardian",
+        "Office Address",
+        "createdat",
+        "updatedat",
+      ];
+      return (
+        priorityOrder.indexOf(keyA.toLowerCase()) -
+        priorityOrder.indexOf(keyB.toLowerCase())
+      );
+    })
     .map(([key, value]) => {
       const currentKey = parentKey ? `${parentKey}-${key}` : key;
       const formattedKey = key
@@ -95,6 +128,36 @@ function renderFields(data, parentKey = "") {
       }
 
       if (
+        key.toLowerCase() === "first_name" ||
+        key.toLowerCase() === "middle_name" ||
+        key.toLowerCase() === "last_name"
+      ) {
+        if (!fullNameRendered) {
+          fullNameRendered = true;
+          return (
+            <p key={currentKey} className={className}>
+              {iconName && (
+                <Image
+                  src={`/icons/${iconName}`}
+                  alt={`${formattedKey} Icon`}
+                  width={20}
+                  height={20}
+                />
+              )}
+              <strong className={generateClassName("label", currentKey)}>
+                Full Name:
+              </strong>
+              {`${data["first_name"] || ""} ${data["middle_name"] || ""} ${
+                data["last_name"] || ""
+              }`}
+            </p>
+          );
+        } else {
+          return null;
+        }
+      }
+
+      if (
         typeof value === "object" &&
         value !== null &&
         key.toLowerCase() !== "image"
@@ -122,7 +185,7 @@ function renderFields(data, parentKey = "") {
           ) {
             return (
               <Fragment key={currentKey}>
-                <h3 className={className}>{formattedKey}:</h3>
+                <h4 className={className}>{formattedKey}:</h4>
                 <ul className={className}>
                   {Object.entries(value).map(([subject, marks], index) => (
                     <li key={index} className={className}>
@@ -130,6 +193,17 @@ function renderFields(data, parentKey = "") {
                     </li>
                   ))}
                 </ul>
+              </Fragment>
+            );
+          } else if (
+            key.toLowerCase() === "office_address" &&
+            typeof value === "object" &&
+            value !== null
+          ) {
+            return (
+              <Fragment key={currentKey}>
+                <h4 className={className}>{formattedKey}:</h4>
+                {renderFields(value, currentKey)}
               </Fragment>
             );
           } else {

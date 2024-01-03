@@ -1,10 +1,14 @@
-import React, { Fragment } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 
 const DualRing = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
-    <Fragment>
-      <div className="lds-dual-ring"></div>
-    </Fragment>
+    <Fragment>{isClient && <div className="lds-dual-ring"></div>}</Fragment>
   );
 };
 
