@@ -42,6 +42,7 @@ function renderImage(imageUrl) {
 
 function renderFields(data, parentKey = "") {
   let imageRendered = false;
+  let fullNameRendered = false;
 
   return Object.entries(data)
     .filter(
@@ -92,6 +93,36 @@ function renderFields(data, parentKey = "") {
             {formatDate(value)}
           </p>
         );
+      }
+
+      if (
+        key.toLowerCase() === "first_name" ||
+        key.toLowerCase() === "middle_name" ||
+        key.toLowerCase() === "last_name"
+      ) {
+        if (!fullNameRendered) {
+          fullNameRendered = true;
+          return (
+            <p key={currentKey} className={className}>
+              {iconName && (
+                <Image
+                  src={`/icons/${iconName}`}
+                  alt={`${formattedKey} Icon`}
+                  width={20}
+                  height={20}
+                />
+              )}
+              <strong className={generateClassName("label", currentKey)}>
+                Full Name:
+              </strong>
+              {`${data["first_name"] || ""} ${data["middle_name"] || ""} ${
+                data["last_name"] || ""
+              }`}
+            </p>
+          );
+        } else {
+          return null;
+        }
       }
 
       if (
