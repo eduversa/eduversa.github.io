@@ -48,6 +48,33 @@ function renderFields(data, parentKey = "") {
     .filter(
       ([key]) => key !== "__v" && key !== "_id" && key !== "are_addresses_same"
     )
+    .sort(([keyA], [keyB]) => {
+      const priorityOrder = [
+        "user_id",
+        "personal_info",
+        "first_name",
+        "last_name",
+        "gender",
+        "dob",
+        "email",
+        "contact",
+        "category",
+        "blood_group",
+        "pan_number",
+        "aadhar_number",
+        "present_address",
+        "permanent_address",
+        "course_info",
+        "academic_info",
+        "family_info",
+        "createdat",
+        "updatedat",
+      ];
+      return (
+        priorityOrder.indexOf(keyA.toLowerCase()) -
+        priorityOrder.indexOf(keyB.toLowerCase())
+      );
+    })
     .map(([key, value]) => {
       const currentKey = parentKey ? `${parentKey}-${key}` : key;
       const formattedKey = key
