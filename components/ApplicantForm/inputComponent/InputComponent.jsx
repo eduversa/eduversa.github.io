@@ -1,26 +1,35 @@
 import React from "react";
 
-export const Text = ({ label, details, name, value, ...props }) => {
+export const Text = ({ label, details, name, value, required, ...props }) => {
   return (
     <div className="inputs">
       <label htmlFor={name}>
         {label} <span>{details}</span>
+        {required && <span style={{ color: 'red' }}>*</span>}
       </label>
-      <input type="text" id={name} name={name} value={value} {...props} />
+      <input 
+        type="text" 
+        id={name} 
+        name={name} 
+        value={value} 
+        {...props} />
     </div>
   );
 };
 
-export const Email = ({ label, name, value, ...props }) => {
+export const Email = ({ label, name, value, required,  ...props }) => {
   return (
     <div className="inputs">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label}
+        {required && <span style={{ color: 'red' }}>*</span>}
+      </label>
       <input type="email" id={name} name={name} value={value} {...props} />
     </div>
   );
 };
 
-export const Number = ({ label, name, value, ...props }) => {
+export const Number = ({ label, name, value, required, ...props }) => {
   const preventE = (e) => {
     if (e.key === 'e' || e.key === 'E') {
       e.preventDefault();
@@ -28,7 +37,10 @@ export const Number = ({ label, name, value, ...props }) => {
   };
   return (
     <div className="inputs">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label}
+        {required && <span style={{ color: 'red' }}>*</span>}
+      </label>
       <input 
         type="number" 
         id={name} 
@@ -41,7 +53,7 @@ export const Number = ({ label, name, value, ...props }) => {
   );
 };
 
-export const Year = ({ label, name, value, ...props }) => {
+export const Year = ({ label, name, value, required, ...props }) => {
   const preventE = (e) => {
     if (e.key === 'e' || e.key === 'E') {
       e.preventDefault();
@@ -49,7 +61,10 @@ export const Year = ({ label, name, value, ...props }) => {
   };
   return (
     <div className="inputs">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label}
+        {required && <span style={{ color: 'red' }}>*</span>}
+      </label>
       <input 
         type="number" 
         id={name} 
@@ -65,7 +80,7 @@ export const Year = ({ label, name, value, ...props }) => {
   );
 };
 
-export const PhoneNumber = ({ label, name, value, ...props }) => {
+export const PhoneNumber = ({ label, name, value, required, ...props }) => {
   const handleKeyDown = (e) => {
     if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
@@ -73,7 +88,10 @@ export const PhoneNumber = ({ label, name, value, ...props }) => {
   };
   return (
     <div className="inputs">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label}
+        {required && <span style={{ color: 'red' }}>*</span>}
+      </label>
       <input
         type="text"
         id={name}
@@ -92,7 +110,7 @@ export const PhoneNumber = ({ label, name, value, ...props }) => {
   );
 };
 
-export const Pincode = ({ label, name, value, ...props }) => {
+export const Pincode = ({ label, name, value, required, ...props }) => {
   const handleKeyDown = (e) => {
     if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
@@ -102,6 +120,7 @@ export const Pincode = ({ label, name, value, ...props }) => {
     <div className="inputs">
       <label htmlFor={name}>
         {label} <span>(Example: 700140)</span>
+        {required && <span style={{ color: 'red' }}>*</span>}
       </label>
       <input
         type="text"
@@ -118,9 +137,9 @@ export const Pincode = ({ label, name, value, ...props }) => {
   );
 };
 
-export const Aadhar = ({ label, name, value, ...props }) => {
+export const Aadhar = ({ label, name, value, required, ...props }) => {
   const handleKeyDown = (e) => {
-    if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
+    if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
     }
   };
@@ -128,8 +147,9 @@ export const Aadhar = ({ label, name, value, ...props }) => {
     <div className="inputs">
       <label htmlFor={name}>
         {label} <span>(Example: 2653 8564 4663)</span>
+        {required && <span style={{ color: 'red' }}>*</span>}
       </label>
-      <input
+      <input      
         type="text"
         id={name}
         name={name}
@@ -143,11 +163,12 @@ export const Aadhar = ({ label, name, value, ...props }) => {
   );
 };
 
-export const Pan = ({ label, name, value, ...props }) => {
+export const Pan = ({ label, name, value, required, ...props }) => {
   return (
     <div className="inputs">
       <label htmlFor={name}>
         {label} <span>(Example: ABCTY1234D)</span>
+        {required && <span style={{ color: 'red' }}>*</span>}
       </label>
       <input
         type="text"
@@ -162,19 +183,25 @@ export const Pan = ({ label, name, value, ...props }) => {
   );
 };
 
-export const DateInput = ({ label, name, value, ...props }) => {
+export const DateInput = ({ label, name, value, required, ...props }) => {
   return (
     <div className="inputs">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label}
+        {required && <span style={{ color: 'red' }}>*</span>}
+      </label>
       <input type="date" id={name} name={name} value={value} {...props} />
     </div>
   );
 };
 
-export const Select = ({ label, name, value, options, ...props }) => {
+export const Select = ({ label, name, value, options, required, ...props }) => {
   return (
     <div className="inputs">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label}
+        {required && <span style={{ color: 'red' }}>*</span>}
+      </label>
       <select id={name} name={name} value={value} {...props}>
         {options.map((option) => {
           return (
