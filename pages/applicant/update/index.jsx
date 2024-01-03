@@ -9,13 +9,11 @@ function UpdateApplicant() {
   useEffect(() => {
     setUserid(localStorage.getItem("userid"));
   }, []);
-  
+
   return (
     <Fragment>
       <ApplicantLayout>
-        <ApplicantForm 
-          userid = {userid}
-        />
+        <ApplicantForm userid={userid} />
       </ApplicantLayout>
     </Fragment>
   );
