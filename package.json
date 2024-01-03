@@ -2,24 +2,49 @@
   "name": "eduversa",
   "version": "0.1.0",
   "private": true,
-  "author": "Ankur halder",
+  "author": "Ankur Halder",
   "description": "Eduversa is an ERP system for educational institutions. It is a complete solution for managing a school, college, or university. It includes modules for admission, student information, attendance, examination, human resources, finance, and inventory management.",
   "license": "MIT",
-  "main": "app.jsx",
+  "main": "_app.jsx",
   "repository": {
     "type": "git",
-    "url": "https://github.com/eduversa/eduversa.github.io"
+    "url": "https://github.com/eduversa/eduversa.github.io",
+    "bugs": {
+      "url": "https://github.com/eduversa/eduversa.github.io/issues"
+    },
+    "homepage": "https://www.eduversa.in"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest",
+    "predeploy": "npm run build",
+    "deploy": "vercel --prod"
   },
+  "keywords": [
+    "eduversa",
+    "ERP",
+    "education",
+    "management",
+    "school",
+    "college",
+    "university"
+  ],
+  "engines": {
+    "node": ">=21.0.0",
+    "npm": ">=7.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    ">0.2%",
+    "not dead"
+  ],
   "dependencies": {
     "@vercel/analytics": "^1.1.1",
     "fs": "^0.0.1-security",
-    "next": "^13.5.3",
+    "next": "^14.0.4",
     "next-auth": "^4.24.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,5 +55,8 @@
     "eslint": "^8.53.0",
     "eslint-config-next": "14.0.2",
     "sass": "^1.69.5"
+  },
+  "contributing": {
+    "url": "https://github.com/eduversa/eduversa.github.io/blob/main/CONTRIBUTING.md"
   }
 }
