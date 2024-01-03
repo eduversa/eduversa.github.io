@@ -1,14 +1,22 @@
-import React, { Fragment } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 
 const Ellipsis = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <Fragment>
-      <div className="lds-ellipsis">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+      {isClient && (
+        <div className="lds-ellipsis">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      )}
     </Fragment>
   );
 };

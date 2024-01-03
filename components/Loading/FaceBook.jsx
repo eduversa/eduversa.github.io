@@ -1,13 +1,21 @@
-import React, { Fragment } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 
 const Facebook = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <Fragment>
-      <div className="lds-facebook">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+      {isClient && (
+        <div className="lds-facebook">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      )}
     </Fragment>
   );
 };
