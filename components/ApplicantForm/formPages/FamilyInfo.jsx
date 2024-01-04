@@ -37,7 +37,38 @@ const FamilyInfo = ({
   const controller = useRef(null);
   const [prevOfficePincode, setPrevOfficePincode] = useState("");
 
-  
+  //fn to change the fields of guardian based on the relation field
+  const handleRelationChange = (event) => {
+    handleChange(event);
+    const relation = event.target.value;
+    if (relation === "father" || relation === "mother") {
+      const parentInfo = formData.family_info[relation];
+      const updatedGuardianInfo = {
+        ...formData.family_info.guardian,
+        name: parentInfo.name,
+        email: parentInfo.email,
+        contact: parentInfo.contact
+      };
+      handleChange({ target: { name: "family_info.guardian", value: updatedGuardianInfo } });
+    }
+  };
+
+  useEffect(() => {
+    const relation = formData.family_info.guardian.relation;
+    if (relation === "father" || relation === "mother") {
+        const parentInfo = formData.family_info[relation];
+        const updatedGuardianInfo = {
+            ...formData.family_info.guardian,
+            name: parentInfo.name,
+            email: parentInfo.email,
+            contact: parentInfo.contact
+        };
+        if (JSON.stringify(updatedGuardianInfo) !== JSON.stringify(formData.family_info.guardian)) {
+            handleChange({ target: { name: "family_info.guardian", value: updatedGuardianInfo } });
+        }
+    }
+  }, [formData.family_info, handleChange]);
+
   useEffect(() => {
     if (officePincode.length === 6 && officePincode !== prevOfficePincode) {
       if (fetching) {
@@ -150,12 +181,25 @@ const FamilyInfo = ({
           required
         />
         <div className="grid-col-2">
-          <Text
+          {/* <Text
             label="Relation"
             name="family_info.guardian.relation"
             value={formData.family_info.guardian.relation}
             onChange={handleChange}
             required
+          /> */}
+          <Select
+            label="Relation"
+            name="family_info.guardian.relation"
+            value={formData.family_info.guardian.relation}
+            onChange={handleRelationChange}
+            required
+            options={[
+              { key: "Select Relation", value: "" },
+              { key: "Father", value: "father" },
+              { key: "Mother", value: "mother" },
+              { key: "Others", value: "others" },
+            ]}
           />
           <Text
             label="Occupation"

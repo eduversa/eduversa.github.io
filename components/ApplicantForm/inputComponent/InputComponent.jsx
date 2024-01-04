@@ -1,4 +1,6 @@
 import React from "react";
+
+//restriction funtions
 const preventE = (e) => {
   if (e.key === 'e' || e.key === 'E') {
     e.preventDefault();
