@@ -8,6 +8,7 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  //@ Its Handling the logout functionality
   const handleLogout = async () => {
     const userId = localStorage.getItem("userid");
     const authToken = localStorage.getItem("authToken");
@@ -36,6 +37,17 @@ function Navbar() {
         console.error("Logout error:", error.message);
       }
     }
+  };
+  // @ Its tooggling the sidenavbar
+  const toggleSideNavbar = () => {
+    const navContainer = document.getElementById("navContainer");
+    const width = navContainer.offsetWidth;
+    if (width > 0) {
+      navContainer.style.width = "0px";
+    } else {
+      navContainer.style.width = "100%";
+    }
+    setIsMenuOpen(!isMenuOpen);
   };
   return <Fragment></Fragment>;
 }
