@@ -51,7 +51,9 @@ function renderFields(data, parentKey = "") {
     .sort(([keyA], [keyB]) => {
       const priorityOrder = [
         "user_id",
+        //@ H2
         "personal_info",
+
         "first_name",
         "middle_name",
         "last_name",
@@ -63,15 +65,31 @@ function renderFields(data, parentKey = "") {
         "blood_group",
         "pan_number",
         "aadhar_number",
+        //    % H3
         "present_address",
+        "street",
+        "pincode",
+        "city",
+        "district",
+        "state",
+        //    % H3
         "permanent_address",
+        // ! permanent address fields are indenting along with present address
+        "street",
+        "pincode",
+        "city",
+        "district",
+        "state",
+        //@ H2
         "course_info",
+        //@ H2
         "academic_info",
+        //@ H2
         "family_info",
-        "father",
-        "mother",
-        "guardian",
-        "Office Address",
+        // "father",
+        // "mother",
+        // "guardian",
+        // "Office Address",
         "createdat",
         "updatedat",
       ];
