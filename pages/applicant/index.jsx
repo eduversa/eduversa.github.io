@@ -46,14 +46,18 @@ function renderFields(data, parentKey = "") {
 
   return Object.entries(data)
     .filter(
-      ([key]) => key !== "__v" && key !== "_id" && key !== "are_addresses_same"
+      ([key]) =>
+        key !== "__v" &&
+        key !== "_id" &&
+        key !== "are_addresses_same" &&
+        key !== "subjectString" &&
+        key !== "subjects"
     )
     .sort(([keyA], [keyB]) => {
       const priorityOrder = [
         "user_id",
         //@ H2
         "personal_info",
-
         "first_name",
         "middle_name",
         "last_name",
@@ -82,8 +86,32 @@ function renderFields(data, parentKey = "") {
         "state",
         //@ H2
         "course_info",
+        "course_name",
+        "duration",
+        "stream",
+        "admission_year",
         //@ H2
         "academic_info",
+        // % H3
+        "admission",
+        "exam_name",
+        "year_of_exam",
+        "roll_number",
+        "rank",
+        // % H3
+        "secondary",
+        "exam_name",
+        "year_of_exam",
+        "board",
+        "aggregate",
+        "school_name",
+        // % H3
+        "higher_secondary",
+        "exam_name",
+        "year_of_exam",
+        "board",
+        "aggregate",
+        "school_name",
         //@ H2
         "family_info",
         // "father",
