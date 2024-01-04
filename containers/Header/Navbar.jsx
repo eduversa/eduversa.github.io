@@ -58,9 +58,9 @@ function Navbar() {
     setUserType(storedUserType);
   }, []);
   const menuContents = {
-    superAdmin: [{}],
+    superAdmin: [],
     admin: [
-      { label: "Dashboard", className: "nav-item", src: "/admin" },
+      { label: "Dashboard", className: "nav-item", src: "/admin/dashboard" },
       {
         label: "Manage Applicants",
         className: "nav-item",
@@ -82,10 +82,16 @@ function Navbar() {
         src: "/admin/update/students",
       },
     ],
-    faculty: [{}],
-    student: [{}],
+    faculty: [
+      { label: "Dashboard", className: "nav-item", src: "/faculty/dashboard" },
+    ],
+    student: [
+      { label: "Dashboard", className: "nav-item", src: "/student/dashboard" },
+    ],
   };
-  const userMenuLinks = menuContents[userType];
+
+  const userMenuLinks = menuContents[userType] || [];
+
   return (
     <Fragment>
       {isLoading && <AllLoader />}
@@ -120,7 +126,7 @@ function Navbar() {
               </div>
 
               <ul className="sidenavbar__menu">
-                {menuItems.map((item) => {
+                {userMenuLinks.map((item) => {
                   return (
                     <li
                       key={JSON.stringify(item)}

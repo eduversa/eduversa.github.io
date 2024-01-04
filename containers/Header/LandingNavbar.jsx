@@ -7,7 +7,7 @@ function LandingNavbar() {
   return (
     <Fragment>
       <header>
-        <nav className="navbar">
+        <nav className="landing-navbar">
           <div className="logo">
             <Link href="/">
               <span className="logo-text">{logoText}</span>

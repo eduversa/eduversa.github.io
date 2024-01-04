@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
-import { AdminNavbar, Footer } from "@/containers";
+import { Navbar, Footer } from "@/containers";
 function AdminLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
@@ -20,7 +20,7 @@ function AdminLayout({ children }) {
   }, [router]);
   return (
     <Fragment>
-      <AdminNavbar></AdminNavbar>
+      <Navbar></Navbar>
       <div className="wrapper">{children}</div>
       <Footer></Footer>
     </Fragment>
