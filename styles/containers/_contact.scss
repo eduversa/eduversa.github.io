@@ -4,7 +4,7 @@
   border-radius: 20px;
   box-shadow: 10px 10px 20px var(--white-10), -10px -10px 20px var(--white-11);
   position: relative;
-  transition: all 0.5s ease-in-out;
+  // transition: all 0.5s ease-in-out;
   @media (max-width: $breakpoint-desktop-wide) {
   }
   @media (max-width: $breakpoint-desktop) {
@@ -28,7 +28,7 @@
     background: inherit;
     border-radius: 25px;
     z-index: -1;
-    transition: al 0.5s ease-in-out;
+    // transition: all 0.5s ease-in-out;
   }
   &:before {
     transform: rotate(2deg);
@@ -114,7 +114,7 @@
       background: var(--white-9);
       box-shadow: 10px 10px 20px var(--white-7),
         -10px -10px 20px var(--white-11);
-      transition: all 0.5s ease-in-out;
+      // transition: all 0.5s ease-in-out;
       @media (max-width: $breakpoint-desktop-wide) {
       }
       @media (max-width: $breakpoint-desktop) {
