@@ -175,11 +175,11 @@
       //   right: 10px;
       // }
       h3 {
-        font-family: var(--font-oswald);
-        font-size: var(--font-7);
-        letter-spacing: 4px;
-        color: var(--black);
-        font-weight: 400;
+        font-family: var(--font-elianto);
+        font-size: var(--font-9);
+        letter-spacing: 2px;
+        color: var(--blue-1);
+        font-weight: 600;
         margin: 0 0 2% 0;
         text-align: center;
         @media (max-width: $breakpoint-desktop-wide) {
@@ -194,14 +194,14 @@
         }
       }
       div {
-        h3 {
-          font-family: var(--font-elianto);
-          font-size: var(--font-9);
+        h4 {
+          font-family: var(--font-oswald);
+          font-size: var(--font-10);
           letter-spacing: 2px;
-          color: var(--blue-1);
-          font-weight: 600;
+          color: var(--black);
+          font-weight: 400;
           margin: 0 0 2% 0;
-          text-align: center;
+          text-align: justify;
           @media (max-width: $breakpoint-desktop-wide) {
           }
           @media (max-width: $breakpoint-desktop) {
@@ -279,26 +279,38 @@
           }
         }
         ul {
-          @include flex-container(row, nowrap, flex-start, center);
-          gap: 50px;
+          @include flex-container(row, wrap, flex-start, flex-start);
+          justify-content: stretch;
+          gap: 10px;
+          // justify-self: stretch;
           margin: 0 0 2% 0;
+          // margin: 0 auto;
           @media (max-width: $breakpoint-desktop-wide) {
-            gap: 10px;
+            // gap: 10px;
           }
           @media (max-width: $breakpoint-desktop) {
-            gap: 0px;
+            // gap: 0px;
           }
           @media (max-width: $breakpoint-large-tablet) {
-            @include flex-container(column, nowrap, flex-start, center);
-            gap: 20px;
+            // @include flex-container(column, wrap, flex-start, center);
+            // gap: 20px;
           }
           @media (max-width: $breakpoint-tablet) {
           }
           @media (max-width: $breakpoint-phone) {
           }
           li {
+            text-align: center;
+            flex-grow: 1;
             font-family: var(--font-tektur);
             font-size: var(--font-11);
+            padding: 15px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, #ecf0f1, #dce1e3);
+            border-radius: 15px;
+            box-shadow: 10px 10px 20px var(--black-shadow-light-1),
+              -10px -10px 20px var(--white-shadow-light-2);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
             @media (max-width: $breakpoint-desktop-wide) {
               font-size: var(--font-12);
             }
@@ -328,6 +340,11 @@
               }
               @media (max-width: $breakpoint-phone) {
               }
+            }
+            &:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 0 20px var(--black-shadow-light-1),
+                0 0 40px var(--black-shadow-light) inset;
             }
           }
         }
