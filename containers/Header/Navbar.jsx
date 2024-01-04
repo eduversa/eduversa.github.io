@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { AllLoader } from "@/components";
 import { logoutApi } from "@/functions";
 function Navbar() {
@@ -7,6 +8,7 @@ function Navbar() {
   const logoText = "eduversa";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [userType, setUserType] = useState(null);
 
   //@ Its Handling the logout functionality
   const handleLogout = async () => {
@@ -49,7 +51,102 @@ function Navbar() {
     }
     setIsMenuOpen(!isMenuOpen);
   };
-  return <Fragment></Fragment>;
+
+  // @ This code will handle the user type and their respective links
+  useEffect(() => {
+    const storedUserType = localStorage.getItem("userType");
+    setUserType(storedUserType);
+  }, []);
+  const menuContents = {
+    superAdmin: [{}],
+    admin: [
+      { label: "Dashboard", className: "nav-item", src: "/admin" },
+      {
+        label: "Manage Applicants",
+        className: "nav-item",
+        src: "/admin/manage/applicants",
+      },
+      {
+        label: "Manage Students",
+        className: "nav-item",
+        src: "/admin/manage/students",
+      },
+      {
+        label: "Update Applicants",
+        className: "nav-item",
+        src: "/admin/update/applicants",
+      },
+      {
+        label: "Update Students",
+        className: "nav-item",
+        src: "/admin/update/students",
+      },
+    ],
+    faculty: [{}],
+    student: [{}],
+  };
+  const userMenuLinks = menuContents[userType];
+  return (
+    <Fragment>
+      {isLoading && <AllLoader />}
+      <header>
+        <nav className="admin-nav">
+          <div className="logo">
+            <Link href="/">
+              <span className="logo-text">{logoText}</span>
+            </Link>
+          </div>
+
+          <div
+            className={`menu ${isMenuOpen && "open"}`}
+            onClick={toggleSideNavbar}
+          >
+            <div className="menu-line"></div>
+            <div className="menu-line"></div>
+            <div className="menu-line"></div>
+          </div>
+          <div id="navContainer" className="sidenavbar">
+            <div className="sidenavbar__container">
+              <div className="sidenavbar__brand">
+                <p className="sidenavbar__brand__name">Eduversa</p>
+                <div
+                  className={`menu ${isMenuOpen && "open"}`}
+                  onClick={toggleSideNavbar}
+                >
+                  <div className="menu-line"></div>
+                  <div className="menu-line"></div>
+                  <div className="menu-line"></div>
+                </div>
+              </div>
+
+              <ul className="sidenavbar__menu">
+                {menuItems.map((item) => {
+                  return (
+                    <li
+                      key={JSON.stringify(item)}
+                      className="sidenavbar__menu-item"
+                    >
+                      <Link href={item.src} className="sidenavbar__menu-link">
+                        <span>{item.label}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+                <li className="sidenavbar__menu-item">
+                  <button
+                    className="sidenavbar__menu-btn"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+    </Fragment>
+  );
 }
 
 export default Navbar;
