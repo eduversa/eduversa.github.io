@@ -90,7 +90,7 @@ function Navbar() {
     <Fragment>
       {isLoading && <AllLoader />}
       <header>
-        <nav className="admin-nav">
+        <nav className="navbar">
           <div className="logo">
             <Link href="/">
               <span className="logo-text">{logoText}</span>
