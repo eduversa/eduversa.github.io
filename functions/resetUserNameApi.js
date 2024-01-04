@@ -23,9 +23,9 @@ const resetUserNameApi = async (userIdOrEmail, otp) => {
       if (process.env.NODE_ENV === "development") {
         console.log(response);
       }
-      throw new Error(
-        `Reset User Name request failed with status ${response.status}`
-      );
+      // throw new Error(
+      //   `Reset User Name request failed with status ${response.status}`
+      // );
     }
 
     if (process.env.NODE_ENV === "development") {

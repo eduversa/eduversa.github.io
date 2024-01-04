@@ -13,7 +13,28 @@ function generateClassName(prefix, key) {
   return `${prefix}-${formattedKey.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
 }
 
-function formatDate(dateString, includeTimeZone = true) {
+function formatDate(
+  dateString,
+  includeTimeZone = true,
+  includeHours = true,
+  includeMinutes = true,
+  includeSeconds = true
+) {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    // hour: "2-digit",
+    // minute: "2-digit",
+    // second: "2-digit",
+    hour: includeHours ? "2-digit" : undefined,
+    minute: includeMinutes ? "2-digit" : undefined,
+    second: includeSeconds ? "2-digit" : undefined,
+    timeZoneName: includeTimeZone ? "short" : undefined,
+  };
+  return new Date(dateString).toLocaleString(undefined, options);
+}
+function formatDatev2(dateString, includeTimeZone = true) {
   const options = {
     year: "numeric",
     month: "long",
@@ -46,11 +67,17 @@ function renderFields(data, parentKey = "") {
 
   return Object.entries(data)
     .filter(
-      ([key]) => key !== "__v" && key !== "_id" && key !== "are_addresses_same"
+      ([key]) =>
+        key !== "__v" &&
+        key !== "_id" &&
+        key !== "are_addresses_same" &&
+        key !== "subjectString" &&
+        key !== "subjects"
     )
     .sort(([keyA], [keyB]) => {
       const priorityOrder = [
         "user_id",
+        //@ H2
         "personal_info",
         "first_name",
         "middle_name",
@@ -63,15 +90,74 @@ function renderFields(data, parentKey = "") {
         "blood_group",
         "pan_number",
         "aadhar_number",
+        //    % H3
         "present_address",
+        "street",
+        "pincode",
+        "city",
+        "district",
+        "state",
+        //    % H3
         "permanent_address",
+        // ! permanent address fields are indenting along with present address
+        "street",
+        "pincode",
+        "city",
+        "district",
+        "state",
+        //@ H2
         "course_info",
+        "course_name",
+        "duration",
+        "stream",
+        "admission_year",
+        //@ H2
         "academic_info",
+        // % H3
+        "admission",
+        "exam_name",
+        "year_of_exam",
+        "roll_number",
+        "rank",
+        // % H3
+        "secondary",
+        "exam_name",
+        "year_of_exam",
+        "board",
+        "aggregate",
+        "school_name",
+        "marks",
+        // % H3
+        "higher_secondary",
+        "exam_name",
+        "year_of_exam",
+        "board",
+        "aggregate",
+        "school_name",
+        //@ H2
         "family_info",
+        //! In here complete family info is indenting with personal info data
+        // % H3
         "father",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "email",
+        "contact",
+        // % H3
         "mother",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "email",
+        "contact",
+        // % H3
         "guardian",
-        "Office Address",
+        // & H4
+        "office_address",
+        "first_name",
+        "middle_name",
+        "last_name",
         "createdat",
         "updatedat",
       ];
@@ -108,7 +194,7 @@ function renderFields(data, parentKey = "") {
             <strong className={generateClassName("label", currentKey)}>
               {formattedKey}:
             </strong>
-            {formatDate(value, false)}
+            {formatDate(value, false, false, false, false)}
           </p>
         );
       }
@@ -122,7 +208,7 @@ function renderFields(data, parentKey = "") {
             <strong className={generateClassName("label", currentKey)}>
               {formattedKey}:
             </strong>{" "}
-            {formatDate(value)}
+            {formatDatev2(value, false)}
           </p>
         );
       }

@@ -26,7 +26,7 @@ const logIntoAccountWithSocialPlatform = async (
       if (process.env.NODE_ENV === "development") {
         console.log(response);
       }
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      // throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
     if (process.env.NODE_ENV === "development") {
