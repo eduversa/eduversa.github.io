@@ -1,0 +1,242 @@
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$background-color: #ecf0f1;
+$navbar-height: 60px;
+$font-family: "Roboto", sans-serif;
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-family;
+  background-color: $background-color;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $navbar-height;
+  background-color: $primary-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .logo {
+    a {
+      text-decoration: none;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: color 0.3s ease-in-out;
+
+      &:hover {
+        color: $secondary-color;
+      }
+    }
+  }
+
+  .navbar {
+    &__container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    &__brand {
+      display: flex;
+      align-items: center;
+
+      &__name {
+        font-size: 28px;
+        font-weight: bold;
+        color: white;
+        margin-right: 10px;
+      }
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+
+      &-line {
+        width: 30px;
+        height: 3px;
+        background-color: white;
+        margin: 6px 0;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      &.open {
+        .menu-line:nth-child(1) {
+          transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .menu-line:nth-child(2) {
+          opacity: 0;
+        }
+        .menu-line:nth-child(3) {
+          transform: rotate(45deg) translate(-5px, -6px);
+        }
+      }
+
+      &:hover {
+        .menu-line {
+          background-color: $secondary-color;
+        }
+      }
+    }
+
+    &__menu {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+
+      &-item {
+        margin-right: 15px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      &-link {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        transition: color 0.3s ease-in-out;
+
+        &:hover {
+          color: $secondary-color;
+        }
+      }
+
+      &-btn {
+        background-color: $secondary-color;
+        border: none;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease-in-out;
+
+        &:hover {
+          background-color: darken($secondary-color, 10%);
+        }
+      }
+    }
+  }
+
+  .sidenavbar {
+    width: 0;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: $primary-color;
+    overflow-x: hidden;
+    transition: 0.5s;
+
+    &__container {
+      padding: 20px;
+    }
+
+    &__brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &__name {
+        font-size: 28px;
+        font-weight: bold;
+        color: white;
+        letter-spacing: 1px;
+      }
+
+      .menu {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+
+        &-line {
+          width: 30px;
+          height: 3px;
+          background-color: white;
+          margin: 6px 0;
+          transition: background-color 0.3s ease-in-out;
+        }
+
+        &.open {
+          .menu-line:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+          }
+          .menu-line:nth-child(2) {
+            opacity: 0;
+          }
+          .menu-line:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+          }
+        }
+
+        &:hover {
+          .menu-line {
+            background-color: $secondary-color;
+          }
+        }
+      }
+    }
+
+    &__menu {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+
+      &-item {
+        margin-bottom: 15px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      &-link {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        cursor: pointer;
+        transition: color 0.3s ease-in-out;
+
+        &:hover {
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .navbar {
+      &__menu {
+        display: none;
+      }
+
+      .menu {
+        display: flex;
+      }
+
+      .sidenavbar {
+        width: 100%;
+      }
+    }
+  }
+}
