@@ -23,9 +23,9 @@ const getCollegeDetailsApi = async (collegeId) => {
       if (process.env.NODE_ENV === "development") {
         console.log(response);
       }
-      throw new Error(
-        `Get College Details request failed with status ${response.status}`
-      );
+      // throw new Error(
+      //   `Get College Details request failed with status ${response.status}`
+      // );
     }
     if (process.env.NODE_ENV === "development") {
       console.log("Response:", response);
