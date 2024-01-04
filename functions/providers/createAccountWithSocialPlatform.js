@@ -1,30 +1,31 @@
 const apiBaseUrl = "https://eduversa-api.onrender.com";
 
-const loginUser = async (username, password) => {
-  const apiUrl = `${apiBaseUrl}/account/auth`;
+const createAccountWithSocialPlatform = async (platformName, sessionObject) => {
+  const route = `/account/auth/platform?platform=${platformName}`;
+  const apiUrl = `${apiBaseUrl}${route}`;
 
   try {
     if (process.env.NODE_ENV === "development") {
-      console.log("Login Function Called");
-      console.log("Username:", username);
-      console.log("Password:", password);
+      console.log("Create Account Function Called");
+      console.log("Platform Name:", platformName);
+      console.log("Session Object:", sessionObject);
     }
+
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        user_id: username,
-        password: password,
-      }),
+      body: JSON.stringify(sessionObject),
     });
+
     if (!response.ok) {
       if (process.env.NODE_ENV === "development") {
         console.log(response);
       }
       // throw new Error(`HTTP error! Status: ${response.status}`);
     }
+
     if (process.env.NODE_ENV === "development") {
       console.log("Response:", response);
     }
@@ -39,4 +40,4 @@ const loginUser = async (username, password) => {
   }
 };
 
-export default loginUser;
+export default createAccountWithSocialPlatform;

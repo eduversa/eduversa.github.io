@@ -13,7 +13,28 @@ function generateClassName(prefix, key) {
   return `${prefix}-${formattedKey.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
 }
 
-function formatDate(dateString, includeTimeZone = true) {
+function formatDate(
+  dateString,
+  includeTimeZone = true,
+  includeHours = true,
+  includeMinutes = true,
+  includeSeconds = true
+) {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    // hour: "2-digit",
+    // minute: "2-digit",
+    // second: "2-digit",
+    hour: includeHours ? "2-digit" : undefined,
+    minute: includeMinutes ? "2-digit" : undefined,
+    second: includeSeconds ? "2-digit" : undefined,
+    timeZoneName: includeTimeZone ? "short" : undefined,
+  };
+  return new Date(dateString).toLocaleString(undefined, options);
+}
+function formatDatev2(dateString, includeTimeZone = true) {
   const options = {
     year: "numeric",
     month: "long",
@@ -42,11 +63,109 @@ function renderImage(imageUrl) {
 
 function renderFields(data, parentKey = "") {
   let imageRendered = false;
+  let fullNameRendered = false;
 
   return Object.entries(data)
     .filter(
-      ([key]) => key !== "__v" && key !== "_id" && key !== "are_addresses_same"
+      ([key]) =>
+        key !== "__v" &&
+        key !== "_id" &&
+        key !== "are_addresses_same" &&
+        key !== "subjectString" &&
+        key !== "subjects"
     )
+    .sort(([keyA], [keyB]) => {
+      const priorityOrder = [
+        "user_id",
+        //@ H2
+        "personal_info",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "gender",
+        "dob",
+        "email",
+        "contact",
+        "category",
+        "blood_group",
+        "pan_number",
+        "aadhar_number",
+        //    % H3
+        "present_address",
+        "street",
+        "pincode",
+        "city",
+        "district",
+        "state",
+        //    % H3
+        "permanent_address",
+        // ! permanent address fields are indenting along with present address
+        "street",
+        "pincode",
+        "city",
+        "district",
+        "state",
+        //@ H2
+        "course_info",
+        "course_name",
+        "duration",
+        "stream",
+        "admission_year",
+        //@ H2
+        "academic_info",
+        // % H3
+        "admission",
+        "exam_name",
+        "year_of_exam",
+        "roll_number",
+        "rank",
+        // % H3
+        "secondary",
+        "exam_name",
+        "year_of_exam",
+        "board",
+        "aggregate",
+        "school_name",
+        "marks",
+        // % H3
+        "higher_secondary",
+        "exam_name",
+        "year_of_exam",
+        "board",
+        "aggregate",
+        "school_name",
+        //@ H2
+        "family_info",
+        //! In here complete family info is indenting with personal info data
+        // % H3
+        "father",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "email",
+        "contact",
+        // % H3
+        "mother",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "email",
+        "contact",
+        // % H3
+        "guardian",
+        // & H4
+        "office_address",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "createdat",
+        "updatedat",
+      ];
+      return (
+        priorityOrder.indexOf(keyA.toLowerCase()) -
+        priorityOrder.indexOf(keyB.toLowerCase())
+      );
+    })
     .map(([key, value]) => {
       const currentKey = parentKey ? `${parentKey}-${key}` : key;
       const formattedKey = key
@@ -75,7 +194,7 @@ function renderFields(data, parentKey = "") {
             <strong className={generateClassName("label", currentKey)}>
               {formattedKey}:
             </strong>
-            {formatDate(value, false)}
+            {formatDate(value, false, false, false, false)}
           </p>
         );
       }
@@ -89,9 +208,39 @@ function renderFields(data, parentKey = "") {
             <strong className={generateClassName("label", currentKey)}>
               {formattedKey}:
             </strong>{" "}
-            {formatDate(value)}
+            {formatDatev2(value, false)}
           </p>
         );
+      }
+
+      if (
+        key.toLowerCase() === "first_name" ||
+        key.toLowerCase() === "middle_name" ||
+        key.toLowerCase() === "last_name"
+      ) {
+        if (!fullNameRendered) {
+          fullNameRendered = true;
+          return (
+            <p key={currentKey} className={className}>
+              {iconName && (
+                <Image
+                  src={`/icons/${iconName}`}
+                  alt={`${formattedKey} Icon`}
+                  width={20}
+                  height={20}
+                />
+              )}
+              <strong className={generateClassName("label", currentKey)}>
+                Full Name:
+              </strong>
+              {`${data["first_name"] || ""} ${data["middle_name"] || ""} ${
+                data["last_name"] || ""
+              }`}
+            </p>
+          );
+        } else {
+          return null;
+        }
       }
 
       if (
@@ -122,7 +271,7 @@ function renderFields(data, parentKey = "") {
           ) {
             return (
               <Fragment key={currentKey}>
-                <h3 className={className}>{formattedKey}:</h3>
+                <h4 className={className}>{formattedKey}:</h4>
                 <ul className={className}>
                   {Object.entries(value).map(([subject, marks], index) => (
                     <li key={index} className={className}>
@@ -130,6 +279,17 @@ function renderFields(data, parentKey = "") {
                     </li>
                   ))}
                 </ul>
+              </Fragment>
+            );
+          } else if (
+            key.toLowerCase() === "office_address" &&
+            typeof value === "object" &&
+            value !== null
+          ) {
+            return (
+              <Fragment key={currentKey}>
+                <h4 className={className}>{formattedKey}:</h4>
+                {renderFields(value, currentKey)}
               </Fragment>
             );
           } else {

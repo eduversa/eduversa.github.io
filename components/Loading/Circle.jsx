@@ -1,11 +1,19 @@
-import React, { Fragment } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 
 const Circle = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <Fragment>
-      <div className="lds-circle">
-        <div></div>
-      </div>
+      {isClient && (
+        <div className="lds-circle">
+          <div></div>
+        </div>
+      )}
     </Fragment>
   );
 };

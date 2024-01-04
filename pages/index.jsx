@@ -1,9 +1,9 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
-import { loginUser } from "@/functions";
+import { loginUser, logIntoAccountWithSocialPlatform } from "@/functions";
 import { AllLoader } from "@/components";
 import { useSession, signIn, signOut } from "next-auth/react";
 function Login() {
@@ -12,6 +12,65 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
+
+  useEffect(() => {
+    const platformName = localStorage.getItem("platformName");
+    if (session) {
+      console.log("session--->", session);
+      setLoading(true);
+      fetch(
+        `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(session),
+        }
+      )
+        .then((response) => response.json())
+        .then(async (res) => {
+          console.log(res);
+          alert(res.message);
+          if (!res.status) {
+            setLoading(false);
+            return;
+          }
+          localStorage.removeItem("platformName");
+          localStorage.setItem("authToken", res.authToken);
+          localStorage.setItem("email", res.data.email);
+          localStorage.setItem("userType", res.data.type);
+          localStorage.setItem("userid", res.data.user_id);
+          if (res.data.type === "applicant") {
+            localStorage.setItem(
+              "applicant_profile",
+              JSON.stringify(res.profileData)
+            );
+          }
+          if (process.env.NODE_ENV === "development") {
+            console.log("AuthToken", localStorage.getItem("authToken"));
+            console.log("Email", localStorage.getItem("email"));
+            console.log("UserType", localStorage.getItem("userType"));
+            console.log("UserId", localStorage.getItem("userid"));
+          }
+          alert(res.message);
+          if (res.data.type === "applicant") {
+            await signOut({ callbackUrl: "/applicant" });
+          } else if (res.data.type === "student") {
+            await signOut({ callbackUrl: "/student" });
+          } else if (res.data.type === "faculty") {
+            alert("Faculty is not ready yet");
+            localStorage.clear();
+          } else if (res.data.type === "admin") {
+            await signOut({ callbackUrl: "/admin" });
+          } else {
+            alert("Invalid User Type");
+          }
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [session]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -75,12 +134,15 @@ function Login() {
   };
   const handleGoogleSignIn = async () => {
     await signIn("google");
+    localStorage.setItem("platformName", "google");
   };
   const handleGithubSignIn = async () => {
     await signIn("github");
+    localStorage.setItem("platformName", "github");
   };
   const handleFacebookSignIn = async () => {
     await signIn("facebook");
+    localStorage.setItem("platformName", "facebook");
   };
   if (process.env.NODE_ENV === "development") {
     console.log("Session:", session);
