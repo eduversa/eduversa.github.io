@@ -13,7 +13,28 @@ function generateClassName(prefix, key) {
   return `${prefix}-${formattedKey.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
 }
 
-function formatDate(dateString, includeTimeZone = true) {
+function formatDate(
+  dateString,
+  includeTimeZone = true,
+  includeHours = true,
+  includeMinutes = true,
+  includeSeconds = true
+) {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    // hour: "2-digit",
+    // minute: "2-digit",
+    // second: "2-digit",
+    hour: includeHours ? "2-digit" : undefined,
+    minute: includeMinutes ? "2-digit" : undefined,
+    second: includeSeconds ? "2-digit" : undefined,
+    timeZoneName: includeTimeZone ? "short" : undefined,
+  };
+  return new Date(dateString).toLocaleString(undefined, options);
+}
+function formatDatev2(dateString, includeTimeZone = true) {
   const options = {
     year: "numeric",
     month: "long",
@@ -105,6 +126,7 @@ function renderFields(data, parentKey = "") {
         "board",
         "aggregate",
         "school_name",
+        "marks",
         // % H3
         "higher_secondary",
         "exam_name",
@@ -172,7 +194,7 @@ function renderFields(data, parentKey = "") {
             <strong className={generateClassName("label", currentKey)}>
               {formattedKey}:
             </strong>
-            {formatDate(value, false)}
+            {formatDate(value, false, false, false, false)}
           </p>
         );
       }
@@ -186,7 +208,7 @@ function renderFields(data, parentKey = "") {
             <strong className={generateClassName("label", currentKey)}>
               {formattedKey}:
             </strong>{" "}
-            {formatDate(value)}
+            {formatDatev2(value, false)}
           </p>
         );
       }
