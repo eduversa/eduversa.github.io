@@ -32,6 +32,7 @@ header {
       font-weight: bold;
       cursor: pointer;
       letter-spacing: 1px;
+      transition: color 0.3s ease-in-out;
 
       &:hover {
         color: $secondary-color;
@@ -42,7 +43,9 @@ header {
   .navbar {
     &__container {
       display: flex;
+      justify-content: space-between;
       align-items: center;
+      width: 100%;
     }
 
     &__brand {
@@ -54,6 +57,38 @@ header {
         font-weight: bold;
         color: white;
         margin-right: 10px;
+      }
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+
+      &-line {
+        width: 30px;
+        height: 3px;
+        background-color: white;
+        margin: 6px 0;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      &.open {
+        .menu-line:nth-child(1) {
+          transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .menu-line:nth-child(2) {
+          opacity: 0;
+        }
+        .menu-line:nth-child(3) {
+          transform: rotate(45deg) translate(-5px, -6px);
+        }
+      }
+
+      &:hover {
+        .menu-line {
+          background-color: $secondary-color;
+        }
       }
     }
 
@@ -91,26 +126,13 @@ header {
         font-weight: bold;
         font-size: 16px;
         cursor: pointer;
-        padding: 8px 15px;
+        padding: 10px 20px;
         border-radius: 5px;
         transition: background-color 0.3s ease-in-out;
 
         &:hover {
           background-color: darken($secondary-color, 10%);
         }
-      }
-    }
-
-    .menu {
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-
-      &-line {
-        width: 30px;
-        height: 3px;
-        background-color: white;
-        margin: 6px 0;
       }
     }
   }
@@ -120,7 +142,7 @@ header {
     height: 100%;
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     background-color: $primary-color;
     overflow-x: hidden;
     transition: 0.5s;
@@ -151,6 +173,25 @@ header {
           height: 3px;
           background-color: white;
           margin: 6px 0;
+          transition: background-color 0.3s ease-in-out;
+        }
+
+        &.open {
+          .menu-line:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+          }
+          .menu-line:nth-child(2) {
+            opacity: 0;
+          }
+          .menu-line:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+          }
+        }
+
+        &:hover {
+          .menu-line {
+            background-color: $secondary-color;
+          }
         }
       }
     }
