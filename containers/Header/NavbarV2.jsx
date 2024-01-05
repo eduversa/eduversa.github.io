@@ -4,6 +4,8 @@ import Link from "next/link";
 function NavbarV2() {
   const [activeItem, setActiveItem] = useState("Dashboard");
   const [userType, setUserType] = useState("");
+  const [selectedCustomLink, setSelectedCustomLink] = useState(null);
+  const [customLinks, setCustomLinks] = useState([]);
 
   const handleItemClick = (item) => {
     setActiveItem(item.label);
@@ -45,6 +47,13 @@ function NavbarV2() {
 
   const userMenuLinks = menuContents[userType] || [];
 
+  const handleAddCustomLink = () => {
+    if (selectedCustomLink && customLinks.length < 4) {
+      setCustomLinks([...customLinks, selectedCustomLink]);
+      setSelectedCustomLink(null);
+    }
+  };
+
   return (
     <nav className="navbar">
       <ul className="nav-list">
@@ -60,7 +69,45 @@ function NavbarV2() {
             </Link>
           </li>
         ))}
+        {customLinks.map((customLink, index) => (
+          <li key={`custom-${index}`} className="nav-item">
+            <Link href={customLink.src} passHref>
+              <div
+                className={`nav-link ${
+                  activeItem === customLink.label ? "active" : ""
+                }`}
+                onClick={() => handleItemClick(customLink)}
+              >
+                {customLink.label}
+              </div>
+            </Link>
+          </li>
+        ))}
       </ul>
+
+      {/* Dropdown to select existing userMenuLinks */}
+      <div>
+        <select
+          value={selectedCustomLink ? selectedCustomLink.label : ""}
+          onChange={(e) => {
+            const selectedLabel = e.target.value;
+            const selectedLink = userMenuLinks.find(
+              (link) => link.label === selectedLabel
+            );
+            setSelectedCustomLink(selectedLink);
+          }}
+        >
+          <option value="" disabled>
+            Select a link
+          </option>
+          {userMenuLinks.map((link) => (
+            <option key={link.label} value={link.label}>
+              {link.label}
+            </option>
+          ))}
+        </select>
+        <button onClick={handleAddCustomLink}>Add Custom Link</button>
+      </div>
     </nav>
   );
 }
