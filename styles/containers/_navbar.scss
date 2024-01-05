@@ -1,84 +1,81 @@
-// Import your color variables or define them here
-$primary-color: #3498db;
-$secondary-color: #2ecc71;
+// Define colors
+$primary-color: #4e74f8;
+$background-color: #f0f0f0;
+$box-shadow-color: #d8d8d8;
+$highlight-color: #ffffff;
+
+// Define box shadow mixin
+@mixin box-shadow {
+  box-shadow: 0 2px 4px rgba($box-shadow-color, 0.2);
+}
+
+// Define transition mixin
+@mixin transition($properties: all, $duration: 0.3s, $timing-function: ease) {
+  transition: $properties $duration $timing-function;
+}
 
 // Navbar styling
-.navbar {
+header {
   background-color: $primary-color;
-  color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  position: relative;
-  z-index: 2;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   .logo {
-    cursor: pointer;
     .logo-text {
-      font-size: 1.8rem;
+      color: $highlight-color;
+      font-size: 1.5rem;
       font-weight: bold;
-      color: #fff;
       text-decoration: none;
+      cursor: pointer;
     }
   }
 
   .menu {
-    display: flex;
     cursor: pointer;
-    flex-direction: column;
 
-    .menu-line {
-      width: 25px;
-      height: 2px;
-      background-color: #fff;
-      margin: 4px 0;
-      transition: background-color 0.3s ease;
+    &-line {
+      background-color: $highlight-color;
+      height: 3px;
+      margin: 6px 0;
+      width: 30px;
     }
   }
-}
 
-// Sidenavbar styling
-.sidenavbar {
-  width: 0;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: transparent;
-  overflow-x: hidden;
-  transition: 0.5s;
-  z-index: 1;
-
-  &__container {
-    padding: 1rem;
+  .sidenavbar {
+    background-color: $background-color;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    backdrop-filter: blur(10px); // Add glass morphic effect
+    justify-content: flex-end;
 
-    .sidenavbar__brand {
+    &__container {
+      padding: 1rem;
+      width: 80%;
+    }
+
+    &__brand {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 1rem;
 
-      .sidenavbar__brand__name {
-        font-size: 1.8rem;
+      &__name {
+        color: $primary-color;
+        font-size: 1.5rem;
         font-weight: bold;
-        color: #fff;
-      }
-
-      .menu {
-        display: flex;
-        flex-direction: column;
-        cursor: pointer;
-
-        .menu-line {
-          width: 25px;
-          height: 2px;
-          background-color: #fff;
-          margin: 4px 0;
-          transition: background-color 0.3s ease;
-        }
       }
     }
 
@@ -87,41 +84,51 @@ $secondary-color: #2ecc71;
       padding: 0;
       margin: 0;
 
-      .sidenavbar__menu-item {
+      &-item {
         margin-bottom: 1rem;
-
-        .sidenavbar__menu-link {
-          text-decoration: none;
-          color: #fff;
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
       }
 
-      .sidenavbar__menu-btn {
-        background-color: $secondary-color;
-        color: #fff;
-        border: none;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
+      &-link {
+        color: $primary-color;
+        text-decoration: none;
+        font-size: 1.2rem;
+        display: block;
+        padding: 0.5rem;
+        border-radius: 5px;
         transition: background-color 0.3s ease;
 
         &:hover {
-          background-color: darken($secondary-color, 10%);
+          background-color: $highlight-color;
+          color: $background-color;
+        }
+      }
+
+      &-btn {
+        background-color: $primary-color;
+        color: $highlight-color;
+        border: none;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        @include box-shadow;
+        @include transition;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
         }
       }
     }
   }
+}
 
-  &.open {
-    width: 100%;
-    background-color: rgba(
-      255,
-      255,
-      255,
-      0.9
-    ); // Add a semi-transparent white background
+// Media query for responsiveness
+@media (max-width: 768px) {
+  header {
+    .sidenavbar {
+      &__container {
+        width: 100%;
+      }
+    }
   }
 }

@@ -9,7 +9,9 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userType, setUserType] = useState(null);
-
+  const [selectedMenuItem, setSelectedMenuItem] = useState("");
+  const [customMenuItems, setCustomMenuItems] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   //@ Its Handling the logout functionality
   const handleLogout = async () => {
     const userId = localStorage.getItem("userid");
@@ -92,6 +94,13 @@ function Navbar() {
 
   const userMenuLinks = menuContents[userType] || [];
 
+  //@ Function to handle the addition of a new menu item
+  const addMenuItem = () => {
+    setCustomMenuItems([...customMenuItems, selectedMenuItem]);
+    setSelectedMenuItem("");
+    setIsModalOpen(false);
+  };
+
   return (
     <Fragment>
       {isLoading && <AllLoader />}
@@ -102,7 +111,35 @@ function Navbar() {
               <span className="logo-text">{logoText}</span>
             </Link>
           </div>
-
+          <div className="navbar-user-defined-items">
+            {customMenuItems.map((item, index) => (
+              <div key={index} className="custom-menu-item">
+                {item}
+              </div>
+            ))}
+            {isModalOpen && (
+              <div className="modal">
+                <select
+                  value={selectedMenuItem}
+                  onChange={(e) => setSelectedMenuItem(e.target.value)}
+                >
+                  <option value="" disabled>
+                    Select a menu item
+                  </option>
+                  {userMenuLinks.map((item) => (
+                    <option key={item.label} value={item.src}>
+                      {item.label}
+                    </option>
+                  ))}
+                </select>
+                <button onClick={addMenuItem}>Add</button>
+                <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+              </div>
+            )}
+            <div className="add-menu-item" onClick={() => setIsModalOpen(true)}>
+              +
+            </div>
+          </div>
           <div
             className={`menu ${isMenuOpen && "open"}`}
             onClick={toggleSideNavbar}
@@ -114,7 +151,7 @@ function Navbar() {
           <div id="navContainer" className="sidenavbar">
             <div className="sidenavbar__container">
               <div className="sidenavbar__brand">
-                <p className="sidenavbar__brand__name">Eduversa</p>
+                <span className="sidenavbar__brand__name">{logoText}</span>
                 <div
                   className={`menu ${isMenuOpen && "open"}`}
                   onClick={toggleSideNavbar}
