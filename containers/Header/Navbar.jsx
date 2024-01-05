@@ -9,9 +9,7 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userType, setUserType] = useState(null);
-  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
-  const [customMenuItems, setCustomMenuItems] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
   //@ Its Handling the logout functionality
   const handleLogout = async () => {
     const userId = localStorage.getItem("userid");
@@ -42,6 +40,7 @@ function Navbar() {
       }
     }
   };
+
   // @ Its tooggling the sidenavbar
   const toggleSideNavbar = () => {
     const navContainer = document.getElementById("navContainer");
@@ -94,19 +93,6 @@ function Navbar() {
 
   const userMenuLinks = menuContents[userType] || [];
 
-  //@ Function to handle the addition of a new menu item
-  const addMenuItem = () => {
-    if (selectedMenuItem) {
-      setCustomMenuItems([...customMenuItems, selectedMenuItem]);
-      setSelectedMenuItem(null);
-      setIsModalOpen(false);
-    }
-  };
-  const navigateToCustomMenuItem = (item) => {
-    router.push(item.src);
-    setIsMenuOpen(false);
-  };
-
   return (
     <Fragment>
       {isLoading && <AllLoader />}
@@ -117,44 +103,7 @@ function Navbar() {
               <span className="logo-text">{logoText}</span>
             </Link>
           </div>
-          <div className="navbar-user-defined-items">
-            {customMenuItems.map((item, index) => (
-              <div
-                key={index}
-                className="custom-menu-item"
-                onClick={() => navigateToCustomMenuItem(item)}
-              >
-                {item.label}
-              </div>
-            ))}
-            {isModalOpen && (
-              <div className="modal">
-                <select
-                  value={selectedMenuItem ? selectedMenuItem.src : ""}
-                  onChange={(e) => {
-                    const selectedItem = userMenuLinks.find(
-                      (item) => item.src === e.target.value
-                    );
-                    setSelectedMenuItem(selectedItem);
-                  }}
-                >
-                  <option value="" disabled>
-                    Select a menu item
-                  </option>
-                  {userMenuLinks.map((item) => (
-                    <option key={item.label} value={item.src}>
-                      {item.label}
-                    </option>
-                  ))}
-                </select>
-                <button onClick={addMenuItem}>Add</button>
-                <button onClick={() => setIsModalOpen(false)}>Cancel</button>
-              </div>
-            )}
-            <div className="add-menu-item" onClick={() => setIsModalOpen(true)}>
-              +
-            </div>
-          </div>
+          <div className="navbar-user-defined-items"></div>
           <div
             className={`menu ${isMenuOpen && "open"}`}
             onClick={toggleSideNavbar}
