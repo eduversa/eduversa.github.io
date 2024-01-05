@@ -9,7 +9,7 @@ const ManageApplicants = () => {
   const [applicantData, setapplicantData] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchCollegeData();
@@ -27,7 +27,6 @@ const ManageApplicants = () => {
       if (process.env.NODE_ENV === "development") {
         console.error("Error fetching college data:", error);
       }
-   
     }
   };
 
@@ -39,8 +38,9 @@ const ManageApplicants = () => {
       }
       setapplicantData(response.data);
     } catch (error) {
-      if(process.env.NODE_ENV == "development"){
-      console.error("Error fetching applicant data:", error);}
+      if (process.env.NODE_ENV == "development") {
+        console.error("Error fetching applicant data:", error);
+      }
     }
   };
 
@@ -61,20 +61,18 @@ const ManageApplicants = () => {
       );
     }
     if (searchQuery) {
-
       const searchLowerCase = searchQuery.toLowerCase();
       filteredResult = filteredResult.filter((item) => {
-        const firstName = (item.personal_info.first_name || '').toLowerCase();
-        const lastName = (item.personal_info.last_name || '').toLowerCase();
-    
+        const firstName = (item.personal_info.first_name || "").toLowerCase();
+        const lastName = (item.personal_info.last_name || "").toLowerCase();
+
         return (
           firstName.includes(searchLowerCase) ||
           lastName.includes(searchLowerCase)
         );
       });
     }
-    
-    
+
     return filteredResult;
   };
 

@@ -1,23 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+
 function NavbarV2() {
-  const [activeItem, setActiveItem] = useState("home");
+  const [activeItem, setActiveItem] = useState("Dashboard");
+  const [userType, setUserType] = useState("");
 
   const handleItemClick = (item) => {
-    setActiveItem(item);
+    setActiveItem(item.label);
   };
 
-  const menuItems = ["home", "about", "services", "contact"];
+  useEffect(() => {
+    const storedUserType = localStorage.getItem("userType");
+    setUserType(storedUserType);
+  }, []);
+
+  const menuContents = {
+    superAdmin: [],
+    admin: [
+      { label: "Dashboard", className: "nav-item", src: "/admin" },
+      {
+        label: "Manage Applicants",
+        className: "nav-item",
+        src: "/admin/manage/applicants",
+      },
+      {
+        label: "Manage Students",
+        className: "nav-item",
+        src: "/admin/manage/students",
+      },
+      {
+        label: "Update Applicants",
+        className: "nav-item",
+        src: "/admin/update/applicants",
+      },
+      {
+        label: "Update Students",
+        className: "nav-item",
+        src: "/admin/update/students",
+      },
+    ],
+    faculty: [{ label: "Dashboard", className: "nav-item", src: "/faculty" }],
+    student: [{ label: "Dashboard", className: "nav-item", src: "/student" }],
+  };
+
+  const userMenuLinks = menuContents[userType] || [];
 
   return (
-    <nav>
-      <ul>
-        {menuItems.map((item) => (
+    <nav className="navbar">
+      <ul className="nav-list">
+        {userMenuLinks.map((item) => (
           <li
-            key={item}
-            className={activeItem === item ? "active" : ""}
-            onClick={() => handleItemClick(item)}
+            key={item.label}
+            className={`nav-item ${activeItem === item.label ? "active" : ""}`}
           >
-            {item}
+            <Link href={item.src} passHref>
+              <div className="nav-link" onClick={() => handleItemClick(item)}>
+                {item.label}
+              </div>
+            </Link>
           </li>
         ))}
       </ul>
