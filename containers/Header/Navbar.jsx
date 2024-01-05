@@ -9,7 +9,7 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userType, setUserType] = useState(null);
-  const [selectedMenuItem, setSelectedMenuItem] = useState("");
+  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const [customMenuItems, setCustomMenuItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   //@ Its Handling the logout functionality
@@ -96,9 +96,15 @@ function Navbar() {
 
   //@ Function to handle the addition of a new menu item
   const addMenuItem = () => {
-    setCustomMenuItems([...customMenuItems, selectedMenuItem]);
-    setSelectedMenuItem("");
-    setIsModalOpen(false);
+    if (selectedMenuItem) {
+      setCustomMenuItems([...customMenuItems, selectedMenuItem]);
+      setSelectedMenuItem(null);
+      setIsModalOpen(false);
+    }
+  };
+  const navigateToCustomMenuItem = (item) => {
+    router.push(item.src);
+    setIsMenuOpen(false);
   };
 
   return (
@@ -113,15 +119,24 @@ function Navbar() {
           </div>
           <div className="navbar-user-defined-items">
             {customMenuItems.map((item, index) => (
-              <div key={index} className="custom-menu-item">
-                {item}
+              <div
+                key={index}
+                className="custom-menu-item"
+                onClick={() => navigateToCustomMenuItem(item)}
+              >
+                {item.label}
               </div>
             ))}
             {isModalOpen && (
               <div className="modal">
                 <select
-                  value={selectedMenuItem}
-                  onChange={(e) => setSelectedMenuItem(e.target.value)}
+                  value={selectedMenuItem ? selectedMenuItem.src : ""}
+                  onChange={(e) => {
+                    const selectedItem = userMenuLinks.find(
+                      (item) => item.src === e.target.value
+                    );
+                    setSelectedMenuItem(selectedItem);
+                  }}
                 >
                   <option value="" disabled>
                     Select a menu item
