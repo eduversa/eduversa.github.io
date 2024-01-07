@@ -1,0 +1,134 @@
+// Define colors
+$primary-color: #4e74f8;
+$background-color: #f0f0f0;
+$box-shadow-color: #d8d8d8;
+$highlight-color: #ffffff;
+
+// Define box shadow mixin
+@mixin box-shadow {
+  box-shadow: 0 2px 4px rgba($box-shadow-color, 0.2);
+}
+
+// Define transition mixin
+@mixin transition($properties: all, $duration: 0.3s, $timing-function: ease) {
+  transition: $properties $duration $timing-function;
+}
+
+// Navbar styling
+header {
+  background-color: $primary-color;
+  padding: 1rem;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    .logo-text {
+      color: $highlight-color;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+
+  .menu {
+    cursor: pointer;
+
+    &-line {
+      background-color: $highlight-color;
+      height: 3px;
+      margin: 6px 0;
+      width: 30px;
+    }
+  }
+
+  .sidenavbar {
+    background-color: $background-color;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    display: flex;
+    justify-content: flex-end;
+
+    &__container {
+      padding: 1rem;
+      width: 80%;
+    }
+
+    &__brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      &__name {
+        color: $primary-color;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    }
+
+    &__menu {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+
+      &-item {
+        margin-bottom: 1rem;
+      }
+
+      &-link {
+        color: $primary-color;
+        text-decoration: none;
+        font-size: 1.2rem;
+        display: block;
+        padding: 0.5rem;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: $highlight-color;
+          color: $background-color;
+        }
+      }
+
+      &-btn {
+        background-color: $primary-color;
+        color: $highlight-color;
+        border: none;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        @include box-shadow;
+        @include transition;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+  }
+}
+
+// Media query for responsiveness
+@media (max-width: 768px) {
+  header {
+    .sidenavbar {
+      &__container {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -24,9 +24,9 @@ const deleteApplicantApi = async (userId) => {
       if (process.env.NODE_ENV === "development") {
         console.log(response);
       }
-      throw new Error(
-        `Delete Applicant request failed with status ${response.status}`
-      );
+      // throw new Error(
+      //   `Delete Applicant request failed with status ${response.status}`
+      // );
     }
     if (process.env.NODE_ENV === "development") {
       console.log("Response:", response);

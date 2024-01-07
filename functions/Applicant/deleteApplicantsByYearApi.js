@@ -24,9 +24,9 @@ const deleteApplicantsByYearApi = async (year) => {
       if (process.env.NODE_ENV === "development") {
         console.log(response);
       }
-      throw new Error(
-        `Delete Applicants By Year request failed with status ${response.status}`
-      );
+      // throw new Error(
+      //   `Delete Applicants By Year request failed with status ${response.status}`
+      // );
     }
     if (process.env.NODE_ENV === "development") {
       console.log("Response:", response);

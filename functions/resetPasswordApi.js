@@ -34,9 +34,9 @@ const resetPasswordApi = async (
       if (process.env.NODE_ENV === "development") {
         console.log(response);
       }
-      throw new Error(
-        `Reset Password request failed with status ${response.status}`
-      );
+      // throw new Error(
+      //   `Reset Password request failed with status ${response.status}`
+      // );
     }
     if (process.env.NODE_ENV === "development") {
       console.log("Response:", response);
