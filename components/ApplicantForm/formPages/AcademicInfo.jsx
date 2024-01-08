@@ -24,13 +24,13 @@ const AcademicInfo = ({
 }) => {
   let year = new Date().getFullYear().toString();
   const [loading, setLoading] = useState(false);
-
+  {
+    /*  #ff0000  marks input change */
+    // a commit to check if the changes are reflected
+  }
   async function onSubmitHandler() {
     setLoading(true);
-    localStorage.setItem(
-      "applicant_profile",
-      JSON.stringify(formData)
-    );
+    localStorage.setItem("applicant_profile", JSON.stringify(formData));
     const data = JSON.stringify(formData.academic_info);
     const type = "academic";
     // const userid = localStorage.getItem("userid");
@@ -137,6 +137,7 @@ const AcademicInfo = ({
             required
           />
         </div>
+        {/*  #ff0000  marks input */}
         <Text
           style={{
             marginBottom: "2.25rem",
