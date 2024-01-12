@@ -88,9 +88,6 @@ function Login() {
       if (process.env.NODE_ENV === "development") {
         console.log("Login data:", apiResponse);
       }
-      // commit for today
-      // commit for today
-      // ??
       localStorage.setItem("authToken", apiResponse.authToken);
       localStorage.setItem("email", apiResponse.data.email);
       localStorage.setItem("userType", apiResponse.data.type);
