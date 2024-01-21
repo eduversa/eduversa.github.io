@@ -20,8 +20,8 @@ function AdminLayout({ children }) {
   }, [router]);
   return (
     <Fragment>
-      {/* <Navbar></Navbar> */}
-      <NavbarV2></NavbarV2>
+      <Navbar></Navbar>
+      {/* <NavbarV2></NavbarV2> */}
       <div className="wrapper">{children}</div>
       <Footer></Footer>
     </Fragment>
