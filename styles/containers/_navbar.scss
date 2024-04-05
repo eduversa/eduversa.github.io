@@ -9,6 +9,7 @@
   z-index: 100;
   @include flex-container(row, nowrap, space-between, center);
   transition: box-shadow 1s ease-in-out;
+  transition: background-color 0.3s ease;
   @media (max-width: $breakpoint-desktop-wide) {
     padding: 0.8rem 1.2rem;
   }
@@ -295,6 +296,32 @@
         color: var(--white);
         font-size: var(--font-7);
         letter-spacing: 2px;
+        position: relative;
+        &:hover {
+          transform: scale(1.1);
+          text-shadow: 2px 2px 4px var(--white-shadow-medium);
+          color: var(--blue-2);
+        }
+
+        &:active {
+          transform: scale(0.9);
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0;
+          height: 3px;
+          background-color: var(--blue-8);
+          transition: width 0.3s ease-in-out;
+        }
+
+        &:hover::after {
+          width: 100%;
+        }
       }
     }
 
@@ -365,8 +392,4 @@
       }
     }
   }
-}
-
-.navbar {
-  transition: background-color 0.3s ease;
 }
