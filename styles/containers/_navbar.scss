@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #343a40;
+  background-color: #000000;
   color: #ffffff;
   padding: 1rem;
   display: flex;
@@ -7,9 +7,11 @@
   align-items: center;
   position: relative;
   z-index: 1;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
 
   .logo {
+    position: relative;
+
     .logo-text {
       font-size: 1.5rem;
       font-weight: bold;
@@ -18,8 +20,24 @@
       color: #ffffff;
 
       &:hover {
-        color: #6c757d;
+        color: #cccccc;
       }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -20px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover::before {
+      transform: scale(1.5);
     }
   }
 
@@ -37,7 +55,7 @@
         transition: color 0.3s ease;
 
         &:hover {
-          color: #6c757d;
+          color: #cccccc;
         }
       }
 
@@ -64,13 +82,22 @@
     &.open {
       .menu-line {
         background-color: #ffffff;
+        transform: rotate(45deg);
+      }
+
+      .menu-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-line:nth-child(3) {
+        transform: rotate(-45deg);
       }
     }
 
     .menu-line {
       width: 25px;
       height: 2px;
-      background-color: #6c757d;
+      background-color: #ffffff;
       margin: 4px 0;
       transition: all 0.3s ease;
     }
@@ -81,12 +108,15 @@
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
-  background-color: #343a40;
+  background-color: #000000;
   color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
   padding: 10px;
   z-index: 2;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 
   ul {
     list-style-type: none;
@@ -96,9 +126,10 @@
     li {
       padding: 10px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #454d55;
+        background-color: #111111;
       }
     }
   }
@@ -110,7 +141,7 @@
   left: 0;
   height: 100%;
   width: 0;
-  background-color: #343a40;
+  background-color: #000000;
   overflow-x: hidden;
   transition: width 0.5s;
   z-index: 1;
@@ -152,10 +183,24 @@
           transition: color 0.3s ease;
 
           &:hover {
-            color: #6c757d;
+            color: #cccccc;
           }
         }
       }
     }
+  }
+}
+
+// Additional Enhancements
+
+.navbar {
+  transition: background-color 0.3s ease;
+  // Smooth transition for background color change
+}
+
+.menu-panel {
+  &:hover {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
