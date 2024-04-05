@@ -8,10 +8,10 @@
   position: relative;
   z-index: 1;
   box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
-
+  --navabar-height: 70px;
+  height: var(--navabar-height);
   .logo {
     position: relative;
-
     .logo-text {
       font-size: 1.5rem;
       font-weight: bold;
@@ -106,15 +106,14 @@
 
 .menu-panel {
   position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
+  top: var(--navabar-height);
   background-color: #000000;
   color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
   padding: 10px;
   z-index: 2;
-  opacity: 0;
+  left: 45%;
   transform: translateY(-10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
 
