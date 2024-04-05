@@ -16,11 +16,12 @@ $highlight-color: #ffffff;
 
 // Navbar styling
 header {
-  background-color: $primary-color;
-  padding: 1rem;
-  position: fixed;
-  width: 100%;
-  z-index: 1000;
+  // todo need to fix it with classname
+  // background-color: $primary-color;
+  // padding: 1rem;
+  // position: fixed;
+  // width: 100%;
+  // z-index: 1000;
 
   .navbar {
     display: flex;
