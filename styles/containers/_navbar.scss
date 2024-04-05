@@ -104,6 +104,7 @@
     }
     .nav-item {
       position: relative;
+      display: block;
       margin: 0 2rem 0 0;
       @media (max-width: $breakpoint-desktop-wide) {
       }
@@ -163,6 +164,11 @@
         &:active {
           transform: scale(0.95);
         }
+        &:hover + button {
+          .close-icon {
+            display: block;
+          }
+        }
       }
 
       button {
@@ -173,6 +179,9 @@
         position: absolute;
         top: 60%;
         transform: translateY(-50%);
+        .close-icon {
+          display: none;
+        }
       }
     }
   }

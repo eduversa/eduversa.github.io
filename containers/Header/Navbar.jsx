@@ -139,6 +139,7 @@ function Navbar() {
                 </Link>
                 <button onClick={() => removeCustomLink(index)}>
                   <Image
+                    className="close-icon"
                     src="/nav/close.png"
                     alt="Remove custom link"
                     width={30}
