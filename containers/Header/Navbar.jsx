@@ -62,7 +62,7 @@ function Navbar() {
 
   //@ Function to add custom link
   const addCustomLink = (link) => {
-    const MAX_CUSTOM_LINKS = 4; // Maximum number of custom links allowed
+    const MAX_CUSTOM_LINKS = 4;
 
     if (customLinks.length < MAX_CUSTOM_LINKS && !customLinks.includes(link)) {
       const updatedLinks = [...customLinks, link];
