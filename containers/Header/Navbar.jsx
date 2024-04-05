@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { AllLoader } from "@/components";
 import { logoutApi } from "@/functions";
-
+import Image from "next/image";
 function Navbar() {
   const router = useRouter();
   const logoText = "eduversa";
@@ -138,7 +138,14 @@ function Navbar() {
                 <Link href={link.src} className="nav-item-link">
                   <span>{link.label}</span>
                 </Link>
-                <button onClick={() => removeCustomLink(index)}>X</button>
+                <button onClick={() => removeCustomLink(index)}>
+                  <Image
+                    src="/nav/close.png"
+                    alt="Remove custom link"
+                    width={30}
+                    height={30}
+                  />
+                </button>
               </div>
             ))}
             {customLinks.length < 4 && (
@@ -146,7 +153,14 @@ function Navbar() {
                 className="nav-item"
                 onClick={() => setShowMenuPanel(!showMenuPanel)}
               >
-                <span style={{ cursor: "pointer" }}>+</span>
+                <span style={{ cursor: "pointer" }}>
+                  <Image
+                    src="/nav/add.gif"
+                    alt="Add custom link"
+                    width={50}
+                    height={50}
+                  />
+                </span>
               </div>
             )}
           </div>
