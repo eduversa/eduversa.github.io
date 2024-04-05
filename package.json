@@ -42,20 +42,20 @@
     "not dead"
   ],
   "dependencies": {
-    "@vercel/analytics": "^1.1.1",
-    "@vercel/speed-insights": "^1.0.2",
+    "@vercel/analytics": "^1.2.2",
+    "@vercel/speed-insights": "^1.0.10",
     "fs": "^0.0.1-security",
-    "next": "^14.0.4",
-    "next-auth": "^4.24.5",
+    "next": "^14.1.4",
+    "next-auth": "^4.24.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sharp": "^0.32.6",
+    "sharp": "^0.33.3",
     "sitemap": "^7.1.1"
   },
   "devDependencies": {
-    "eslint": "^8.53.0",
-    "eslint-config-next": "14.0.2",
-    "sass": "^1.69.5"
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.1.4",
+    "sass": "^1.74.1"
   },
   "contributing": {
     "url": "https://github.com/eduversa/eduversa.github.io/blob/main/CONTRIBUTING.md"
