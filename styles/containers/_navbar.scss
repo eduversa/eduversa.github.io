@@ -2,9 +2,7 @@
   background-color: #000000;
   color: #ffffff;
   padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-container(row, nowrap, space-between, center);
   position: relative;
   z-index: 1;
   box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
