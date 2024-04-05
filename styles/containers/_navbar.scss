@@ -1,9 +1,10 @@
 // Variables
-$primary-color: #007bff;
-$secondary-color: #6c757d;
-$background-color: #f8f9fa;
-$hover-color: #0056b3;
-$highlight-color: #ffc107;
+$primary-color: #ff6b6b; // Red
+$secondary-color: #ffe66d; // Yellow
+$background-color: #f4f4f4; // Light gray
+$hover-color: #ff9f43; // Orange
+$highlight-color: #32e0c4; // Turquoise
+$navbar-background: #343a40; // Black
 
 // Mixins
 @mixin flex-center {
@@ -14,14 +15,14 @@ $highlight-color: #ffc107;
 
 // Navbar Styles
 .navbar {
-  background: linear-gradient(to right, #007bff, #6c757d);
+  background-color: $navbar-background;
   color: white;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
 
   .logo {
     .logo-text {
@@ -30,6 +31,7 @@ $highlight-color: #ffc107;
       cursor: pointer;
       text-decoration: none;
       color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
   }
 
@@ -46,10 +48,11 @@ $highlight-color: #ffc107;
     }
 
     .menu-line {
-      width: 25px;
-      height: 2px;
-      background-color: $secondary-color;
-      margin: 4px 0;
+      width: 30px;
+      height: 3px;
+      background-color: white;
+      margin: 5px 0;
+      border-radius: 3px;
       transition: all 0.3s ease;
     }
   }
@@ -64,8 +67,8 @@ $highlight-color: #ffc107;
   background-color: $background-color;
   overflow-x: hidden;
   transition: width 0.5s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
 
   &__container {
     width: 100%;
@@ -98,6 +101,7 @@ $highlight-color: #ffc107;
 
         &:hover {
           transform: translateX(5px);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
       }
 
