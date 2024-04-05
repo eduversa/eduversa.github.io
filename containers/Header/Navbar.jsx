@@ -3,16 +3,12 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { AllLoader } from "@/components";
 import { logoutApi } from "@/functions";
-
 function Navbar() {
   const router = useRouter();
   const logoText = "eduversa";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userType, setUserType] = useState(null);
-  const [showMenuPanel, setShowMenuPanel] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState(null);
-  const [customLinks, setCustomLinks] = useState([]);
 
   //@ Its Handling the logout functionality
   const handleLogout = async () => {
@@ -44,40 +40,22 @@ function Navbar() {
       }
     }
   };
-
-  //@ Toggling the sidenavbar
+  // @ Its tooggling the sidenavbar
   const toggleSideNavbar = () => {
+    const navContainer = document.getElementById("navContainer");
+    const width = navContainer.offsetWidth;
+    if (width > 0) {
+      navContainer.style.width = "0px";
+    } else {
+      navContainer.style.width = "100%";
+    }
     setIsMenuOpen(!isMenuOpen);
   };
-
-  //@ This code will handle the user type and their respective links
+  // @ This code will handle the user type and their respective links
   useEffect(() => {
     const storedUserType = localStorage.getItem("userType");
     setUserType(storedUserType);
-
-    const storedCustomLinks =
-      JSON.parse(localStorage.getItem("customLinks")) || [];
-    setCustomLinks(storedCustomLinks);
   }, []);
-
-  //@ Function to add custom link
-  const addCustomLink = (link) => {
-    if (customLinks.length < 4) {
-      const updatedLinks = [...customLinks, link];
-      setCustomLinks(updatedLinks);
-      localStorage.setItem("customLinks", JSON.stringify(updatedLinks));
-      setShowMenuPanel(false);
-    }
-  };
-
-  //@ Function to remove custom link
-  const removeCustomLink = (index) => {
-    const updatedLinks = [...customLinks];
-    updatedLinks.splice(index, 1);
-    setCustomLinks(updatedLinks);
-    localStorage.setItem("customLinks", JSON.stringify(updatedLinks));
-  };
-
   const menuContents = {
     superAdmin: [],
     admin: [
@@ -92,6 +70,16 @@ function Navbar() {
         className: "nav-item",
         src: "/admin/manage/students",
       },
+      // {
+      //   label: "Update Applicants",
+      //   className: "nav-item",
+      //   src: "/admin/update/applicants",
+      // },
+      // {
+      //   label: "Update Students",
+      //   className: "nav-item",
+      //   src: "/admin/update/students",
+      // },
     ],
     faculty: [
       { label: "Dashboard", className: "nav-item", src: "/faculty/dashboard" },
@@ -102,7 +90,6 @@ function Navbar() {
   };
 
   const userMenuLinks = menuContents[userType] || [];
-
   return (
     <Fragment>
       {isLoading && <AllLoader />}
@@ -113,22 +100,7 @@ function Navbar() {
               <span className="logo-text">{logoText}</span>
             </Link>
           </div>
-          <div className="navbar-links">
-            {customLinks.map((link, index) => (
-              <div key={index} className="nav-item">
-                <Link href={link.src} className="nav-item-link">
-                  <span>{link.label}</span>
-                </Link>
-                <button onClick={() => removeCustomLink(index)}>X</button>
-              </div>
-            ))}
-            <div
-              className="nav-item"
-              onClick={() => setShowMenuPanel(!showMenuPanel)}
-            >
-              <span style={{ cursor: "pointer" }}>+</span>
-            </div>
-          </div>
+          <div className="navbar-user-defined-items"></div>
           <div
             className={`menu ${isMenuOpen && "open"}`}
             onClick={toggleSideNavbar}
@@ -137,18 +109,45 @@ function Navbar() {
             <div className="menu-line"></div>
             <div className="menu-line"></div>
           </div>
-        </nav>
-        {showMenuPanel && (
-          <div className="menu-panel">
-            <ul>
-              {userMenuLinks.map((item, index) => (
-                <li key={index} onClick={() => addCustomLink(item)}>
-                  {item.label}
+          <div id="navContainer" className="sidenavbar">
+            <div className="sidenavbar__container">
+              <div className="sidenavbar__brand">
+                <span className="sidenavbar__brand__name">{logoText}</span>
+                <div
+                  className={`menu ${isMenuOpen && "open"}`}
+                  onClick={toggleSideNavbar}
+                >
+                  <div className="menu-line"></div>
+                  <div className="menu-line"></div>
+                  <div className="menu-line"></div>
+                </div>
+              </div>
+
+              <ul className="sidenavbar__menu">
+                {userMenuLinks.map((item) => {
+                  return (
+                    <li
+                      key={JSON.stringify(item)}
+                      className="sidenavbar__menu-item"
+                    >
+                      <Link href={item.src} className="sidenavbar__menu-link">
+                        <span>{item.label}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+                <li className="sidenavbar__menu-item">
+                  <button
+                    className="sidenavbar__menu-btn"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
                 </li>
-              ))}
-            </ul>
+              </ul>
+            </div>
           </div>
-        )}
+        </nav>
       </header>
     </Fragment>
   );
