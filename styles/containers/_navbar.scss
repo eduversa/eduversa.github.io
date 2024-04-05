@@ -188,7 +188,6 @@
 
   .menu {
     cursor: pointer;
-    // display: none;
     transition: all 3s ease-in-out;
     @media (max-width: $breakpoint-desktop-wide) {
     }
@@ -273,31 +272,26 @@
   left: 0;
   height: 100%;
   width: 0;
-  background-color: #000000;
+  background-color: var(--black);
   overflow-x: hidden;
   transition: width 0.5s;
   z-index: 1;
 
   &.open {
-    width: 250px; // Width of the sidebar when open
+    width: 300px;
   }
 
   .sidenavbar__container {
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+    @include flex-container(column, nowrap, center, flex-start);
     .sidenavbar__brand {
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
+      margin: 0 0 10% 0;
 
       .sidenavbar__brand__name {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #ffffff;
-        margin-left: 10px;
+        font-family: var(--font-moleth);
+        color: var(--white);
+        font-size: var(--font-7);
+        letter-spacing: 2px;
       }
     }
 
@@ -305,17 +299,64 @@
       list-style-type: none;
       padding: 0;
       margin: 0;
+      font-size: var(--font-11);
+      font-family: var(--font-tektur);
+      letter-spacing: 2px;
+      font-weight: 500;
 
       .sidenavbar__menu-item {
         margin-bottom: 10px;
 
         .sidenavbar__menu-link {
-          color: #ffffff;
+          display: block;
+          padding: 15px;
+          color: #add8e6; /* Light blue color */
           text-decoration: none;
-          transition: color 0.3s ease;
+          overflow: hidden;
+          transition: color 0.3s ease, transform 0.3s ease;
+
+          &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              to right,
+              rgba(173, 216, 230, 0.5),
+              /* Light blue color with transparency */ transparent
+            );
+            z-index: -1;
+            transition: transform 0.3s ease;
+            transform: translateX(-100%);
+          }
 
           &:hover {
-            color: #cccccc;
+            color: #00bfff; /* Light sky blue color */
+            transform: translateX(5px) rotateY(5deg);
+            &:before {
+              transform: translateX(0);
+            }
+            &:after {
+              animation: pulse 1s infinite alternate;
+            }
+          }
+          &.active {
+            box-shadow: 0 0 10px rgba(173, 216, 230, 0.5); /* Light blue shadow */
+            transform: rotateY(5deg);
+            &:after {
+              animation: pulse 1s infinite alternate;
+            }
+          }
+        }
+
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+          }
+          100% {
+            transform: scale(1.1);
           }
         }
       }
