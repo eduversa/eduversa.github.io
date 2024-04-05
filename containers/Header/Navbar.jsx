@@ -62,11 +62,15 @@ function Navbar() {
 
   //@ Function to add custom link
   const addCustomLink = (link) => {
-    if (customLinks.length < 4) {
+    const MAX_CUSTOM_LINKS = 4; // Maximum number of custom links allowed
+
+    if (customLinks.length < MAX_CUSTOM_LINKS && !customLinks.includes(link)) {
       const updatedLinks = [...customLinks, link];
       setCustomLinks(updatedLinks);
       localStorage.setItem("customLinks", JSON.stringify(updatedLinks));
       setShowMenuPanel(false);
+    } else {
+      alert("Maximum custom links reached or link already added.");
     }
   };
 
@@ -103,6 +107,11 @@ function Navbar() {
 
   const userMenuLinks = menuContents[userType] || [];
 
+  // Filter out selected links from userMenuLinks
+  const filteredMenuLinks = userMenuLinks.filter(
+    (item) => !customLinks.some((link) => link.src === item.src)
+  );
+
   return (
     <Fragment>
       {isLoading && <AllLoader />}
@@ -122,12 +131,14 @@ function Navbar() {
                 <button onClick={() => removeCustomLink(index)}>X</button>
               </div>
             ))}
-            <div
-              className="nav-item"
-              onClick={() => setShowMenuPanel(!showMenuPanel)}
-            >
-              <span style={{ cursor: "pointer" }}>+</span>
-            </div>
+            {customLinks.length < 4 && (
+              <div
+                className="nav-item"
+                onClick={() => setShowMenuPanel(!showMenuPanel)}
+              >
+                <span style={{ cursor: "pointer" }}>+</span>
+              </div>
+            )}
           </div>
           <div
             className={`menu ${isMenuOpen && "open"}`}
@@ -141,7 +152,7 @@ function Navbar() {
         {showMenuPanel && (
           <div className="menu-panel">
             <ul>
-              {userMenuLinks.map((item, index) => (
+              {filteredMenuLinks.map((item, index) => (
                 <li key={index} onClick={() => addCustomLink(item)}>
                   {item.label}
                 </li>
