@@ -117,7 +117,6 @@ function Navbar() {
 
   const userMenuLinks = menuContents[userType] || [];
 
-  // Filter out selected links from userMenuLinks
   const filteredMenuLinks = userMenuLinks.filter(
     (item) => !customLinks.some((link) => link.src === item.src)
   );

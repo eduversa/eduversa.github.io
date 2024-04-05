@@ -88,20 +88,80 @@
   }
 
   .navbar-links {
-    display: flex;
-    align-items: center;
-
+    list-style: none;
+    padding: 0;
+    @include flex-container(row, nowrap, flex-start, center);
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      display: none;
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .nav-item {
-      margin-right: 20px;
       position: relative;
+      margin: 0 2rem 0 0;
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+        margin: 0 1rem 0 0;
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
 
       .nav-item-link {
-        color: #ffffff;
+        position: relative;
         text-decoration: none;
-        transition: color 0.3s ease;
+        cursor: pointer;
+        color: var(--yellow-1);
+        color: var(--white);
+        font-family: var(--font-tektur);
+        font-size: var(--font-11);
+        font-weight: 500;
+        text-transform: capitalize;
+        letter-spacing: 2px;
+        transition: color 0.3s, transform 0.3s, background 0.3s, box-shadow 0.3s;
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+          font-size: var(--font-12);
+        }
+        @media (max-width: $breakpoint-tablet) {
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
+        &:before {
+          content: "";
+          position: absolute;
+          bottom: -5px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: var(--blue-8);
+          transition: width 0.3s ease-in-out;
+        }
 
         &:hover {
-          color: #cccccc;
+          color: var(--blue-2);
+          &:before {
+            width: 100%;
+          }
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        &:active {
+          transform: scale(0.95);
         }
       }
 
