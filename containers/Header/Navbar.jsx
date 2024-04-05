@@ -187,18 +187,23 @@ function Navbar() {
       </header>
       <div className={`sidenavbar ${isMenuOpen && "open"}`}>
         <div className="sidenavbar__container">
-          <div className="sidenavbar__brand">
-            <span className="sidenavbar__brand__name">{logoText}</span>
+          <div className="upper-side">
+            <div className="sidenavbar__brand">
+              <span className="sidenavbar__brand__name">{logoText}</span>
+            </div>
+            <ul className="sidenavbar__menu">
+              {userMenuLinks.map((item, index) => (
+                <li key={index} className="sidenavbar__menu-item">
+                  <Link href={item.src} className="sidenavbar__menu-link">
+                    <span>{item.label}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="sidenavbar__menu">
-            {userMenuLinks.map((item, index) => (
-              <li key={index} className="sidenavbar__menu-item">
-                <Link href={item.src} className="sidenavbar__menu-link">
-                  <span>{item.label}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="sidenavbar__logout lower-side">
+            <button onClick={handleLogout}>Logout</button>
+          </div>
         </div>
       </div>
     </Fragment>
