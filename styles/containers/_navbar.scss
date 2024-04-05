@@ -1,41 +1,89 @@
 .navbar {
-  background-color: #000000;
-  color: #ffffff;
-  padding: 1rem;
+  --landing-nav-height: 70px;
+  --landing-nav-height-tab: 60px;
+  --landing-nav-height-phone: 50px;
+  height: var(--landing-nav-height);
+  background-color: var(--black);
+  color: var(--white);
+  padding: 1rem 1.5rem;
+  z-index: 100;
   @include flex-container(row, nowrap, space-between, center);
-  position: relative;
-  z-index: 1;
-  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
-  --navabar-height: 70px;
-  height: var(--navabar-height);
+  transition: box-shadow 1s ease-in-out;
+  @media (max-width: $breakpoint-desktop-wide) {
+    padding: 0.8rem 1.2rem;
+  }
+  @media (max-width: $breakpoint-desktop) {
+    padding: 0.7rem 1.1rem;
+  }
+  @media (max-width: $breakpoint-large-tablet) {
+    padding: 0.5rem 1rem;
+  }
+  @media (max-width: $breakpoint-tablet) {
+    height: var(--landing-nav-height-tab);
+  }
+  @media (max-width: $breakpoint-phone) {
+    height: var(--landing-nav-height-phone);
+  }
+
   .logo {
     position: relative;
+    z-index: 1;
+    font-family: var(--font-moleth);
+    font-size: var(--font-7);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-5);
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .logo-text {
-      font-size: 1.5rem;
-      font-weight: bold;
       cursor: pointer;
+      color: var(--white);
       text-decoration: none;
-      color: #ffffff;
-
-      &:hover {
-        color: #cccccc;
+      transition: transform 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+      @media (max-width: $breakpoint-desktop-wide) {
       }
-    }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
+      &:hover {
+        transform: scale(1.1);
+        text-shadow: 2px 2px 4px var(--white-shadow-medium);
+        color: var(--blue-2);
+      }
 
-    &::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: -20px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: #ffffff;
-      transition: transform 0.3s ease;
-    }
+      &:active {
+        transform: scale(0.9);
+      }
 
-    &:hover::before {
-      transform: scale(1.5);
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 3px;
+        background-color: var(--blue-8);
+        transition: width 0.3s ease-in-out;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
     }
   }
 
