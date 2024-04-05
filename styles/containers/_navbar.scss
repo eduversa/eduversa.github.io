@@ -164,11 +164,6 @@
         &:active {
           transform: scale(0.95);
         }
-        &:hover + button {
-          .close-icon {
-            display: block;
-          }
-        }
       }
 
       button {
@@ -181,6 +176,11 @@
         transform: translateY(-50%);
         .close-icon {
           display: none;
+        }
+      }
+      &:hover {
+        .close-icon {
+          display: block;
         }
       }
     }
