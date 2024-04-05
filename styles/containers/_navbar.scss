@@ -264,6 +264,9 @@
       }
     }
   }
+  &:hover {
+    transform: translateY(0);
+  }
 }
 
 .sidenavbar {
@@ -310,7 +313,7 @@
         .sidenavbar__menu-link {
           display: block;
           padding: 15px;
-          color: #add8e6; /* Light blue color */
+          color: #add8e6;
           text-decoration: none;
           overflow: hidden;
           transition: color 0.3s ease, transform 0.3s ease;
@@ -325,7 +328,7 @@
             background: linear-gradient(
               to right,
               rgba(173, 216, 230, 0.5),
-              /* Light blue color with transparency */ transparent
+              transparent
             );
             z-index: -1;
             transition: transform 0.3s ease;
@@ -333,7 +336,7 @@
           }
 
           &:hover {
-            color: #00bfff; /* Light sky blue color */
+            color: #00bfff;
             transform: translateX(5px) rotateY(5deg);
             &:before {
               transform: translateX(0);
@@ -343,7 +346,7 @@
             }
           }
           &.active {
-            box-shadow: 0 0 10px rgba(173, 216, 230, 0.5); /* Light blue shadow */
+            box-shadow: 0 0 10px rgba(173, 216, 230, 0.5);
             transform: rotateY(5deg);
             &:after {
               animation: pulse 1s infinite alternate;
@@ -364,16 +367,6 @@
   }
 }
 
-// Additional Enhancements
-
 .navbar {
   transition: background-color 0.3s ease;
-  // Smooth transition for background color change
-}
-
-.menu-panel {
-  &:hover {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
