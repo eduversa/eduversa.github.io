@@ -112,8 +112,12 @@
   width: 0;
   background-color: #343a40;
   overflow-x: hidden;
-  transition: 0.5s;
+  transition: width 0.5s;
   z-index: 1;
+
+  &.open {
+    width: 250px; // Width of the sidebar when open
+  }
 
   .sidenavbar__container {
     padding: 20px;
