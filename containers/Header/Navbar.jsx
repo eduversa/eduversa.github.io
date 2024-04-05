@@ -85,7 +85,7 @@ function Navbar() {
   const menuContents = {
     superAdmin: [],
     admin: [
-      { label: "Dashboard", className: "nav-item", src: "/admin/dashboard" },
+      { label: "Dashboard", className: "nav-item", src: "/admin" },
       {
         label: "Manage Applicants",
         className: "nav-item",
@@ -95,6 +95,16 @@ function Navbar() {
         label: "Manage Students",
         className: "nav-item",
         src: "/admin/manage/students",
+      },
+      {
+        label: "Contact Us",
+        className: "nav-item",
+        src: "/admin/contact",
+      },
+      {
+        label: "About Us",
+        className: "nav-item",
+        src: "/admin/about",
       },
     ],
     faculty: [
