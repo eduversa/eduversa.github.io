@@ -1,0 +1,112 @@
+// Variables
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Navbar Styles
+.navbar {
+  background-color: $primary-color;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .logo {
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+    }
+  }
+
+  .menu {
+    display: flex; // Ensure the hamburger menu is always visible
+    flex-direction: column;
+    cursor: pointer;
+
+    &.open {
+      .menu-line {
+        background-color: white;
+      }
+    }
+
+    .menu-line {
+      width: 25px;
+      height: 2px;
+      background-color: $secondary-color;
+      margin: 4px 0;
+      transition: all 0.3s ease;
+    }
+  }
+}
+
+.sidenavbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: $primary-color;
+  overflow-x: hidden;
+  transition: 0.5s;
+
+  &__container {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+
+    .sidenavbar__brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+
+      .sidenavbar__brand__name {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+      }
+    }
+
+    .sidenavbar__menu {
+      list-style-type: none;
+      padding: 0;
+
+      .sidenavbar__menu-item {
+        margin-bottom: 1rem;
+      }
+
+      .sidenavbar__menu-link {
+        color: white;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .sidenavbar__menu-btn {
+        background-color: transparent;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 1rem;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
