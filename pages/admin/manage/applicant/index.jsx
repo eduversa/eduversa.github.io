@@ -143,7 +143,11 @@ function Index() {
         {currentApplicants.length > 0 ? (
           currentApplicants.map((applicant) => (
             <div key={applicant._id} className="card">
-              <h2>{applicant.personal_info.name}</h2>
+              <h2>
+                {applicant.personal_info.first_name +
+                  " " +
+                  applicant.personal_info.last_name}
+              </h2>
               <p>
                 <strong>Enrollment Number:</strong> {applicant.user_id}
               </p>
