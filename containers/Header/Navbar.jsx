@@ -62,7 +62,7 @@ function Navbar() {
 
   //@ Function to add custom link
   const addCustomLink = (link) => {
-    const MAX_CUSTOM_LINKS = 4; // Maximum number of custom links allowed
+    const MAX_CUSTOM_LINKS = 4;
 
     if (customLinks.length < MAX_CUSTOM_LINKS && !customLinks.includes(link)) {
       const updatedLinks = [...customLinks, link];
@@ -117,7 +117,6 @@ function Navbar() {
 
   const userMenuLinks = menuContents[userType] || [];
 
-  // Filter out selected links from userMenuLinks
   const filteredMenuLinks = userMenuLinks.filter(
     (item) => !customLinks.some((link) => link.src === item.src)
   );
@@ -126,7 +125,7 @@ function Navbar() {
     <Fragment>
       {isLoading && <AllLoader />}
       <header>
-        <nav className="navbar">
+        <nav className="navbar none">
           <div className="logo">
             <Link href="/">
               <span className="logo-text">{logoText}</span>
@@ -140,6 +139,7 @@ function Navbar() {
                 </Link>
                 <button onClick={() => removeCustomLink(index)}>
                   <Image
+                    className="close-icon"
                     src="/nav/close.png"
                     alt="Remove custom link"
                     width={30}
@@ -155,7 +155,7 @@ function Navbar() {
               >
                 <span style={{ cursor: "pointer" }}>
                   <Image
-                    src="/nav/add.gif"
+                    src="/nav/add2.gif"
                     alt="Add custom link"
                     width={50}
                     height={50}
@@ -187,18 +187,23 @@ function Navbar() {
       </header>
       <div className={`sidenavbar ${isMenuOpen && "open"}`}>
         <div className="sidenavbar__container">
-          <div className="sidenavbar__brand">
-            <span className="sidenavbar__brand__name">{logoText}</span>
+          <div className="upper-side">
+            <div className="sidenavbar__brand">
+              <span className="sidenavbar__brand__name">{logoText}</span>
+            </div>
+            <ul className="sidenavbar__menu">
+              {userMenuLinks.map((item, index) => (
+                <li key={index} className="sidenavbar__menu-item">
+                  <Link href={item.src} className="sidenavbar__menu-link">
+                    <span>{item.label}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="sidenavbar__menu">
-            {userMenuLinks.map((item, index) => (
-              <li key={index} className="sidenavbar__menu-item">
-                <Link href={item.src} className="sidenavbar__menu-link">
-                  <span>{item.label}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="sidenavbar__logout lower-side">
+            <button onClick={handleLogout}>Logout</button>
+          </div>
         </div>
       </div>
     </Fragment>
