@@ -121,19 +121,23 @@ function Index() {
   return (
     <Fragment>
       {loading && <AllLoader />}
-      <h1>Applicants for 2023:</h1>
-      <div>
+      <h1 className="title">Applicants for 2023:</h1>
+      <div className="filters">
         <input
           type="text"
           placeholder="Search by name"
           value={searchTerm}
           onChange={handleSearchChange}
+          className="search-input"
         />
-        <label htmlFor="course">Select Course:</label>
+        <label htmlFor="course" className="filter-label">
+          Select Course:
+        </label>
         <select
           id="course"
           value={selectedCourse}
           onChange={handleCourseChange}
+          className="filter-select"
         >
           <option value="">All Courses</option>
           {collegeData &&
@@ -145,11 +149,14 @@ function Index() {
         </select>
         {selectedCourse && (
           <Fragment>
-            <label htmlFor="stream">Select Stream:</label>
+            <label htmlFor="stream" className="filter-label">
+              Select Stream:
+            </label>
             <select
               id="stream"
               value={selectedStream}
               onChange={handleStreamChange}
+              className="filter-select"
             >
               <option value="">All Streams</option>
               {collegeData &&
@@ -163,11 +170,12 @@ function Index() {
             </select>
           </Fragment>
         )}
-        <label>
+        <label className="checkbox-label">
           <input
             type="checkbox"
             checked={submitted}
             onChange={handleCheckboxChange}
+            className="checkbox-input"
           />
           Submitted
         </label>
@@ -176,18 +184,18 @@ function Index() {
         {currentApplicants.length > 0 ? (
           currentApplicants.map((applicant) => (
             <div key={applicant._id} className="card">
-              <h2>
+              <h2 className="card-title">
                 {applicant.personal_info.first_name}{" "}
                 {applicant.personal_info.last_name}
               </h2>
-              <p>
+              <p className="enrollment-number">
                 <strong>Enrollment Number:</strong> {applicant.user_id}
               </p>
-              <p>
+              <p className="course-applied">
                 <strong>Course Applied:</strong>{" "}
                 {applicant.course_info.course_name || "N/A"}
               </p>
-              <p>
+              <p className="streams-applied">
                 <strong>Streams Applied:</strong>{" "}
                 {Array.isArray(applicant.course_info.stream)
                   ? applicant.course_info.stream.join(", ")
@@ -199,6 +207,7 @@ function Index() {
                   alt={`Image of ${applicant.personal_info.name}`}
                   height={100}
                   width={100}
+                  className="applicant-image"
                 />
               ) : (
                 <Image
@@ -206,34 +215,48 @@ function Index() {
                   alt={`Image not available`}
                   height={100}
                   width={100}
+                  className="default-image"
                 />
               )}
-              <button onClick={() => handleDeleteApplicant(applicant._id)}>
+              <button
+                onClick={() => handleDeleteApplicant(applicant._id)}
+                className="delete-button"
+              >
                 Delete Applicant
               </button>
-              <button onClick={() => handleShowProfile(applicant._id)}>
+              <button
+                onClick={() => handleShowProfile(applicant._id)}
+                className="profile-button"
+              >
                 Show Profile
               </button>
             </div>
           ))
         ) : (
-          <p>No applicants found.</p>
+          <p className="no-applicants">No applicants found.</p>
         )}
       </div>
-      <div>
-        <select value={pageSize} onChange={handleChangePageSize}>
+      <div className="page-size-select">
+        <select
+          value={pageSize}
+          onChange={handleChangePageSize}
+          className="select-pagesize"
+        >
           <option value={10}>10 cards per page</option>
           <option value={25}>25 cards per page</option>
           <option value={50}>50 cards per page</option>
         </select>
       </div>
-      <div>
-        <ul className="pagination">
+      <div className="pagination">
+        <ul className="pagination-list">
           {Array.from({
             length: Math.ceil(filteredApplicants.length / pageSize),
           }).map((_, index) => (
-            <li key={index} className="page-item">
-              <button className="page-link" onClick={() => paginate(index + 1)}>
+            <li key={index} className="pagination-item">
+              <button
+                className="pagination-link"
+                onClick={() => paginate(index + 1)}
+              >
                 {index + 1}
               </button>
             </li>
