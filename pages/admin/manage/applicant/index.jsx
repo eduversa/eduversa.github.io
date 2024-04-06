@@ -29,7 +29,6 @@ function Index() {
       });
   }, []);
 
-  // Calculate the index of the first and last applicant to display on the current page
   const indexOfLastApplicant = currentPage * pageSize;
   const indexOfFirstApplicant = indexOfLastApplicant - pageSize;
   const currentApplicants = applicants.slice(
@@ -37,13 +36,11 @@ function Index() {
     indexOfLastApplicant
   );
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Change number of cards per page
   const handleChangePageSize = (event) => {
     setPageSize(Number(event.target.value));
-    setCurrentPage(1); // Reset to first page when changing page size
+    setCurrentPage(1);
   };
 
   return (
