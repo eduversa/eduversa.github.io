@@ -1,3 +1,4 @@
+// Styles
 .container {
   padding: 20px;
 }
@@ -5,8 +6,19 @@
 .title {
   font-size: 48px;
   margin-bottom: 36px;
-  color: #007bff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  color: #ff6347;
+  text-shadow: 2px 2px 4px rgba(255, 99, 71, 0.1);
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #ff6347 10%, transparent 20%);
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 12px;
+  }
 }
 
 .filters {
@@ -18,18 +30,29 @@
 
   .search-input {
     padding: 16px;
-    border: 2px solid #007bff;
+    border: 2px solid #ff6347;
     border-radius: 8px;
     width: 300px;
     font-size: 24px;
-    color: #007bff;
+    color: #ff6347;
     background-color: transparent;
     transition: all 0.5s ease;
 
     &:focus {
       outline: none;
-      border-color: #0062cc;
-      box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+      border-color: #ff4500;
+      box-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 2px solid rgba(255, 99, 71, 0.3);
+      border-radius: 8px;
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
   }
 
@@ -42,17 +65,28 @@
 
   .filter-select {
     padding: 16px;
-    border: 2px solid #007bff;
+    border: 2px solid #ff6347;
     border-radius: 8px;
     font-size: 24px;
-    color: #007bff;
+    color: #ff6347;
     background-color: transparent;
     transition: all 0.5s ease;
 
     &:focus {
       outline: none;
-      border-color: #0062cc;
-      box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+      border-color: #ff4500;
+      box-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 2px solid rgba(255, 99, 71, 0.3);
+      border-radius: 8px;
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
   }
 
@@ -80,16 +114,12 @@
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 32px;
   transition: all 0.5s ease;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
 }
 
 .card {
   position: relative;
   padding: 32px;
-  border: 3px solid #ced4da;
+  border: 3px solid #7fff00;
   border-radius: 12px;
   background-color: white;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -103,8 +133,19 @@
   .card-title {
     font-size: 32px;
     margin-bottom: 24px;
-    color: #007bff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    color: #ff6347;
+    text-shadow: 2px 2px 4px rgba(255, 99, 71, 0.1);
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #ff6347 10%, transparent 20%);
+      top: 0;
+      left: 0;
+      z-index: -1;
+      border-radius: 12px;
+    }
   }
 
   .detail {
@@ -144,13 +185,35 @@
     }
 
     .delete-button {
-      background-color: #dc3545;
-      box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+      background-color: #ff4500;
+      box-shadow: 0 4px 8px rgba(255, 69, 0, 0.3);
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, #ff4500 10%, transparent 20%);
+        top: 0;
+        left: 0;
+        z-index: -1;
+        border-radius: 8px;
+      }
     }
 
     .profile-button {
-      background-color: #007bff;
-      box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+      background-color: #ff6347;
+      box-shadow: 0 4px 8px rgba(255, 99, 71, 0.3);
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, #ff6347 10%, transparent 20%);
+        top: 0;
+        left: 0;
+        z-index: -1;
+        border-radius: 8px;
+      }
     }
   }
 
@@ -159,10 +222,9 @@
     position: absolute;
     top: -10px;
     left: -10px;
-
     width: calc(100% + 20px);
     height: calc(100% + 20px);
-    border: 3px solid #007bff;
+    border: 3px solid #7fff00;
     border-radius: 12px;
     transition: all 0.5s ease;
     z-index: -1;
@@ -203,16 +265,16 @@
 
     .page-link {
       padding: 10px 20px;
-      border: 2px solid #007bff;
+      border: 2px solid #ff6347;
       border-radius: 8px;
       font-size: 24px;
-      color: #007bff;
+      color: #ff6347;
       background-color: transparent;
       cursor: pointer;
       transition: all 0.5s ease;
 
       &:hover {
-        background-color: #007bff;
+        background-color: #ff4500;
         color: white;
       }
     }
