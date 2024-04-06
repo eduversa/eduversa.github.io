@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getApplicantsByYearApi } from "@/functions";
 import { Fragment } from "react";
 import { AllLoader } from "@/components";
+import Image from "next/image";
 
 function Index() {
   const [applicants, setApplicants] = useState([]);
@@ -44,8 +45,25 @@ function Index() {
               </p>
               <p>
                 <strong>Streams Applied:</strong>{" "}
-                {applicant.course_info.stream || "N/A"}
+                {Array.isArray(applicant.course_info.stream)
+                  ? applicant.course_info.stream.join(", ")
+                  : "N/A"}
               </p>
+              {applicant.image ? (
+                <Image
+                  src={applicant.image}
+                  alt={`Image of ${applicant.personal_info.name}`}
+                  height={100}
+                  width={100}
+                />
+              ) : (
+                <Image
+                  src="/default-image.jpg"
+                  alt={`Image not available`}
+                  height={100}
+                  width={100}
+                />
+              )}
             </div>
           ))
         ) : (
