@@ -7,6 +7,8 @@ import Image from "next/image";
 function Index() {
   const [applicants, setApplicants] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
     setLoading(true);
@@ -27,13 +29,30 @@ function Index() {
       });
   }, []);
 
+  // Calculate the index of the first and last applicant to display on the current page
+  const indexOfLastApplicant = currentPage * pageSize;
+  const indexOfFirstApplicant = indexOfLastApplicant - pageSize;
+  const currentApplicants = applicants.slice(
+    indexOfFirstApplicant,
+    indexOfLastApplicant
+  );
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Change number of cards per page
+  const handleChangePageSize = (event) => {
+    setPageSize(Number(event.target.value));
+    setCurrentPage(1); // Reset to first page when changing page size
+  };
+
   return (
     <Fragment>
       {loading && <AllLoader />}
       <h1>Applicants for 2023:</h1>
       <div className="card-container">
-        {Array.isArray(applicants) && applicants.length > 0 ? (
-          applicants.map((applicant) => (
+        {currentApplicants.length > 0 ? (
+          currentApplicants.map((applicant) => (
             <div key={applicant._id} className="card">
               <h2>{applicant.personal_info.name}</h2>
               <p>
@@ -69,6 +88,21 @@ function Index() {
         ) : (
           <p>No applicants found.</p>
         )}
+      </div>
+      <div className="pagination">
+        <select value={pageSize} onChange={handleChangePageSize}>
+          <option value={10}>10 per page</option>
+          <option value={25}>25 per page</option>
+          <option value={50}>50 per page</option>
+        </select>
+        <div>
+          {currentPage !== 1 && (
+            <button onClick={() => paginate(currentPage - 1)}>Previous</button>
+          )}
+          {indexOfLastApplicant < applicants.length && (
+            <button onClick={() => paginate(currentPage + 1)}>Next</button>
+          )}
+        </div>
       </div>
     </Fragment>
   );
