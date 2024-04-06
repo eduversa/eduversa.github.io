@@ -45,7 +45,36 @@ function Index() {
   // Calculate the index of the first and last applicant to display on the current page
   const indexOfLastApplicant = currentPage * pageSize;
   const indexOfFirstApplicant = indexOfLastApplicant - pageSize;
-  const currentApplicants = applicants.slice(
+
+  // Filter applicants based on selected course and stream
+  const filteredApplicants = applicants.filter((applicant) => {
+    if (selectedCourse && selectedStream) {
+      return (
+        applicant.course_info.course_name === selectedCourse &&
+        applicant.course_info.stream.includes(selectedStream)
+      );
+    } else if (selectedCourse) {
+      return applicant.course_info.course_name === selectedCourse;
+    } else {
+      return true;
+    }
+  });
+
+  // Sort applicants based on selected course and stream
+  const sortedApplicants = filteredApplicants.sort((a, b) => {
+    // Add sorting logic here based on selectedCourse and selectedStream
+    // For simplicity, let's assume sorting based on the applicant's name
+    if (a.personal_info.name < b.personal_info.name) {
+      return -1;
+    }
+    if (a.personal_info.name > b.personal_info.name) {
+      return 1;
+    }
+    return 0;
+  });
+
+  // Get current applicants to display on the current page
+  const currentApplicants = sortedApplicants.slice(
     indexOfFirstApplicant,
     indexOfLastApplicant
   );
@@ -69,20 +98,6 @@ function Index() {
   const handleStreamChange = (event) => {
     setSelectedStream(event.target.value);
   };
-
-  // Filter applicants based on selected course and stream
-  const filteredApplicants = applicants.filter((applicant) => {
-    if (selectedCourse && selectedStream) {
-      return (
-        applicant.course_info.course_name === selectedCourse &&
-        applicant.course_info.stream.includes(selectedStream)
-      );
-    } else if (selectedCourse) {
-      return applicant.course_info.course_name === selectedCourse;
-    } else {
-      return true;
-    }
-  });
 
   return (
     <Fragment>
@@ -125,8 +140,8 @@ function Index() {
         )}
       </div>
       <div className="card-container">
-        {filteredApplicants.length > 0 ? (
-          filteredApplicants.map((applicant) => (
+        {currentApplicants.length > 0 ? (
+          currentApplicants.map((applicant) => (
             <div key={applicant._id} className="card">
               <h2>{applicant.personal_info.name}</h2>
               <p>
@@ -138,7 +153,9 @@ function Index() {
               </p>
               <p>
                 <strong>Streams Applied:</strong>{" "}
-                {applicant.course_info.stream || "N/A"}
+                {Array.isArray(applicant.course_info.stream)
+                  ? applicant.course_info.stream.join(", ")
+                  : "N/A"}
               </p>
               {applicant.image ? (
                 <Image
@@ -162,11 +179,10 @@ function Index() {
         )}
       </div>
       <div>
-        <label htmlFor="pageSize">Cards per Page:</label>
-        <select id="pageSize" value={pageSize} onChange={handleChangePageSize}>
-          <option value={10}>10</option>
-          <option value={25}>25</option>
-          <option value={50}>50</option>
+        <select value={pageSize} onChange={handleChangePageSize}>
+          <option value={10}>10 cards per page</option>
+          <option value={25}>25 cards per page</option>
+          <option value={50}>50 cards per page</option>
         </select>
       </div>
       <div>
