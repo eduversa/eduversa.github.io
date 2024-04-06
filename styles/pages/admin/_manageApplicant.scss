@@ -1,28 +1,179 @@
-/* index.scss */
+// Variables
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$background-color: #f8f9fa;
+$border-color: #ced4da;
+$success-color: #28a745;
+$error-color: #dc3545;
+
+// Styles
+.title {
+  font-size: 36px;
+  margin-bottom: 24px;
+  color: $primary-color;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+
+  .search-input {
+    padding: 12px;
+    border: 2px solid $primary-color;
+    border-radius: 4px;
+    width: 200px;
+    font-size: 18px;
+    color: $primary-color;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: darken($primary-color, 10%);
+    }
+  }
+
+  .filter-label {
+    font-size: 18px;
+    color: $secondary-color;
+    margin-right: 16px;
+  }
+
+  .filter-select {
+    padding: 12px;
+    border: 2px solid $primary-color;
+    border-radius: 4px;
+    font-size: 18px;
+    color: $primary-color;
+    background-color: transparent;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: darken($primary-color, 10%);
+    }
+  }
+
+  .checkbox-label {
+    font-size: 18px;
+    color: $secondary-color;
+    display: flex;
+    align-items: center;
+
+    .checkbox-input {
+      margin-right: 8px;
+    }
+  }
+}
 
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
 
-  .card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    margin: 10px;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.card {
+  padding: 20px;
+  border: 2px solid $border-color;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 
-    h2 {
-      margin-top: 0;
-      font-size: 1.5rem;
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: $primary-color;
+  }
+
+  .detail {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: $secondary-color;
+  }
+
+  .applicant-image {
+    border-radius: 50%;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+
+    .delete-button,
+    .profile-button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      font-size: 18px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
 
-    p {
-      margin: 0;
+    .delete-button {
+      background-color: $error-color;
+    }
 
-      strong {
-        font-weight: bold;
-      }
+    .profile-button {
+      background-color: $primary-color;
+    }
+  }
+}
+
+.no-applicants {
+  font-size: 24px;
+  color: $secondary-color;
+}
+
+.page-size-select,
+.pagination {
+  margin-top: 32px;
+}
+
+.select-pagesize,
+.pagination-list {
+  padding: 12px;
+  border: 2px solid $primary-color;
+  border-radius: 4px;
+  font-size: 18px;
+  color: $primary-color;
+  background-color: transparent;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: darken($primary-color, 10%);
+  }
+}
+
+.pagination-item {
+  display: inline-block;
+  margin-right: 12px;
+
+  .pagination-link {
+    padding: 10px 20px;
+    border: 2px solid $primary-color;
+    border-radius: 4px;
+    background-color: transparent;
+    font-size: 18px;
+    color: $primary-color;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $background-color;
     }
   }
 }
