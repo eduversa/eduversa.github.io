@@ -14,11 +14,10 @@ function Index() {
   const [selectedStream, setSelectedStream] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const year = 2023;
 
   useEffect(() => {
     setLoading(true);
-    const year = 2023;
-
     getApplicantsByYearApi(year)
       .then((data) => {
         if (Array.isArray(data.data)) {
@@ -119,7 +118,7 @@ function Index() {
       <AdminLayout>
         {loading && <AllLoader />}
         <div className="manage-applicant-container">
-          <h1 className="title">Applicants for 2023:</h1>
+          <h1 className="title">Applicants for {year}:</h1>
           <div className="filters">
             <input
               type="text"
