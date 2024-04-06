@@ -125,7 +125,7 @@ function Navbar() {
     <Fragment>
       {isLoading && <AllLoader />}
       <header>
-        <nav className="navbar">
+        <nav className="navbar none">
           <div className="logo">
             <Link href="/">
               <span className="logo-text">{logoText}</span>
