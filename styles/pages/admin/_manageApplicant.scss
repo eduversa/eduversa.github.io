@@ -1,68 +1,76 @@
-// Variables
-$primary-color: #007bff;
-$secondary-color: #6c757d;
-$background-color: #f8f9fa;
-$border-color: #ced4da;
-$success-color: #28a745;
-$error-color: #dc3545;
+.container {
+  padding: 20px;
+}
 
-// Styles
 .title {
-  font-size: 36px;
-  margin-bottom: 24px;
-  color: $primary-color;
+  font-size: 48px;
+  margin-bottom: 36px;
+  color: #007bff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .filters {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 48px;
+  transition: margin-bottom 0.5s ease;
 
   .search-input {
-    padding: 12px;
-    border: 2px solid $primary-color;
-    border-radius: 4px;
-    width: 200px;
-    font-size: 18px;
-    color: $primary-color;
-    transition: border-color 0.3s ease;
+    padding: 16px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    width: 300px;
+    font-size: 24px;
+    color: #007bff;
+    background-color: transparent;
+    transition: all 0.5s ease;
 
     &:focus {
       outline: none;
-      border-color: darken($primary-color, 10%);
+      border-color: #0062cc;
+      box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
     }
   }
 
   .filter-label {
-    font-size: 18px;
-    color: $secondary-color;
-    margin-right: 16px;
+    font-size: 24px;
+    color: #6c757d;
+    margin-right: 24px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   }
 
   .filter-select {
-    padding: 12px;
-    border: 2px solid $primary-color;
-    border-radius: 4px;
-    font-size: 18px;
-    color: $primary-color;
+    padding: 16px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    font-size: 24px;
+    color: #007bff;
     background-color: transparent;
-    transition: border-color 0.3s ease;
+    transition: all 0.5s ease;
 
     &:focus {
       outline: none;
-      border-color: darken($primary-color, 10%);
+      border-color: #0062cc;
+      box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
     }
   }
 
   .checkbox-label {
-    font-size: 18px;
-    color: $secondary-color;
+    font-size: 24px;
+    color: #6c757d;
     display: flex;
     align-items: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 
     .checkbox-input {
-      margin-right: 8px;
+      margin-right: 12px;
+      transform: scale(1.5);
+      transition: transform 0.3s ease;
+    }
+
+    .checkbox-input:checked {
+      transform: scale(1.6);
     }
   }
 }
@@ -70,31 +78,40 @@ $error-color: #dc3545;
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
+  gap: 32px;
+  transition: all 0.5s ease;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .card {
-  padding: 20px;
-  border: 2px solid $border-color;
-  border-radius: 8px;
+  position: relative;
+  padding: 32px;
+  border: 3px solid #ced4da;
+  border-radius: 12px;
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease;
 
   &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
   }
 
   .card-title {
-    font-size: 24px;
-    margin-bottom: 16px;
-    color: $primary-color;
+    font-size: 32px;
+    margin-bottom: 24px;
+    color: #007bff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .detail {
-    font-size: 16px;
-    margin-bottom: 12px;
-    color: $secondary-color;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #6c757d;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   }
 
   .applicant-image {
@@ -102,78 +119,143 @@ $error-color: #dc3545;
   }
 
   .button-container {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 24px;
+    margin-top: 36px;
+    z-index: 2;
+    transition: all 0.5s ease;
 
     .delete-button,
     .profile-button {
-      padding: 12px 24px;
+      padding: 16px 32px;
       border: none;
-      border-radius: 4px;
-      font-size: 18px;
+      border-radius: 8px;
+      font-size: 24px;
       color: white;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: all 0.5s ease;
 
       &:hover {
         opacity: 0.8;
+        transform: translateY(-5px);
       }
     }
 
     .delete-button {
-      background-color: $error-color;
+      background-color: #dc3545;
+      box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
     }
 
     .profile-button {
-      background-color: $primary-color;
+      background-color: #007bff;
+      box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
     }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    border: 3px solid #007bff;
+    border-radius: 12px;
+    transition: all 0.5s ease;
+    z-index: -1;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    transition: all 0.5s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    opacity: 1;
   }
 }
 
-.no-applicants {
-  font-size: 24px;
-  color: $secondary-color;
-}
-
-.page-size-select,
 .pagination {
-  margin-top: 32px;
-}
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+  margin-top: 48px;
+  transition: margin-top 0.5s ease;
 
-.select-pagesize,
-.pagination-list {
-  padding: 12px;
-  border: 2px solid $primary-color;
-  border-radius: 4px;
-  font-size: 18px;
-  color: $primary-color;
-  background-color: transparent;
-  transition: border-color 0.3s ease;
+  .page-item {
+    margin: 0 10px;
+    transition: margin 0.5s ease;
 
-  &:focus {
-    outline: none;
-    border-color: darken($primary-color, 10%);
+    .page-link {
+      padding: 10px 20px;
+      border: 2px solid #007bff;
+      border-radius: 8px;
+      font-size: 24px;
+      color: #007bff;
+      background-color: transparent;
+      cursor: pointer;
+      transition: all 0.5s ease;
+
+      &:hover {
+        background-color: #007bff;
+        color: white;
+      }
+    }
   }
 }
 
-.pagination-item {
-  display: inline-block;
-  margin-right: 12px;
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
-  .pagination-link {
-    padding: 10px 20px;
-    border: 2px solid $primary-color;
-    border-radius: 4px;
-    background-color: transparent;
-    font-size: 18px;
-    color: $primary-color;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
-    &:hover {
-      background-color: $background-color;
-    }
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
