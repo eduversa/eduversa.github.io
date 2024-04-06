@@ -1,14 +1,15 @@
 import { AdminLayout } from "@/layout";
 import React, { Fragment } from "react";
+import { ContactUs } from "@/containers";
 
-const AdminDashboard = () => {
+const Contact = () => {
   return (
     <Fragment>
       <AdminLayout>
-        <h1>Admin Dashboard</h1>
+        <ContactUs></ContactUs>
       </AdminLayout>
     </Fragment>
   );
 };
 
-export default AdminDashboard;
+export default Contact;

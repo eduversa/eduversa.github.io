@@ -18,6 +18,7 @@
   @media (max-width: $breakpoint-large-tablet) {
   }
   @media (max-width: $breakpoint-tablet) {
+    @include flex-container(column, nowrap, center, center);
   }
   @media (max-width: $breakpoint-phone) {
   }
@@ -81,9 +82,10 @@
     @media (max-width: $breakpoint-large-tablet) {
     }
     @media (max-width: $breakpoint-tablet) {
+      @include flex-container(column, nowrap, center, center);
+      gap: 10px;
     }
     @media (max-width: $breakpoint-phone) {
-      gap: 10px;
     }
     .nav-links {
       position: relative;
