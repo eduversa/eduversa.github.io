@@ -127,23 +127,25 @@ function Index() {
               onChange={handleSearchChange}
               className="search-input"
             />
-            <label htmlFor="course" className="filter-label">
-              Select Course:
-            </label>
-            <select
-              id="course"
-              value={selectedCourse}
-              onChange={handleCourseChange}
-              className="filter-select"
-            >
-              <option value="">All Courses</option>
-              {collegeData &&
-                collegeData.college_courses.map((course) => (
-                  <option key={course.code} value={course.name}>
-                    {course.name}
-                  </option>
-                ))}
-            </select>
+            <div className="dropdown-container">
+              <label htmlFor="course" className="filter-label">
+                Select Course:
+              </label>
+              <select
+                id="course"
+                value={selectedCourse}
+                onChange={handleCourseChange}
+                className="filter-select"
+              >
+                <option value="">All Courses</option>
+                {collegeData &&
+                  collegeData.college_courses.map((course) => (
+                    <option key={course.code} value={course.name}>
+                      {course.name}
+                    </option>
+                  ))}
+              </select>
+            </div>
             {selectedCourse && (
               <Fragment>
                 <label htmlFor="stream" className="filter-label">
