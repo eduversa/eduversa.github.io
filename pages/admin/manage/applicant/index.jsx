@@ -13,7 +13,7 @@ function Index() {
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState(false); // State for the checkbox
 
   useEffect(() => {
     setLoading(true);
@@ -106,6 +106,18 @@ function Index() {
     setSubmitted(event.target.checked);
   };
 
+  // Function to handle delete applicant
+  const handleDeleteApplicant = (applicantId) => {
+    // Add logic to delete the applicant with the provided ID
+    console.log("Deleting applicant with ID:", applicantId);
+  };
+
+  // Function to handle show profile
+  const handleShowProfile = (applicantId) => {
+    // Add logic to show the profile of the applicant with the provided ID
+    console.log("Showing profile of applicant with ID:", applicantId);
+  };
+
   return (
     <Fragment>
       {loading && <AllLoader />}
@@ -196,6 +208,12 @@ function Index() {
                   width={100}
                 />
               )}
+              <button onClick={() => handleDeleteApplicant(applicant._id)}>
+                Delete Applicant
+              </button>
+              <button onClick={() => handleShowProfile(applicant._id)}>
+                Show Profile
+              </button>
             </div>
           ))
         ) : (
