@@ -59,7 +59,7 @@ function Index() {
       (!selectedStream ||
         (applicant.course_info.stream &&
           applicant.course_info.stream.includes(selectedStream))) &&
-      (!submitted || applicant.submitted === submitted) // Filter based on submitted status
+      (!submitted || applicant.personal_info.are_addresses_same === true)
     );
   });
 
@@ -104,18 +104,26 @@ function Index() {
   // Handle checkbox change
   const handleCheckboxChange = (event) => {
     setSubmitted(event.target.checked);
-  };
-
-  // Function to handle delete applicant
-  const handleDeleteApplicant = (applicantId) => {
-    // Add logic to delete the applicant with the provided ID
-    console.log("Deleting applicant with ID:", applicantId);
-  };
-
-  // Function to handle show profile
-  const handleShowProfile = (applicantId) => {
-    // Add logic to show the profile of the applicant with the provided ID
-    console.log("Showing profile of applicant with ID:", applicantId);
+    if (event.target.checked) {
+      // Filter applicants whose "are_addresses_same" field is true
+      const filteredApplicants = applicants.filter(
+        (applicant) => applicant.personal_info.are_addresses_same === true
+      );
+      setApplicants(filteredApplicants);
+    } else {
+      // Reset applicants to the original list when checkbox is unchecked
+      getApplicantsByYearApi(2023)
+        .then((data) => {
+          if (Array.isArray(data.data)) {
+            setApplicants(data.data);
+          } else {
+            console.error("Applicants data is not an array:", data.data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching applicants:", error);
+        });
+    }
   };
 
   return (
