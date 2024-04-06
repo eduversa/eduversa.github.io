@@ -12,6 +12,7 @@ function Index() {
   const [collegeData, setCollegeData] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -46,31 +47,25 @@ function Index() {
   const indexOfLastApplicant = currentPage * pageSize;
   const indexOfFirstApplicant = indexOfLastApplicant - pageSize;
 
-  // Filter applicants based on selected course and stream
+  // Filter applicants based on selected course, stream, and search term
   const filteredApplicants = applicants.filter((applicant) => {
-    if (selectedCourse && selectedStream) {
-      return (
-        applicant.course_info.course_name === selectedCourse &&
-        applicant.course_info.stream.includes(selectedStream)
-      );
-    } else if (selectedCourse) {
-      return applicant.course_info.course_name === selectedCourse;
-    } else {
-      return true;
-    }
+    const fullName = `${applicant.personal_info.first_name} ${applicant.personal_info.last_name}`;
+    return (
+      (!searchTerm ||
+        fullName.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      (!selectedCourse ||
+        applicant.course_info.course_name === selectedCourse) &&
+      (!selectedStream ||
+        (applicant.course_info.stream &&
+          applicant.course_info.stream.includes(selectedStream)))
+    );
   });
 
   // Sort applicants based on selected course and stream
   const sortedApplicants = filteredApplicants.sort((a, b) => {
-    // Add sorting logic here based on selectedCourse and selectedStream
-    // For simplicity, let's assume sorting based on the applicant's name
-    if (a.personal_info.name < b.personal_info.name) {
-      return -1;
-    }
-    if (a.personal_info.name > b.personal_info.name) {
-      return 1;
-    }
-    return 0;
+    const fullNameA = `${a.personal_info.first_name} ${a.personal_info.last_name}`;
+    const fullNameB = `${b.personal_info.first_name} ${b.personal_info.last_name}`;
+    return fullNameA.localeCompare(fullNameB);
   });
 
   // Get current applicants to display on the current page
@@ -99,11 +94,22 @@ function Index() {
     setSelectedStream(event.target.value);
   };
 
+  // Handle search term change
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <Fragment>
       {loading && <AllLoader />}
       <h1>Applicants for 2023:</h1>
       <div>
+        <input
+          type="text"
+          placeholder="Search by name"
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
         <label htmlFor="course">Select Course:</label>
         <select
           id="course"
@@ -144,9 +150,8 @@ function Index() {
           currentApplicants.map((applicant) => (
             <div key={applicant._id} className="card">
               <h2>
-                {applicant.personal_info.first_name +
-                  " " +
-                  applicant.personal_info.last_name}
+                {applicant.personal_info.first_name}{" "}
+                {applicant.personal_info.last_name}
               </h2>
               <p>
                 <strong>Enrollment Number:</strong> {applicant.user_id}
