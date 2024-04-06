@@ -13,6 +13,7 @@ function Index() {
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [submitted, setSubmitted] = useState(false); // State for the checkbox
 
   useEffect(() => {
     setLoading(true);
@@ -57,7 +58,8 @@ function Index() {
         applicant.course_info.course_name === selectedCourse) &&
       (!selectedStream ||
         (applicant.course_info.stream &&
-          applicant.course_info.stream.includes(selectedStream)))
+          applicant.course_info.stream.includes(selectedStream))) &&
+      (!submitted || applicant.submitted === submitted) // Filter based on submitted status
     );
   });
 
@@ -97,6 +99,11 @@ function Index() {
   // Handle search term change
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
+  };
+
+  // Handle checkbox change
+  const handleCheckboxChange = (event) => {
+    setSubmitted(event.target.checked);
   };
 
   return (
@@ -144,6 +151,14 @@ function Index() {
             </select>
           </Fragment>
         )}
+        <label>
+          <input
+            type="checkbox"
+            checked={submitted}
+            onChange={handleCheckboxChange}
+          />
+          Submitted
+        </label>
       </div>
       <div className="card-container">
         {currentApplicants.length > 0 ? (
