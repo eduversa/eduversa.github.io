@@ -44,11 +44,9 @@ function Index() {
       });
   }, []);
 
-  // Calculate the index of the first and last applicant to display on the current page
   const indexOfLastApplicant = currentPage * pageSize;
   const indexOfFirstApplicant = indexOfLastApplicant - pageSize;
 
-  // Filter applicants based on selected course, stream, and search term
   const filteredApplicants = applicants.filter((applicant) => {
     const fullName = `${applicant.personal_info.first_name} ${applicant.personal_info.last_name}`;
     return (
@@ -63,55 +61,45 @@ function Index() {
     );
   });
 
-  // Sort applicants based on selected course and stream
   const sortedApplicants = filteredApplicants.sort((a, b) => {
     const fullNameA = `${a.personal_info.first_name} ${a.personal_info.last_name}`;
     const fullNameB = `${b.personal_info.first_name} ${b.personal_info.last_name}`;
     return fullNameA.localeCompare(fullNameB);
   });
 
-  // Get current applicants to display on the current page
   const currentApplicants = sortedApplicants.slice(
     indexOfFirstApplicant,
     indexOfLastApplicant
   );
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Change number of cards per page
   const handleChangePageSize = (event) => {
     setPageSize(Number(event.target.value));
-    setCurrentPage(1); // Reset to first page when changing page size
+    setCurrentPage(1);
   };
 
-  // Handle course selection change
   const handleCourseChange = (event) => {
     setSelectedCourse(event.target.value);
-    setSelectedStream(""); // Reset stream selection when course changes
+    setSelectedStream("");
   };
 
-  // Handle stream selection change
   const handleStreamChange = (event) => {
     setSelectedStream(event.target.value);
   };
 
-  // Handle search term change
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  // Handle checkbox change
   const handleCheckboxChange = (event) => {
     setSubmitted(event.target.checked);
     if (event.target.checked) {
-      // Filter applicants whose "are_addresses_same" field is true
       const filteredApplicants = applicants.filter(
         (applicant) => applicant.personal_info.are_addresses_same === true
       );
       setApplicants(filteredApplicants);
     } else {
-      // Reset applicants to the original list when checkbox is unchecked
       getApplicantsByYearApi(2023)
         .then((data) => {
           if (Array.isArray(data.data)) {
