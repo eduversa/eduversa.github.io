@@ -13,7 +13,7 @@ function Index() {
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [submitted, setSubmitted] = useState(false); // State for the checkbox
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     setLoading(true);
