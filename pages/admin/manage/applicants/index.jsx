@@ -3,19 +3,20 @@ import { getApplicantsByYearApi, getCollegeDetailsApi } from "@/functions";
 import { AllLoader } from "@/components";
 import Image from "next/image";
 import { AdminLayout } from "@/layout";
+import { useRouter } from "next/router";
 
 function Index() {
   const [applicants, setApplicants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(9);
   const [collegeData, setCollegeData] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const year = 2023;
-
+  const router = useRouter();
   useEffect(() => {
     setLoading(true);
     getApplicantsByYearApi(year)
@@ -112,6 +113,11 @@ function Index() {
         });
     }
   };
+  function handleShowProfile(id) {
+    console.log("Show profile for applicant with id:", id);
+    localStorage.setItem("selected-applicantId", id);
+    router.push("/admin/manage/applicants/profile");
+  }
 
   return (
     <Fragment>
@@ -210,19 +216,20 @@ function Index() {
                   </p>
                   <p className="streams-applied">
                     <strong>Streams Applied:</strong>{" "}
-                    {Array.isArray(applicant.course_info.stream)
+                    {/* {Array.isArray(applicant.course_info.stream)
                       ? applicant.course_info.stream.join(", ")
-                      : "N/A"}
+                      : "N/A"} */}
+                    {applicant.course_info.stream || "N/A"}
                   </p>
                   <div className="button-container">
                     <button
-                      onClick={() => handleDeleteApplicant(applicant._id)}
+                      onClick={() => handleDeleteApplicant(applicant.user_id)}
                       className="delete-button"
                     >
                       Delete Applicant
                     </button>
                     <button
-                      onClick={() => handleShowProfile(applicant._id)}
+                      onClick={() => handleShowProfile(applicant.user_id)}
                       className="profile-button"
                     >
                       Show Profile
@@ -241,8 +248,8 @@ function Index() {
                 onChange={handleChangePageSize}
                 className="select-pagesize"
               >
-                <option value={10}>10 cards per page</option>
-                <option value={25}>25 cards per page</option>
+                <option value={9}>9 cards per page</option>
+                <option value={24}>24 cards per page</option>
                 <option value={50}>50 cards per page</option>
               </select>
             </div>
