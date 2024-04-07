@@ -47,7 +47,18 @@
     @include flex-container(row, nowrap, space-between, center);
     margin: 0 0 5% 0;
     transition: margin-bottom 0.5s ease;
-
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      @include flex-container(column, nowrap, center, center);
+      gap: 10px;
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .search-input {
       padding: 10px;
       border: 2px solid var(--orange);
@@ -149,7 +160,18 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 32px;
     transition: all 0.5s ease;
-
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
     .card {
       position: relative;
       padding: 20px;
@@ -158,7 +180,17 @@
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       transition: all 0.5s ease;
       @include flex-container(column, nowrap, center, center);
-
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+        padding: 10;
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         transform: translateY(-5px);
@@ -282,9 +314,46 @@
               background-color: var(--orange-7);
               color: white;
             }
+            @media (max-width: $breakpoint-desktop-wide) {
+            }
+            @media (max-width: $breakpoint-desktop) {
+            }
+            @media (max-width: $breakpoint-large-tablet) {
+            }
+            @media (max-width: $breakpoint-tablet) {
+              font-size: var(--font-10);
+              padding: 5px 10px;
+            }
+            @media (max-width: $breakpoint-phone) {
+            }
           }
         }
+        @media (max-width: $breakpoint-desktop-wide) {
+        }
+        @media (max-width: $breakpoint-desktop) {
+        }
+        @media (max-width: $breakpoint-large-tablet) {
+        }
+        @media (max-width: $breakpoint-tablet) {
+          @include flex-container(row, nowrap, center, center);
+          margin: 0 10px;
+          gap: 10px;
+        }
+        @media (max-width: $breakpoint-phone) {
+        }
       }
+    }
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      @include flex-container(column, nowrap, center, center);
+      gap: 10px;
+    }
+    @media (max-width: $breakpoint-phone) {
     }
   }
 
