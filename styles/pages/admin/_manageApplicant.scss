@@ -153,7 +153,7 @@
     .card {
       position: relative;
       padding: 20px;
-      border: 3px solid #7fff00;
+      border: 3px solid var(--light-black-3);
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       transition: all 0.5s ease;
@@ -166,12 +166,12 @@
       }
 
       .card-title {
-        font-family: var(--font-elianto);
+        font-family: var(--font-roboto);
         font-size: var(--font-10);
         color: var(--blue-2);
         margin: 0 0 2% 0;
         font-weight: 500;
-        letter-spacing: 2px;
+        letter-spacing: 4px;
         text-align: center;
       }
       p {
@@ -218,7 +218,7 @@
         }
 
         .delete-button {
-          background-color: var(--orange-7);
+          background-color: var(--red-5);
           box-shadow: 0 4px 8px rgba(255, 69, 0, 0.3);
           &:hover {
             box-shadow: 0 8px 16px -5px rgba(255, 69, 0, 0.9);
@@ -241,7 +241,7 @@
         left: -10px;
         width: calc(100% + 20px);
         height: calc(100% + 20px);
-        border: 3px solid #7fff00;
+        border: 3px solid var(--black);
         border-radius: 12px;
         transition: all 0.5s ease;
         z-index: -1;
