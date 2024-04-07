@@ -360,6 +360,8 @@ function renderFields(data, parentKey = "") {
 function ApplicantDashboard() {
   const [profileData, setProfileData] = useState({});
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
   async function approveHandler(id) {
     console.log("Approve applicant with id:", id);
     localStorage.getItem("selected-applicantId", id);
@@ -379,6 +381,16 @@ function ApplicantDashboard() {
         setLoading(false);
         alert("Error approving applicant. Please try again.");
       }
+    }
+  }
+  async function updateHandler() {
+    // console.log("Approve applicant with id:", id);
+
+    try {
+      router.push("/admin/manage/applicants/profile/update");
+    } catch (error) {
+      console.error("Error updating applicant:", error);
+      alert("Error updating applicant. Please try again.");
     }
   }
   useEffect(() => {
@@ -425,7 +437,7 @@ function ApplicantDashboard() {
           )}
           <div className="profile-fields">{renderFields(profileData)}</div>
           <div className="button-container">
-            <button>Update</button>
+            <button onClick={updateHandler}>Update</button>
             <button onClick={approveHandler}>Approave</button>
           </div>
         </div>
