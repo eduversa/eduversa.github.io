@@ -234,37 +234,39 @@ function Index() {
               <p className="no-applicants">No applicants found.</p>
             )}
           </div>
-          <div className="page-size-select">
-            <select
-              value={pageSize}
-              onChange={handleChangePageSize}
-              className="select-pagesize"
-            >
-              <option value={10}>10 cards per page</option>
-              <option value={25}>25 cards per page</option>
-              <option value={50}>50 cards per page</option>
-            </select>
-          </div>
-          <div className="pagination">
-            <ul className="pagination-list">
-              {Array.from({
-                length: Math.ceil(filteredApplicants.length / pageSize),
-              }).map((_, index) => (
-                <li
-                  key={index}
-                  className={`pagination-item ${
-                    currentPage === index + 1 ? "active" : ""
-                  }`}
-                >
-                  <button
-                    className="pagination-link"
-                    onClick={() => paginate(index + 1)}
+          <div className="page-management">
+            <div className="page-size-select">
+              <select
+                value={pageSize}
+                onChange={handleChangePageSize}
+                className="select-pagesize"
+              >
+                <option value={10}>10 cards per page</option>
+                <option value={25}>25 cards per page</option>
+                <option value={50}>50 cards per page</option>
+              </select>
+            </div>
+            <div className="pagination">
+              <ul className="pagination-list">
+                {Array.from({
+                  length: Math.ceil(filteredApplicants.length / pageSize),
+                }).map((_, index) => (
+                  <li
+                    key={index}
+                    className={`pagination-item ${
+                      currentPage === index + 1 ? "active" : ""
+                    }`}
                   >
-                    {index + 1}
-                  </button>
-                </li>
-              ))}
-            </ul>
+                    <button
+                      className="pagination-link"
+                      onClick={() => paginate(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </AdminLayout>
