@@ -21,9 +21,6 @@ const generateOtpApi = async (userIdOrEmail) => {
       if (process.env.NODE_ENV === "development") {
         console.log(response);
       }
-      // throw new Error(
-      //   `Generate OTP request failed with status ${response.status}`
-      // );
     }
     if (process.env.NODE_ENV === "development") {
       console.log("Response:", response);

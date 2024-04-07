@@ -361,10 +361,6 @@ function ApplicantDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // const userType = localStorage.getItem("selected-applicantId");
-    // console.log("User Type:", userType);
-
-    // if (userType === "admin") {
     const applicantId = localStorage.getItem("selected-applicantId");
     console.log("Applicant ID:", applicantId);
 
