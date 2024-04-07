@@ -201,6 +201,7 @@
         width: 70px;
         height: 70px;
         margin: 0 0 2% 0;
+        border: 1px solid black;
         &:hover {
           animation: pulse 0.1s infinite;
           scale: 1.1;
@@ -210,56 +211,36 @@
       .button-container {
         position: relative;
         @include flex-container(row, nowrap, center, center);
-        align-items: center;
+        gap: 20px;
         margin: 2% 0 0 0;
         z-index: 2;
         transition: all 0.5s ease;
 
         .delete-button,
         .profile-button {
-          padding: 16px 32px;
+          font-family: var(--font-elianto);
+          font-size: var(--font-12);
+          color: var(--white);
+          border-radius: 10px;
           border: none;
-          border-radius: 8px;
-          font-size: 24px;
-          color: white;
+          padding: 7px;
           cursor: pointer;
           transition: all 0.5s ease;
-
-          &:hover {
-            opacity: 0.8;
-            transform: translateY(-5px);
-          }
         }
 
         .delete-button {
           background-color: #ff4500;
           box-shadow: 0 4px 8px rgba(255, 69, 0, 0.3);
-          &::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, #ff4500 10%, transparent 20%);
-            top: 0;
-            left: 0;
-            z-index: -1;
-            border-radius: 8px;
+          &:hover {
+            box-shadow: 0 8px 16px -5px rgba(255, 69, 0, 0.9);
           }
         }
 
         .profile-button {
-          background-color: #ff6347;
-          box-shadow: 0 4px 8px rgba(255, 99, 71, 0.3);
-          &::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, #ff6347 10%, transparent 20%);
-            top: 0;
-            left: 0;
-            z-index: -1;
-            border-radius: 8px;
+          background-color: var(--green);
+          box-shadow: 0 4px 8px var(--green);
+          &:hover {
+            box-shadow: 0 8px 16px -5px var(--green);
           }
         }
       }
@@ -276,97 +257,77 @@
         transition: all 0.5s ease;
         z-index: -1;
       }
-
-      &::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.7);
-        border-radius: 12px;
-        transition: all 0.5s ease;
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      &:hover::after {
-        opacity: 1;
-      }
     }
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 48px;
+    transition: margin-top 0.5s ease;
 
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      list-style-type: none;
-      padding: 0;
-      margin-top: 48px;
-      transition: margin-top 0.5s ease;
+    .page-item {
+      margin: 0 10px;
+      transition: margin 0.5s ease;
 
-      .page-item {
-        margin: 0 10px;
-        transition: margin 0.5s ease;
+      .page-link {
+        padding: 10px 20px;
+        border: 2px solid #ff6347;
+        border-radius: 8px;
+        font-size: 24px;
+        color: #ff6347;
+        background-color: transparent;
+        cursor: pointer;
+        transition: all 0.5s ease;
 
-        .page-link {
-          padding: 10px 20px;
-          border: 2px solid #ff6347;
-          border-radius: 8px;
-          font-size: 24px;
-          color: #ff6347;
-          background-color: transparent;
-          cursor: pointer;
-          transition: all 0.5s ease;
-
-          &:hover {
-            background-color: #ff4500;
-            color: white;
-          }
+        &:hover {
+          background-color: #ff4500;
+          color: white;
         }
       }
     }
+  }
 
-    @keyframes slideIn {
-      from {
-        transform: translateY(-20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+  @keyframes slideIn {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
     }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+    to {
+      transform: translateY(0);
+      opacity: 1;
     }
+  }
 
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.1);
-      }
-      100% {
-        transform: scale(1);
-      }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
     }
+    to {
+      opacity: 1;
+    }
+  }
 
-    @keyframes rotate {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
     }
   }
 }
