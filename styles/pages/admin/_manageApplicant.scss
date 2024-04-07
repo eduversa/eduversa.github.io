@@ -126,20 +126,31 @@
       }
     }
     .checkbox-label {
-      font-size: 24px;
+      border-radius: 8px;
+      font-family: var(--font-tektur);
+      font-size: var(--font-12);
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: capitalize;
+      background-color: transparent;
+      transition: all 0.5s ease;
       color: #6c757d;
-      display: flex;
-      align-items: center;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 
       .checkbox-input {
-        margin-right: 12px;
+        margin: 0 10px 0 0;
         transform: scale(1.5);
+        border-radius: 50%;
         transition: transform 0.3s ease;
+        &:focus {
+          outline: none;
+          border-color: #ff4500;
+          box-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
+        }
       }
 
       .checkbox-input:checked {
-        transform: scale(1.6);
+        transform: scale(2);
       }
     }
   }
