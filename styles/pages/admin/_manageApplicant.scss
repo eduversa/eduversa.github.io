@@ -157,41 +157,32 @@
 
   .card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 32px;
     transition: all 0.5s ease;
 
     .card {
       position: relative;
-      padding: 32px;
+      padding: 20px;
       border: 3px solid #7fff00;
       border-radius: 12px;
-      background-color: white;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       transition: all 0.5s ease;
 
       &:hover {
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         transform: translateY(-5px);
+        transform: scale(1.01);
       }
 
       .card-title {
-        font-size: 32px;
-        margin-bottom: 24px;
-        color: #ff6347;
-        text-shadow: 2px 2px 4px rgba(255, 99, 71, 0.1);
-        position: relative;
-        &::before {
-          content: "";
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background: radial-gradient(circle, #ff6347 10%, transparent 20%);
-          top: 0;
-          left: 0;
-          z-index: -1;
-          border-radius: 12px;
-        }
+        font-family: var(--font-elianto);
+        font-size: var(--font-9);
+        color: var(--blue-2);
+        margin: 0 0 2% 0;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-align: center;
       }
 
       .detail {
