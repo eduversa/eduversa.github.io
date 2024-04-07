@@ -145,30 +145,30 @@ function Index() {
                     </option>
                   ))}
               </select>
+              {selectedCourse && (
+                <Fragment>
+                  <label htmlFor="stream" className="filter-label">
+                    Select Stream:
+                  </label>
+                  <select
+                    id="stream"
+                    value={selectedStream}
+                    onChange={handleStreamChange}
+                    className="filter-select"
+                  >
+                    <option value="">All Streams</option>
+                    {collegeData &&
+                      collegeData.college_courses
+                        .find((course) => course.name === selectedCourse)
+                        ?.streams.map((stream) => (
+                          <option key={stream._id} value={stream.name}>
+                            {stream.name}
+                          </option>
+                        ))}
+                  </select>
+                </Fragment>
+              )}
             </div>
-            {selectedCourse && (
-              <Fragment>
-                <label htmlFor="stream" className="filter-label">
-                  Select Stream:
-                </label>
-                <select
-                  id="stream"
-                  value={selectedStream}
-                  onChange={handleStreamChange}
-                  className="filter-select"
-                >
-                  <option value="">All Streams</option>
-                  {collegeData &&
-                    collegeData.college_courses
-                      .find((course) => course.name === selectedCourse)
-                      ?.streams.map((stream) => (
-                        <option key={stream._id} value={stream.name}>
-                          {stream.name}
-                        </option>
-                      ))}
-                </select>
-              </Fragment>
-            )}
             <label className="checkbox-label">
               <input
                 type="checkbox"
