@@ -250,7 +250,12 @@ function Index() {
               {Array.from({
                 length: Math.ceil(filteredApplicants.length / pageSize),
               }).map((_, index) => (
-                <li key={index} className="pagination-item">
+                <li
+                  key={index}
+                  className={`pagination-item ${
+                    currentPage === index + 1 ? "active" : ""
+                  }`}
+                >
                   <button
                     className="pagination-link"
                     onClick={() => paginate(index + 1)}
