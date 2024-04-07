@@ -325,6 +325,23 @@ const ApplicantForm = ({userid}) => {
   const handleChange = (event, callback) => {
     const { name, value } = event.target;
 
+    const nameParts = name.split(".");
+
+    if (nameParts[nameParts.length - 1] === "aadhar_number") {
+        const newValue = value.replace(/\s/g, ''); 
+        const formattedValue = newValue.replace(/(.{4})/g, '$1 '); 
+        setFormData((prevFormData) => {
+          const updatedData = { ...prevFormData };
+          let currentLevel = updatedData;
+          for (let i = 0; i < nameParts.length - 1; i++) {
+            currentLevel = currentLevel[nameParts[i]];
+          }
+          currentLevel[nameParts[nameParts.length - 1]] = formattedValue.trim(); 
+          return updatedData;
+        }, callback);
+        return;
+    }
+
     if (name === "formData") {
       setFormData((prevFormData) => ({ ...prevFormData, ...value }), callback);
       return;

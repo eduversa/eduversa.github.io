@@ -29,6 +29,12 @@ const AcademicInfo = ({
     // a commit to check if the changes are reflected
   }
   async function onSubmitHandler() {
+
+    // check to see if tehre are any changes to the form
+    const initialFormData = localStorage.getItem('applicant_profile');
+    if (initialFormData === JSON.stringify(formData)) {
+      return;
+    }
     setLoading(true);
     localStorage.setItem("applicant_profile", JSON.stringify(formData));
     const data = JSON.stringify(formData.academic_info);
