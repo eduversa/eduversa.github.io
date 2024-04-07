@@ -50,32 +50,21 @@
 
     .search-input {
       padding: 10px;
-      border: 2px solid #ff6347;
+      border: 2px solid var(--orange);
       border-radius: 8px;
       font-family: var(--font-tektur);
       font-size: var(--font-12);
       font-weight: 400;
       letter-spacing: 1.5px;
       text-transform: capitalize;
-      color: #ff6347;
+      color: var(--orange);
       background-color: transparent;
       transition: all 0.5s ease;
 
       &:focus {
         outline: none;
-        border-color: #ff4500;
+        border-color: var(--orange-7);
         box-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
-      }
-      &::after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border: 2px solid rgba(255, 99, 71, 0.3);
-        border-radius: 8px;
-        top: 0;
-        left: 0;
-        z-index: -1;
       }
     }
     .dropdown-container {
@@ -96,20 +85,20 @@
 
       .filter-select {
         padding: 10px;
-        border: 2px solid #ff6347;
+        border: 2px solid var(--orange);
         border-radius: 8px;
         font-family: var(--font-tektur);
         font-size: var(--font-12);
         font-weight: 400;
         letter-spacing: 1.5px;
         text-transform: capitalize;
-        color: #ff6347;
+        color: var(--orange);
         background-color: transparent;
         transition: all 0.5s ease;
 
         &:focus {
           outline: none;
-          border-color: #ff4500;
+          border-color: var(--orange-7);
           box-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
         }
         &::after {
@@ -144,7 +133,7 @@
         transition: transform 0.3s ease;
         &:focus {
           outline: none;
-          border-color: #ff4500;
+          border-color: var(--orange-7);
           box-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
         }
       }
@@ -229,7 +218,7 @@
         }
 
         .delete-button {
-          background-color: #ff4500;
+          background-color: var(--orange-7);
           box-shadow: 0 4px 8px rgba(255, 69, 0, 0.3);
           &:hover {
             box-shadow: 0 8px 16px -5px rgba(255, 69, 0, 0.9);
@@ -275,7 +264,7 @@
           transition: margin 0.5s ease;
           &.active {
             .pagination-link {
-              background-color: #ff4500;
+              background-color: var(--orange-7);
               color: white;
             }
           }
@@ -283,14 +272,14 @@
             font-family: var(--font-tektur);
             font-size: var(--font-11);
             padding: 10px 20px;
-            border: 2px solid #ff6347;
-            color: #ff6347;
+            border: 2px solid var(--orange);
+            color: var(--orange);
             background-color: transparent;
             cursor: pointer;
             transition: all 0.5s ease;
 
             &:hover {
-              background-color: #ff4500;
+              background-color: var(--orange-7);
               color: white;
             }
           }
