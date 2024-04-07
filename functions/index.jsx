@@ -19,3 +19,6 @@ export { default as deleteSingleApplicantApi } from "./Applicant/deleteSingleApp
 // provider
 export { default as createAccountWithSocialPlatform } from "./providers/createAccountWithSocialPlatform";
 export { default as logIntoAccountWithSocialPlatform } from "./providers/logIntoAccountWithSocialPlatform";
+
+// Admin
+export { default as approveApplicantApi } from "./admin/approveApplicantApi";
