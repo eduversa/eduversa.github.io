@@ -241,9 +241,6 @@ function Index() {
                   </p>
                   <p className="streams-applied">
                     <strong>Streams Applied:</strong>{" "}
-                    {/* {Array.isArray(applicant.course_info.stream)
-                      ? applicant.course_info.stream.join(", ")
-                      : "N/A"} */}
                     {applicant.course_info.stream || "N/A"}
                   </p>
                   <div className="button-container">
