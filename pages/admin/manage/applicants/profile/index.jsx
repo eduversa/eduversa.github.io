@@ -407,8 +407,8 @@ function ApplicantDashboard() {
           )}
           <div className="profile-fields">{renderFields(profileData)}</div>
           <div className="button-container">
-            <button></button>
-            <button></button>
+            <button>Update</button>
+            <button>Approave</button>
           </div>
         </div>
       </AdminLayout>
