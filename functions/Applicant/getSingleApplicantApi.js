@@ -1,6 +1,7 @@
 const BASE_URL = "https://eduversa-api.onrender.com";
 
 const getSingleApplicantApi = async (userId) => {
+  console.log("Get Single Applicant Function Called");
   const url = `${BASE_URL}/applicant/?user_id=${userId}`;
   if (process.env.NODE_ENV === "development") {
     console.log("URL:", url);
