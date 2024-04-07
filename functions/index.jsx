@@ -22,3 +22,6 @@ export { default as logIntoAccountWithSocialPlatform } from "./providers/logInto
 
 // Admin
 export { default as approveApplicantApi } from "./admin/approveApplicantApi";
+
+// student
+export { default as getAllStudentsApi } from "./student/fetchAllStudentsApi";
