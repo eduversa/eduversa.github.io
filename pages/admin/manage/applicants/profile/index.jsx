@@ -406,6 +406,10 @@ function ApplicantDashboard() {
             <h1> Welcome User</h1>
           )}
           <div className="profile-fields">{renderFields(profileData)}</div>
+          <div className="button-container">
+            <button></button>
+            <button></button>
+          </div>
         </div>
       </AdminLayout>
     </Fragment>
