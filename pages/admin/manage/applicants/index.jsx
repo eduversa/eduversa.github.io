@@ -116,6 +116,7 @@ function Index() {
   function handleShowProfile(id) {
     console.log("Show profile for applicant with id:", id);
     localStorage.setItem("selected-applicantId", id);
+    console.log(localStorage.getItem("selected-applicantId"));
     router.push("/admin/manage/applicants/profile");
   }
 

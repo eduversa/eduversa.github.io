@@ -360,30 +360,32 @@ function ApplicantDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const userType = localStorage.getItem("selected-applicantId");
+    // const userType = localStorage.getItem("selected-applicantId");
+    // console.log("User Type:", userType);
 
-    if (userType === "applicant") {
-      const applicantId = localStorage.getItem("userid");
+    // if (userType === "admin") {
+    const applicantId = localStorage.getItem("selected-applicantId");
+    console.log("Applicant ID:", applicantId);
 
-      const fetchData = async () => {
-        try {
-          setLoading(true);
-          const response = await getSingleApplicantApi(applicantId);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await getSingleApplicantApi(applicantId);
 
-          if (response.status === false) {
-            alert(response.message);
-            setLoading(false);
-            return;
-          }
-          setProfileData(response.data);
+        if (response.status === false) {
+          alert(response.message);
           setLoading(false);
-        } catch (error) {
-          console.error("Error fetching applicant data:", error.message);
+          return;
         }
-      };
+        setProfileData(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching applicant data:", error.message);
+      }
+    };
 
-      fetchData();
-    }
+    fetchData();
+    // }
   }, []);
 
   return (
