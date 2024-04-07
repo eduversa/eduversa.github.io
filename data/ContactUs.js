@@ -28,18 +28,18 @@ const contactUs = {
       description:
         "Tanay is a frontend developer with a passion for problem-solving. He enjoys the challenges of both developing and finding creative solutions. Tanay is committed to honing his skills and contributing to meaningful projects.",
     },
-    {
-      name: "Ankan Basak",
-      email: "ankanbasak377@gmail.com",
-      expertise: "No Specific Expertise",
-      description: "",
-    },
-    {
-      name: "Shreyasi Roy",
-      email: "shreyasiroy21@gmail.com",
-      expertise: "No Specific Expertise",
-      description: "",
-    },
+    // {
+    //   name: "Ankan Basak",
+    //   email: "ankanbasak377@gmail.com",
+    //   expertise: "No Specific Expertise",
+    //   description: "",
+    // },
+    // {
+    //   name: "Shreyasi Roy",
+    //   email: "shreyasiroy21@gmail.com",
+    //   expertise: "No Specific Expertise",
+    //   description: "",
+    // },
   ],
   contactEmail: "eduversa.developer@gmail.com",
   teamObjective:
