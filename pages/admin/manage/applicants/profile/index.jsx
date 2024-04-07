@@ -362,9 +362,9 @@ function ApplicantDashboard() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  async function approveHandler(id) {
+  async function approveHandler() {
+    const id = localStorage.getItem("selected-applicantId");
     console.log("Approve applicant with id:", id);
-    localStorage.getItem("selected-applicantId", id);
     const confirmApprove = confirm(
       "Are you sure you want to approve this applicant?"
     );
