@@ -507,4 +507,48 @@
       letter-spacing: 1px;
     }
   }
+  .button-container {
+    @include flex-container(row, nowrap, center, center);
+    gap: 100px;
+    margin: 0 0 2% 0;
+    button {
+      font-family: var(--font-oswald);
+      font-size: var(--font-11);
+      letter-spacing: 3px;
+      color: var(--black);
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 10px;
+      background: linear-gradient(45deg, #ecf0f1, #dce1e3);
+      box-shadow: 10px 10px 20px var(--black-shadow-light-1),
+        -10px -10px 20px var(--white-shadow-light-2);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 20px var(--black-shadow-light-1),
+          0 0 40px var(--black-shadow-light) inset;
+      }
+    }
+
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+  }
 }

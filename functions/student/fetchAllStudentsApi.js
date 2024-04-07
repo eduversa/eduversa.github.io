@@ -1,19 +1,21 @@
 const BASE_URL = "https://eduversa-api.onrender.com";
 
-const generateOtpApi = async (userIdOrEmail) => {
-  const url = `${BASE_URL}/account/OTP/?query=${userIdOrEmail}`;
+const getAllStudentsApi = async () => {
+  const url = `${BASE_URL}/student/find/all`;
   if (process.env.NODE_ENV === "development") {
     console.log("URL:", url);
   }
+  const authToken = localStorage.getItem("authToken");
   try {
     if (process.env.NODE_ENV === "development") {
-      console.log("Generate OTP Function Called");
-      console.log("User ID:", userIdOrEmail);
+      console.log("Get All Students Function Called");
     }
+
     const response = await fetch(url, {
-      method: "PUT",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
+        authorization: authToken,
       },
     });
 
@@ -31,9 +33,11 @@ const generateOtpApi = async (userIdOrEmail) => {
     }
     return data;
   } catch (error) {
-    console.error("Generate OTP request error:", error.message);
+    if (process.env.NODE_ENV === "development") {
+      console.error("Get All Students request error:", error.message);
+    }
     throw error;
   }
 };
 
-export default generateOtpApi;
+export default getAllStudentsApi;

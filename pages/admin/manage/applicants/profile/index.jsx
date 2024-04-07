@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { AdminLayout } from "@/layout";
-import { getSingleApplicantApi } from "@/functions";
+import { getSingleApplicantApi, approveApplicantApi } from "@/functions";
 import { AllLoader } from "@/components";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 function generateClassName(prefix, key) {
   const formattedKey = key
@@ -72,7 +73,8 @@ function renderFields(data, parentKey = "") {
         key !== "_id" &&
         key !== "are_addresses_same" &&
         key !== "subjectString" &&
-        key !== "subjects"
+        key !== "subjects" &&
+        key !== "is_completely_filled"
     )
     .sort(([keyA], [keyB]) => {
       const priorityOrder = [
@@ -358,12 +360,28 @@ function renderFields(data, parentKey = "") {
 function ApplicantDashboard() {
   const [profileData, setProfileData] = useState({});
   const [loading, setLoading] = useState(true);
+  async function approveHandler(id) {
+    console.log("Approve applicant with id:", id);
+    localStorage.getItem("selected-applicantId", id);
+    const confirmApprove = confirm(
+      "Are you sure you want to approve this applicant?"
+    );
 
+    if (confirmApprove) {
+      try {
+        setLoading(true);
+        await approveApplicantApi(id);
+        setLoading(false);
+        alert("Applicant approved successfully.");
+        router.push("/admin/manage/applicants");
+      } catch (error) {
+        console.error("Error approving applicant:", error);
+        setLoading(false);
+        alert("Error approving applicant. Please try again.");
+      }
+    }
+  }
   useEffect(() => {
-    // const userType = localStorage.getItem("selected-applicantId");
-    // console.log("User Type:", userType);
-
-    // if (userType === "admin") {
     const applicantId = localStorage.getItem("selected-applicantId");
     console.log("Applicant ID:", applicantId);
 
@@ -408,7 +426,7 @@ function ApplicantDashboard() {
           <div className="profile-fields">{renderFields(profileData)}</div>
           <div className="button-container">
             <button>Update</button>
-            <button>Approave</button>
+            <button onClick={approveHandler}>Approave</button>
           </div>
         </div>
       </AdminLayout>
