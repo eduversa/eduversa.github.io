@@ -187,19 +187,6 @@ function Index() {
                     {applicant.personal_info.first_name}{" "}
                     {applicant.personal_info.last_name}
                   </h2>
-                  <p className="enrollment-number">
-                    <strong>Enrollment Number:</strong> {applicant.user_id}
-                  </p>
-                  <p className="course-applied">
-                    <strong>Course Applied:</strong>{" "}
-                    {applicant.course_info.course_name || "N/A"}
-                  </p>
-                  <p className="streams-applied">
-                    <strong>Streams Applied:</strong>{" "}
-                    {Array.isArray(applicant.course_info.stream)
-                      ? applicant.course_info.stream.join(", ")
-                      : "N/A"}
-                  </p>
                   {applicant.image ? (
                     <Image
                       src={applicant.image}
@@ -214,9 +201,20 @@ function Index() {
                       alt={`Image not available`}
                       height={100}
                       width={100}
-                      className="default-image"
+                      className="applicant-image"
                     />
                   )}
+                  <p className="course-applied">
+                    <strong>Course Applied:</strong>{" "}
+                    {applicant.course_info.course_name || "N/A"}
+                  </p>
+                  <p className="streams-applied">
+                    <strong>Streams Applied:</strong>{" "}
+                    {Array.isArray(applicant.course_info.stream)
+                      ? applicant.course_info.stream.join(", ")
+                      : "N/A"}
+                  </p>
+
                   <button
                     onClick={() => handleDeleteApplicant(applicant._id)}
                     className="delete-button"
