@@ -1,5 +1,9 @@
 import { useEffect, useState, Fragment } from "react";
-import { getApplicantsByYearApi, getCollegeDetailsApi } from "@/functions";
+import {
+  getApplicantsByYearApi,
+  getCollegeDetailsApi,
+  deleteSingleApplicantApi,
+} from "@/functions";
 import { AllLoader } from "@/components";
 import Image from "next/image";
 import { AdminLayout } from "@/layout";
@@ -118,6 +122,26 @@ function Index() {
     localStorage.setItem("selected-applicantId", id);
     console.log(localStorage.getItem("selected-applicantId"));
     router.push("/admin/manage/applicants/profile");
+  }
+  async function handleDeleteApplicant(id) {
+    console.log("Delete applicant with id:", id);
+    localStorage.setItem("selected-applicantId", id);
+    const confirmDelete = confirm(
+      "Are you sure you want to delete this applicant?"
+    );
+
+    if (confirmDelete) {
+      try {
+        setLoading(true);
+        await deleteSingleApplicantApi(id);
+        setLoading(false);
+        window.location.reload();
+      } catch (error) {
+        console.error("Error deleting applicant:", error);
+        setLoading(false);
+        alert("Error deleting applicant. Please try again.");
+      }
+    }
   }
 
   return (
