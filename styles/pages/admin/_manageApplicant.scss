@@ -209,10 +209,9 @@
 
       .button-container {
         position: relative;
-        display: flex;
-        justify-content: space-between;
+        @include flex-container(row, nowrap, center, center);
         align-items: center;
-        margin-top: 36px;
+        margin: 2% 0 0 0;
         z-index: 2;
         transition: all 0.5s ease;
 

@@ -214,19 +214,20 @@ function Index() {
                       ? applicant.course_info.stream.join(", ")
                       : "N/A"}
                   </p>
-
-                  <button
-                    onClick={() => handleDeleteApplicant(applicant._id)}
-                    className="delete-button"
-                  >
-                    Delete Applicant
-                  </button>
-                  <button
-                    onClick={() => handleShowProfile(applicant._id)}
-                    className="profile-button"
-                  >
-                    Show Profile
-                  </button>
+                  <div className="button-container">
+                    <button
+                      onClick={() => handleDeleteApplicant(applicant._id)}
+                      className="delete-button"
+                    >
+                      Delete Applicant
+                    </button>
+                    <button
+                      onClick={() => handleShowProfile(applicant._id)}
+                      className="profile-button"
+                    >
+                      Show Profile
+                    </button>
+                  </div>
                 </div>
               ))
             ) : (
