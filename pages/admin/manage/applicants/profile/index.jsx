@@ -361,7 +361,6 @@ function ApplicantDashboard() {
   const [profileData, setProfileData] = useState({});
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const router = useRouter();
 
   async function approveHandler(id) {
     console.log("Approve applicant with id:", id);
