@@ -408,6 +408,10 @@ function ApplicantDashboard() {
           return;
         }
         setProfileData(response.data);
+        localStorage.setItem(
+          "applicant_profile",
+          JSON.stringify(response.data)
+        );
         setLoading(false);
       } catch (error) {
         console.error("Error fetching applicant data:", error.message);
