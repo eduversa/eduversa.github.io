@@ -9,14 +9,14 @@ import { AdminLayout } from "@/layout";
 export default function Scan() {
   const router = useRouter();
   const [data, setData] = useState("No result");
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const qrRef = useRef(null);
 
   const handleScan = async (result, error) => {
     if (!!result) {
       setData(result?.text);
       setShowModal(true);
-      // await handleOK(result.text);
+      await handleOK(result.text);
       // qrRef.current.stop();
     }
 
@@ -36,6 +36,7 @@ export default function Scan() {
     console.log("object 1");
     const response = await fetch(`${apiURL}/scanner/process`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         type: "security_token",
         data: {
@@ -92,14 +93,14 @@ export default function Scan() {
                 >
                   Close
                 </button>
-                {/* <button
+                <button
                   className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mx-4 mt-4 hover:bg-gray-300"
                   onClick={async () => {
                     await handleOK();
                   }}
                 >
                   Ok
-                </button> */}
+                </button>
               </div>
             </div>
           )}
