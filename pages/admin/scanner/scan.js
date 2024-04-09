@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
+import { AdminLayout } from "@/layout";
 
 export default function Scan() {
   const router = useRouter();
@@ -11,11 +12,12 @@ export default function Scan() {
   const [showModal, setShowModal] = useState(false);
   const qrRef = useRef(null);
 
-  const handleScan = (result, error) => {
+  const handleScan = async (result, error) => {
     if (!!result) {
       setData(result?.text);
       setShowModal(true);
-      qrRef.current.stop();
+      // await handleOK(result.text);
+      // qrRef.current.stop();
     }
 
     if (!!error) {
@@ -28,9 +30,28 @@ export default function Scan() {
     router.reload();
   };
 
-  const handleOK = async () => {
-    await axios.post(`/api/postData`, { data });
-    router.reload();
+  const handleOK = async (data) => {
+    alert("akjckckq");
+    const apiURL = "https://eduversa-api.onrender.com";
+    console.log("object 1");
+    const response = await fetch(`${apiURL}/scanner/process`, {
+      method: "POST",
+      body: JSON.stringify({
+        type: "security_token",
+        data: {
+          security_token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTIwMjQwMDYzMjUiLCJ0eXBlIjoic3R1ZGVudCIsImlhdCI6MTcxMjQwMDU0OX0.rquS7vd32BPYuSaZIG8NRkMka1Dzb9DIJBkzSZKWqac",
+          accessLevel: "4",
+        },
+      }),
+    });
+    console.log("object 2");
+    const res = await response.json();
+    console.log("object 3");
+    setData(JSON.stringify(res));
+    setShowModal(true);
+
+    alert("done");
   };
 
   return (
@@ -41,24 +62,25 @@ export default function Scan() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex flex-col mt-[5rem] justify-center items-center">
-        <div className="flex flex-col justify-center items-center">
-          <h1 className="text-4xl font-bold mb-4">QR Scanner</h1>
+      <AdminLayout>
+        {/* <main className="flex flex-col mt-[5rem] justify-center items-center"> */}
+        <div className="scanner">
+          <h1 className="scanner__heading">QR Scanner</h1>
           <div>
             <QrReader
-              className="lg:h-[400px] lg:w-[400px] h-[300px] w-[300px]"
+              className="scanner__camera"
               onResult={handleScan}
               constraints={{ facingMode: "environment" }}
               style={{ width: "40%", height: "40%" }}
               ref={qrRef}
             />
           </div>
-          <Link
+          {/* <Link
             href={`/`}
             className=" bg-yellow-200 m-4 text-md rounded-md px-4 py-2 hover:underline"
           >
             Back to home..
-          </Link>
+          </Link> */}
           {showModal && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
               <div className="bg-white rounded-md p-4">
@@ -70,17 +92,20 @@ export default function Scan() {
                 >
                   Close
                 </button>
-                <button
+                {/* <button
                   className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mx-4 mt-4 hover:bg-gray-300"
-                  onClick={handleOK}
+                  onClick={async () => {
+                    await handleOK();
+                  }}
                 >
                   Ok
-                </button>
+                </button> */}
               </div>
             </div>
           )}
         </div>
-      </main>
+        {/* </main> */}
+      </AdminLayout>
     </>
   );
 }
