@@ -279,31 +279,31 @@ const ApplicantForm = ({userid}) => {
     };
   }, []);
 
-  useEffect(() => {
-    const userType = localStorage.getItem("userType");
-    if (userType === "admin") {
-      // const applicantId = localStorage.getItem("userid");
-      const fetchData = async () => {
-        try {
-          const response = await getSingleApplicantApi(userid);
-          if (response.status === false) {
-            alert(response.message);
-            return;
-          }
-          localStorage.setItem(
-            "applicant_profile",
-            JSON.stringify(response.data)
-          );
-        } catch (error) {
-          if (process.env.NODE_ENV === "development") {
-            console.error("Error fetching applicant data:", error.message);
-          }
-        }
-      };
+  // useEffect(() => {
+  //   const userType = localStorage.getItem("userType");
+  //   if (userType === "admin") {
+  //     // const applicantId = localStorage.getItem("userid");
+  //     const fetchData = async () => {
+  //       try {
+  //         const response = await getSingleApplicantApi(userid);
+  //         if (response.status === false) {
+  //           alert(response.message);
+  //           return;
+  //         }
+  //         localStorage.setItem(
+  //           "applicant_profile",
+  //           JSON.stringify(response.data)
+  //         );
+  //       } catch (error) {
+  //         if (process.env.NODE_ENV === "development") {
+  //           console.error("Error fetching applicant data:", error.message);
+  //         }
+  //       }
+  //     };
   
-      fetchData();
-    }
-  }, [userid]);
+  //     fetchData();
+  //   }
+  // }, [userid]);
 
   useEffect(() => {
     const savedFormData = loadSavedFormData();
