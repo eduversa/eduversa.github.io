@@ -360,9 +360,11 @@ function renderFields(data, parentKey = "") {
 function ApplicantDashboard() {
   const [profileData, setProfileData] = useState({});
   const [loading, setLoading] = useState(true);
-  async function approveHandler(id) {
+  const router = useRouter();
+
+  async function approveHandler() {
+    const id = localStorage.getItem("selected-applicantId");
     console.log("Approve applicant with id:", id);
-    localStorage.getItem("selected-applicantId", id);
     const confirmApprove = confirm(
       "Are you sure you want to approve this applicant?"
     );
@@ -381,6 +383,16 @@ function ApplicantDashboard() {
       }
     }
   }
+  async function updateHandler() {
+    // console.log("Approve applicant with id:", id);
+
+    try {
+      router.push("/admin/manage/applicants/profile/update");
+    } catch (error) {
+      console.error("Error updating applicant:", error);
+      alert("Error updating applicant. Please try again.");
+    }
+  }
   useEffect(() => {
     const applicantId = localStorage.getItem("selected-applicantId");
     console.log("Applicant ID:", applicantId);
@@ -396,6 +408,10 @@ function ApplicantDashboard() {
           return;
         }
         setProfileData(response.data);
+        localStorage.setItem(
+          "applicant_profile",
+          JSON.stringify(response.data)
+        );
         setLoading(false);
       } catch (error) {
         console.error("Error fetching applicant data:", error.message);
@@ -425,7 +441,7 @@ function ApplicantDashboard() {
           )}
           <div className="profile-fields">{renderFields(profileData)}</div>
           <div className="button-container">
-            <button>Update</button>
+            <button onClick={updateHandler}>Update</button>
             <button onClick={approveHandler}>Approave</button>
           </div>
         </div>

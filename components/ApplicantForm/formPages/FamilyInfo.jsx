@@ -91,6 +91,12 @@ const FamilyInfo = ({
   }, [officePincode, setOfficePincodeError, formData, handleChange, prevOfficePincode, fetching]);
 
   async function onSubmitHandler() {
+
+    // check to see if tehre are any changes to the form
+    const initialFormData = localStorage.getItem('applicant_profile');
+    if (initialFormData === JSON.stringify(formData)) {
+      return;
+    }
     setLoading(true);
     localStorage.setItem(
       "applicant_profile",

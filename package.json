@@ -44,18 +44,31 @@
   "dependencies": {
     "@vercel/analytics": "^1.2.2",
     "@vercel/speed-insights": "^1.0.10",
+    "axios": "^1.6.8",
     "fs": "^0.0.1-security",
+    "googleapis": "^134.0.0",
     "next": "^14.1.4",
     "next-auth": "^4.24.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-qr-code": "^2.0.12",
+    "react-qr-reader": "^3.0.0-beta-1",
     "sharp": "^0.33.3",
     "sitemap": "^7.1.1"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-config-next": "14.1.4",
-    "sass": "^1.74.1"
+    "sass": "^1.74.1",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.3.0"
+  },
+  "overrides": {
+    "react-qr-reader": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
   },
   "contributing": {
     "url": "https://github.com/eduversa/eduversa.github.io/blob/main/CONTRIBUTING.md"

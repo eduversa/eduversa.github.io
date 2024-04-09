@@ -68,7 +68,15 @@ export const Email = ({ label, name, value, required,  ...props }) => {
         {label}
         {required && <span style={{ color: 'red' }}>*</span>}
       </label>
-      <input type="email" id={name} name={name} value={value} {...props} />
+      <input 
+        type="email" 
+        id={name} 
+        name={name} 
+        value={value} 
+        // pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+        minLength={6}
+        {...props} 
+      />
     </div>
   );
 };
