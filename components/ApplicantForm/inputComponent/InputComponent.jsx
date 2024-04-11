@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from 'next/router'; // Import useRouter from Next.js
 
 //restriction funtions
 const preventE = (e) => {
@@ -211,6 +212,29 @@ export const Pan = ({ label, name, value, required, ...props }) => {
   );
 };
 
+export const Dob= ({ label, name, value, required, ...props }) => {
+  const today = new Date();
+  const maxDate = new Date(today);
+  maxDate.setFullYear(today.getFullYear() - 15);
+  const minDate = new Date(today);
+  minDate.setFullYear(today.getFullYear() - 100);
+  return (
+    <div className="inputs">
+      <label htmlFor={name}>
+        {label}
+        {required && <span style={{ color: 'red' }}>*</span>}
+      </label>
+      <input 
+        type="date"
+        id={name}
+        name={name}
+        value={value}        
+        min={minDate.toISOString().split('T')[0]}
+        max={maxDate.toISOString().split('T')[0]}
+        {...props} />
+    </div>
+  );
+};
 export const DateInput = ({ label, name, value, required, ...props }) => {
   return (
     <div className="inputs">
@@ -250,6 +274,15 @@ export const FormButtons = ({
   currentStep,
   totalSteps,
 }) => {
+  const router = useRouter(); 
+  const handleSaveClick = () => {
+    const userType = localStorage.getItem("userType");
+      onSubmitHandler();
+    if (userType === "admin") {
+      router.push("/admin/manage/applicants/profile");
+    }
+  };
+
   return (
     <div className="btns">
       <button
@@ -264,7 +297,7 @@ export const FormButtons = ({
       <button type="button" className="btn" onClick={clearFormData}>
         Clear
       </button>
-      <button type="button" className="btn" onClick={onSubmitHandler}>
+      <button type="button" className="btn" onClick={handleSaveClick}>
         Save
       </button>
       <button className="btn" type="submit">
