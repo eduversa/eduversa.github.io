@@ -122,18 +122,16 @@
     .filter-select::placeholder {
       color: #999;
     }
-
+    .checkbox-input {
+      margin: 0 10px 0 0;
+    }
     .checkbox-label {
-      &:before {
-        content: "\f0c8";
-      }
-
       &:hover:before {
         color: #007bff;
       }
 
       input[type="checkbox"]:checked + &::before {
-        color: #4caf50; /* green */
+        color: #4caf50;
       }
     }
   }
@@ -141,7 +139,7 @@
   .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    gap: 30px;
 
     .card {
       @include flex-container(column, nowrap, flex-start, center);
@@ -169,12 +167,12 @@
       }
 
       .card-title {
-        font-size: 24px;
-        margin-bottom: 10px;
-        color: #333;
+        font-family: var(--font-elianto);
+        font-size: var(--font-10);
+        color: var(--black);
         text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        margin: 2% 0 0 0;
+        letter-spacing: 2px;
         transition: color 0.3s ease;
       }
 
@@ -182,12 +180,17 @@
         border-radius: 50%;
         transition: transform 0.3s ease;
       }
-
+      .default-image {
+        text-align: center;
+      }
       .course-applied,
       .streams-applied {
-        margin-top: 10px;
-        font-size: 16px;
-        color: #666;
+        margin: 5% 0 0 0;
+        font-family: var(--font-roboto);
+        font-size: var(--font-12);
+        letter-spacing: 3px;
+        font-weight: 400;
+        color: var(--black);
         text-align: center;
         transition: color 0.3s ease;
       }
