@@ -11,9 +11,21 @@ const Footer = () => {
   const footerContent = {
     student: [
       { label: "Dashboard", href: "/student" },
-      { label: "update data application", href: "/student/update" },
-      { label: "About Us", href: "/student/about" },
-      { label: "Contact Us", href: "/student/contact" },
+      {
+        label: "Update Profile",
+
+        href: "/student/update",
+      },
+      {
+        label: "Contact Us",
+
+        href: "/student/contact",
+      },
+      {
+        label: "About Us",
+
+        href: "/student/about",
+      },
     ],
     applicant: [
       { label: "Dashboard", href: "/applicant" },
