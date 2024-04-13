@@ -257,26 +257,23 @@
   }
 
   .page-management {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-
+    @include flex-container(row, nowrap, center, center);
+    margin: 5% 0 0 0;
     .page-size-select {
-      margin-right: 20px;
+      margin: 0 3% 0 0;
+      font-family: var(--font-roboto);
+      font-size: var(--font-12);
     }
-
     .pagination-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-
+      @include flex-container(row, nowrap, center, center);
+      gap: 10px;
       .pagination-item {
         margin-right: 5px;
 
         .pagination-link {
-          padding: 8px 12px;
+          font-size: var(--font-13);
+          font-family: var(--font-elianto);
+          padding: 10px 15px;
           border: 1px solid #ced4da;
           border-radius: 10px;
           cursor: pointer;
