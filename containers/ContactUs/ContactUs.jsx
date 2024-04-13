@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
-
+import Head from "next/head";
 import contactUs from "../../data/ContactUs";
 
 const ContactUs = () => {
@@ -54,6 +54,16 @@ const ContactUs = () => {
   };
   return (
     <Fragment>
+      <Head>
+        <title>Contact Us - Eduversa Team</title>
+
+        <meta name="description" content={contactUs.teamObjective} />
+
+        <meta
+          name="keywords"
+          content="contact us, Eduversa team, team members, contact email, team objective, social media"
+        />
+      </Head>
       <div className={containerClass}>
         <h2 className="contact-us-heading">Contact Us</h2>
 

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
 import { AllLoader } from "@/components";
 import { generateOtpApi, resetUserNameApi } from "@/functions";
-
+import Head from "next/head";
 function ForgetUsername() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -86,6 +86,17 @@ function ForgetUsername() {
   return (
     <Fragment>
       <LandingLayout>
+        <Head>
+          <title>Forget Username - Your Website Name</title>
+          <meta
+            name="description"
+            content="Recover your username by generating OTP on Your Website Name."
+          />
+          <meta
+            name="keywords"
+            content="forget username, recover username, OTP, Your Website Name"
+          />
+        </Head>
         {loading && <AllLoader />}
         <div className="forget-username-container">
           <h1 className="forget-username-heading">Forget Username</h1>
