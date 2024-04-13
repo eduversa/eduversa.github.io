@@ -1,12 +1,21 @@
-/* Basic Styles */
-
 .manage-applicant-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
-  border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(45deg, var(--white-1), var(--white-12));
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 20px 20px 40px var(--black-shadow-light-1),
+    -20px -20px 40px var(--white-shadow-0);
+  @media (max-width: $breakpoint-desktop-wide) {
+  }
+  @media (max-width: $breakpoint-desktop) {
+  }
+  @media (max-width: $breakpoint-large-tablet) {
+  }
+  @media (max-width: $breakpoint-tablet) {
+    padding: 30px;
+  }
+  @media (max-width: $breakpoint-phone) {
+  }
 
   .title {
     font-size: 36px;
@@ -23,7 +32,6 @@
     justify-content: center;
     flex-wrap: wrap;
     margin-bottom: 20px;
-
     .search-input,
     .filter-select,
     .checkbox-label {
