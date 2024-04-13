@@ -18,11 +18,46 @@
   }
 
   .title {
-    font-size: 36px;
-    margin-bottom: 20px;
-    color: #333;
+    position: relative;
     text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    color: var(--black);
+    font-family: var(--font-oswald);
+    font-size: var(--font-7);
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 0 0 3% 0;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-6);
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+    &::before {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--pink-3), var(--purple-4));
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      border-radius: 20px;
+      transform: translateX(-50%);
+      transition: width 2s ease-in-out;
+      animation: underlineAnimation 2s infinite alternate;
+    }
+    @keyframes underlineAnimation {
+      to {
+        width: 20%;
+      }
+    }
   }
 
   .filters {
@@ -103,29 +138,28 @@
     gap: 20px;
 
     .card {
+      @include flex-container(column, nowrap, flex-start, center);
       position: relative;
-      overflow: hidden;
-      background-color: #fff;
-      border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(45deg, #ecf0f1, #dce1e3);
+      border-radius: 15px;
+      box-shadow: 10px 10px 20px var(--black-shadow-light-1),
+        -10px -10px 20px var(--white-shadow-0);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
         transform: translateY(-5px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-      }
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px;
-        background: linear-gradient(45deg, #007bff, #4caf50);
-        z-index: -1;
-        border-radius: 20px;
+        box-shadow: 0 0 20px var(--black-shadow-light-1),
+          0 0 40px var(--black-shadow-light) inset;
       }
 
       .card-title {
