@@ -12,37 +12,75 @@
   @media (max-width: $breakpoint-large-tablet) {
   }
   @media (max-width: $breakpoint-tablet) {
+    box-shadow: 5px 5px 10px var(--black-shadow-light-1),
+      -5px -5px 10px var(--white-shadow-0);
     padding: 30px;
   }
   @media (max-width: $breakpoint-phone) {
   }
 
   .title {
-    font-size: 36px;
-    margin-bottom: 20px;
-    color: #333;
+    position: relative;
     text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    color: var(--black);
+    font-family: var(--font-oswald);
+    font-size: var(--font-7);
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 0 0 3% 0;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      font-size: var(--font-6);
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+    &::before {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--pink-3), var(--purple-4));
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      border-radius: 20px;
+      transform: translateX(-50%);
+      transition: width 2s ease-in-out;
+      animation: underlineAnimation 2s infinite alternate;
+    }
+    @keyframes underlineAnimation {
+      to {
+        width: 20%;
+      }
+    }
   }
 
   .filters {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+    @include flex-container(row, wrap, center, center);
+    margin: 0 0 2% 0;
     .search-input,
     .filter-select,
     .checkbox-label {
+      position: relative;
+      font-family: var(--font-tektur);
+      font-size: var(--font-13);
+      color: var(--black);
+      letter-spacing: 2px;
+      font-weight: 400;
+      background-color: var(--white);
+      border: 1px solid #838383;
+      border-radius: 10px;
       margin: 10px;
       padding: 12px;
-      border: 1px solid #ced4da;
-      border-radius: 10px;
-      font-size: 16px;
       transition: border-color 0.3s ease;
-      position: relative;
-      background-color: #fff;
 
       &:focus {
         outline: none;
@@ -76,23 +114,25 @@
         border-color: #007bff;
       }
     }
-
+    .filter-label {
+      font-family: var(--font-tektur);
+      font-size: var(--font-12);
+      color: #666;
+    }
     .search-input::placeholder,
     .filter-select::placeholder {
       color: #999;
     }
-
+    .checkbox-input {
+      margin: 0 10px 0 0;
+    }
     .checkbox-label {
-      &:before {
-        content: "\f0c8"; /* FontAwesome check icon */
-      }
-
       &:hover:before {
         color: #007bff;
       }
 
       input[type="checkbox"]:checked + &::before {
-        color: #4caf50; /* green */
+        color: #4caf50;
       }
     }
   }
@@ -100,72 +140,93 @@
   .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-
+    gap: 30px;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
     .card {
+      @include flex-container(column, nowrap, flex-start, center);
       position: relative;
-      overflow: hidden;
-      background-color: #fff;
-      border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(45deg, #ecf0f1, #dce1e3);
+      border-radius: 15px;
+      box-shadow: 10px 10px 20px var(--black-shadow-light-1),
+        -10px -10px 20px var(--white-shadow-0);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       &:hover {
         transform: translateY(-5px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-      }
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px;
-        background: linear-gradient(45deg, #007bff, #4caf50);
-        z-index: -1;
-        border-radius: 20px;
+        box-shadow: 0 0 20px var(--black-shadow-light-1),
+          0 0 40px var(--black-shadow-light) inset;
       }
 
       .card-title {
-        font-size: 24px;
-        margin-bottom: 10px;
-        color: #333;
+        font-family: var(--font-elianto);
+        font-size: var(--font-10);
+        color: var(--black);
         text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        margin: 2% 0 0 0;
+        letter-spacing: 2px;
         transition: color 0.3s ease;
       }
 
       .applicant-image {
         border-radius: 50%;
         transition: transform 0.3s ease;
+        margin: 1% 0 0 0;
+        border: 1px solid #ccc;
       }
-
+      .default-image {
+        text-align: center;
+      }
       .course-applied,
       .streams-applied {
-        margin-top: 10px;
-        font-size: 16px;
-        color: #666;
+        margin: 5% 0 0 0;
+        font-family: var(--font-tektur);
+        font-size: var(--font-12);
+        letter-spacing: 4px;
+        font-weight: 500;
+        color: var(--black);
         text-align: center;
         transition: color 0.3s ease;
+        strong {
+          font-weight: 400;
+        }
       }
 
       .button-container {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
+        margin: 5% 0 0 0;
+        @include flex-container(row, nowrap, center, center);
         position: relative;
         z-index: 2;
-
+        gap: 10px;
         .delete-button,
         .profile-button {
-          padding: 10px 20px;
+          padding: 10px 15px;
           border: none;
           border-radius: 10px;
           cursor: pointer;
-          font-size: 16px;
+          font-size: var(--font-12);
           transition: all 0.3s ease;
           background-color: #ff5a5a;
           color: #fff;
@@ -177,13 +238,12 @@
 
           &:hover {
             background-color: #ff3333;
-            transform: translateY(-3px);
+            transform: translateY(-1px) scale(1.05);
           }
         }
 
         .profile-button {
           background-color: #4caf50;
-          margin-left: 10px;
 
           &:hover {
             background-color: #43a047;
@@ -192,7 +252,7 @@
       }
 
       &:hover .applicant-image {
-        transform: scale(1.1);
+        transform: scale(1.05);
       }
 
       &:hover .card-title,
@@ -210,29 +270,57 @@
     color: #666;
   }
 
-  /* Pagination Styles */
-
   .page-management {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-
-    .page-size-select {
-      margin-right: 20px;
+    @include flex-container(row, nowrap, center, center);
+    margin: 5% 0 0 0;
+    @media (max-width: $breakpoint-desktop-wide) {
     }
-
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+      @include flex-container(column, nowrap, center, center);
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+    .page-size-select {
+      margin: 0 3% 0 0;
+      font-family: var(--font-roboto);
+      font-size: var(--font-12);
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+      }
+      @media (max-width: $breakpoint-phone) {
+        margin: 0 0 3% 0;
+      }
+    }
     .pagination-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-
+      @include flex-container(row, nowrap, center, center);
+      gap: 10px;
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+      }
+      @media (max-width: $breakpoint-tablet) {
+        @include flex-container(column, nowrap, center, center);
+      }
+      @media (max-width: $breakpoint-phone) {
+      }
       .pagination-item {
         margin-right: 5px;
 
         .pagination-link {
-          padding: 8px 12px;
+          font-size: var(--font-13);
+          font-family: var(--font-elianto);
+          padding: 10px 15px;
           border: 1px solid #ced4da;
           border-radius: 10px;
           cursor: pointer;

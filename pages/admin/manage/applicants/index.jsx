@@ -100,7 +100,7 @@ function Index() {
     setSubmitted(event.target.checked);
     if (event.target.checked) {
       const filteredApplicants = applicants.filter(
-        (applicant) => applicant.personal_info.are_addresses_same === true
+        (applicant) => applicant.is_completely_filled === true
       );
       setApplicants(filteredApplicants);
     } else {
@@ -215,7 +215,7 @@ function Index() {
               currentApplicants.map((applicant) => (
                 <div key={applicant._id} className="card">
                   <h2 className="card-title">
-                    {applicant.personal_info.first_name}
+                    {applicant.personal_info.first_name}{" "}
                     {applicant.personal_info.last_name}
                   </h2>
                   {applicant.image ? (
@@ -228,11 +228,11 @@ function Index() {
                     />
                   ) : (
                     <Image
-                      src="/default-image.jpg"
+                      src="/user.png"
                       alt={`Image not available`}
                       height={100}
                       width={100}
-                      className="applicant-image"
+                      className="applicant-image default-image"
                     />
                   )}
                   <p className="course-applied">
@@ -249,13 +249,23 @@ function Index() {
                       onClick={() => handleDeleteApplicant(applicant.user_id)}
                       className="delete-button"
                     >
-                      Delete Applicant
+                      <Image
+                        src="/applicant/delete.png"
+                        alt="delete"
+                        height={20}
+                        width={20}
+                      ></Image>
                     </button>
                     <button
                       onClick={() => handleShowProfile(applicant.user_id)}
                       className="profile-button"
                     >
-                      Show Profile
+                      <Image
+                        src="/applicant/search.png"
+                        alt="profile"
+                        height={20}
+                        width={20}
+                      ></Image>
                     </button>
                   </div>
                 </div>
