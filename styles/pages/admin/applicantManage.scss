@@ -179,6 +179,8 @@
       .applicant-image {
         border-radius: 50%;
         transition: transform 0.3s ease;
+        margin: 1% 0 0 0;
+        border: 1px solid #ccc;
       }
       .default-image {
         text-align: center;
@@ -186,29 +188,31 @@
       .course-applied,
       .streams-applied {
         margin: 5% 0 0 0;
-        font-family: var(--font-roboto);
+        font-family: var(--font-tektur);
         font-size: var(--font-12);
-        letter-spacing: 3px;
-        font-weight: 400;
+        letter-spacing: 4px;
+        font-weight: 500;
         color: var(--black);
         text-align: center;
         transition: color 0.3s ease;
+        strong {
+          font-weight: 400;
+        }
       }
 
       .button-container {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
+        margin: 5% 0 0 0;
+        @include flex-container(row, nowrap, center, center);
         position: relative;
         z-index: 2;
-
+        gap: 10px;
         .delete-button,
         .profile-button {
-          padding: 10px 20px;
+          padding: 10px 15px;
           border: none;
           border-radius: 10px;
           cursor: pointer;
-          font-size: 16px;
+          font-size: var(--font-12);
           transition: all 0.3s ease;
           background-color: #ff5a5a;
           color: #fff;
@@ -220,13 +224,12 @@
 
           &:hover {
             background-color: #ff3333;
-            transform: translateY(-3px);
+            transform: translateY(-1px) scale(1.05);
           }
         }
 
         .profile-button {
           background-color: #4caf50;
-          margin-left: 10px;
 
           &:hover {
             background-color: #43a047;
@@ -235,7 +238,7 @@
       }
 
       &:hover .applicant-image {
-        transform: scale(1.1);
+        transform: scale(1.05);
       }
 
       &:hover .card-title,
@@ -252,8 +255,6 @@
     margin-top: 20px;
     color: #666;
   }
-
-  /* Pagination Styles */
 
   .page-management {
     display: flex;

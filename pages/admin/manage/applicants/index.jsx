@@ -249,13 +249,23 @@ function Index() {
                       onClick={() => handleDeleteApplicant(applicant.user_id)}
                       className="delete-button"
                     >
-                      Delete Applicant
+                      <Image
+                        src="/applicant/delete.png"
+                        alt="delete"
+                        height={20}
+                        width={20}
+                      ></Image>
                     </button>
                     <button
                       onClick={() => handleShowProfile(applicant.user_id)}
                       className="profile-button"
                     >
-                      Show Profile
+                      <Image
+                        src="/applicant/search.png"
+                        alt="profile"
+                        height={20}
+                        width={20}
+                      ></Image>
                     </button>
                   </div>
                 </div>
