@@ -25,3 +25,4 @@ export { default as CollegeDropdowns } from "./DropDown";
 export { default as ManageApp } from "./ManageApp";
 
 // Meta Components
+export { default as CommonMeta } from "./CommonMeta";
