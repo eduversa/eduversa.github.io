@@ -37,6 +37,10 @@ export default function CommonMeta() {
       />
       <meta name="theme-color" content="#ffffff" />
       <meta name="referrer" content="origin-when-cross-origin" />
+      <meta
+        name="google-site-verification"
+        content="ZQ7y2oT7kIhS-ULWuKP2gnBzUbKy7lk_IQexK0jZ1fE"
+      />
     </Head>
   );
 }
