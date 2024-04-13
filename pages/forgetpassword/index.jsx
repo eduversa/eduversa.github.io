@@ -160,14 +160,14 @@ function ForgetPassword() {
     <Fragment>
       <LandingLayout>
         <Head>
-          <title>Forget Password - Your Website Name</title>
+          <title>Forget Password - Eduversa</title>
           <meta
             name="description"
-            content="Recover your password by generating OTP on Your Website Name."
+            content="Recover your password by generating OTP on Eduversa."
           />
           <meta
             name="keywords"
-            content="forget password, recover password, OTP, Your Website Name"
+            content="forget password, recover password, OTP, Eduversa"
           />
         </Head>
         {loading && <AllLoader />}
