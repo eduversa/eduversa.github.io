@@ -98,14 +98,14 @@ function Register() {
     <Fragment>
       <LandingLayout>
         <Head>
-          <title>Register - Your Website Name</title>
+          <title>Register - Eduversa</title>
           <meta
             name="description"
-            content="Register for an account on Your Website Name to access exclusive features."
+            content="Register for an account on Eduversa to access exclusive features."
           />
           <meta
             name="keywords"
-            content="register, sign up, create account, Your Website Name"
+            content="register, sign up, create account, Eduversa"
           />
         </Head>
         {loading && <AllLoader />}
