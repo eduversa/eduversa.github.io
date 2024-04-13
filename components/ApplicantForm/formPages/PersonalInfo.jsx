@@ -72,7 +72,7 @@ const PersonalInfo = ({
   const [prevPresentPincode, setPrevPresentPincode] = useState("");
   const [prevPermanentPincode, setPrevPermanentPincode] = useState("");
   
-  const [areAddressesSame, setAreAddressesSame] = useState(formData.personal_info.are_addresses_same);
+  const [areAddressesSame, setAreAddressesSame] = useState();
 
   const [fetching, setFetching] = useState(false);
   const controller = useRef(null);
@@ -137,6 +137,7 @@ const PersonalInfo = ({
   ]);
 
   useEffect(() => {
+    setAreAddressesSame(formData.personal_info.are_addresses_same);
     if (areAddressesSame) {
       const presentAddress = formData.personal_info.present_address;
       const permanentAddress = formData.personal_info.permanent_address;
@@ -155,6 +156,12 @@ const PersonalInfo = ({
   }, [formData, areAddressesSame, handleChange]);
 
   async function onSubmitHandler() {
+
+    // check to see if tehre are any changes to the form
+    const initialFormData = localStorage.getItem('applicant_profile');
+    if (initialFormData === JSON.stringify(formData)) {
+      return;
+    }
     setLoading(true);
     localStorage.setItem("applicant_profile", JSON.stringify(formData));
     const data = JSON.stringify(formData.personal_info);

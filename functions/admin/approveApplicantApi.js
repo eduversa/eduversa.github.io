@@ -1,19 +1,19 @@
 const BASE_URL = "https://eduversa-api.onrender.com";
 
-const getApplicantsByYearApi = async (year) => {
-  const url = `${BASE_URL}/applicant/year?year=${year}`;
+const approveApplicantApi = async (userId) => {
+  const url = `${BASE_URL}/student/approve?user_id=${userId}`;
   if (process.env.NODE_ENV === "development") {
     console.log("URL:", url);
   }
   const authToken = localStorage.getItem("authToken");
   try {
     if (process.env.NODE_ENV === "development") {
-      console.log("Get Applicants By Year Function Called");
-      console.log("Year:", year);
+      console.log("Approve Applicant Function Called");
+      console.log("User ID:", userId);
     }
 
     const response = await fetch(url, {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         authorization: authToken,
@@ -35,10 +35,10 @@ const getApplicantsByYearApi = async (year) => {
     return data;
   } catch (error) {
     if (process.env.NODE_ENV === "development") {
-      console.error("Get Applicants By Year request error:", error.message);
+      console.error("Approve Applicant request error:", error.message);
     }
     throw error;
   }
 };
 
-export default getApplicantsByYearApi;
+export default approveApplicantApi;

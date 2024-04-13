@@ -1,15 +1,14 @@
 const BASE_URL = "https://eduversa-api.onrender.com";
 
-const getApplicantsByYearApi = async (year) => {
-  const url = `${BASE_URL}/applicant/year?year=${year}`;
+const getAllStudentsApi = async () => {
+  const url = `${BASE_URL}/student/find/all`;
   if (process.env.NODE_ENV === "development") {
     console.log("URL:", url);
   }
   const authToken = localStorage.getItem("authToken");
   try {
     if (process.env.NODE_ENV === "development") {
-      console.log("Get Applicants By Year Function Called");
-      console.log("Year:", year);
+      console.log("Get All Students Function Called");
     }
 
     const response = await fetch(url, {
@@ -35,10 +34,10 @@ const getApplicantsByYearApi = async (year) => {
     return data;
   } catch (error) {
     if (process.env.NODE_ENV === "development") {
-      console.error("Get Applicants By Year request error:", error.message);
+      console.error("Get All Students request error:", error.message);
     }
     throw error;
   }
 };
 
-export default getApplicantsByYearApi;
+export default getAllStudentsApi;

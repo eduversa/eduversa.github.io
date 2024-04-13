@@ -279,31 +279,31 @@ const ApplicantForm = ({userid}) => {
     };
   }, []);
 
-  useEffect(() => {
-    const userType = localStorage.getItem("userType");
-    if (userType === "admin") {
-      // const applicantId = localStorage.getItem("userid");
-      const fetchData = async () => {
-        try {
-          const response = await getSingleApplicantApi(userid);
-          if (response.status === false) {
-            alert(response.message);
-            return;
-          }
-          localStorage.setItem(
-            "applicant_profile",
-            JSON.stringify(response.data)
-          );
-        } catch (error) {
-          if (process.env.NODE_ENV === "development") {
-            console.error("Error fetching applicant data:", error.message);
-          }
-        }
-      };
+  // useEffect(() => {
+  //   const userType = localStorage.getItem("userType");
+  //   if (userType === "admin") {
+  //     // const applicantId = localStorage.getItem("userid");
+  //     const fetchData = async () => {
+  //       try {
+  //         const response = await getSingleApplicantApi(userid);
+  //         if (response.status === false) {
+  //           alert(response.message);
+  //           return;
+  //         }
+  //         localStorage.setItem(
+  //           "applicant_profile",
+  //           JSON.stringify(response.data)
+  //         );
+  //       } catch (error) {
+  //         if (process.env.NODE_ENV === "development") {
+  //           console.error("Error fetching applicant data:", error.message);
+  //         }
+  //       }
+  //     };
   
-      fetchData();
-    }
-  }, [userid]);
+  //     fetchData();
+  //   }
+  // }, [userid]);
 
   useEffect(() => {
     const savedFormData = loadSavedFormData();
@@ -325,9 +325,52 @@ const ApplicantForm = ({userid}) => {
   const handleChange = (event, callback) => {
     const { name, value } = event.target;
 
+    const nameParts = name.split(".");
+
+    if (nameParts[nameParts.length - 1] === "aadhar_number") {
+        const newValue = value.replace(/\s/g, ''); 
+        const formattedValue = newValue.replace(/(.{4})/g, '$1 '); 
+        setFormData((prevFormData) => {
+          const updatedData = { ...prevFormData };
+          let currentLevel = updatedData;
+          for (let i = 0; i < nameParts.length - 1; i++) {
+            currentLevel = currentLevel[nameParts[i]];
+          }
+          currentLevel[nameParts[nameParts.length - 1]] = formattedValue.trim(); 
+          return updatedData;
+        }, callback);
+        return;
+    }
+
     if (name === "formData") {
       setFormData((prevFormData) => ({ ...prevFormData, ...value }), callback);
       return;
+    }
+
+    if (name === "personal_info.email") {
+      if (value === formData.family_info.father.email) {
+        alert(`Student's email should not be same as Father's email. ${value}`);
+        return;
+      }
+      else if (value === formData.family_info.mother.email) {
+        alert(`Student's email should not be same as Mother's email. ${value}`);
+        return;
+      }
+      else if (value === formData.family_info.guardian.email) {
+        alert(`Student's email should not be same as Guardian's email. ${value}`);
+        return;
+      }
+    }
+
+    if (
+      name === "family_info.father.email" ||
+      name === "family_info.mother.email" ||
+      name === "family_info.guardian.email"
+    ) {
+      if (value === formData.personal_info.email) {
+        alert(`Father's, mother's or guardian's email should not be same as student's email. ${formData.personal_info.email}`);
+        return;
+      }
     }
 
     setFormData((prevFormData) => {

@@ -3,12 +3,16 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { AllLoader } from "@/components";
 import { logoutApi } from "@/functions";
+import Image from "next/image";
 function Navbar() {
   const router = useRouter();
   const logoText = "eduversa";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userType, setUserType] = useState(null);
+  const [showMenuPanel, setShowMenuPanel] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState(null);
+  const [customLinks, setCustomLinks] = useState([]);
 
   //@ Its Handling the logout functionality
   const handleLogout = async () => {
@@ -40,25 +44,46 @@ function Navbar() {
       }
     }
   };
-  // @ Its tooggling the sidenavbar
+
+  //@ Toggling the sidenavbar
   const toggleSideNavbar = () => {
-    const navContainer = document.getElementById("navContainer");
-    const width = navContainer.offsetWidth;
-    if (width > 0) {
-      navContainer.style.width = "0px";
-    } else {
-      navContainer.style.width = "100%";
-    }
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((prevState) => !prevState);
   };
 
-  // @ This code will handle the user type and their respective links
+  //@ This code will handle the user type and their respective links
   useEffect(() => {
     const storedUserType = localStorage.getItem("userType");
     setUserType(storedUserType);
+
+    const storedCustomLinks =
+      JSON.parse(localStorage.getItem("customLinks")) || [];
+    setCustomLinks(storedCustomLinks);
   }, []);
+
+  //@ Function to add custom link
+  const addCustomLink = (link) => {
+    const MAX_CUSTOM_LINKS = 4;
+
+    if (customLinks.length < MAX_CUSTOM_LINKS && !customLinks.includes(link)) {
+      const updatedLinks = [...customLinks, link];
+      setCustomLinks(updatedLinks);
+      localStorage.setItem("customLinks", JSON.stringify(updatedLinks));
+      setShowMenuPanel(false);
+    } else {
+      alert("Maximum custom links reached or link already added.");
+    }
+  };
+
+  //@ Function to remove custom link
+  const removeCustomLink = (index) => {
+    const updatedLinks = [...customLinks];
+    updatedLinks.splice(index, 1);
+    setCustomLinks(updatedLinks);
+    localStorage.setItem("customLinks", JSON.stringify(updatedLinks));
+  };
+
   const menuContents = {
-    superAdmin: [{}],
+    superAdmin: [],
     admin: [
       { label: "Dashboard", className: "nav-item", src: "/admin" },
       {
@@ -72,31 +97,73 @@ function Navbar() {
         src: "/admin/manage/students",
       },
       {
-        label: "Update Applicants",
+        label: "Contact Us",
         className: "nav-item",
-        src: "/admin/update/applicants",
+        src: "/admin/contact",
       },
       {
-        label: "Update Students",
+        label: "About Us",
         className: "nav-item",
-        src: "/admin/update/students",
+        src: "/admin/about",
       },
     ],
-    faculty: [{}],
-    student: [{}],
+    faculty: [
+      { label: "Dashboard", className: "nav-item", src: "/faculty/dashboard" },
+    ],
+    student: [
+      { label: "Dashboard", className: "nav-item", src: "/student/dashboard" },
+    ],
   };
-  const userMenuLinks = menuContents[userType];
+
+  const userMenuLinks = menuContents[userType] || [];
+
+  const filteredMenuLinks = userMenuLinks.filter(
+    (item) => !customLinks.some((link) => link.src === item.src)
+  );
+
   return (
     <Fragment>
       {isLoading && <AllLoader />}
       <header>
-        <nav className="navbar">
+        <nav className="navbar none">
           <div className="logo">
             <Link href="/">
               <span className="logo-text">{logoText}</span>
             </Link>
           </div>
-
+          <div className="navbar-links">
+            {customLinks.map((link, index) => (
+              <div key={index} className="nav-item">
+                <Link href={link.src} className="nav-item-link">
+                  <span>{link.label}</span>
+                </Link>
+                <button onClick={() => removeCustomLink(index)}>
+                  <Image
+                    className="close-icon"
+                    src="/nav/close.png"
+                    alt="Remove custom link"
+                    width={30}
+                    height={30}
+                  />
+                </button>
+              </div>
+            ))}
+            {customLinks.length < 4 && (
+              <div
+                className="nav-item"
+                onClick={() => setShowMenuPanel(!showMenuPanel)}
+              >
+                <span style={{ cursor: "pointer" }}>
+                  <Image
+                    src="/nav/add2.gif"
+                    alt="Add custom link"
+                    width={50}
+                    height={50}
+                  />
+                </span>
+              </div>
+            )}
+          </div>
           <div
             className={`menu ${isMenuOpen && "open"}`}
             onClick={toggleSideNavbar}
@@ -105,46 +172,40 @@ function Navbar() {
             <div className="menu-line"></div>
             <div className="menu-line"></div>
           </div>
-          <div id="navContainer" className="sidenavbar">
-            <div className="sidenavbar__container">
-              <div className="sidenavbar__brand">
-                <p className="sidenavbar__brand__name">Eduversa</p>
-                <div
-                  className={`menu ${isMenuOpen && "open"}`}
-                  onClick={toggleSideNavbar}
-                >
-                  <div className="menu-line"></div>
-                  <div className="menu-line"></div>
-                  <div className="menu-line"></div>
-                </div>
-              </div>
-
-              <ul className="sidenavbar__menu">
-                {menuItems.map((item) => {
-                  return (
-                    <li
-                      key={JSON.stringify(item)}
-                      className="sidenavbar__menu-item"
-                    >
-                      <Link href={item.src} className="sidenavbar__menu-link">
-                        <span>{item.label}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-                <li className="sidenavbar__menu-item">
-                  <button
-                    className="sidenavbar__menu-btn"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
         </nav>
+        {showMenuPanel && (
+          <div className="menu-panel">
+            <ul>
+              {filteredMenuLinks.map((item, index) => (
+                <li key={index} onClick={() => addCustomLink(item)}>
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </header>
+      <div className={`sidenavbar ${isMenuOpen && "open"}`}>
+        <div className="sidenavbar__container">
+          <div className="upper-side">
+            <div className="sidenavbar__brand">
+              <span className="sidenavbar__brand__name">{logoText}</span>
+            </div>
+            <ul className="sidenavbar__menu">
+              {userMenuLinks.map((item, index) => (
+                <li key={index} className="sidenavbar__menu-item">
+                  <Link href={item.src} className="sidenavbar__menu-link">
+                    <span>{item.label}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="sidenavbar__logout lower-side">
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        </div>
+      </div>
     </Fragment>
   );
 }
