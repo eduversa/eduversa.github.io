@@ -6,12 +6,13 @@ Visit the project : https://www.eduversa.in/
 
 ## Table of Contents
 
--[Overview](#overview)
--[Features](#features)
--[Technologies Used](#technologies-used)
--[Getting Started](#getting-started)
--[Contact](#contact)
--[License](#license)
+- [Overview](#overview)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Contact](#contact)
+- [License](#license)
+
 
 ## Overview
 

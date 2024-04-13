@@ -110,3 +110,8 @@
 //     </>
 //   );
 // }
+function scan() {
+  return <div></div>;
+}
+
+export default scan;

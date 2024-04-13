@@ -243,6 +243,7 @@ function Index() {
                     <strong>Streams Applied:</strong>
                     {applicant.course_info.stream || "N/A"}
                   </p>
+
                   <div className="button-container">
                     <button
                       onClick={() => handleDeleteApplicant(applicant.user_id)}
