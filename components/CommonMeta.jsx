@@ -41,6 +41,7 @@ export default function CommonMeta() {
         name="google-site-verification"
         content="ZQ7y2oT7kIhS-ULWuKP2gnBzUbKy7lk_IQexK0jZ1fE"
       />
+      <meta name="seobility" content="4db102828d9ff0c8347038042c4a0154"></meta>
     </Head>
   );
 }
