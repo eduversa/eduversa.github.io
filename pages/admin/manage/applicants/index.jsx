@@ -215,7 +215,7 @@ function Index() {
               currentApplicants.map((applicant) => (
                 <div key={applicant._id} className="card">
                   <h2 className="card-title">
-                    {applicant.personal_info.first_name}{" "}
+                    {applicant.personal_info.first_name}
                     {applicant.personal_info.last_name}
                   </h2>
                   {applicant.image ? (
@@ -236,14 +236,11 @@ function Index() {
                     />
                   )}
                   <p className="course-applied">
-                    <strong>Course Applied:</strong>{" "}
+                    <strong>Course Applied:</strong>
                     {applicant.course_info.course_name || "N/A"}
                   </p>
                   <p className="streams-applied">
-                    <strong>Streams Applied:</strong>{" "}
-                    {/* {Array.isArray(applicant.course_info.stream)
-                      ? applicant.course_info.stream.join(", ")
-                      : "N/A"} */}
+                    <strong>Streams Applied:</strong>
                     {applicant.course_info.stream || "N/A"}
                   </p>
                   <div className="button-container">
