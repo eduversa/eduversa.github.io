@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
 import { AllLoader } from "@/components";
 import { generateOtpApi, resetUserNameApi } from "@/functions";
-
+import Head from "next/head";
 function ForgetUsername() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);

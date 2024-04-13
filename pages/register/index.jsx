@@ -6,6 +6,7 @@ import { LandingLayout } from "@/layout";
 import { registerUser, createAccountWithSocialPlatform } from "@/functions";
 import { AllLoader } from "@/components";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Head from "next/head";
 function Register() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -96,6 +97,17 @@ function Register() {
   return (
     <Fragment>
       <LandingLayout>
+        <Head>
+          <title>Register - Your Website Name</title>
+          <meta
+            name="description"
+            content="Register for an account on Your Website Name to access exclusive features."
+          />
+          <meta
+            name="keywords"
+            content="register, sign up, create account, Your Website Name"
+          />
+        </Head>
         {loading && <AllLoader />}
         <div className="register-container">
           <h2 className="register-heading">Register</h2>
