@@ -62,22 +62,23 @@
 
   .filters {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+    @include flex-container(row, wrap, center, center);
+    margin: 0 0 2% 0;
     .search-input,
     .filter-select,
     .checkbox-label {
+      position: relative;
+      font-family: var(--font-tektur);
+      font-size: var(--font-13);
+      color: var(--black);
+      letter-spacing: 2px;
+      font-weight: 400;
+      background-color: var(--white);
+      border: 1px solid #838383;
+      border-radius: 10px;
       margin: 10px;
       padding: 12px;
-      border: 1px solid #ced4da;
-      border-radius: 10px;
-      font-size: 16px;
       transition: border-color 0.3s ease;
-      position: relative;
-      background-color: #fff;
 
       &:focus {
         outline: none;
@@ -111,7 +112,12 @@
         border-color: #007bff;
       }
     }
-
+    .filter-label {
+      font-family: var(--font-tektur);
+      font-size: var(--font-12);
+      color: #666;
+      margin-right: 10px;
+    }
     .search-input::placeholder,
     .filter-select::placeholder {
       color: #999;
@@ -119,7 +125,7 @@
 
     .checkbox-label {
       &:before {
-        content: "\f0c8"; /* FontAwesome check icon */
+        content: "\f0c8";
       }
 
       &:hover:before {
