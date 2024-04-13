@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Footer } from "@/containers";
+import { Footer, Navbar } from "@/containers";
 function StudentLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
@@ -15,11 +15,13 @@ function StudentLayout({ children }) {
       router.push("/");
     }
     if (userType !== "student") {
+      localStorage.clear();
       router.push("/");
     }
   }, [router]);
   return (
     <Fragment>
+      <Navbar></Navbar>
       <div className="wrapper">{children}</div>
       <Footer></Footer>
     </Fragment>

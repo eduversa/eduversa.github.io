@@ -152,15 +152,12 @@ function Login() {
     <Fragment>
       <LandingLayout>
         <Head>
-          <title>Login - Your Website Name</title>
+          <title>Login - Eduversa</title>
           <meta
             name="description"
-            content="Login to access your account on Your Website Name."
+            content="Login to access your account on Eduversa."
           />
-          <meta
-            name="keywords"
-            content="login, authentication, Your Website Name"
-          />
+          <meta name="keywords" content="login, authentication, Eduversa" />
         </Head>
         {loading && <AllLoader />}
         <div className="login-container">

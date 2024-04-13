@@ -15,6 +15,7 @@ function AdminLayout({ children }) {
       router.push("/");
     }
     if (userType !== "admin") {
+      localStorage.clear();
       router.push("/");
     }
   }, [router]);

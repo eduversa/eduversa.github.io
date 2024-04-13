@@ -87,14 +87,14 @@ function ForgetUsername() {
     <Fragment>
       <LandingLayout>
         <Head>
-          <title>Forget Username - Your Website Name</title>
+          <title>Forget Username - Eduversa</title>
           <meta
             name="description"
-            content="Recover your username by generating OTP on Your Website Name."
+            content="Recover your username by generating OTP on Eduversa."
           />
           <meta
             name="keywords"
-            content="forget username, recover username, OTP, Your Website Name"
+            content="forget username, recover username, OTP, Eduversa"
           />
         </Head>
         {loading && <AllLoader />}

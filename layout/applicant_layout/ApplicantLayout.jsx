@@ -15,6 +15,7 @@ function ApplicantLayout({ children }) {
       router.push("/");
     }
     if (userType !== "applicant") {
+      localStorage.clear();
       router.push("/");
     }
   }, [router]);
