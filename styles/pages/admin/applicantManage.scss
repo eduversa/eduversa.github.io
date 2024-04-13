@@ -1,0 +1,199 @@
+// Define styles for the entire component
+.manage-applicant-container {
+  font-family: Arial, sans-serif;
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .filters {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .search-input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-right: 10px;
+      width: 200px;
+      font-size: 14px;
+    }
+
+    .dropdown-container {
+      margin-right: 10px;
+
+      .filter-label {
+        font-size: 14px;
+        font-weight: bold;
+        color: #555;
+      }
+
+      .filter-select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 5px;
+        font-size: 14px;
+      }
+    }
+
+    .checkbox-label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+
+      .checkbox-input {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .card {
+    width: calc(33.33% - 20px);
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    .front,
+    .back {
+      padding: 20px;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .front {
+      background-color: #fff;
+      z-index: 2;
+
+      .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .applicant-image {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+
+      .course-applied,
+      .streams-applied {
+        font-size: 14px;
+        color: #555;
+        margin-top: 5px;
+      }
+    }
+
+    .back {
+      background-color: #f9f9f9;
+      z-index: 1;
+      transform: rotateY(180deg);
+      transition: transform 0.3s ease;
+
+      .button-container {
+        display: flex;
+        flex-direction: column;
+
+        .delete-button,
+        .profile-button {
+          padding: 10px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          margin-bottom: 10px;
+          font-size: 14px;
+          font-weight: bold;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #ff6b6b;
+            color: white;
+          }
+        }
+
+        .profile-button {
+          background-color: #4caf50;
+
+          &:hover {
+            background-color: #388e3c;
+          }
+        }
+      }
+    }
+  }
+
+  .no-applicants {
+    font-size: 16px;
+    color: #555;
+    margin-top: 20px;
+  }
+
+  .page-management {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    .page-size-select {
+      select {
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+    }
+
+    .pagination {
+      .pagination-list {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+
+        .pagination-item {
+          margin-right: 5px;
+
+          .pagination-link {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+              background-color: #f0f0f0;
+            }
+          }
+
+          &.active {
+            .pagination-link {
+              background-color: #007bff;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
