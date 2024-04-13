@@ -15,6 +15,7 @@ function StudentLayout({ children }) {
       router.push("/");
     }
     if (userType !== "student") {
+      localStorage.clear();
       router.push("/");
     }
   }, [router]);
