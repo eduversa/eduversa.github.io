@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // import Head from "next/head";
 // import Link from "next/link";
 
@@ -127,7 +128,7 @@ const QrReader = () => {
         scanner?.current?.stop();
       }
     };
-  }, []);
+  }, [onScanSuccess]);
 
   // ❌ If "camera" is not allowed in browser permissions, show an alert.
   useEffect(() => {
