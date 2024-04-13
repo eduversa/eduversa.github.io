@@ -1,196 +1,247 @@
-// Define styles for the entire component
+/* Basic Styles */
+
 .manage-applicant-container {
-  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 
   .title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
+    font-size: 36px;
     margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   }
 
   .filters {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     margin-bottom: 20px;
 
-    .search-input {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin-right: 10px;
-      width: 200px;
-      font-size: 14px;
+    .search-input,
+    .filter-select,
+    .checkbox-label {
+      margin: 10px;
+      padding: 12px;
+      border: 1px solid #ced4da;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+      position: relative;
+      background-color: #fff;
+
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 10px;
+        width: 1px;
+        background-color: #ccc;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-size: 18px;
+        color: #666;
+      }
+
+      &:focus::after {
+        border-color: #007bff;
+      }
     }
 
-    .dropdown-container {
-      margin-right: 10px;
-
-      .filter-label {
-        font-size: 14px;
-        font-weight: bold;
-        color: #555;
-      }
-
-      .filter-select {
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-left: 5px;
-        font-size: 14px;
-      }
+    .search-input::placeholder,
+    .filter-select::placeholder {
+      color: #999;
     }
 
     .checkbox-label {
-      font-size: 14px;
-      font-weight: bold;
-      color: #555;
+      &:before {
+        content: "\f0c8"; /* FontAwesome check icon */
+      }
 
-      .checkbox-input {
-        margin-left: 5px;
+      &:hover:before {
+        color: #007bff;
+      }
+
+      input[type="checkbox"]:checked + &::before {
+        color: #4caf50; /* green */
       }
     }
   }
 
   .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
 
-  .card {
-    width: calc(33.33% - 20px);
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: translateY(-5px);
-    }
-
-    .front,
-    .back {
-      padding: 20px;
-      height: 100%;
-      box-sizing: border-box;
-    }
-
-    .front {
+    .card {
+      position: relative;
+      overflow: hidden;
       background-color: #fff;
-      z-index: 2;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: linear-gradient(45deg, #007bff, #4caf50);
+        z-index: -1;
+        border-radius: 20px;
+      }
 
       .card-title {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
+        font-size: 24px;
         margin-bottom: 10px;
+        color: #333;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
       }
 
       .applicant-image {
         border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
+        transition: transform 0.3s ease;
       }
 
       .course-applied,
       .streams-applied {
-        font-size: 14px;
-        color: #555;
-        margin-top: 5px;
+        margin-top: 10px;
+        font-size: 16px;
+        color: #666;
+        text-align: center;
+        transition: color 0.3s ease;
       }
-    }
-
-    .back {
-      background-color: #f9f9f9;
-      z-index: 1;
-      transform: rotateY(180deg);
-      transition: transform 0.3s ease;
 
       .button-container {
+        margin-top: 20px;
         display: flex;
-        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
 
         .delete-button,
         .profile-button {
           padding: 10px 20px;
           border: none;
-          border-radius: 4px;
+          border-radius: 10px;
           cursor: pointer;
-          margin-bottom: 10px;
-          font-size: 14px;
+          font-size: 16px;
+          transition: all 0.3s ease;
+          background-color: #ff5a5a;
+          color: #fff;
+          text-transform: uppercase;
           font-weight: bold;
-          transition: background-color 0.3s ease;
+          letter-spacing: 1px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          border: 1px solid transparent;
 
           &:hover {
-            background-color: #ff6b6b;
-            color: white;
+            background-color: #ff3333;
+            transform: translateY(-3px);
           }
         }
 
         .profile-button {
           background-color: #4caf50;
+          margin-left: 10px;
 
           &:hover {
-            background-color: #388e3c;
+            background-color: #43a047;
           }
         }
+      }
+
+      &:hover .applicant-image {
+        transform: scale(1.1);
+      }
+
+      &:hover .card-title,
+      &:hover .course-applied,
+      &:hover .streams-applied {
+        color: #007bff;
       }
     }
   }
 
   .no-applicants {
-    font-size: 16px;
-    color: #555;
+    font-size: 18px;
+    text-align: center;
     margin-top: 20px;
+    color: #666;
   }
+
+  /* Pagination Styles */
 
   .page-management {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 20px;
 
     .page-size-select {
-      select {
-        padding: 8px;
-        font-size: 14px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
+      margin-right: 20px;
     }
 
-    .pagination {
-      .pagination-list {
-        list-style: none;
-        display: flex;
-        justify-content: center;
-        margin: 0;
-        padding: 0;
+    .pagination-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
 
-        .pagination-item {
-          margin-right: 5px;
+      .pagination-item {
+        margin-right: 5px;
 
-          .pagination-link {
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .pagination-link {
+          padding: 8px 12px;
+          border: 1px solid #ced4da;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: all 0.3s ease;
 
-            &:hover {
-              background-color: #f0f0f0;
-            }
+          &:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
           }
+        }
 
-          &.active {
-            .pagination-link {
-              background-color: #007bff;
-              color: white;
-            }
+        &.active {
+          .pagination-link {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
           }
         }
       }

@@ -214,39 +214,37 @@ function Index() {
             {currentApplicants.length > 0 ? (
               currentApplicants.map((applicant) => (
                 <div key={applicant._id} className="card">
-                  {/* chatgpt here by default only front side will be visible in the cards, and when will will hover on the card in backside only buttons should visdible , do this feature with css hover  */}
-                  <div className="front">
-                    <h2 className="card-title">
-                      {applicant.personal_info.first_name}
-                      {applicant.personal_info.last_name}
-                    </h2>
-                    {applicant.image ? (
-                      <Image
-                        src={applicant.image}
-                        alt={`Image of ${applicant.personal_info.name}`}
-                        height={100}
-                        width={100}
-                        className="applicant-image"
-                      />
-                    ) : (
-                      <Image
-                        src="/default-image.jpg"
-                        alt={`Image not available`}
-                        height={100}
-                        width={100}
-                        className="applicant-image"
-                      />
-                    )}
-                    <p className="course-applied">
-                      <strong>Course Applied:</strong>
-                      {applicant.course_info.course_name || "N/A"}
-                    </p>
-                    <p className="streams-applied">
-                      <strong>Streams Applied:</strong>
-                      {applicant.course_info.stream || "N/A"}
-                    </p>
-                  </div>
-                  <div className="button-container back">
+                  <h2 className="card-title">
+                    {applicant.personal_info.first_name}
+                    {applicant.personal_info.last_name}
+                  </h2>
+                  {applicant.image ? (
+                    <Image
+                      src={applicant.image}
+                      alt={`Image of ${applicant.personal_info.name}`}
+                      height={100}
+                      width={100}
+                      className="applicant-image"
+                    />
+                  ) : (
+                    <Image
+                      src="/default-image.jpg"
+                      alt={`Image not available`}
+                      height={100}
+                      width={100}
+                      className="applicant-image"
+                    />
+                  )}
+                  <p className="course-applied">
+                    <strong>Course Applied:</strong>
+                    {applicant.course_info.course_name || "N/A"}
+                  </p>
+                  <p className="streams-applied">
+                    <strong>Streams Applied:</strong>
+                    {applicant.course_info.stream || "N/A"}
+                  </p>
+
+                  <div className="button-container">
                     <button
                       onClick={() => handleDeleteApplicant(applicant.user_id)}
                       className="delete-button"
