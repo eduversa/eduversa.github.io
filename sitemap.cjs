@@ -4,7 +4,7 @@ const fs = require("fs");
 async function generateSitemap() {
   console.log("Generating sitemap...");
 
-  const baseUrl = "https://eduversa.github.io";
+  const baseUrl = "https://eduversa.in";
   const staticRoutes = [
     "/",
     "/about",
@@ -12,21 +12,21 @@ async function generateSitemap() {
     "/register",
     "/forgetpassword",
     "/forgetusername",
-    "/applicant",
-    "/applicant/about",
-    "/applicant/contact",
-    "/applicant/update",
-    "/student",
-    "/student/about",
-    "/student/contact",
-    "/student/update",
-    "/admin",
-    "/admin/about",
-    "/admin/contact",
-    "/admin/manage/applicants",
-    "/admin/manage/students",
-    "/admin/update/applicants",
-    "/admin/update/students",
+    // "/applicant",
+    // "/applicant/about",
+    // "/applicant/contact",
+    // "/applicant/update",
+    // "/student",
+    // "/student/about",
+    // "/student/contact",
+    // "/student/update",
+    // "/admin",
+    // "/admin/about",
+    // "/admin/contact",
+    // "/admin/manage/applicants",
+    // "/admin/manage/students",
+    // "/admin/update/applicants",
+    // "/admin/update/students",
   ];
 
   const routePriorities = {
@@ -36,21 +36,21 @@ async function generateSitemap() {
     "/register": 0.9,
     "/forgetpassword": 0.8,
     "/forgetusername": 0.8,
-    "/applicant": 0.8,
-    "/applicant/about": 0.8,
-    "/applicant/contact": 0.8,
-    "/applicant/update": 0.8,
-    "/student": 0.8,
-    "/student/about": 0.8,
-    "/student/contact": 0.8,
-    "/student/update": 0.8,
-    "/admin": 0.8,
-    "/admin/about": 0.8,
-    "/admin/contact": 0.8,
-    "/admin/manage/applicants": 0.8,
-    "/admin/manage/students": 0.8,
-    "/admin/update/applicants": 0.8,
-    "/admin/update/students": 0.8,
+    // "/applicant": 0.8,
+    // "/applicant/about": 0.8,
+    // "/applicant/contact": 0.8,
+    // "/applicant/update": 0.8,
+    // "/student": 0.8,
+    // "/student/about": 0.8,
+    // "/student/contact": 0.8,
+    // "/student/update": 0.8,
+    // "/admin": 0.8,
+    // "/admin/about": 0.8,
+    // "/admin/contact": 0.8,
+    // "/admin/manage/applicants": 0.8,
+    // "/admin/manage/students": 0.8,
+    // "/admin/update/applicants": 0.8,
+    // "/admin/update/students": 0.8,
   };
 
   const allRoutes = staticRoutes;
@@ -59,7 +59,7 @@ async function generateSitemap() {
 
   allRoutes.forEach((route) => {
     const priority = routePriorities[route] || 0.5;
-    sitemapStream.write({ url: route, changefreq: "daily", priority });
+    sitemapStream.write({ url: route, changefreq: "never", priority });
   });
 
   sitemapStream.end();

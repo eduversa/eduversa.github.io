@@ -1,4 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /applicant/
+Disallow: /student/
+Disallow: /admin/
 
-Sitemap: https://www.eduversa.in/sitemap.xml
+Sitemap: https://eduversa.in/sitemap.xml
