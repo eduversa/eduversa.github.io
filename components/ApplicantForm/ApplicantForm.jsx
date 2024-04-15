@@ -83,7 +83,7 @@ const ApplicantForm = ({userid}) => {
           board: "",
           aggregate: "",
           school_name: "",
-          subjects: "",
+          marks: {},
         },
         higher_secondary: {
           exam_name: "",
@@ -91,7 +91,7 @@ const ApplicantForm = ({userid}) => {
           board: "",
           aggregate: "",
           school_name: "",
-          subjects: "",
+          marks: {},
         },
       },
       course_info: {
@@ -112,11 +112,16 @@ const ApplicantForm = ({userid}) => {
     return nameParts.filter(Boolean).join(" ");
   };
 
+  // const formatSubjects = (marks) => {
+  //   return Object.entries(marks)
+  //     .map(
+  //       ([subject, mark]) => `${subject.trim()} - ${mark.toString().trim()}`
+  //     )
+  //     .join(", ");
+  // };
   const formatSubjects = (marks) => {
     return Object.entries(marks)
-      .map(
-        ([subject, mark]) => `${subject.trim()} - ${mark.toString().trim()}`
-      )
+      .map(([subject, mark]) => `${subject.trim()} - ${mark.toString().trim()}`)
       .join(", ");
   };
 

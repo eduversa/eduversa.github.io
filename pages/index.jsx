@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
 import { loginUser, logIntoAccountWithSocialPlatform } from "@/functions";
@@ -150,6 +151,14 @@ function Login() {
   return (
     <Fragment>
       <LandingLayout>
+        <Head>
+          <title>Login - Eduversa</title>
+          <meta
+            name="description"
+            content="Login to access your account on Eduversa."
+          />
+          <meta name="keywords" content="login, authentication, Eduversa" />
+        </Head>
         {loading && <AllLoader />}
         <div className="login-container">
           <h2 className="login-heading">Login</h2>

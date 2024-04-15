@@ -72,7 +72,8 @@ function renderFields(data, parentKey = "") {
         key !== "_id" &&
         key !== "are_addresses_same" &&
         key !== "subjectString" &&
-        key !== "subjects"
+        key !== "subjects" &&
+        key !== "is_completely_filled"
     )
     .sort(([keyA], [keyB]) => {
       const priorityOrder = [

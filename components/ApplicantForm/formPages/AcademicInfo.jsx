@@ -10,6 +10,7 @@ import {
   FormButtons,
   TextArea,
   Year,
+  SubjectMarks,
 } from "../inputComponent/InputComponent";
 const AcademicInfo = ({
   formData,
@@ -143,18 +144,12 @@ const AcademicInfo = ({
             required
           />
         </div>
-        {/*  #ff0000  marks input */}
-        <Text
-          style={{
-            marginBottom: "2.25rem",
-          }}
-          label="Subject Marks"
-          details="(write as subject- marks, subject- marks...)"
-          name="academic_info.secondary.subjects"
-          value={formData.academic_info.secondary.subjects}
-          onChange={handleChange}
+        <SubjectMarks
+          name="academic_info.secondary.marks"
+          marks={formData.academic_info.secondary.marks}
+          handleChange={handleChange}
           required
-        ></Text>
+        />
         <hr />
         <h3 className="sub-heading">Higher Secondary Education</h3>{" "}
         <Text
@@ -198,17 +193,12 @@ const AcademicInfo = ({
             required
           />
         </div>
-        <Text
-          style={{
-            marginBottom: "1rem",
-          }}
-          label="Subject Marks"
-          details="(write as subject- marks, subject- marks...)"
-          name="academic_info.higher_secondary.subjects"
-          value={formData.academic_info.higher_secondary.subjects}
-          onChange={handleChange}
+        <SubjectMarks
+          name="academic_info.higher_secondary.marks"
+          marks={formData.academic_info.higher_secondary.marks}
+          handleChange={handleChange}
           required
-        ></Text>
+        />
         <FormButtons
           handlePreviousClick={handlePreviousClick}
           clearFormData={() => clearFormData(currentStep)}

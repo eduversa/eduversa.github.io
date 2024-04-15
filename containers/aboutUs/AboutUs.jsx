@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useEffect } from "react";
-
+import Head from "next/head";
 const aboutUs = require("../../data/aboutUs");
 
 function AboutUs() {
@@ -116,6 +116,17 @@ function AboutUs() {
 
   return (
     <Fragment>
+      <Head>
+        <title>Eduversa: Advanced College ERP System</title>
+
+        <meta name="description" content={aboutUs.description} />
+
+        <meta
+          name="keywords"
+          content="Eduversa, college ERP, enterprise resource planning, ERP system, ReactJs, MongoDB, SCSS, user adoption, mobile compatibility, schedule management, communication updates, visual data, interaction, user-friendly UI, centralized information, digital administration, teacher authority, mobile responsiveness, role-based access control, student portal, comprehensive control, future plans, digital attendance, class routine, Google Classroom, notification system, integration, Telegram, chatrooms, special access, chatbot, continuous improvement, accessibility features"
+        />
+      </Head>
+
       <div className={containerClass}>
         <h3 className="aboutus-heading">About Eduversa</h3>
         <div className="description">

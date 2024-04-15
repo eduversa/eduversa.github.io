@@ -42,9 +42,12 @@
     "not dead"
   ],
   "dependencies": {
+    "@google-cloud/dialogflow": "^6.5.0",
     "@vercel/analytics": "^1.2.2",
     "@vercel/speed-insights": "^1.0.10",
     "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "fs": "^0.0.1-security",
     "next": "^14.1.4",
     "next-auth": "^4.24.7",

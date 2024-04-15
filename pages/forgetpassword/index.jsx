@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { AllLoader } from "@/components";
 import { LandingLayout } from "@/layout";
 import { generateOtpApi, resetPasswordApi } from "@/functions";
-
+import Head from "next/head";
 function ForgetPassword() {
   const [inputValue, setInputValue] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -159,6 +159,17 @@ function ForgetPassword() {
   return (
     <Fragment>
       <LandingLayout>
+        <Head>
+          <title>Forget Password - Eduversa</title>
+          <meta
+            name="description"
+            content="Recover your password by generating OTP on Eduversa."
+          />
+          <meta
+            name="keywords"
+            content="forget password, recover password, OTP, Eduversa"
+          />
+        </Head>
         {loading && <AllLoader />}
         <div className="forget-password-container">
           <h1 className="forget-password-heading">Forgot Password</h1>
