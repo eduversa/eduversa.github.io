@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Footer, Navbar } from "@/containers";
+import { Footer, Navbar, ChatBot } from "@/containers";
 function StudentLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
@@ -24,6 +24,7 @@ function StudentLayout({ children }) {
       <Navbar></Navbar>
       <div className="wrapper">{children}</div>
       <Footer></Footer>
+      <ChatBot></ChatBot>
     </Fragment>
   );
 }

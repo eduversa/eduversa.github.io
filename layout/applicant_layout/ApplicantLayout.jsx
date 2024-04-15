@@ -1,6 +1,6 @@
 import { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
-import { ApplicantNavbar, Footer } from "@/containers";
+import { ApplicantNavbar, Footer, ChatBot } from "@/containers";
 function ApplicantLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
@@ -22,9 +22,9 @@ function ApplicantLayout({ children }) {
   return (
     <Fragment>
       <ApplicantNavbar />
-
       <div className="wrapper">{children}</div>
       <Footer />
+      <ChatBot />
     </Fragment>
   );
 }
