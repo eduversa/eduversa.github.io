@@ -5,7 +5,7 @@ const ChatComponent = dynamic(() => import("./ChatComponent"), {
   ssr: false,
 });
 
-export default function ChatBot() {
+export default function ChatBot_v2() {
   return (
     <div>
       {/* <Head>
