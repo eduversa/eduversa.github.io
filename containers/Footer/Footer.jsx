@@ -11,9 +11,26 @@ const Footer = () => {
   const footerContent = {
     student: [
       { label: "Dashboard", href: "/student" },
-      { label: "update data application", href: "/student/update" },
-      { label: "About Us", href: "/student/about" },
-      { label: "Contact Us", href: "/student/contact" },
+      {
+        label: "Update Profile",
+
+        href: "/student/update",
+      },
+      {
+        label: "Contact Us",
+
+        href: "/student/contact",
+      },
+      {
+        label: "About Us",
+
+        href: "/student/about",
+      },
+      {
+        label: "Scanner",
+
+        href: "/student/scanner",
+      },
     ],
     applicant: [
       { label: "Dashboard", href: "/applicant" },
@@ -27,6 +44,7 @@ const Footer = () => {
       { label: "Contact Us", href: "/admin/contact" },
       { label: "manage Applicants", href: "/admin/manage/applicant" },
       { label: "manage Students", href: "/admin/manage/students" },
+      { label: "scanner", href: "/admin/scanner" },
     ],
   };
 

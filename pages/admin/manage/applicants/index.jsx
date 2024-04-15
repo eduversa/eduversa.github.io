@@ -100,7 +100,7 @@ function Index() {
     setSubmitted(event.target.checked);
     if (event.target.checked) {
       const filteredApplicants = applicants.filter(
-        (applicant) => applicant.personal_info.are_addresses_same === true
+        (applicant) => applicant.is_completely_filled === true
       );
       setApplicants(filteredApplicants);
     } else {
@@ -228,36 +228,44 @@ function Index() {
                     />
                   ) : (
                     <Image
-                      src="/default-image.jpg"
+                      src="/user.png"
                       alt={`Image not available`}
                       height={100}
                       width={100}
-                      className="applicant-image"
+                      className="applicant-image default-image"
                     />
                   )}
                   <p className="course-applied">
-                    <strong>Course Applied:</strong>{" "}
+                    <strong>Course Applied:</strong>
                     {applicant.course_info.course_name || "N/A"}
                   </p>
                   <p className="streams-applied">
-                    <strong>Streams Applied:</strong>{" "}
-                    {/* {Array.isArray(applicant.course_info.stream)
-                      ? applicant.course_info.stream.join(", ")
-                      : "N/A"} */}
+                    <strong>Streams Applied:</strong>
                     {applicant.course_info.stream || "N/A"}
                   </p>
+
                   <div className="button-container">
                     <button
                       onClick={() => handleDeleteApplicant(applicant.user_id)}
                       className="delete-button"
                     >
-                      Delete Applicant
+                      <Image
+                        src="/applicant/delete.png"
+                        alt="delete"
+                        height={20}
+                        width={20}
+                      ></Image>
                     </button>
                     <button
                       onClick={() => handleShowProfile(applicant.user_id)}
                       className="profile-button"
                     >
-                      Show Profile
+                      <Image
+                        src="/applicant/search.png"
+                        alt="profile"
+                        height={20}
+                        width={20}
+                      ></Image>
                     </button>
                   </div>
                 </div>

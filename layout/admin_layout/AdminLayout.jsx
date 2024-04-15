@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Navbar, Footer, NavbarV2 } from "@/containers";
+import { Navbar, Footer, NavbarV2, ChatBotv2 } from "@/containers";
 function AdminLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
@@ -15,12 +15,14 @@ function AdminLayout({ children }) {
       router.push("/");
     }
     if (userType !== "admin") {
+      localStorage.clear();
       router.push("/");
     }
   }, [router]);
   return (
     <Fragment>
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */}
+      <ChatBotv2></ChatBotv2>
       {/* <NavbarV2></NavbarV2> */}
       <div className="wrapper">{children}</div>
       <Footer></Footer>
