@@ -20,7 +20,7 @@ function LandingLayout({ children }) {
       } else if (userType === "admin") {
         router.push("/admin");
       } else {
-        localStorage.removeItem("authToken");
+        localStorage.clear();
       }
     }
   }, [router]);

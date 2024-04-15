@@ -18,11 +18,11 @@ const approveApplicantApi = async (userId) => {
       },
     });
 
-    if (response.ok === false) {
-      console.log(response);
-      alert("Error approving applicant");
-      return;
-    }
+    // if (response.ok === false) {
+    //   console.log(response);
+    //   alert("Error approving applicant");
+    //   return;
+    // }
     console.log("Response:", response);
     const data = await response.json();
     console.log("Data:", data);
