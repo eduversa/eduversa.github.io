@@ -309,6 +309,25 @@
           }
         }
 
+        .grid-col-2-5 {
+          display: grid;
+          grid-template-columns: 0.99fr 0.99fr 0.02fr;
+          gap: 2rem;
+          padding-bottom: 1rem;
+
+          @media (max-width: $breakpoint-desktop-wide) {
+          }
+          @media (max-width: $breakpoint-desktop) {
+          }
+          @media (max-width: $breakpoint-large-tablet) {
+            grid-template-columns: 1fr;
+            gap: 0;
+          }
+          @media (max-width: $breakpoint-tablet) {
+          }
+          @media (max-width: $breakpoint-phone) {
+          }
+        }
         .grid-col-2 {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -411,6 +430,47 @@
             background: hsl(235, 17%, 26%);
             color: #fff;
             padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+
+            @media (max-width: $breakpoint-desktop-wide) {
+            }
+            @media (max-width: $breakpoint-desktop) {
+            }
+            @media (max-width: $breakpoint-large-tablet) {
+              padding: 0.75rem 1.5rem;
+            }
+            @media (max-width: $breakpoint-tablet) {
+              margin: 1rem 0.5rem;
+              padding: 0.5rem 1rem;
+            }
+            @media (max-width: $breakpoint-phone) {
+              margin: 1rem 0.3rem;
+            }
+
+            &:hover,
+            &[disabled] {
+              transform: scale(1.05);
+              color: black;
+              background: hsl(233, 24%, 85%);
+            }
+            &[disabled] {
+              cursor: not-allowed;
+            }
+            &:active {
+              transform: scale(0.9);
+            }
+          }
+          .small-btn {
+            // margin: 0.rem 1rem 2rem;
+            border: 1px white solid;
+            font-family: var(--font-elianto);
+            font-size: var(--font-11);
+            font-weight: 900;
+            background: hsl(235, 17%, 26%);
+            color: #fff;
+            padding: 0.5rem 1rem;
             border-radius: 0.5rem;
             transition: all 0.2s ease-in-out;
             cursor: pointer;
