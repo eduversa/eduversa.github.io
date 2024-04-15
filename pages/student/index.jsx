@@ -99,11 +99,15 @@ function IDCard({ profile }) {
           </div>
           <div class="id-card__body__right">
             <div class="id-card__body__course">
-              <p class="content" id="stream"></p>
+              <p class="content" id="stream">
+                CST 3rd Year
+              </p>
               <p class="title">student</p>
             </div>
             <div class="id-card__body__dob">
-              <p class="content" id="dob"></p>
+              <p class="content" id="dob">
+                22/07/2001
+              </p>
               <p class="title" id="blood_group">
                 A+
               </p>
