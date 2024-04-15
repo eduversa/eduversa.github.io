@@ -132,6 +132,7 @@ function Navbar() {
         className: "nav-item",
         src: "/student/about",
       },
+      {},
     ],
   };
 
