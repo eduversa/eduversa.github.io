@@ -21,7 +21,7 @@ function AdminLayout({ children }) {
   }, [router]);
   return (
     <Fragment>
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */}
       <ChatBotv2></ChatBotv2>
       {/* <NavbarV2></NavbarV2> */}
       <div className="wrapper">{children}</div>
