@@ -25,3 +25,4 @@ export { default as approveApplicantApi } from "./admin/approveApplicantApi";
 
 // student
 export { default as getAllStudentsApi } from "./student/fetchAllStudentsApi";
+export { default as fetchSingleStudent } from "./student/fetchSingleStudent";
