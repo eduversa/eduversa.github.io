@@ -106,6 +106,11 @@ function Navbar() {
         className: "nav-item",
         src: "/admin/about",
       },
+      {
+        label: "Scanner",
+        className: "nav-item",
+        src: "/admin/scanner",
+      },
     ],
     faculty: [
       { label: "Dashboard", className: "nav-item", src: "/faculty/dashboard" },
@@ -126,6 +131,11 @@ function Navbar() {
         label: "About Us",
         className: "nav-item",
         src: "/student/about",
+      },
+      {
+        label: "Scanner",
+        className: "nav-item",
+        src: "/student/scanner",
       },
     ],
   };
@@ -170,7 +180,7 @@ function Navbar() {
               >
                 <span style={{ cursor: "pointer" }}>
                   <Image
-                    src="/nav/add2.gif"
+                    src="/nav/add.png"
                     alt="Add custom link"
                     width={50}
                     height={50}

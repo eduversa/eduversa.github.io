@@ -26,6 +26,11 @@ const Footer = () => {
 
         href: "/student/about",
       },
+      {
+        label: "Scanner",
+
+        href: "/student/scanner",
+      },
     ],
     applicant: [
       { label: "Dashboard", href: "/applicant" },
@@ -39,6 +44,7 @@ const Footer = () => {
       { label: "Contact Us", href: "/admin/contact" },
       { label: "manage Applicants", href: "/admin/manage/applicant" },
       { label: "manage Students", href: "/admin/manage/students" },
+      { label: "scanner", href: "/admin/scanner" },
     ],
   };
 
