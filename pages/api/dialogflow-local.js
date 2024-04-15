@@ -1,5 +1,4 @@
 /* eslint-disable import/no-anonymous-default-export */
-// pages/api/send-msg.js
 require("dotenv").config();
 import { SessionsClient } from "@google-cloud/dialogflow";
 import { v4 as uuid } from "uuid";
