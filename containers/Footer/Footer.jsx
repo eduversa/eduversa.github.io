@@ -26,6 +26,11 @@ const Footer = () => {
 
         href: "/student/about",
       },
+      {
+        label: "Scanner",
+
+        href: "/student/scanner",
+      },
     ],
     applicant: [
       { label: "Dashboard", href: "/applicant" },

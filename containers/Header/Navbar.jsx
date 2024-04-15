@@ -132,7 +132,11 @@ function Navbar() {
         className: "nav-item",
         src: "/student/about",
       },
-      {},
+      {
+        label: "Scanner",
+        className: "nav-item",
+        src: "/student/scanner",
+      },
     ],
   };
 
