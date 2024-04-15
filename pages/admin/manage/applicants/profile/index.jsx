@@ -74,6 +74,7 @@ function renderFields(data, parentKey = "") {
         key !== "are_addresses_same" &&
         key !== "subjectString" &&
         key !== "subjects" &&
+        key !== "is_completely_filled" &&
         key !== "is_completely_filled"
     )
     .sort(([keyA], [keyB]) => {
