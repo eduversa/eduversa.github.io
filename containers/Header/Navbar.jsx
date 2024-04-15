@@ -106,6 +106,11 @@ function Navbar() {
         className: "nav-item",
         src: "/admin/about",
       },
+      {
+        label: "Scanner",
+        className: "nav-item",
+        src: "/admin/scanner",
+      },
     ],
     faculty: [
       { label: "Dashboard", className: "nav-item", src: "/faculty/dashboard" },
