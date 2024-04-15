@@ -3,6 +3,8 @@ import { StudentLayout } from "@/layout";
 import { fetchSingleStudent } from "@/functions";
 import { AllLoader } from "@/components";
 import Image from "next/image";
+
+import logoNoBG from "/public/icons/logo-no-bg.png";
 function Index() {
   const [loading, setLoading] = useState(true);
   const [profileData, setProfileData] = useState(null);
@@ -40,9 +42,13 @@ function Index() {
     <Fragment>
       {loading && <AllLoader />}
       <StudentLayout>
-        <div className="right-side">
-          {profileData && <IDCard profile={profileData.data} />}
-        </div>
+        <section className="dashboard">
+          <div className="dashboard__left dashboard__column"></div>
+          <div className="dashboard__right dashboard__column">
+            {profileData && <IDCard profile={profileData.data} />}
+          </div>
+        </section>
+        {/* <div className="right-side"></div> */}
       </StudentLayout>
     </Fragment>
   );
@@ -69,7 +75,9 @@ function IDCard({ profile }) {
     <div class="id-card--container" id="container">
       <div class="id-card id-card__side" id="id-card__front">
         <div class="id-card__college bg--blue">
-          <div class="id-card__college__logo"></div>
+          <div class="id-card__college__logo">
+            <Image src={logoNoBG} layout="fill"></Image>
+          </div>
           <div class="id-card__college__details">
             <div class="id-card__college__name">
               university of engineering & management
