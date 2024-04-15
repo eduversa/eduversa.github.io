@@ -66,56 +66,70 @@ function IDCard({ profile }) {
   const fullName = [first_name, last_name].join(" ");
 
   return (
-    <div className="id-card">
-      <div className="id-card-header">
-        <div className="id-card-name">
-          <h2>{fullName}</h2>
-        </div>
-      </div>
-      <div className="id-card-details">
-        <div className="id-left-side">
-          <div className="top">
-            <div className="id-card-photo">
-              <Image
-                src={image}
-                alt={fullName}
-                width={100}
-                height={100}
-              ></Image>
+    <div class="id-card--container" id="container">
+      <div class="id-card id-card__side" id="id-card__front">
+        <div class="id-card__college bg--blue">
+          <div class="id-card__college__logo"></div>
+          <div class="id-card__college__details">
+            <div class="id-card__college__name">
+              university of engineering & management
+            </div>
+            <div class="id-card__college__address">
+              Plot No - III-B/5, New Town <br />
+              Action Area - III, Newtown, Kolkata - 700160
+            </div>
+            <div class="id-card__college__contact">
+              Ph: 033 2357 2059 | Email: admissions@iemcal.com
             </div>
           </div>
-          <div className="bottom">
-            <p>
-              <strong>Course:</strong> {course_name}
-            </p>
-            <p>
-              <strong>Section:</strong> {section}
-            </p>
-            <p>
-              <strong>Stream:</strong> {stream}
-            </p>
-            <p>
-              <strong>Enrollment Number:</strong> {enrollment_number}
-            </p>
+        </div>
+        <div class="id-card__body bg--white">
+          <div class="id-card__body__left">
+            <div class="id-card__body__image" id="id-card-body-image">
+              <img class="id-card__body__qr-code" id="id-card__qr-code" />
+            </div>
+          </div>
+          <div class="id-card__body__right">
+            <div class="id-card__body__course">
+              <p class="content" id="stream"></p>
+              <p class="title">student</p>
+            </div>
+            <div class="id-card__body__dob">
+              <p class="content" id="dob"></p>
+              <p class="title" id="blood_group">
+                A+
+              </p>
+            </div>
+            <div class="id-card__body__name">
+              <p class="content" id="full_name"></p>
+              <p class="title">name</p>
+            </div>
+            <div class="id-card__body__blood-group">
+              <p class="content" id="registration_number"></p>
+              <p class="title">Reistration No</p>
+            </div>
+            <div class="id-card__body__contact">
+              <p class="content" id="contact_no"></p>
+              <p class="title">contact</p>
+            </div>
+            <div class="id-card__body__enroll">
+              <p class="content" id="enrollment_number"></p>
+              <p class="title">enrollment no</p>
+            </div>
+            <div class="id-card__body__address">
+              <p class="content" id="permanent_address"></p>
+              <p class="title">address</p>
+            </div>
           </div>
         </div>
-        <div className="id-right-side">
-          <p>
-            <strong>Gender:</strong> {gender}
-          </p>
-          <p>
-            <strong>Date of Birth:</strong> {new Date(dob).toLocaleDateString()}
-          </p>
-          <p>
-            <strong>Email:</strong> {email}
-          </p>
-          <p>
-            <strong>Contact:</strong> {contact}
-          </p>
-          <p>
-            <strong>Blood Group:</strong> {blood_group}
-          </p>
+        <div class="id-card__sign bg--blue">
+          <div class="id-card__sign__image"></div>
         </div>
+        <div class="id-card__footer bg--blue"></div>
+      </div>
+
+      <div class="id-card id-card__side" id="id-card__back">
+        <img class="id-card__back__qrcode" id="id-card__qr-code--back" />
       </div>
     </div>
   );
