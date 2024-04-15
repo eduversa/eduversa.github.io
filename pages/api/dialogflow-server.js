@@ -9,10 +9,10 @@ export default async (req, res) => {
       const { MSG } = req.body;
       console.log("Received MSG:", MSG);
 
-      const projectId = "eduversa-406409";
-      const keyFilePath = JSON.parse(process.env.DIALOGFLOW_KEY_FILE);
+      const projectId = "spaceotakuchatbot-utkt";
+      const keyFilePath = JSON.parse(process.env.DIALOGFLOW_KEY_FILE); // Parse the environment variable as JSON
       const sessionClient = new SessionsClient({
-        credentials: keyFilePath,
+        credentials: keyFilePath, // Use 'credentials' instead of 'keyFilename'
       });
 
       const sessionId = uuid();
