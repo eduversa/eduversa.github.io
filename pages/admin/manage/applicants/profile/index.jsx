@@ -372,9 +372,9 @@ function ApplicantDashboard() {
     if (confirmApprove) {
       try {
         setLoading(true);
-        await approveApplicantApi(id);
+        const response = await approveApplicantApi(id);
         setLoading(false);
-        alert("Applicant approved successfully.");
+        alert(response.data.message);
         router.push("/admin/manage/applicants");
       } catch (error) {
         console.error("Error approving applicant:", error);
@@ -442,7 +442,7 @@ function ApplicantDashboard() {
           <div className="profile-fields">{renderFields(profileData)}</div>
           <div className="button-container">
             <button onClick={updateHandler}>Update</button>
-            <button onClick={approveHandler}>Approave</button>
+            <button onClick={approveHandler}>Aproave</button>
           </div>
         </div>
       </AdminLayout>

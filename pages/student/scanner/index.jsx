@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 
 import QrScanner from "qr-scanner";
-import { AdminLayout } from "@/layout";
+import { StudentLayout } from "@/layout";
 import Head from "next/head";
 
 const QrReader = () => {
@@ -89,7 +89,7 @@ const QrReader = () => {
   return (
     <Fragment>
       <Head></Head>
-      <AdminLayout>
+      <StudentLayout>
         <div className="qr-reader">
           <video ref={videoEl}></video>
           {scannedResult && (
@@ -101,7 +101,7 @@ const QrReader = () => {
             </div>
           )}
         </div>
-      </AdminLayout>
+      </StudentLayout>
     </Fragment>
   );
 };
