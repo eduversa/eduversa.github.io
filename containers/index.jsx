@@ -9,3 +9,4 @@ export { default as Navbar } from "./Header/Navbar";
 export { default as NavbarV2 } from "./Header/NavbarV2";
 // ! form
 export { default as FormLayout } from "./formLayout/FormLayout";
+export { default as ChatBot } from "./bot/index";
