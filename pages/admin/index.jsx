@@ -2,10 +2,11 @@ import React, { Fragment, useState, useEffect } from "react";
 import { AdminLayout } from "@/layout";
 import { getApplicantsByYearApi } from "@/functions";
 import { AllLoader } from "@/components";
-
+import Link from "next/link";
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [applicants, setApplicants] = useState([]);
+  const [notifications, setNotifications] = useState(0);
   const year = new Date().getFullYear();
 
   useEffect(() => {
@@ -35,7 +36,13 @@ const AdminDashboard = () => {
             <div className="dashboard-feature">
               <div className="feature-box">
                 <div className="box-header">Applicants</div>
-                <div className="box-value">{applicants.length}</div>
+                <Link href="/admin/manage/applicants" className="box-value">
+                  <div className="box-value">{applicants.length}</div>
+                </Link>
+              </div>
+              <div className="feature-box">
+                <div className="box-header">Notifications</div>
+                <div className="box-value">{notifications}</div>
               </div>
             </div>
           </div>
