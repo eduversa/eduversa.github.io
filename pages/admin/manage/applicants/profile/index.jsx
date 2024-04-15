@@ -442,7 +442,7 @@ function ApplicantDashboard() {
           <div className="profile-fields">{renderFields(profileData)}</div>
           <div className="button-container">
             <button onClick={updateHandler}>Update</button>
-            <button onClick={approveHandler}>Approave</button>
+            <button onClick={approveHandler}>Aproave</button>
           </div>
         </div>
       </AdminLayout>
