@@ -7,10 +7,8 @@ const approveApplicantApi = async (userId) => {
   }
   const authToken = localStorage.getItem("authToken");
   try {
-    if (process.env.NODE_ENV === "development") {
-      console.log("Approve Applicant Function Called");
-      console.log("User ID:", userId);
-    }
+    console.log("Approve Applicant Function Called");
+    console.log("User ID:", userId);
 
     const response = await fetch(url, {
       method: "POST",
@@ -20,17 +18,17 @@ const approveApplicantApi = async (userId) => {
       },
     });
 
-    if (!response.ok) {
-      if (process.env.NODE_ENV === "development") {
-        console.log(response);
-      }
+    if (response.ok === false) {
+      console.log(response);
+      alert("Error approving applicant");
+      return;
     }
-    if (process.env.NODE_ENV === "development") {
-      console.log("Response:", response);
-    }
+    console.log("Response:", response);
     const data = await response.json();
-    if (process.env.NODE_ENV === "development") {
-      console.log("Data:", data);
+    console.log("Data:", data);
+    if (data.status != true) {
+      alert(JSON.stringify(data.message));
+      return;
     }
     return data;
   } catch (error) {
