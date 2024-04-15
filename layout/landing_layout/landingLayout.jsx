@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from "react";
-import { LandingNavbar, LandingPage, ChatBotv2 } from "@/containers";
+import { LandingNavbar, LandingPage, ChatBotv2, ChatBot } from "@/containers";
 import { useRouter } from "next/router";
 function LandingLayout({ children }) {
   const router = useRouter();
@@ -27,7 +27,8 @@ function LandingLayout({ children }) {
   return (
     <Fragment>
       <LandingNavbar></LandingNavbar>
-      {/* <ChatBotv2></ChatBotv2> */}
+      <ChatBot></ChatBot>
+      <></>
       <div className="homepage">
         <LandingPage></LandingPage>
         <div className="homepage-right">{children}</div>
