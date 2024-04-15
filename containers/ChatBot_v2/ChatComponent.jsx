@@ -146,10 +146,8 @@ export default function ChatComponent() {
     <div className={`chat ${open ? "open" : ""}`}>
       <div className={`chat-icon ${open ? "open" : ""}`}>
         <Image
-          src="/bot/owl.png"
-          layout="responsive"
-          width={20}
-          height={20}
+          src="/assets/Logo.png"
+          layout="fill"
           alt="OrbitOwl"
           onClick={handleChatIconClick}
         ></Image>
@@ -157,9 +155,9 @@ export default function ChatComponent() {
       <div className={`chat-panel ${open ? "open" : "close"}`}>
         <div className="chat-title">
           <figure className="avatar">
-            <Image src="/logo.png" alt="Logo" width={20} height={20} />
+            <Image src="/assets/Logo.png" alt="Logo" width={20} height={20} />
           </figure>
-          <h4>Orbit Owl</h4>
+          <h4>AdComSys</h4>
           <button className="close-button" onClick={handleChatIconClick}>
             <Image
               src="/bot/close.png"
@@ -180,21 +178,21 @@ export default function ChatComponent() {
             id="MSG"
             name="MSG"
             className="message-input"
-            placeholder="Your Space Encyclopedia..."
+            placeholder="Type your enquiry..."
           />
-          <button
-            type="button"
-            className="message-submit"
-            onClick={handleStartRecord}
-          >
-            <Image
-              src={customRecordingSrc}
-              layout="responsive"
-              width={20}
-              height={20}
-              alt="MIC"
-            ></Image>
-          </button>
+          {/* <button
+						type="button"
+						className="message-submit"
+						onClick={handleStartRecord}
+					>
+						<Image
+							src={customRecordingSrc}
+							layout="responsive"
+							width={20}
+							height={20}
+							alt="MIC"
+						></Image>
+					</button> */}
           <button type="submit" className="message-submit">
             <Image
               src="/bot/send.png"
