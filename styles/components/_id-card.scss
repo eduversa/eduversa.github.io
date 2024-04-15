@@ -5,8 +5,36 @@ $size-color2: $size-color1;
 $color-blue: hsl(214, 100%, 50%);
 $color-blue: hsl(240, 100%, 50%);
 $color-blue-light: adjust-hue($color-blue, -30);
+$color-white: hsl(0, 0%, 90%);
+$color-white-light: lighten($color-white, 10);
 
 .bg {
+  &--white {
+    background-color: $color-white-light;
+    background-image: linear-gradient(
+        60deg,
+        rgba($color-white, 0.4) $size-color1,
+        transparent $size-color2
+      ),
+      linear-gradient(
+        120deg,
+        rgba($color-white, 0.4) $size-color1,
+        transparent $size-color2
+      ),
+      linear-gradient(
+        240deg,
+        rgba($color-white, 0.4) $size-color1,
+        transparent $size-color2
+      ),
+      linear-gradient(
+        300deg,
+        rgba($color-white, 0.4) $size-color1,
+        transparent $size-color2
+      );
+    background-size: 20px 20px, 20px 20px, 20px 20px, 20px 20px;
+    background-position-y: bottom;
+    // backg
+  }
   &--blue {
     background-color: $color-blue-light;
     background-image: linear-gradient(
@@ -34,6 +62,21 @@ $color-blue-light: adjust-hue($color-blue, -30);
     // backg
   }
 }
+
+#id-card__back {
+  padding: 2.5%;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // z-index: 1;
+}
+
+#id-card__front {
+  z-index: 1;
+}
 .id-card--container {
   width: 95%;
   max-width: 500px;
@@ -57,20 +100,6 @@ $color-blue-light: adjust-hue($color-blue, -30);
       transition: 1s ease-in-out;
       top: 0;
       left: 0;
-
-      & > #id-card__back {
-        padding: 2.5%;
-        transform: rotateY(-180deg);
-        z-index: 0;
-        background-color: rgb(255, 255, 255);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      & > #id-card__front {
-        z-index: 1;
-      }
     }
   }
 
@@ -189,30 +218,32 @@ $color-blue-light: adjust-hue($color-blue, -30);
       bottom: 0;
       right: 0;
       transform: translate(30%, 30%);
+      outline: 3px solid white;
+      // padding: 20px;
     }
     &__right {
       width: 100%;
       height: 100%;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4px;
+      gap: 3px;
       z-index: 1;
-      padding: 10px !important;
+      padding: 8px !important;
     }
   }
 
   .content {
     color: rgb(53, 53, 53);
-    font-size: 12px;
-    margin-bottom: 3px;
+    font-size: 11px;
+    margin-bottom: 2px;
     text-transform: capitalize;
     font-weight: bold;
   }
 
   .title {
-    font-size: 11px;
+    font-size: 10px;
     text-transform: capitalize;
-    opacity: 0.6;
+    opacity: 0.7;
     user-select: none;
   }
 
@@ -248,6 +279,8 @@ $color-blue-light: adjust-hue($color-blue, -30);
 
   .id-card__back__qrcode {
     height: 100%;
+    aspect-ratio: 1;
+    position: relative;
   }
 
   @media screen and (min-width: 360px) and (max-width: 400px) {

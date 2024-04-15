@@ -25,7 +25,10 @@ function Index() {
             setLoading(false);
             return;
           }
-
+          localStorage.setItem(
+            "eduversa_studentdata",
+            JSON.stringify(response)
+          );
           setProfileData(response);
           setLoading(false);
         } catch (error) {
@@ -50,26 +53,49 @@ function Index() {
         </section>
         {/* <div className="right-side"></div> */}
       </StudentLayout>
+      <div>{JSON.stringify(profileData)}</div>
     </Fragment>
   );
 }
 
 function IDCard({ profile }) {
-  const {
-    personal_info: {
-      first_name,
-      last_name,
-      gender,
-      dob,
-      email,
-      contact,
-      blood_group,
-    },
-    course_info: { course_name, section, stream, enrollment_number },
-    image,
-  } = profile;
+  const [qrCodeData, setQrCodeData] = useState(undefined);
+  useEffect(() => {
+    const image = document.getElementById("id-card-body-image");
+    image.style.backgroundImage = `url(${profile.image})`;
 
-  const fullName = [first_name, last_name].join(" ");
+    setQrCodeData(
+      JSON.stringify({
+        type: "security_token",
+        data: { security_token: localStorage.getItem("security_token") },
+      })
+    );
+  }, []);
+
+  const showQrCode = () => {
+    // alert("zhsa");
+    const frontSide = document.getElementById("id-card__front");
+    const backSide = document.getElementById("id-card__back");
+    // frontSide.style.transform = "rotateY(0deg)";
+    // frontSide.style.zIndex = "1";
+    // backSide.style.transform = "rotateY(-180deg)";
+    // backSide.style.zIndex = "0";
+    frontSide.style.transform = "rotateY(-180deg)";
+    frontSide.style.zIndex = "0";
+    backSide.style.transform = "rotateY(-360deg)";
+    backSide.style.zIndex = "1";
+  };
+  const hideQrCode = () => {
+    // alert("zhsa");
+    const frontSide = document.getElementById("id-card__front");
+    const backSide = document.getElementById("id-card__back");
+    frontSide.style.transform = "rotateY(0deg)";
+    frontSide.style.zIndex = "1";
+    backSide.style.transform = "rotateY(-180deg)";
+    backSide.style.zIndex = "0";
+  };
+
+  // const fullName = [first_name, last_name].join(" ");
 
   return (
     <div class="id-card--container" id="container">
@@ -94,42 +120,61 @@ function IDCard({ profile }) {
         <div class="id-card__body bg--white">
           <div class="id-card__body__left">
             <div class="id-card__body__image" id="id-card-body-image">
-              <img class="id-card__body__qr-code" id="id-card__qr-code" />
+              <div class="id-card__body__qr-code" onClick={showQrCode}>
+                <Image
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrCodeData}`}
+                  layout="fill"
+                  id="id-card__qr-code"
+                ></Image>
+              </div>
             </div>
           </div>
           <div class="id-card__body__right">
-            <div class="id-card__body__course">
-              <p class="content" id="stream">
-                CST 3rd Year
+            <div class="id-card__body__info">
+              <p class="content">{`${profile.personal_info.first_name} ${
+                profile.personal_info.middle_name
+                  ? profile.personal_info.middle_name + " "
+                  : ""
+              }${profile.personal_info.last_name}`}</p>
+              <p class="title">name</p>
+            </div>
+            <div class="id-card__body__info">
+              <p class="content">
+                {profile.course_info.stream} Year
+                {" " + profile.course_info.current_year}
               </p>
               <p class="title">student</p>
             </div>
-            <div class="id-card__body__dob">
-              <p class="content" id="dob">
-                22/07/2001
+            <div class="id-card__body__info">
+              <p class="content">
+                {new Date(profile.personal_info.dob).toDateString()}
               </p>
-              <p class="title" id="blood_group">
-                A+
-              </p>
+              <p class="title">Date of Birth</p>
             </div>
-            <div class="id-card__body__name">
-              <p class="content" id="full_name"></p>
-              <p class="title">name</p>
+            <div class="id-card__body__info">
+              <p class="content">{profile.personal_info.blood_group}</p>
+              <p class="title">blood group</p>
             </div>
-            <div class="id-card__body__blood-group">
+            {/* <div class="id-card__body__blood-group">
               <p class="content" id="registration_number"></p>
               <p class="title">Reistration No</p>
-            </div>
-            <div class="id-card__body__contact">
-              <p class="content" id="contact_no"></p>
+            </div> */}
+            <div class="id-card__body__info">
+              <p class="content">{profile.personal_info.contact}</p>
               <p class="title">contact</p>
             </div>
-            <div class="id-card__body__enroll">
-              <p class="content" id="enrollment_number"></p>
-              <p class="title">enrollment no</p>
+            <div class="id-card__body__info">
+              <p class="content">{profile.course_info.enrollment_number}</p>
+              <p class="title">enrollment number</p>
             </div>
             <div class="id-card__body__address">
-              <p class="content" id="permanent_address"></p>
+              <p class="content" id="permanent_address">
+                {`${
+                  profile.personal_info.present_address.street.split(",")[0]
+                }, ${profile.personal_info.present_address.city}-${
+                  profile.personal_info.present_address.pincode
+                }`}
+              </p>
               <p class="title">address</p>
             </div>
           </div>
@@ -141,10 +186,43 @@ function IDCard({ profile }) {
       </div>
 
       <div class="id-card id-card__side" id="id-card__back">
-        <img class="id-card__back__qrcode" id="id-card__qr-code--back" />
+        <div class="id-card__back__qrcode" onClick={hideQrCode}>
+          <Image
+            src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrCodeData}`}
+            layout="fill"
+            id="id-card__qr-code"
+          ></Image>
+        </div>
+        {/* <img class="" id="id-card__qr-code--back" /> */}
       </div>
     </div>
   );
 }
 
 export default Index;
+
+// const showBackSide = () => {
+// 	const frontSide = document.getElementById("id-card__front");
+// 	const backSide = document.getElementById("id-card__back");
+// 	// console.log("back");
+// 	frontSide.style.transform = "rotateY(-180deg)";
+// 	frontSide.style.zIndex = "0";
+// 	backSide.style.transform = "rotateY(-360deg)";
+// 	backSide.style.zIndex = "1";
+// };
+
+// const showFrontSide = () => {
+// 	const frontSide = document.getElementById("id-card__front");
+// 	const backSide = document.getElementById("id-card__back");
+// 	// console.log("front");
+// 	frontSide.style.transform = "rotateY(0deg)";
+// 	frontSide.style.zIndex = "1";
+// 	backSide.style.transform = "rotateY(-180deg)";
+// 	backSide.style.zIndex = "0";
+// };
+// const qrCode = document.getElementById("id-card__qr-code");
+// const qrCodeBack = document.getElementById("id-card__qr-code--back");
+// console.log(qrCode);
+// console.log(qrCodeBack);
+// qrCode.addEventListener("click", showBackSide);
+// qrCodeBack.addEventListener("click", showFrontSide);
