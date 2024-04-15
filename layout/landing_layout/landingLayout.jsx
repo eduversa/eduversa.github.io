@@ -27,7 +27,7 @@ function LandingLayout({ children }) {
   return (
     <Fragment>
       <LandingNavbar></LandingNavbar>
-      <ChatBotv2></ChatBotv2>
+      {/* <ChatBotv2></ChatBotv2> */}
       <div className="homepage">
         <LandingPage></LandingPage>
         <div className="homepage-right">{children}</div>
