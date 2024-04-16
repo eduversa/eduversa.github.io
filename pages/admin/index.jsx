@@ -25,7 +25,10 @@ const AdminDashboard = () => {
         setLoading(false);
       });
   }, [year]);
-
+  // function buttonClickHandler() {
+  //   console.log("Button clicked");
+  //   localStorage.clear();
+  // }
   return (
     <Fragment>
       {loading && <AllLoader />}
@@ -44,6 +47,7 @@ const AdminDashboard = () => {
                 <div className="box-header">Notifications</div>
                 <div className="box-value">{notifications}</div>
               </div>
+              {/* <button onClick={buttonClickHandler}>click me</button> */}
             </div>
           </div>
         </div>
