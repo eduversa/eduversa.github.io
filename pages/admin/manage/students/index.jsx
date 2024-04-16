@@ -4,7 +4,7 @@ import {
   getCollegeDetailsApi,
   deleteSingleStudent,
 } from "@/functions";
-import { AllLoader } from "@/components";
+import { AllLoader, IdCard } from "@/components";
 import Image from "next/image";
 import { AdminLayout } from "@/layout";
 import { useRouter } from "next/router";
@@ -100,33 +100,6 @@ function ManageStudents() {
     setSearchTerm(event.target.value);
   };
 
-  const handleShowProfile = (id) => {
-    console.log("Show profile for student with id:", id);
-    localStorage.setItem("selected-studentId", id);
-    router.push("/admin/manage/students/profile");
-  };
-
-  const handleDeleteStudent = async (id) => {
-    console.log("Delete student with id:", id);
-    localStorage.setItem("selected-studentId", id);
-    const confirmDelete = confirm(
-      "Are you sure you want to delete this student?"
-    );
-
-    if (confirmDelete) {
-      try {
-        setLoading(true);
-        await deleteSingleStudent(id);
-        setLoading(false);
-        window.location.reload();
-      } catch (error) {
-        console.error("Error deleting student:", error);
-        setLoading(false);
-        alert("Error deleting student. Please try again.");
-      }
-    }
-  };
-
   return (
     <Fragment>
       <AdminLayout>
@@ -202,52 +175,11 @@ function ManageStudents() {
           <div className="card-container">
             {currentStudents.length > 0 ? (
               currentStudents.map((student) => (
-                <div key={student._id} className="card">
-                  <h2 className="card-title">
-                    {student.personal_info.first_name}{" "}
-                    {student.personal_info.last_name}
-                  </h2>
-                  <Image
-                    src={student.image || "/user.png"}
-                    alt={`Image of ${student.personal_info.name}`}
-                    height={100}
-                    width={100}
-                    className="student-image"
-                  />
-                  <p className="course-studying">
-                    <strong>Course Studying:</strong>{" "}
-                    {student.course_info.course_name || "N/A"}
-                  </p>
-                  <p className="streams-studying">
-                    <strong>Streams Studying:</strong>{" "}
-                    {student.course_info.stream || "N/A"}
-                  </p>
-
-                  <div className="button-container">
-                    <button
-                      onClick={() => handleDeleteStudent(student.user_id)}
-                      className="delete-button"
-                    >
-                      <Image
-                        src="\applicant\delete.png"
-                        alt="delete"
-                        height={20}
-                        width={20}
-                      ></Image>
-                    </button>
-                    <button
-                      onClick={() => handleShowProfile(student.user_id)}
-                      className="profile-button"
-                    >
-                      <Image
-                        src="\applicant\search.png"
-                        alt="profile"
-                        height={20}
-                        width={20}
-                      ></Image>
-                    </button>
-                  </div>
-                </div>
+                <IdCard
+                  key={JSON.stringify(student)}
+                  profile={student}
+                  page={"manage-students"}
+                ></IdCard>
               ))
             ) : (
               <p className="no-students">No students found.</p>
