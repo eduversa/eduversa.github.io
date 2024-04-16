@@ -37,7 +37,7 @@ const QrReader = () => {
 
     scanner.current.stop();
 
-    setScannedResult(JSON.stringify(res));
+    setScannedResult(res);
   };
 
   const onScanSuccess = async (result) => {
@@ -99,7 +99,7 @@ const QrReader = () => {
               </button>
               <p>Scanned Result:</p>
               <ul>
-                <li>{scannedResult}</li>
+                <li>{JSON.stringify(scannedResult)}</li>
                 {console.log(scannedResult)}
               </ul>
             </div>
