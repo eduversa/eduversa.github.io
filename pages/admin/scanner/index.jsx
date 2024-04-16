@@ -68,7 +68,7 @@ const QrReader = () => {
   const [qrOn, setQrOn] = useState(true);
 
   const [scannedResult, setScannedResult] = useState(undefined);
-
+  const [visible, setVisible] = useState(true);
   const hideResultScreen = () => {
     scanner?.current
       ?.start()
@@ -93,6 +93,7 @@ const QrReader = () => {
     scanner.current.stop();
 
     setScannedResult(res);
+    setVisible(false);
   };
 
   const onScanSuccess = async (result) => {
@@ -162,21 +163,22 @@ const QrReader = () => {
     <Fragment>
       <Head></Head>
       <AdminLayout>
-        <div className="qr-reader">
-          <video ref={videoEl}></video>
-          {scannedResult && (
-            <div className="scanner__result">
-              <button className="btn" onClick={hideResultScreen}>
-                Hide
-              </button>
-              <p>Scanned Result:</p>
-              {renderImage(scannedResult.image)}
-              <div className="profile-fields">
-                {renderFields(scannedResult)}
-              </div>
-            </div>
-          )}
-        </div>
+        {visible && (
+          <div className="qr-reader">
+            <video ref={videoEl}></video>
+          </div>
+        )}
+
+        {!visible && scannedResult && (
+          <div className="scanner__result">
+            <button className="btn" onClick={hideResultScreen}>
+              Hide
+            </button>
+            <p>Scanned Result:</p>
+            {renderImage(scannedResult.image)}
+            <div className="profile-fields">{renderFields(scannedResult)}</div>
+          </div>
+        )}
       </AdminLayout>
     </Fragment>
   );

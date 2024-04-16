@@ -1,36 +1,11 @@
-// .scanner {
-//   width: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   gap: 50px;
-//   //   background-color: aqua;
-
-//   &__heading {
-//     color: red;
-//   }
-
-//   &__camera {
-//     width: 400px;
-//     padding: 30px;
-//     aspect-ratio: 1;
-//     // border: 2px solid red;
-//     background-color: rgb(199, 199, 199);
-//   }
-// }
-
 .qr-reader {
-  //   border: 3px solid red;
   background-color: lightgray;
   padding: 20px;
-  //   width: 430px;
+  position: relative;
   width: 50%;
-  //   min-width: 200px;
-  //   width: 90%;
-  //   height: 100vh;
+
   aspect-ratio: 1;
   margin: 0 auto;
-  position: relative;
 }
 
 .qr-reader video {
@@ -39,11 +14,6 @@
   object-fit: cover;
   border-radius: 20px;
 }
-
-// .qr-reader .qr-box {
-//   width: 100% !important;
-//   left: 0 !important;
-// }
 
 .qr-reader .qr-frame {
   position: absolute;
@@ -55,7 +25,6 @@
   transform: translateX(-50%) translateY(-50%);
 }
 
-/* Media Queries for mobile screens */
 @media (max-width: 426px) {
   .qr-reader {
     width: 100%;
@@ -72,5 +41,98 @@
     background-color: rgba(255, 255, 255, 0.7);
     z-index: 100;
     backdrop-filter: blur(10px);
+  }
+}
+.scanner__result {
+  overflow: scroll;
+  // position: absolute;
+  // width: 100%;
+  // max-width: 600px;
+  border-radius: 20px;
+  padding: 40px;
+  background-color: #f5f5f5;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  color: #333;
+
+  .btn {
+    position: relative;
+    z-index: 1;
+    background-color: #4caf50;
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #388e3c;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: calc(100% - 10px);
+      height: calc(100% - 10px);
+      background: linear-gradient(135deg, #4caf50, #388e3c);
+      border-radius: 30px;
+      z-index: -1;
+    }
+  }
+
+  p {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+
+  .profile-image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+
+    .profile-image {
+      position: relative;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          #ffffff 0%,
+          rgba(255, 255, 255, 0) 70%
+        );
+      }
+    }
+  }
+
+  .profile-fields {
+    .field {
+      margin-bottom: 40px;
+
+      .heading {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .label {
+        font-weight: bold;
+        margin-right: 10px;
+        color: #555;
+      }
+    }
   }
 }
