@@ -1,6 +1,7 @@
 const BASE_URL = "https://eduversa-api.onrender.com";
 
-const getApplicantsByYearApi = async (year) => {
+const getApplicantsByYearApi = async () => {
+  const year = new Date().getFullYear();
   const url = `${BASE_URL}/applicant/year?year=${year}`;
   if (process.env.NODE_ENV === "development") {
     console.log("URL:", url);
