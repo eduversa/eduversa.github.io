@@ -33,7 +33,7 @@ const Footer = () => {
       },
     ],
     applicant: [
-      { label: "Dashboard", href: "/applicant" },
+      { label: "Dashboard", href: "/applicants" },
       { label: "Update Profile", href: "/applicant/update" },
       { label: "About Us", href: "/applicant/about" },
       { label: "Contact Us", href: "/applicant/contact" },
@@ -42,7 +42,7 @@ const Footer = () => {
       { label: "Dashboard", href: "/admin" },
       { label: "About Us", href: "/admin/about" },
       { label: "Contact Us", href: "/admin/contact" },
-      { label: "manage Applicants", href: "/admin/manage/applicant" },
+      { label: "manage Applicants", href: "/admin/manage/applicants" },
       { label: "manage Students", href: "/admin/manage/students" },
       { label: "scanner", href: "/admin/scanner" },
     ],
