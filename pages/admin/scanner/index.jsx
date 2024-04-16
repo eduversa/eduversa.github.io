@@ -31,7 +31,15 @@ function renderImage(imageUrl) {
 function renderFields(data, parentKey = "") {
   return Object.entries(data)
     .filter(
-      ([key]) => key !== "__v" && key !== "_id" && key !== "are_addresses_same"
+      ([key]) =>
+        key !== "__v" &&
+        key !== "_id" &&
+        key !== "are_addresses_same" &&
+        key !== "image" &&
+        key !== "status" &&
+        key !== "accessLevel" &&
+        key !== "createdAt" &&
+        key !== "updatedAt"
     )
     .map(([key, value]) => {
       const currentKey = parentKey ? `${parentKey}-${key}` : key;
@@ -177,7 +185,7 @@ const QrReader = () => {
             <button className="btn" onClick={hideResultScreen}>
               Hide
             </button>
-            <p>Scanned Result:</p>
+            <p className="scanned-result">Scanned Result:</p>
             {renderImage(scannedResult.data.image)}
             <div className="profile-fields">{renderFields(scannedResult)}</div>
           </div>

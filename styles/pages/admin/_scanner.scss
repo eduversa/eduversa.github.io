@@ -42,18 +42,22 @@
   text-align: center;
   overflow: scroll;
   .btn {
+    font-family: var(--font-tektur);
+    font-size: var(--font-12);
+    letter-spacing: 2px;
     position: relative;
     z-index: 1;
-    background-color: #4caf50;
+    background-color: var(--blue-2);
     color: var(--white);
+    margin: 1% 0 1% 0;
     border: none;
-    padding: 30px 60px;
-    border-radius: 20px;
+    padding: 15px 30px;
+    border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #388e3c;
+      background-color: var(--blue-1);
     }
 
     &::before {
@@ -63,43 +67,38 @@
       left: 5px;
       width: calc(100% - 10px);
       height: calc(100% - 10px);
-      background: linear-gradient(135deg, #4caf50, #388e3c);
+      background: linear-gradient(135deg, var(--blue-2), var(--blue-1));
       border-radius: 30px;
       z-index: -1;
     }
   }
 
-  p {
-    font-size: 1.6rem;
-    font-weight: bold;
-    margin-bottom: 30px;
+  .scanned-result {
+    font-family: var(--font-elianto);
+    font-size: var(--font-8);
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    margin: 0 0 1% 0;
+
+    .heading {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .label {
+      font-weight: bold;
+      margin-right: 10px;
+      color: #555;
+    }
   }
 
   .profile-image-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
-
     .profile-image {
-      position: relative;
+      // position: relative;
       border-radius: 50%;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-
-      &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        background: radial-gradient(
-          circle,
-          #ffffff 0%,
-          rgba(255, 255, 255, 0) 70%
-        );
-      }
     }
   }
 
