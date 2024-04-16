@@ -12,6 +12,7 @@ import {
   Pincode,
   FormButtons,
   Name,
+  TextNoNumber,
 } from "../inputComponent/InputComponent";
 import fetchAddressFromPincode from "../inputComponent/fetchAddressFromPincode";
 import { updateAppplicantData } from "@/functions";
@@ -95,29 +96,32 @@ const FamilyInfo = ({
     // check to see if tehre are any changes to the form
     const initialFormData = localStorage.getItem('applicant_profile');
     if (initialFormData === JSON.stringify(formData)) {
-      return;
+      return true;
     }
     setLoading(true);
-    localStorage.setItem(
-      "applicant_profile",
-      JSON.stringify(formData)
-    );
     const data = JSON.stringify(formData.family_info);
     const type = "family";
     // const userid = localStorage.getItem("userid");
 
     try {
       const response = await updateAppplicantData(userid, type, data);
+      if (!response.status) {
+        alert(response.message);
+        setLoading(false);
+        return false;
+      }
       if (process.env.NODE_ENV === "development") {
-        const response = await updateAppplicantData(userid, type, data);
         console.log(response);
       }
+      localStorage.setItem("applicant_profile", JSON.stringify(formData));
       alert(response.message);
       setLoading(false);
+      return true;
     } catch (error) {
       if (process.env.NODE_ENV === "development") {
         console.log(error);
       }
+      return false;
     }
   }
 
@@ -127,9 +131,11 @@ const FamilyInfo = ({
       <form
         className="page--content"
         onSubmit={async (event) => {
-          event.preventDefault();
-          await onSubmitHandler();
-          handleNextClick();
+            event.preventDefault();
+            const success = await onSubmitHandler();
+            if (success) {
+              handleNextClick();
+            }
         }}
       >
         <h3 className="sub-heading">Father&apos;s Information</h3>
@@ -207,7 +213,7 @@ const FamilyInfo = ({
               { key: "Others", value: "others" },
             ]}
           />
-          <Text
+          <TextNoNumber
             label="Occupation"
             name="family_info.guardian.occupation"
             value={formData.family_info.guardian.occupation}
@@ -232,7 +238,7 @@ const FamilyInfo = ({
           />
         </div>
         <div className="grid-col-3">
-          <Text
+          <TextNoNumber
             label="Designation"
             name="family_info.guardian.designation"
             value={formData.family_info.guardian.designation}
