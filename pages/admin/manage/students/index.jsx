@@ -17,6 +17,7 @@ function ManageStudents() {
   const [collegeData, setCollegeData] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const currentYear = new Date().getFullYear();
   const router = useRouter();
@@ -59,7 +60,8 @@ function ManageStudents() {
       (!selectedCourse || student.course_info.course_name === selectedCourse) &&
       (!selectedStream ||
         (student.course_info.stream &&
-          student.course_info.stream.includes(selectedStream)))
+          student.course_info.stream.includes(selectedStream))) &&
+      (!selectedYear || student.course_info.current_year === selectedYear)
     );
   });
 
@@ -88,6 +90,10 @@ function ManageStudents() {
 
   const handleStreamChange = (event) => {
     setSelectedStream(event.target.value);
+  };
+
+  const handleYearChange = (event) => {
+    setSelectedYear(event.target.value);
   };
 
   const handleSearchChange = (event) => {
@@ -176,6 +182,21 @@ function ManageStudents() {
                   </select>
                 </Fragment>
               )}
+              <label htmlFor="year" className="filter-label">
+                Select Year:
+              </label>
+              <select
+                id="year"
+                value={selectedYear}
+                onChange={handleYearChange}
+                className="filter-select"
+              >
+                <option value="">All Years</option>
+                <option value="1">First Year</option>
+                <option value="2">Second Year</option>
+                <option value="3">Third Year</option>
+                <option value="4">Fourth Year</option>
+              </select>
             </div>
           </div>
           <div className="card-container">
@@ -208,7 +229,7 @@ function ManageStudents() {
                       className="delete-button"
                     >
                       <Image
-                        src="/delete.png"
+                        src="\applicant\delete.png"
                         alt="delete"
                         height={20}
                         width={20}
@@ -219,7 +240,7 @@ function ManageStudents() {
                       className="profile-button"
                     >
                       <Image
-                        src="/profile.png"
+                        src="\applicant\search.png"
                         alt="profile"
                         height={20}
                         width={20}
