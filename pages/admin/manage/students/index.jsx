@@ -2,14 +2,14 @@ import { useEffect, useState, Fragment } from "react";
 import {
   getAllStudentsApi,
   getCollegeDetailsApi,
-  deleteSinglestudentApi,
+  deleteSingleStudent,
 } from "@/functions";
-import { AllLoader } from "@/components";
+import { AllLoader, IdCard } from "@/components";
 import Image from "next/image";
 import { AdminLayout } from "@/layout";
 import { useRouter } from "next/router";
 
-function Index() {
+function ManageStudents() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,7 +17,9 @@ function Index() {
   const [collegeData, setCollegeData] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const currentYear = new Date().getFullYear();
   const router = useRouter();
 
   useEffect(() => {
@@ -27,7 +29,7 @@ function Index() {
         if (Array.isArray(data.data)) {
           setStudents(data.data);
         } else {
-          console.error("students data is not an array:", data.data);
+          console.error("Students data is not an array:", data.data);
         }
         setLoading(false);
       })
@@ -35,7 +37,9 @@ function Index() {
         console.error("Error fetching students:", error);
         setLoading(false);
       });
+  }, [currentYear]);
 
+  useEffect(() => {
     getCollegeDetailsApi(304)
       .then((data) => {
         setCollegeData(data.data);
@@ -56,7 +60,8 @@ function Index() {
       (!selectedCourse || student.course_info.course_name === selectedCourse) &&
       (!selectedStream ||
         (student.course_info.stream &&
-          student.course_info.stream.includes(selectedStream)))
+          student.course_info.stream.includes(selectedStream))) &&
+      (!selectedYear || student.course_info.current_year === selectedYear)
     );
   });
 
@@ -87,48 +92,20 @@ function Index() {
     setSelectedStream(event.target.value);
   };
 
+  const handleYearChange = (event) => {
+    setSelectedYear(event.target.value);
+  };
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  function handleShowProfile(id) {
-    console.log("Show profile for student with id:", id);
-    localStorage.setItem("selected-studentId", id);
-    console.log(localStorage.getItem("selected-studentId"));
-    router.push("/admin/manage/students/profile");
-  }
-
-  async function handleDeleteStudent(id) {
-    console.log("Delete student with id:", id);
-    localStorage.setItem("selected-studentId", id);
-    const confirmDelete = confirm(
-      "Are you sure you want to delete this student?"
-    );
-
-    if (confirmDelete) {
-      try {
-        setLoading(true);
-        await deleteSinglestudentApi(id);
-        setLoading(false);
-        setStudents(students.filter((student) => student.user_id !== id));
-      } catch (error) {
-        console.error("Error deleting student:", error);
-        setLoading(false);
-        alert("Error deleting student. Please try again.");
-      }
-    }
-  }
-  useEffect(() => {
-    console.log("Selected Course:", selectedCourse);
-    console.log("Selected Stream:", selectedStream);
-    console.log("Filtered Students:", filteredStudents);
-  }, [selectedCourse, selectedStream, filteredStudents]);
   return (
     <Fragment>
       <AdminLayout>
         {loading && <AllLoader />}
         <div className="manage-student-container">
-          <h1 className="title">Students of UEM</h1>
+          <h1 className="title">Students of Eduversa:</h1>
           <div className="filters">
             <input
               type="text"
@@ -178,56 +155,31 @@ function Index() {
                   </select>
                 </Fragment>
               )}
+              <label htmlFor="year" className="filter-label">
+                Select Year:
+              </label>
+              <select
+                id="year"
+                value={selectedYear}
+                onChange={handleYearChange}
+                className="filter-select"
+              >
+                <option value="">All Years</option>
+                <option value="1">First Year</option>
+                <option value="2">Second Year</option>
+                <option value="3">Third Year</option>
+                <option value="4">Fourth Year</option>
+              </select>
             </div>
           </div>
           <div className="card-container">
             {currentStudents.length > 0 ? (
               currentStudents.map((student) => (
-                <div key={student._id} className="card">
-                  <h2 className="card-title">
-                    {student.personal_info.first_name}{" "}
-                    {student.personal_info.last_name}
-                  </h2>
-                  {student.image ? (
-                    <Image
-                      src={student.image}
-                      alt={`Image of ${student.personal_info.name}`}
-                      height={100}
-                      width={100}
-                      className="student-image"
-                    />
-                  ) : (
-                    <Image
-                      src="/default-image.jpg"
-                      alt={`Image not available`}
-                      height={100}
-                      width={100}
-                      className="student-image"
-                    />
-                  )}
-                  <p className="course-applied">
-                    <strong>Course Applied:</strong>{" "}
-                    {student.course_info.course_name || "N/A"}
-                  </p>
-                  <p className="streams-applied">
-                    <strong>Streams Applied:</strong>{" "}
-                    {student.course_info.stream || "N/A"}
-                  </p>
-                  <div className="button-container">
-                    <button
-                      onClick={() => handleDeleteStudent(student.user_id)}
-                      className="delete-button"
-                    >
-                      Delete student
-                    </button>
-                    <button
-                      onClick={() => handleShowProfile(student.user_id)}
-                      className="profile-button"
-                    >
-                      Show Profile
-                    </button>
-                  </div>
-                </div>
+                <IdCard
+                  key={JSON.stringify(student)}
+                  profile={student}
+                  page={"manage-students"}
+                ></IdCard>
               ))
             ) : (
               <p className="no-students">No students found.</p>
@@ -273,4 +225,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default ManageStudents;

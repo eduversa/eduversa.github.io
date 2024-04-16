@@ -30,12 +30,14 @@ const FileUpload = ({
       reader.readAsDataURL(file);
     }
   };
+
   async function onSubmitHandler() {
     setLoading(true);
-    localStorage.setItem(
-      "applicant_profile",
-      JSON.stringify(formData)
-    );
+    // check to see if tehre are any changes to the form
+    const initialFormData = localStorage.getItem('applicant_profile');
+    if (initialFormData === JSON.stringify(formData)) {
+      return true;
+    }
     const image = document.getElementById("user-image");
     const profileData = new FormData();
     profileData.append("image", image.files[0]);
@@ -53,15 +55,21 @@ const FileUpload = ({
         data,
         fileTypes
       );
+      if (!response.status) {
+        alert(response.message);
+        setLoading(false);
+        return false;
+      }
       if (process.env.NODE_ENV === "development") {
-        const response = await updateAppplicantData(
-          userid,
-          type,
-          data,
-          fileTypes
-        );
+        // const response = await updateAppplicantData(
+        //   userid,
+        //   type,
+        //   data,
+        //   fileTypes
+        // );
         console.log(response);
       }
+      localStorage.setItem("applicant_profile", JSON.stringify(formData));
       alert(response.message);
       setLoading(false);
       const userType = localStorage.getItem("userType");
@@ -71,21 +79,27 @@ const FileUpload = ({
       if (userType === "admin") {
         router.push("/admin/manage/applicants/profile");
       }
+      return true;
+
     } catch (error) {
       if (process.env.NODE_ENV === "development") {
         console.log(error);
       }
+      return false;
     }
   }
+
   return (
     <Fragment>
       {loading && <AllLoader />}
       <form
         className="page--content"
-        onSubmit={(event) => {
+        onSubmit={async (event) => {
           event.preventDefault();
-          onSubmitHandler();
-          handleNextClick();
+          const success = await onSubmitHandler();
+          if (success) {
+            handleNextClick();
+          }
         }}
       >
         <div className="image-upload">

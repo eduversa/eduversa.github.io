@@ -104,7 +104,7 @@ function Index() {
       );
       setApplicants(filteredApplicants);
     } else {
-      getApplicantsByYearApi(2023)
+      getApplicantsByYearApi()
         .then((data) => {
           if (Array.isArray(data.data)) {
             setApplicants(data.data);

@@ -34,36 +34,61 @@ const AcademicInfo = ({
     // check to see if tehre are any changes to the form
     const initialFormData = localStorage.getItem('applicant_profile');
     if (initialFormData === JSON.stringify(formData)) {
-      return;
+      return true;
+    }
+    const secondaryMarksObject = formData.academic_info.secondary.marks;
+    if (Object.keys(secondaryMarksObject).length === 0) {
+      alert("Please enter subject marks for Secondary Education");
+      setLoading(false);
+      return false; 
+    }
+    const higherSecondaryMarksObject = formData.academic_info.higher_secondary.marks;
+    if (Object.keys(higherSecondaryMarksObject).length === 0) {
+      alert("Please enter subject marks for Higher Secondary Education");
+      setLoading(false);
+      return false; 
     }
     setLoading(true);
-    localStorage.setItem("applicant_profile", JSON.stringify(formData));
     const data = JSON.stringify(formData.academic_info);
     const type = "academic";
     // const userid = localStorage.getItem("userid");
     try {
       const response = await updateAppplicantData(userid, type, data);
+      if (!response.status) {
+        alert(response.message);
+        setLoading(false);
+        console.log("errorrrr")
+        return false;
+      }
       if (process.env.NODE_ENV === "development") {
-        const response = await updateAppplicantData(userid, type, data);
         console.log(response);
       }
+      localStorage.setItem("applicant_profile", JSON.stringify(formData));
       alert(response.message);
       setLoading(false);
+      return true;
     } catch (error) {
       if (process.env.NODE_ENV === "development") {
         console.log(error);
       }
+      return false;
     }
   }
+
   return (
     <Fragment>
       {loading && <AllLoader />}
       <form
         className="page--content"
         onSubmit={async (event) => {
-          event.preventDefault();
-          await onSubmitHandler();
-          handleNextClick();
+            event.preventDefault();
+            const success = await onSubmitHandler();
+            if (success) {
+              console.log("form proceeding")
+              handleNextClick();
+            } else {
+              console.log("error in form")
+            }
         }}
       >
         <h3 className="sub-heading">Admission Details</h3>
