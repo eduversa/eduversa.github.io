@@ -23,7 +23,7 @@ const onlyNumberWithSpace = (e) => {
   }
 };
 const onlyLetters = (e) => {
-  if (!/[a-zA-Z]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
+  if (!/[a-zA-Z.]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key) && !(e.ctrlKey || e.metaKey)) {
     e.preventDefault();
   }
 };
@@ -44,6 +44,23 @@ export const Text = ({ label, details, name, value, required, ...props }) => {
   );
 };
 
+export const TextNoNumber = ({ label, details, name, value, required, ...props }) => {
+  return (
+    <div className="inputs">
+      <label htmlFor={name}>
+        {label} <span>{details}</span>
+        {required && <span style={{ color: 'red' }}>*</span>}
+      </label>
+      <input 
+        type="text" 
+        id={name} 
+        name={name} 
+        value={value}
+        onKeyDown={onlyLetters}
+        {...props} />
+    </div>
+  );
+};
 export const Name = ({ label, name, value, required, ...props }) => {
   return (
     <div className="inputs">
@@ -56,6 +73,7 @@ export const Name = ({ label, name, value, required, ...props }) => {
         id={name} 
         name={name} 
         value={value}
+        pattern="[^\s]+(?:\s[^\s]+){1,}"
         onKeyDown={onlyLetters}
         {...props} />
     </div>
@@ -75,8 +93,8 @@ export const Email = ({ label, name, value, required,  ...props }) => {
         name={name} 
         value={value} 
         // pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-        pattern = '[a-z0-9]+@[a-z]+\.[a-z]{2,}'
-        // minLength={6}
+        pattern = "[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}"
+        minLength={6}
         {...props} 
       />
     </div>
@@ -268,7 +286,7 @@ export const Select = ({ label, name, value, options, ...props }) => {
   );
 };
 
-export const SubjectMarks = ({ name, marks, handleChange, ...props }) => {
+export const SubjectMarks2 = ({ name, marks, handleChange, ...props }) => {
   const [subjectsMarks, setSubjectsMarks] = useState(marks || [{ subject: "", mark: "" }]);
 
   const handleSubjectMarkChange = (e, index, field) => {
@@ -343,6 +361,70 @@ export const SubjectMarks = ({ name, marks, handleChange, ...props }) => {
         </button>
       </div>
     </div>
+  );
+};
+
+export const SubjectMarks = ({ name, marks, handleChange, ...props }) => {
+  const [subjectsMarks, setSubjectsMarks] = useState(marks ? Object.entries(marks).map(([subject, mark]) => ({ subject, mark })) : [{ subject: "", mark: "" }]);
+
+  const handleSubjectMarkChange = (e, index, field) => {
+      const { value } = e.target;
+      const newSubjectsMarks = [...subjectsMarks];
+      newSubjectsMarks[index][field] = value;
+      setSubjectsMarks(newSubjectsMarks);
+      const marksObject = newSubjectsMarks.reduce((acc, { subject, mark }) => ({ ...acc, [subject]: mark }), {});
+      handleChange({ target: { name, value: marksObject } });
+  };
+
+  const handleAddSubjectMark = () => {
+      setSubjectsMarks([...subjectsMarks, { subject: "", mark: "" }]);
+  };
+
+  const handleDeleteSubjectMark = (index) => {
+      const newSubjectsMarks = subjectsMarks.filter((_, i) => i !== index);
+      setSubjectsMarks(newSubjectsMarks);
+      const marksObject = newSubjectsMarks.reduce((acc, { subject, mark }) => ({ ...acc, [subject]: mark }), {});
+      handleChange({ target: { name, value: marksObject } });
+  };
+
+  return (
+      <div>
+        <label htmlFor={name}>
+          Subject Marks
+          {props.required && <span style={{ color: 'red' }}>*</span>}
+        </label>
+        {subjectsMarks.map((item, index) => (
+          <div key={index} className="grid-col-2-5">
+            <input
+              type="text"
+              name="subject"
+              value={item.subject}
+              onChange={(e) => handleSubjectMarkChange(e, index, 'subject')}
+              placeholder="Subject"
+              required
+            />
+            <input
+              type="text"
+              name="mark"
+              value={item.mark}
+              onChange={(e) => handleSubjectMarkChange(e, index, 'mark')}
+              placeholder="Mark"
+              onKeyDown={onlyNumber}
+              required
+            />
+            <div className="btns">
+              <button type="button" className="small-btn" onClick={() => handleDeleteSubjectMark(index)}>
+                -
+              </button>
+            </div>
+          </div>
+        ))}
+        <div className="btns">
+          <button type="button" className="small-btn" onClick={handleAddSubjectMark}>
+            +
+          </button>
+        </div>
+      </div>
   );
 };
 

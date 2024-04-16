@@ -134,7 +134,7 @@ const CourseInfo = ({
     // check to see if tehre are any changes to the form
     const initialFormData = localStorage.getItem('applicant_profile');
     if (initialFormData === JSON.stringify(formData)) {
-      return;
+      return true;
     }
     setLoading(true);
     localStorage.setItem(
@@ -146,15 +146,23 @@ const CourseInfo = ({
     // const userid = localStorage.getItem("userid");
     try {
       const response = await updateAppplicantData(userid, type, data);
+      if (!response.status) {
+        alert(response.message);
+        setLoading(false);
+        return false;
+      }
       if (process.env.NODE_ENV === "development") {
         console.log(response);
       }
+      localStorage.setItem("applicant_profile", JSON.stringify(formData));
       alert(response.message);
       setLoading(false);
+      return true;
     } catch (error) {
       if (process.env.NODE_ENV === "development") {
         console.log(error);
       }
+      return false;
     }
   }
 
@@ -164,9 +172,11 @@ const CourseInfo = ({
       <form
         className="page--content"
         onSubmit={async (event) => {
-          event.preventDefault();
-          await onSubmitHandler();
-          handleNextClick();
+            event.preventDefault();
+            const success = await onSubmitHandler();
+            if (success) {
+              handleNextClick();
+            }
         }}
       >
         <div className="grid-col-2">
@@ -221,7 +231,7 @@ const CourseInfo = ({
             label="Admission Year"
             name="course_info.admission_year"
             onChange={handleChange}
-            value={currentYear}
+            value={formData.course_info.year ? formData.course_info.year : currentYear}
             readOnly
             required
           />
