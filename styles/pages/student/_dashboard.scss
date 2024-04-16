@@ -1,0 +1,19 @@
+.dashboard {
+  width: 100%;
+  border: 2px solid;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  &__column {
+    border: 2px solid red;
+    width: 100%;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+}

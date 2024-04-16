@@ -93,6 +93,7 @@ function Login() {
       localStorage.setItem("email", apiResponse.data.email);
       localStorage.setItem("userType", apiResponse.data.type);
       localStorage.setItem("userid", apiResponse.data.user_id);
+      localStorage.setItem("security_token", apiResponse.data.security_token);
       if (apiResponse.data.type === "applicant") {
         localStorage.setItem(
           "applicant_profile",
