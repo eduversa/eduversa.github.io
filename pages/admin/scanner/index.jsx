@@ -100,6 +100,7 @@ const QrReader = () => {
               <p>Scanned Result:</p>
               <ul>
                 <li>{scannedResult}</li>
+                {console.log(scannedResult)}
               </ul>
             </div>
           )}
