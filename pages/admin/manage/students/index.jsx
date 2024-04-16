@@ -2,7 +2,7 @@ import { useEffect, useState, Fragment } from "react";
 import {
   getAllStudentsApi,
   getCollegeDetailsApi,
-  deleteStudentApi,
+  deleteSingleStudent,
 } from "@/functions";
 import { AllLoader } from "@/components";
 import Image from "next/image";
@@ -15,7 +15,6 @@ function ManageStudents() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
   const [collegeData, setCollegeData] = useState(null);
-  const [year, setYear] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -94,9 +93,6 @@ function ManageStudents() {
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
-  const handleYearChange = (e) => {
-    setYear(e.target.value);
-  };
 
   const handleShowProfile = (id) => {
     console.log("Show profile for student with id:", id);
@@ -114,7 +110,7 @@ function ManageStudents() {
     if (confirmDelete) {
       try {
         setLoading(true);
-        await deleteStudentApi(id);
+        await deleteSingleStudent(id);
         setLoading(false);
         window.location.reload();
       } catch (error) {
@@ -130,7 +126,7 @@ function ManageStudents() {
       <AdminLayout>
         {loading && <AllLoader />}
         <div className="manage-student-container">
-          <h1 className="title">Students for {year}:</h1>
+          <h1 className="title">Students of Eduversa:</h1>
           <div className="filters">
             <input
               type="text"

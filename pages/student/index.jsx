@@ -70,6 +70,7 @@ function IDCard({ profile }) {
         data: { security_token: localStorage.getItem("security_token") },
       })
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const showQrCode = () => {
@@ -102,7 +103,7 @@ function IDCard({ profile }) {
       <div class="id-card id-card__side" id="id-card__front">
         <div class="id-card__college bg--blue">
           <div class="id-card__college__logo">
-            <Image src={logoNoBG} layout="fill"></Image>
+            <Image src={logoNoBG} layout="fill" alt=" Logo"></Image>
           </div>
           <div class="id-card__college__details">
             <div class="id-card__college__name">
@@ -125,6 +126,7 @@ function IDCard({ profile }) {
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrCodeData}`}
                   layout="fill"
                   id="id-card__qr-code"
+                  alt="QR Code"
                 ></Image>
               </div>
             </div>
@@ -191,6 +193,7 @@ function IDCard({ profile }) {
             src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrCodeData}`}
             layout="fill"
             id="id-card__qr-code"
+            alt="QR Code"
           ></Image>
         </div>
         {/* <img class="" id="id-card__qr-code--back" /> */}
