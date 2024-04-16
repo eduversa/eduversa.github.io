@@ -5,7 +5,62 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import QrScanner from "qr-scanner";
 import { AdminLayout } from "@/layout";
 import Head from "next/head";
+import Image from "next/image";
+function generateClassName(prefix, key) {
+  const formattedKey = key
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 
+  return `${prefix}-${formattedKey.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
+}
+
+function renderImage(imageUrl) {
+  return (
+    <div className="profile-image-container">
+      <Image
+        src={imageUrl}
+        alt="Scanned QR Profile"
+        className="profile-image"
+        width={300}
+        height={200}
+      />
+    </div>
+  );
+}
+
+function renderFields(data, parentKey = "") {
+  return Object.entries(data)
+    .filter(
+      ([key]) => key !== "__v" && key !== "_id" && key !== "are_addresses_same"
+    )
+    .map(([key, value]) => {
+      const currentKey = parentKey ? `${parentKey}-${key}` : key;
+      const className = generateClassName("field", currentKey);
+
+      if (typeof value === "object" && value !== null) {
+        return (
+          <Fragment key={currentKey}>
+            <div className={className}>
+              <h3 className={generateClassName("heading", currentKey)}>
+                {key}
+              </h3>
+              {renderFields(value, currentKey)}
+            </div>
+          </Fragment>
+        );
+      } else {
+        return (
+          <p key={currentKey} className={className}>
+            <strong className={generateClassName("label", currentKey)}>
+              {key}:
+            </strong>{" "}
+            {value}
+          </p>
+        );
+      }
+    });
+}
 const QrReader = () => {
   const scanner = useRef();
   const videoEl = useRef(null);
@@ -115,7 +170,10 @@ const QrReader = () => {
                 Hide
               </button>
               <p>Scanned Result:</p>
-              {renderData(scannedResult)}
+              {renderImage(scannedResult.image)}
+              <div className="profile-fields">
+                {renderFields(scannedResult)}
+              </div>
             </div>
           )}
         </div>
