@@ -186,7 +186,10 @@ const QrReader = () => {
               Hide
             </button>
             <p className="scanned-result">Scanned Result:</p>
-            {renderImage(scannedResult.data.image)}
+            {scannedResult.data.image && renderImage(scannedResult.data.image)}
+            {/* {console.log(scannedResult.data.image)}
+            {console.log(scannedResult)} */}
+
             <div className="profile-fields">{renderFields(scannedResult)}</div>
           </div>
         )}

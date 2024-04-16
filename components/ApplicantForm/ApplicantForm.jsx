@@ -353,26 +353,25 @@ const ApplicantForm = ({userid}) => {
     }
 
     if (name === "personal_info.email") {
-      if (value === formData.family_info.father.email) {
+      if (value && value === formData.family_info.father.email) {
         alert(`Student's email should not be same as Father's email. ${value}`);
         return;
       }
-      else if (value === formData.family_info.mother.email) {
+      else if (value && value === formData.family_info.mother.email) {
         alert(`Student's email should not be same as Mother's email. ${value}`);
         return;
       }
-      else if (value === formData.family_info.guardian.email) {
+      else if (value && value === formData.family_info.guardian.email) {
         alert(`Student's email should not be same as Guardian's email. ${value}`);
         return;
       }
     }
-
     if (
       name === "family_info.father.email" ||
       name === "family_info.mother.email" ||
       name === "family_info.guardian.email"
     ) {
-      if (value === formData.personal_info.email) {
+      if (value && value === formData.personal_info.email) {
         alert(`Father's, mother's or guardian's email should not be same as student's email. ${formData.personal_info.email}`);
         return;
       }
@@ -433,7 +432,9 @@ const ApplicantForm = ({userid}) => {
     if (currentStep !== totalSteps) {
       const nextStep = currentStep + 1;
       setCurrentStep(nextStep);
-      localStorage.setItem("currentStep", JSON.stringify(nextStep));
+      if (localStorage.getItem("userType") !== "admin") {
+        localStorage.setItem("currentStep", JSON.stringify(nextStep));
+      }
     } else {
       if (process.env.NODE_ENV === "development") {
         console.log("Form Submitted");

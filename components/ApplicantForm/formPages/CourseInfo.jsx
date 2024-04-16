@@ -42,13 +42,16 @@ const CourseInfo = ({
   }, [selectedCourse, courses]);
 
   async function getCollegeDetails() {
+    setLoading(true);
     try {
       const collegeData = await getCollegeDetailsApi(304);
       if (process.env.NODE_ENV === "development") {
         const collegeData = await getCollegeDetailsApi(304);
         console.log(collegeData);
+        setLoading(false);
       }
       setCourses(collegeData.data.college_courses);
+      setLoading(false);
     } catch (error) {
       if (process.env.NODE_ENV === "development") {
         console.log(error);

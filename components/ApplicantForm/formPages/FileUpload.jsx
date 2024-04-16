@@ -30,12 +30,20 @@ const FileUpload = ({
       reader.readAsDataURL(file);
     }
   };
-
   async function onSubmitHandler() {
     setLoading(true);
+    const userType = localStorage.getItem("userType");
+
     // check to see if tehre are any changes to the form
     const initialFormData = localStorage.getItem('applicant_profile');
     if (initialFormData === JSON.stringify(formData)) {
+      setLoading(false);
+      if (userType === "applicant") {
+        router.push("/applicant");
+      }
+      if (userType === "admin") {
+        router.push("/admin/manage/applicants/profile");
+      }
       return true;
     }
     const image = document.getElementById("user-image");
@@ -72,7 +80,6 @@ const FileUpload = ({
       localStorage.setItem("applicant_profile", JSON.stringify(formData));
       alert(response.message);
       setLoading(false);
-      const userType = localStorage.getItem("userType");
       if (userType === "applicant") {
         router.push("/applicant");
       }

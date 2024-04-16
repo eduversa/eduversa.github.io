@@ -25,18 +25,13 @@ const QrReader = () => {
   };
 
   const handleOK = async (data) => {
+    data.data.accessLevel = "2";
+    console.log(data);
     const apiURL = "https://eduversa-api.onrender.com";
     const response = await fetch(`${apiURL}/scanner/process`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        type: "security_token",
-        data: {
-          security_token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTIwMjQwMDYzMjUiLCJ0eXBlIjoic3R1ZGVudCIsImlhdCI6MTcxMjQwMDU0OX0.rquS7vd32BPYuSaZIG8NRkMka1Dzb9DIJBkzSZKWqac",
-          accessLevel: "4",
-        },
-      }),
+      body: JSON.stringify(data),
     });
     const res = await response.json();
 
@@ -47,7 +42,7 @@ const QrReader = () => {
 
   const onScanSuccess = async (result) => {
     console.log(result);
-    await handleOK(result?.data);
+    await handleOK(JSON.parse(result?.data));
   };
 
   const onScanFail = (err) => {
@@ -97,7 +92,12 @@ const QrReader = () => {
               <button className="btn" onClick={hideResultScreen}>
                 hide
               </button>
-              <p>Scanned Result: {scannedResult}</p>
+              {/* <p>Scanned Result: {scannedResult}</p> */}
+              <p>Scanned Result:</p>
+              <ul>
+                <li>{scannedResult}</li>
+                {console.log(scannedResult)}
+              </ul>
             </div>
           )}
         </div>
