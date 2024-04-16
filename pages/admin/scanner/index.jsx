@@ -85,23 +85,37 @@ const QrReader = () => {
       );
   }, [qrOn]);
 
+  const renderData = (data) => {
+    return (
+      <div>
+        {Object.keys(data).map((key) => (
+          <div
+            key={key}
+            className={`data-item ${
+              typeof data[key] === "object" ? "nested" : ""
+            }`}
+          >
+            <strong>{key}:</strong>{" "}
+            {typeof data[key] === "object" ? renderData(data[key]) : data[key]}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <Fragment>
       <Head></Head>
       <AdminLayout>
         <div className="qr-reader">
           <video ref={videoEl}></video>
-
           {scannedResult && (
             <div className="scanner__result">
               <button className="btn" onClick={hideResultScreen}>
                 Hide
               </button>
               <p>Scanned Result:</p>
-              <ul>
-                <li>{JSON.stringify(scannedResult)}</li>
-                {console.log(scannedResult)}
-              </ul>
+              {renderData(scannedResult)}
             </div>
           )}
         </div>
