@@ -2,22 +2,24 @@ import { useEffect, useState, Fragment } from "react";
 import {
   getAllStudentsApi,
   getCollegeDetailsApi,
-  deleteSinglestudentApi,
+  deleteStudentApi,
 } from "@/functions";
 import { AllLoader } from "@/components";
 import Image from "next/image";
 import { AdminLayout } from "@/layout";
 import { useRouter } from "next/router";
 
-function Index() {
+function ManageStudents() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
   const [collegeData, setCollegeData] = useState(null);
+  const [year, setYear] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const currentYear = new Date().getFullYear();
   const router = useRouter();
 
   useEffect(() => {
@@ -27,7 +29,7 @@ function Index() {
         if (Array.isArray(data.data)) {
           setStudents(data.data);
         } else {
-          console.error("students data is not an array:", data.data);
+          console.error("Students data is not an array:", data.data);
         }
         setLoading(false);
       })
@@ -35,7 +37,9 @@ function Index() {
         console.error("Error fetching students:", error);
         setLoading(false);
       });
+  }, [currentYear]);
 
+  useEffect(() => {
     getCollegeDetailsApi(304)
       .then((data) => {
         setCollegeData(data.data);
@@ -90,15 +94,17 @@ function Index() {
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
+  const handleYearChange = (e) => {
+    setYear(e.target.value);
+  };
 
-  function handleShowProfile(id) {
+  const handleShowProfile = (id) => {
     console.log("Show profile for student with id:", id);
     localStorage.setItem("selected-studentId", id);
-    console.log(localStorage.getItem("selected-studentId"));
     router.push("/admin/manage/students/profile");
-  }
+  };
 
-  async function handleDeleteStudent(id) {
+  const handleDeleteStudent = async (id) => {
     console.log("Delete student with id:", id);
     localStorage.setItem("selected-studentId", id);
     const confirmDelete = confirm(
@@ -108,27 +114,23 @@ function Index() {
     if (confirmDelete) {
       try {
         setLoading(true);
-        await deleteSinglestudentApi(id);
+        await deleteStudentApi(id);
         setLoading(false);
-        setStudents(students.filter((student) => student.user_id !== id));
+        window.location.reload();
       } catch (error) {
         console.error("Error deleting student:", error);
         setLoading(false);
         alert("Error deleting student. Please try again.");
       }
     }
-  }
-  useEffect(() => {
-    console.log("Selected Course:", selectedCourse);
-    console.log("Selected Stream:", selectedStream);
-    console.log("Filtered Students:", filteredStudents);
-  }, [selectedCourse, selectedStream, filteredStudents]);
+  };
+
   return (
     <Fragment>
       <AdminLayout>
         {loading && <AllLoader />}
         <div className="manage-student-container">
-          <h1 className="title">Students of UEM</h1>
+          <h1 className="title">Students for {year}:</h1>
           <div className="filters">
             <input
               type="text"
@@ -188,43 +190,44 @@ function Index() {
                     {student.personal_info.first_name}{" "}
                     {student.personal_info.last_name}
                   </h2>
-                  {student.image ? (
-                    <Image
-                      src={student.image}
-                      alt={`Image of ${student.personal_info.name}`}
-                      height={100}
-                      width={100}
-                      className="student-image"
-                    />
-                  ) : (
-                    <Image
-                      src="/default-image.jpg"
-                      alt={`Image not available`}
-                      height={100}
-                      width={100}
-                      className="student-image"
-                    />
-                  )}
-                  <p className="course-applied">
-                    <strong>Course Applied:</strong>{" "}
+                  <Image
+                    src={student.image || "/user.png"}
+                    alt={`Image of ${student.personal_info.name}`}
+                    height={100}
+                    width={100}
+                    className="student-image"
+                  />
+                  <p className="course-studying">
+                    <strong>Course Studying:</strong>{" "}
                     {student.course_info.course_name || "N/A"}
                   </p>
-                  <p className="streams-applied">
-                    <strong>Streams Applied:</strong>{" "}
+                  <p className="streams-studying">
+                    <strong>Streams Studying:</strong>{" "}
                     {student.course_info.stream || "N/A"}
                   </p>
+
                   <div className="button-container">
                     <button
                       onClick={() => handleDeleteStudent(student.user_id)}
                       className="delete-button"
                     >
-                      Delete student
+                      <Image
+                        src="/delete.png"
+                        alt="delete"
+                        height={20}
+                        width={20}
+                      ></Image>
                     </button>
                     <button
                       onClick={() => handleShowProfile(student.user_id)}
                       className="profile-button"
                     >
-                      Show Profile
+                      <Image
+                        src="/profile.png"
+                        alt="profile"
+                        height={20}
+                        width={20}
+                      ></Image>
                     </button>
                   </div>
                 </div>
@@ -273,4 +276,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default ManageStudents;
