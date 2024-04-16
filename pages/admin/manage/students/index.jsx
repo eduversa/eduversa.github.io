@@ -18,7 +18,6 @@ function Index() {
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,9 +35,7 @@ function Index() {
         console.error("Error fetching students:", error);
         setLoading(false);
       });
-  }, []);
 
-  useEffect(() => {
     getCollegeDetailsApi(304)
       .then((data) => {
         setCollegeData(data.data);
@@ -51,7 +48,7 @@ function Index() {
   const indexOfLastStudent = currentPage * pageSize;
   const indexOfFirstStudent = indexOfLastStudent - pageSize;
 
-  const filteredstudents = students.filter((student) => {
+  const filteredStudents = students.filter((student) => {
     const fullName = `${student.personal_info.first_name} ${student.personal_info.last_name}`;
     return (
       (!searchTerm ||
@@ -59,12 +56,11 @@ function Index() {
       (!selectedCourse || student.course_info.course_name === selectedCourse) &&
       (!selectedStream ||
         (student.course_info.stream &&
-          student.course_info.stream.includes(selectedStream))) &&
-      (!submitted || student.personal_info.are_addresses_same === true)
+          student.course_info.stream.includes(selectedStream)))
     );
   });
 
-  const sortedStudents = filteredstudents.sort((a, b) => {
+  const sortedStudents = filteredStudents.sort((a, b) => {
     const fullNameA = `${a.personal_info.first_name} ${a.personal_info.last_name}`;
     const fullNameB = `${b.personal_info.first_name} ${b.personal_info.last_name}`;
     return fullNameA.localeCompare(fullNameB);
@@ -95,34 +91,14 @@ function Index() {
     setSearchTerm(event.target.value);
   };
 
-  const handleCheckboxChange = (event) => {
-    setSubmitted(event.target.checked);
-    if (event.target.checked) {
-      const filteredstudents = students.filter(
-        (student) => student.personal_info.are_addresses_same === true
-      );
-      setStudents(filteredstudents);
-    } else {
-      getAllStudentsApi()
-        .then((data) => {
-          if (Array.isArray(data.data)) {
-            setStudents(data.data);
-          } else {
-            console.error("students data is not an array:", data.data);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching students:", error);
-        });
-    }
-  };
   function handleShowProfile(id) {
     console.log("Show profile for student with id:", id);
     localStorage.setItem("selected-studentId", id);
     console.log(localStorage.getItem("selected-studentId"));
     router.push("/admin/manage/students/profile");
   }
-  async function handleDeletestudent(id) {
+
+  async function handleDeleteStudent(id) {
     console.log("Delete student with id:", id);
     localStorage.setItem("selected-studentId", id);
     const confirmDelete = confirm(
@@ -134,7 +110,7 @@ function Index() {
         setLoading(true);
         await deleteSinglestudentApi(id);
         setLoading(false);
-        window.location.reload();
+        setStudents(students.filter((student) => student.user_id !== id));
       } catch (error) {
         console.error("Error deleting student:", error);
         setLoading(false);
@@ -199,15 +175,6 @@ function Index() {
                 </Fragment>
               )}
             </div>
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={submitted}
-                onChange={handleCheckboxChange}
-                className="checkbox-input"
-              />
-              Submitted
-            </label>
           </div>
           <div className="card-container">
             {currentStudents.length > 0 ? (
@@ -244,7 +211,7 @@ function Index() {
                   </p>
                   <div className="button-container">
                     <button
-                      onClick={() => handleDeletestudent(student.user_id)}
+                      onClick={() => handleDeleteStudent(student.user_id)}
                       className="delete-button"
                     >
                       Delete student
@@ -277,7 +244,7 @@ function Index() {
             <div className="pagination">
               <ul className="pagination-list">
                 {Array.from({
-                  length: Math.ceil(filteredstudents.length / pageSize),
+                  length: Math.ceil(filteredStudents.length / pageSize),
                 }).map((_, index) => (
                   <li
                     key={index}
