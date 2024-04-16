@@ -57,7 +57,6 @@ const AcademicInfo = ({
       if (!response.status) {
         alert(response.message);
         setLoading(false);
-        console.log("errorrrr")
         return false;
       }
       if (process.env.NODE_ENV === "development") {
@@ -84,10 +83,7 @@ const AcademicInfo = ({
             event.preventDefault();
             const success = await onSubmitHandler();
             if (success) {
-              console.log("form proceeding")
               handleNextClick();
-            } else {
-              console.log("error in form")
             }
         }}
       >
