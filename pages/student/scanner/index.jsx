@@ -25,6 +25,7 @@ const QrReader = () => {
   };
 
   const handleOK = async (data) => {
+    const authToken = localStorage.getItem("authToken");
     const apiURL = "https://eduversa-api.onrender.com";
     const response = await fetch(`${apiURL}/scanner/process`, {
       method: "POST",
@@ -32,8 +33,7 @@ const QrReader = () => {
       body: JSON.stringify({
         type: "security_token",
         data: {
-          security_token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTIwMjQwMDYzMjUiLCJ0eXBlIjoic3R1ZGVudCIsImlhdCI6MTcxMjQwMDU0OX0.rquS7vd32BPYuSaZIG8NRkMka1Dzb9DIJBkzSZKWqac",
+          security_token: authToken,
           accessLevel: "4",
         },
       }),
