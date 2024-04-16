@@ -26,3 +26,5 @@ export { default as ManageApp } from "./ManageApp";
 
 // Meta Components
 export { default as CommonMeta } from "./CommonMeta";
+
+export { default as IdCard } from "./IdCard";
