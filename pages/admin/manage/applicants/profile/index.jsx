@@ -375,7 +375,7 @@ function ApplicantDashboard() {
         setLoading(true);
         const response = await approveApplicantApi(id);
         setLoading(false);
-        alert(response.data.message);
+        alert(response.message);
         router.push("/admin/manage/applicants");
       } catch (error) {
         console.error("Error approving applicant:", error);

@@ -87,6 +87,7 @@ const IdCard = ({ profile, page }) => {
       <div
         class="id-card id-card__side id-card__side--front"
         id={`id-card__front--${profile.user_id}`}
+        onClick={showQrCode}
       >
         <div class="id-card__college bg--blue">
           <div class="id-card__college__logo">
@@ -108,14 +109,16 @@ const IdCard = ({ profile, page }) => {
         <div class="id-card__body bg--white">
           <div class="id-card__body__left">
             <div class="id-card__body__image" id="id-card-body-image">
-              <div class="id-card__body__qr-code" onClick={showQrCode}>
-                <Image
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrCodeData}`}
-                  layout="fill"
-                  id="id-card__qr-code"
-                  alt="QR Code"
-                ></Image>
-              </div>
+              {page === "dashboard" && (
+                <div class="id-card__body__qr-code">
+                  <Image
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrCodeData}`}
+                    layout="fill"
+                    id="id-card__qr-code"
+                    alt="QR Code"
+                  ></Image>
+                </div>
+              )}
             </div>
           </div>
           <div class="id-card__body__right">
