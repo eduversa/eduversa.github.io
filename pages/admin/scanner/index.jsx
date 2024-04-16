@@ -68,6 +68,7 @@ const QrReader = () => {
 
   const [scannedResult, setScannedResult] = useState(undefined);
   const [visible, setVisible] = useState(true);
+
   const hideResultScreen = () => {
     scanner?.current
       ?.start()
@@ -76,6 +77,7 @@ const QrReader = () => {
         if (err) setQrOn(false);
       });
     setScannedResult(undefined);
+    setVisible(true);
   };
 
   const handleOK = async (data) => {
@@ -132,6 +134,9 @@ const QrReader = () => {
       }
     };
   }, [onScanSuccess]);
+  useEffect(() => {
+    setVisible(true);
+  }, []);
 
   useEffect(() => {
     if (!qrOn)
@@ -173,7 +178,7 @@ const QrReader = () => {
               Hide
             </button>
             <p>Scanned Result:</p>
-            {renderImage(scannedResult.image)}
+            {renderImage(scannedResult.data.image)}
             <div className="profile-fields">{renderFields(scannedResult)}</div>
           </div>
         )}
