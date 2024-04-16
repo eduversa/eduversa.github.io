@@ -352,20 +352,20 @@ const ApplicantForm = ({userid}) => {
       return;
     }
 
-    if (name === "personal_info.email") {
-      if (value === formData.family_info.father.email) {
-        alert(`Student's email should not be same as Father's email. ${value}`);
-        return;
-      }
-      else if (value === formData.family_info.mother.email) {
-        alert(`Student's email should not be same as Mother's email. ${value}`);
-        return;
-      }
-      else if (value === formData.family_info.guardian.email) {
-        alert(`Student's email should not be same as Guardian's email. ${value}`);
-        return;
-      }
-    }
+    // if (name === "personal_info.email") {
+    //   if (value === formData.family_info.father.email) {
+    //     alert(`Student's email should not be same as Father's email. ${value}`);
+    //     return;
+    //   }
+    //   else if (value === formData.family_info.mother.email) {
+    //     alert(`Student's email should not be same as Mother's email. ${value}`);
+    //     return;
+    //   }
+    //   else if (value === formData.family_info.guardian.email) {
+    //     alert(`Student's email should not be same as Guardian's email. ${value}`);
+    //     return;
+    //   }
+    // }
 
     if (
       name === "family_info.father.email" ||
