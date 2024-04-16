@@ -4,7 +4,6 @@ import { Fragment, useEffect, useRef, useState } from "react";
 
 import QrScanner from "qr-scanner";
 import { AdminLayout } from "@/layout";
-import Head from "next/head";
 import Image from "next/image";
 function generateClassName(prefix, key) {
   const formattedKey = key
@@ -161,7 +160,6 @@ const QrReader = () => {
 
   return (
     <Fragment>
-      <Head></Head>
       <AdminLayout>
         {visible && (
           <div className="qr-reader">
