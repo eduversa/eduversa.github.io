@@ -95,9 +95,12 @@ const QrReader = () => {
           {scannedResult && (
             <div className="scanner__result">
               <button className="btn" onClick={hideResultScreen}>
-                hide
+                Hide
               </button>
-              <p>Scanned Result: {scannedResult}</p>
+              <p>Scanned Result:</p>
+              <ul>
+                <li>{scannedResult}</li>
+              </ul>
             </div>
           )}
         </div>
