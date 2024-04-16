@@ -236,7 +236,7 @@ const PersonalInfo = ({
               { key: "Select Gender", value: "" },
               { key: "Male", value: "male" },
               { key: "Female", value: "female" },
-              { key: "Other", value: "other" },
+              { key: "Others", value: "others" },
             ]}
           />
           <Dob
