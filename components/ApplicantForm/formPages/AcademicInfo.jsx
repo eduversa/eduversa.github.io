@@ -36,6 +36,18 @@ const AcademicInfo = ({
     if (initialFormData === JSON.stringify(formData)) {
       return true;
     }
+    const secondaryMarksObject = formData.academic_info.secondary.marks;
+    if (Object.keys(secondaryMarksObject).length === 0) {
+      alert("Please enter subject marks for Secondary Education");
+      setLoading(false);
+      return false; 
+    }
+    const higherSecondaryMarksObject = formData.academic_info.higher_secondary.marks;
+    if (Object.keys(higherSecondaryMarksObject).length === 0) {
+      alert("Please enter subject marks for Higher Secondary Education");
+      setLoading(false);
+      return false; 
+    }
     setLoading(true);
     const data = JSON.stringify(formData.academic_info);
     const type = "academic";

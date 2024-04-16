@@ -260,7 +260,7 @@ const PersonalInfo = ({
               { key: "Scheduled Caste", value: "sc" },
               { key: "Scheduled Tribe", value: "st" },
               { key: "Economically Weaker Section", value: "ews" },
-              { key: "Other", value: "Other" },
+              { key: "Others", value: "others" },
             ]}
           />
           <Select
