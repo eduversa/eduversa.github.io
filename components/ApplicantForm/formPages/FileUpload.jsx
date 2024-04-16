@@ -64,7 +64,13 @@ const FileUpload = ({
       }
       alert(response.message);
       setLoading(false);
-      router.push("/applicant");
+      const userType = localStorage.getItem("userType");
+      if (userType === "applicant") {
+        router.push("/applicant");
+      }
+      if (userType === "admin") {
+        router.push("/admin/manage/applicants/profile");
+      }
     } catch (error) {
       if (process.env.NODE_ENV === "development") {
         console.log(error);

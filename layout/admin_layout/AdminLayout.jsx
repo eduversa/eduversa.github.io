@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Navbar, Footer, NavbarV2, ChatBotv2 } from "@/containers";
+import { Navbar, Footer, ChatBot } from "@/containers";
 function AdminLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
@@ -21,11 +21,10 @@ function AdminLayout({ children }) {
   }, [router]);
   return (
     <Fragment>
-      {/* <Navbar></Navbar> */}
-      <ChatBotv2></ChatBotv2>
-      {/* <NavbarV2></NavbarV2> */}
+      <Navbar></Navbar>
       <div className="wrapper">{children}</div>
       <Footer></Footer>
+      <ChatBot></ChatBot>
     </Fragment>
   );
 }

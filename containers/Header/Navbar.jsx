@@ -180,10 +180,11 @@ function Navbar() {
               >
                 <span style={{ cursor: "pointer" }}>
                   <Image
-                    src="/nav/add2.gif"
+                    src="/nav/add.png"
                     alt="Add custom link"
-                    width={50}
-                    height={50}
+                    width={30}
+                    height={30}
+                    className="add-icon"
                   />
                 </span>
               </div>

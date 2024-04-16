@@ -10,9 +10,9 @@ export default async (req, res) => {
       console.log("Received MSG:", MSG);
 
       const projectId = "spaceotakuchatbot-utkt";
-      const keyFilePath = JSON.parse(process.env.DIALOGFLOW_KEY_FILE); // Parse the environment variable as JSON
+      const keyFilePath = JSON.parse(process.env.DIALOGFLOW_KEY_FILE);
       const sessionClient = new SessionsClient({
-        credentials: keyFilePath, // Use 'credentials' instead of 'keyFilename'
+        credentials: keyFilePath,
       });
 
       const sessionId = uuid();

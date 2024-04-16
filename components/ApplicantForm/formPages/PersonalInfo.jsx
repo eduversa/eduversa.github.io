@@ -13,6 +13,7 @@ import {
   Pan,
   PhoneNumber,
   FormButtons,
+  Dob,
 } from "../inputComponent/InputComponent";
 import fetchAddressFromPincode from "../inputComponent/fetchAddressFromPincode";
 
@@ -236,7 +237,7 @@ const PersonalInfo = ({
               { key: "Other", value: "other" },
             ]}
           />
-          <DateInput
+          <Dob
             label="Date of Birth"
             name="personal_info.dob"
             value={formData.personal_info.dob}

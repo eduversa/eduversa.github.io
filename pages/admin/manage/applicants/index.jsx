@@ -19,7 +19,7 @@ function Index() {
   const [selectedStream, setSelectedStream] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const year = 2023;
+  const year = new Date().getFullYear();
   const router = useRouter();
   useEffect(() => {
     setLoading(true);
@@ -36,7 +36,7 @@ function Index() {
         console.error("Error fetching applicants:", error);
         setLoading(false);
       });
-  }, []);
+  }, [year]);
 
   useEffect(() => {
     getCollegeDetailsApi(304)

@@ -119,15 +119,14 @@ export default function ChatComponent() {
         formData.append("audio", audioData);
       }
 
-      // Debugging statement to log the formData
       console.log("Form Data:", formData);
 
       fetch(url, {
         headers: {
-          "Content-Type": "application/json", // Removed extra spaces
+          "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify(Object.fromEntries(formData)), // Convert FormData to an object
+        body: JSON.stringify(Object.fromEntries(formData)),
       })
         .then((res) => res.json())
         .then((response) => {
@@ -146,7 +145,7 @@ export default function ChatComponent() {
     <div className={`chat ${open ? "open" : ""}`}>
       <div className={`chat-icon ${open ? "open" : ""}`}>
         <Image
-          src="/bot/owl.png"
+          src="\icons\ms-icon-310x310.png"
           layout="responsive"
           width={20}
           height={20}
@@ -157,9 +156,14 @@ export default function ChatComponent() {
       <div className={`chat-panel ${open ? "open" : "close"}`}>
         <div className="chat-title">
           <figure className="avatar">
-            <Image src="/logo.png" alt="Logo" width={20} height={20} />
+            <Image
+              src="\icons\ms-icon-310x310.png"
+              alt="Logo"
+              width={40}
+              height={40}
+            />
           </figure>
-          <h4>Orbit Owl</h4>
+          <h4>Eduversa</h4>
           <button className="close-button" onClick={handleChatIconClick}>
             <Image
               src="/bot/close.png"
@@ -180,7 +184,7 @@ export default function ChatComponent() {
             id="MSG"
             name="MSG"
             className="message-input"
-            placeholder="Your Space Encyclopedia..."
+            placeholder="Ask your problems..."
           />
           <button
             type="button"

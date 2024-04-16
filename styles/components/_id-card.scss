@@ -1,15 +1,94 @@
+$size-color1: 35%;
+// $size-color1: %;
+$size-color2: $size-color1;
+// $size-color2: 45%;
+$color-blue: hsl(214, 100%, 50%);
+$color-blue: hsl(240, 100%, 50%);
+$color-blue-light: adjust-hue($color-blue, -30);
+$color-white: hsl(0, 0%, 90%);
+$color-white-light: lighten($color-white, 10);
+
+.bg {
+  &--white {
+    background-color: $color-white-light;
+    background-image: linear-gradient(
+        60deg,
+        rgba($color-white, 0.4) $size-color1,
+        transparent $size-color2
+      ),
+      linear-gradient(
+        120deg,
+        rgba($color-white, 0.4) $size-color1,
+        transparent $size-color2
+      ),
+      linear-gradient(
+        240deg,
+        rgba($color-white, 0.4) $size-color1,
+        transparent $size-color2
+      ),
+      linear-gradient(
+        300deg,
+        rgba($color-white, 0.4) $size-color1,
+        transparent $size-color2
+      );
+    background-size: 20px 20px, 20px 20px, 20px 20px, 20px 20px;
+    background-position-y: bottom;
+    // backg
+  }
+  &--blue {
+    background-color: $color-blue-light;
+    background-image: linear-gradient(
+        60deg,
+        rgba($color-blue, 0.4) $size-color1,
+        transparent $size-color2
+      ),
+      linear-gradient(
+        120deg,
+        rgba($color-blue, 0.4) $size-color1,
+        transparent $size-color2
+      ),
+      linear-gradient(
+        240deg,
+        rgba($color-blue, 0.4) $size-color1,
+        transparent $size-color2
+      ),
+      linear-gradient(
+        300deg,
+        rgba($color-blue, 0.4) $size-color1,
+        transparent $size-color2
+      );
+    background-size: 20px 20px, 20px 20px, 20px 20px, 20px 20px;
+    background-position-y: bottom;
+    // backg
+  }
+}
+
+#id-card__back {
+  padding: 2.5%;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // z-index: 1;
+}
+
+#id-card__front {
+  z-index: 1;
+}
 .id-card--container {
   width: 95%;
   max-width: 500px;
-  aspect-ratio: 7/4;
+  aspect-ratio: 3.5/2;
   position: relative;
   perspective: 3000px;
-  left: 32%;
+  // left: 32%;
 
   .id-card {
     width: 100%;
     height: 100%;
-    border: 2px rgb(0, 102, 255) solid;
+    border: 2px $color-blue-light solid;
     border-radius: 8px;
     overflow: hidden;
     font-family: sans-serif;
@@ -17,101 +96,93 @@
     transform-style: preserve-3d;
     backface-visibility: hidden;
 
-    &.id-card__side {
+    &__side {
       transition: 1s ease-in-out;
       top: 0;
       left: 0;
     }
-
-    &.id-card__side#id-card__back {
-      padding: 2.5%;
-      transform: rotateY(-180deg);
-      z-index: 0;
-      background-color: rgb(255, 255, 255);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    &.id-card__side#id-card__front {
-      z-index: 1;
-    }
   }
 
-  .bg--blue::before {
-    content: " ";
-    position: absolute;
-    width: 600px;
-    aspect-ratio: 1;
-    background-image: repeating-linear-gradient(
-      to right bottom,
-      rgba(0, 102, 255, 0.5),
-      rgba(0, 75, 187, 0.5) 3%
-    );
-    z-index: 0;
-  }
+  // .bg--blue::before {
+  //   content: " ";
+  //   position: absolute;
+  //   width: 600px;
+  //   aspect-ratio: 1;
+  //   background-image: repeating-linear-gradient(
+  //     to right bottom,
+  //     rgba(0, 102, 255, 0.5),
+  //     rgba(0, 75, 187, 0.5) 3%
+  //   );
+  //   z-index: 0;
+  // }
 
-  .bg--white::before {
-    content: " ";
-    position: absolute;
-    top: 0%;
-    width: 600px;
-    aspect-ratio: 1;
-    background-color: white;
-    background-image: repeating-linear-gradient(
-      to right bottom,
-      rgba(255, 255, 255, 0.5),
-      rgba(206, 206, 206, 0.5) 1.5%
-    );
-    z-index: 0;
-  }
+  // .bg--white::before {
+  //   content: " ";
+  //   position: absolute;
+  //   top: 0%;
+  //   width: 600px;
+  //   aspect-ratio: 1;
+  //   background-color: white;
+  //   background-image: repeating-linear-gradient(
+  //     to right bottom,
+  //     rgba(255, 255, 255, 0.5),
+  //     rgba(206, 206, 206, 0.5) 1.5%
+  //   );
+  //   z-index: 0;
+  // }
 
   .id-card__college {
     width: 100%;
     height: 25%;
-    background-color: rgb(0, 102, 255);
     display: grid;
     grid-template-columns: 3fr 9fr;
-    align-items: center;
-    padding: 0px 2%;
-  }
+    // align-items: center;
+    place-items: center;
+    // padding: 0px 2%;
 
-  .id-card__college__logo {
-    height: 100%;
-    background-image: url(/static/logo.png);
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    filter: brightness(0%) invert(100%);
-  }
+    &__logo {
+      height: 95%;
+      aspect-ratio: 1;
+      // background-color: aqua;
+      // width: 100%;
+      position: relative;
+      // width: 100%;
+      // background-image: url(/static/logo.png);
+      // background-position: center;
+      // background-size: contain;
+      // background-repeat: no-repeat;
+      filter: brightness(0%) invert(100%);
+    }
+    &__details {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      // padding: 2%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      color: white;
+      text-align: center;
+      font-size: 12px;
+      z-index: 1;
+      // background-color: aqua;
+    }
+    &__name {
+      font-size: 1em;
+      text-transform: capitalize;
+      letter-spacing: 0.5px;
+    }
 
-  .id-card__college__details {
-    width: 100%;
-    height: 100%;
-    padding: 2%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    color: white;
-    text-align: center;
-    z-index: 1;
-  }
+    &__address {
+      text-transform: capitalize;
+      font-size: 0.67em;
+      letter-spacing: 1px;
+    }
 
-  .id-card__college__name {
-    text-transform: capitalize;
-    font-size: 16px;
-    letter-spacing: 0.5px;
-  }
-
-  .id-card__college__address {
-    text-transform: capitalize;
-    font-size: 10px;
-    letter-spacing: 1px;
-  }
-
-  .id-card__college__contact {
-    font-size: 10px;
-    letter-spacing: 1px;
+    &__contact {
+      font-size: 0.67em;
+      letter-spacing: 1px;
+    }
   }
 
   .id-card__body {
@@ -119,67 +190,67 @@
     height: 70%;
     display: grid;
     grid-template-columns: 1fr 2fr;
-  }
 
-  .id-card__body__left {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .id-card__body__image {
-    width: 60%;
-    aspect-ratio: 7/9;
-    position: relative;
-    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjUlz1U0tD1XCrGV3h1cajmk1lhVFru9Qabg&usqp=CAU);
-    background-position: center;
-    background-size: cover;
-    border-radius: 3px;
-    outline: 2px solid rgb(0, 102, 255);
-    outline-offset: 5px;
-  }
-
-  .id-card__body__qr-code {
-    width: 60%;
-    aspect-ratio: 1;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    transform: translate(30%, 30%);
-  }
-
-  .id-card__body__right {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
-    z-index: 1;
-    padding: 10px !important;
+    &__left {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &__image {
+      width: 60%;
+      aspect-ratio: 7/9;
+      position: relative;
+      //set
+      background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjUlz1U0tD1XCrGV3h1cajmk1lhVFru9Qabg&usqp=CAU);
+      background-position: center;
+      background-size: cover;
+      border-radius: 3px;
+      outline: 2px solid $color-blue-light;
+      outline-offset: 5px;
+    }
+    &__qr-code {
+      width: 60%;
+      aspect-ratio: 1;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      transform: translate(30%, 30%);
+      outline: 3px solid white;
+      // padding: 20px;
+    }
+    &__right {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      z-index: 1;
+      padding: 8px !important;
+    }
   }
 
   .content {
     color: rgb(53, 53, 53);
-    font-size: 12px;
-    margin-bottom: 3px;
+    font-size: 11px;
+    margin-bottom: 2px;
     text-transform: capitalize;
     font-weight: bold;
   }
 
   .title {
-    font-size: 11px;
+    font-size: 10px;
     text-transform: capitalize;
-    opacity: 0.6;
+    opacity: 0.7;
     user-select: none;
   }
 
   .id-card__sign {
     width: 32.5%;
     height: 23%;
-    background-color: rgb(0, 102, 255);
+    // background-color: $color-blue-light;
     position: absolute;
     right: 0;
     bottom: 0;
@@ -203,11 +274,13 @@
   .id-card__footer {
     width: 100%;
     height: 5%;
-    background-color: rgb(0, 102, 255);
+    // background-color: $color-blue-light;
   }
 
   .id-card__back__qrcode {
     height: 100%;
+    aspect-ratio: 1;
+    position: relative;
   }
 
   @media screen and (min-width: 360px) and (max-width: 400px) {

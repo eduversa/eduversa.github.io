@@ -64,18 +64,14 @@ const QrReader = () => {
 
   const handleOK = async (data) => {
     // alert("akjckckq");
+    // return;
+    data.data.accessLevel = "4";
+    console.log(data);
     const apiURL = "https://eduversa-api.onrender.com";
     const response = await fetch(`${apiURL}/scanner/process`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        type: "security_token",
-        data: {
-          security_token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTIwMjQwMDYzMjUiLCJ0eXBlIjoic3R1ZGVudCIsImlhdCI6MTcxMjQwMDU0OX0.rquS7vd32BPYuSaZIG8NRkMka1Dzb9DIJBkzSZKWqac",
-          accessLevel: "4",
-        },
-      }),
+      body: JSON.stringify(data),
     });
     const res = await response.json();
 
@@ -90,7 +86,7 @@ const QrReader = () => {
   // Success
   const onScanSuccess = async (result) => {
     console.log(result);
-    await handleOK(result?.data);
+    await handleOK(JSON.parse(result?.data));
   };
 
   const onScanFail = (err) => {

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from 'next/router'; // Import useRouter from Next.js
 
 //restriction funtions
 const preventE = (e) => {
@@ -74,7 +75,8 @@ export const Email = ({ label, name, value, required,  ...props }) => {
         name={name} 
         value={value} 
         // pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-        minLength={6}
+        pattern = '[a-z0-9]+@[a-z]+\.[a-z]{2,}'
+        // minLength={6}
         {...props} 
       />
     </div>
@@ -211,6 +213,29 @@ export const Pan = ({ label, name, value, required, ...props }) => {
   );
 };
 
+export const Dob= ({ label, name, value, required, ...props }) => {
+  const today = new Date();
+  const maxDate = new Date(today);
+  maxDate.setFullYear(today.getFullYear() - 15);
+  const minDate = new Date(today);
+  minDate.setFullYear(today.getFullYear() - 100);
+  return (
+    <div className="inputs">
+      <label htmlFor={name}>
+        {label}
+        {required && <span style={{ color: 'red' }}>*</span>}
+      </label>
+      <input 
+        type="date"
+        id={name}
+        name={name}
+        value={value}        
+        min={minDate.toISOString().split('T')[0]}
+        max={maxDate.toISOString().split('T')[0]}
+        {...props} />
+    </div>
+  );
+};
 export const DateInput = ({ label, name, value, required, ...props }) => {
   return (
     <div className="inputs">
@@ -243,6 +268,84 @@ export const Select = ({ label, name, value, options, ...props }) => {
   );
 };
 
+export const SubjectMarks = ({ name, marks, handleChange, ...props }) => {
+  const [subjectsMarks, setSubjectsMarks] = useState(marks || [{ subject: "", mark: "" }]);
+
+  const handleSubjectMarkChange = (e, index, field) => {
+    const { value } = e.target;
+    const newSubjectsMarks = { ...subjectsMarks };
+    const keys = Object.keys(newSubjectsMarks);
+    const subject = keys[index];
+  
+    if (field === 'subject') {
+      const newKey = value.trim();
+      if (newKey !== subject) {
+        newSubjectsMarks[newKey] = newSubjectsMarks[subject];
+        delete newSubjectsMarks[subject];
+      }
+    } else if (field === 'mark') {
+      newSubjectsMarks[subject] = value;
+    }
+  
+    setSubjectsMarks(newSubjectsMarks);
+    handleChange({ target: { name, value: newSubjectsMarks } });
+  };
+
+  const handleAddSubjectMark = () => {
+    const subjectsMarksArray = Object.entries(subjectsMarks).map(([subject, mark]) => ({ subject, mark }));
+    const newSubjectsMarksArray = [...subjectsMarksArray, { subject: "", mark: "" }];
+    const newSubjectsMarks = Object.fromEntries(newSubjectsMarksArray.map(({ subject, mark }) => [subject, mark]));
+    setSubjectsMarks(newSubjectsMarks);
+  };
+  
+  const handleDeleteSubjectMark = (index) => {
+    const subjectsMarksArray = Object.entries(subjectsMarks).map(([subject, mark]) => ({ subject, mark }));
+    const newSubjectsMarksArray = subjectsMarksArray.filter((_, i) => i !== index);
+    const newSubjectsMarks = Object.fromEntries(newSubjectsMarksArray.map(({ subject, mark }) => [subject, mark]));
+    setSubjectsMarks(newSubjectsMarks);
+  };
+
+  return (
+    <div>
+      <label htmlFor={name}>
+        Subject Marks
+        {props.required && <span style={{ color: 'red' }}>*</span>}
+      </label>
+      {Object.entries(subjectsMarks).map(([subject, mark], index) => (
+        <div key={index} className="grid-col-2-5">
+          <input
+            type="text"
+            name="subject"
+            value={subject}
+            onChange={(e) => handleSubjectMarkChange(e, index, 'subject')}
+            placeholder="Subject"
+            required
+          />
+          <input
+            type="text"
+            name="mark"
+            value={mark}
+            onChange={(e) => handleSubjectMarkChange(e, index, 'mark')}
+            placeholder="Mark"
+            onKeyDown={onlyNumber}
+            required
+          />
+          <div className="btns">
+            <button type="button" className="small-btn" onClick={() => handleDeleteSubjectMark(index)}>
+              -
+            </button>
+          </div>
+        </div>
+      ))}
+      <div className="btns">
+        <button type="button" className="small-btn" onClick={handleAddSubjectMark}>
+          +
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export const FormButtons = ({
   handlePreviousClick,
   clearFormData,
@@ -250,6 +353,15 @@ export const FormButtons = ({
   currentStep,
   totalSteps,
 }) => {
+  const router = useRouter(); 
+  const handleSaveClick = () => {
+    const userType = localStorage.getItem("userType");
+      onSubmitHandler();
+    if (userType === "admin") {
+      router.push("/admin/manage/applicants/profile");
+    }
+  };
+
   return (
     <div className="btns">
       <button
@@ -264,7 +376,7 @@ export const FormButtons = ({
       <button type="button" className="btn" onClick={clearFormData}>
         Clear
       </button>
-      <button type="button" className="btn" onClick={onSubmitHandler}>
+      <button type="button" className="btn" onClick={handleSaveClick}>
         Save
       </button>
       <button className="btn" type="submit">

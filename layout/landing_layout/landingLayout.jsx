@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from "react";
-import { LandingNavbar, LandingPage, ChatBotv2, ChatBot } from "@/containers";
+import { LandingNavbar, LandingPage, ChatBot } from "@/containers";
 import { useRouter } from "next/router";
 function LandingLayout({ children }) {
   const router = useRouter();
@@ -20,19 +20,18 @@ function LandingLayout({ children }) {
       } else if (userType === "admin") {
         router.push("/admin");
       } else {
-        localStorage.removeItem("authToken");
+        localStorage.clear();
       }
     }
   }, [router]);
   return (
     <Fragment>
       <LandingNavbar></LandingNavbar>
-      <ChatBot></ChatBot>
-      <></>
       <div className="homepage">
         <LandingPage></LandingPage>
         <div className="homepage-right">{children}</div>
       </div>
+      <ChatBot></ChatBot>
     </Fragment>
   );
 }
