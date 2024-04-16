@@ -118,7 +118,11 @@ function Index() {
       }
     }
   }
-
+  useEffect(() => {
+    console.log("Selected Course:", selectedCourse);
+    console.log("Selected Stream:", selectedStream);
+    console.log("Filtered Students:", filteredStudents);
+  }, [selectedCourse, selectedStream, filteredStudents]);
   return (
     <Fragment>
       <AdminLayout>
