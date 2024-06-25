@@ -55,7 +55,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sharp": "^0.33.3",
-    "sitemap": "^7.1.1"
+    "sitemap": "^8.0.0"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
