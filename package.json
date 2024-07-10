@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.4",
+    "eslint-config-next": "14.2.5",
     "sass": "^1.49.8"
   },
   "contributing": {
