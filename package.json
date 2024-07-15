@@ -58,7 +58,7 @@
     "sitemap": "^8.0.0"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
+    "eslint": "^9.7.0",
     "eslint-config-next": "14.2.5",
     "sass": "^1.49.8"
   },
