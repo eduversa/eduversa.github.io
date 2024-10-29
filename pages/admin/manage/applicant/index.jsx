@@ -10,10 +10,12 @@ const ManageApplicants = () => {
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const year = new Date().getFullYear();
 
   useEffect(() => {
     fetchCollegeData();
     getApplicantData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchCollegeData = async () => {
@@ -32,7 +34,7 @@ const ManageApplicants = () => {
 
   const getApplicantData = async () => {
     try {
-      const response = await getApplicantsByYear(2023);
+      const response = await getApplicantsByYear(year);
       if (process.env.NODE_ENV === "development") {
         console.log(response);
       }
