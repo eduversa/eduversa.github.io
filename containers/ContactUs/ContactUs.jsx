@@ -65,7 +65,7 @@ const ContactUs = () => {
               onMouseEnter={(e) => (e.currentTarget.style.color = "#0050c0")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#0070f3")}
             >
-              Visit Ankur Halder's Website: ankurhalder.in
+              Visit Ankur Halder&apos;s Website: ankurhalder.in
             </a>
           </div>
         )}
