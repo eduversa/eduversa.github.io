@@ -147,7 +147,8 @@ function Login() {
     localStorage.setItem("platformName", "facebook");
   };
   if (process.env.NODE_ENV === "development") {
-    console.log("Session:", session);
+    // !  i need to enable it later
+    // console.log("Session:", session);
   }
   return (
     <Fragment>

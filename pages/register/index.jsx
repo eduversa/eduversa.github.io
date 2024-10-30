@@ -3,10 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
-import { registerUser, createAccountWithSocialPlatform } from "@/functions";
+import { withLoading, showAlert, devLog, apiRequest } from "@/utils/apiUtils";
 import { AllLoader } from "@/components";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Head from "next/head";
+
 function Register() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -48,29 +49,29 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const wrappedApiRequest = withLoading(
+      apiRequest,
+      setLoading,
+      "Registration"
+    );
+
     try {
-      setLoading(true);
-      const registrationData = await registerUser(email);
-      if (registrationData.status === false) {
-        if (process.env.NODE_ENV === "development") {
-          console.log("Registration data:", registrationData);
-        }
-        alert(registrationData.message);
-        setLoading(false);
+      const response = await wrappedApiRequest("/account", "POST", { email });
+
+      if (!response.success || response.status === false) {
+        devLog("Registration error response:", response);
+        showAlert(response.message);
         return;
       }
-      if (process.env.NODE_ENV === "development") {
-        console.log("Registration data:", registrationData);
-      }
-      alert(
+
+      devLog("Registration success data:", response.data);
+      showAlert(
         "Registration Was Successful! Check Your Email For Login Credentials"
       );
-      setLoading(false);
       router.push("/");
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error during registration:", error.message);
-      }
+      devLog("Global Error:", error);
+      showAlert("An unexpected error occurred. Please try again.");
     }
   };
 
@@ -92,7 +93,7 @@ function Register() {
     localStorage.setItem("platformName", "facebook");
   };
   if (process.env.NODE_ENV === "development") {
-    console.log("Session:", session);
+    // console.log("Session:", session);
   }
   return (
     <Fragment>
