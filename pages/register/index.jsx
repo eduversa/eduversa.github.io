@@ -3,16 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
-import { withLoading, showAlert, devLog, apiRequest } from "@/utils/apiUtils";
+import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
 import { AllLoader } from "@/components";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Head from "next/head";
+import { useAlert } from "@/contexts/AlertContext";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     const platformName = localStorage.getItem("platformName");
@@ -33,8 +35,8 @@ function Register() {
       )
         .then((response) => response.json())
         .then(async (res) => {
-          console.log(res);
-          alert(res.message);
+          devLog("Auth platform response:", res);
+          showAlert(res.message);
           if (!res.status) {
             setLoading(false);
             return;
@@ -42,9 +44,10 @@ function Register() {
           localStorage.removeItem("platformName");
           await signOut({ callbackUrl: "/" });
         })
-        .catch((error) => console.log(error));
+        .catch((error) => devLog("Error in platform auth:", error))
+        .finally(() => setLoading(false));
     }
-  }, [session]);
+  }, [session, showAlert]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,25 +79,25 @@ function Register() {
   };
 
   const handleSocialRegisterClick = async (provider) => {
-    alert(`Register with ${provider} is coming soon!`);
-    console.log("apiResponse", apiResponse);
-    console.log("Session:", session);
+    showAlert(`Register with ${provider} is coming soon!`);
+    devLog("API response for social provider:", provider);
   };
+
   const handleGoogleSignIn = async () => {
     await signIn("google");
     localStorage.setItem("platformName", "google");
   };
+
   const handleGithubSignIn = async () => {
     await signIn("github");
     localStorage.setItem("platformName", "github");
   };
+
   const handleFacebookSignIn = async () => {
     await signIn("facebook");
     localStorage.setItem("platformName", "facebook");
   };
-  if (process.env.NODE_ENV === "development") {
-    // console.log("Session:", session);
-  }
+
   return (
     <Fragment>
       <LandingLayout>
@@ -144,7 +147,7 @@ function Register() {
                   width={25}
                   className="google-icon"
                   onClick={() => handleGoogleSignIn("Google")}
-                ></Image>
+                />
                 <Image
                   src="/login/facebook.png"
                   alt="facebook"
@@ -152,7 +155,7 @@ function Register() {
                   width={25}
                   className="facebook-icon"
                   onClick={() => handleFacebookSignIn("Facebook")}
-                ></Image>
+                />
                 <Image
                   src="/login/twitter.png"
                   alt="twitter"
@@ -160,17 +163,15 @@ function Register() {
                   width={25}
                   className="twitter-icon"
                   onClick={() => handleSocialRegisterClick("Twitter")}
-                ></Image>
+                />
                 <Image
                   src="/login/linkedin.png"
                   alt="linkedin"
                   height={25}
                   width={25}
                   className="linkedin-icon"
-                  onClick={async () =>
-                    await handleSocialRegisterClick("LinkedIn")
-                  }
-                ></Image>
+                  onClick={() => handleSocialRegisterClick("LinkedIn")}
+                />
                 <Image
                   src="/login/github.png"
                   alt="github"
@@ -178,7 +179,7 @@ function Register() {
                   width={25}
                   className="github-icon"
                   onClick={() => handleGithubSignIn("GitHub")}
-                ></Image>
+                />
               </div>
             </div>
 
