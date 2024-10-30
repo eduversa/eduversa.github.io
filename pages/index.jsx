@@ -1,12 +1,12 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
-import { loginUser } from "@/functions";
+import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
 import { AllLoader } from "@/components";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Head from "next/head";
 import { useAlert } from "@/contexts/AlertContext";
 
 function Login() {
@@ -20,12 +20,14 @@ function Login() {
   useEffect(() => {
     const platformName = localStorage.getItem("platformName");
     if (session) {
-      console.log("session--->", session);
+      if (process.env.NODE_ENV === "development") {
+        console.log("Session:", session);
+      }
       setLoading(true);
       fetch(
         `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -34,117 +36,100 @@ function Login() {
       )
         .then((response) => response.json())
         .then(async (res) => {
-          console.log(res);
+          devLog("Auth platform response:", res);
           showAlert(res.message);
           if (!res.status) {
             setLoading(false);
             return;
           }
+
           localStorage.removeItem("platformName");
-          localStorage.setItem("authToken", res.authToken);
+          localStorage.setItem("authToken", res.security_token);
           localStorage.setItem("email", res.data.email);
           localStorage.setItem("userType", res.data.type);
           localStorage.setItem("userid", res.data.user_id);
-          if (res.data.type === "applicant") {
-            localStorage.setItem(
-              "applicant_profile",
-              JSON.stringify(res.profileData)
-            );
-          }
-          if (process.env.NODE_ENV === "development") {
-            console.log("AuthToken", localStorage.getItem("authToken"));
-            console.log("Email", localStorage.getItem("email"));
-            console.log("UserType", localStorage.getItem("userType"));
-            console.log("UserId", localStorage.getItem("userid"));
-          }
-          showAlert(res.message);
-          if (res.data.type === "applicant") {
-            await signOut({ callbackUrl: "/applicant" });
-          } else if (res.data.type === "student") {
-            await signOut({ callbackUrl: "/student" });
-          } else if (res.data.type === "faculty") {
-            showAlert("Faculty is not ready yet");
-            localStorage.clear();
-          } else if (res.data.type === "admin") {
-            await signOut({ callbackUrl: "/admin" });
-          } else {
-            showAlert("Invalid User Type");
-          }
+
+          await signOut({ callbackUrl: "/" });
         })
-        .catch((error) => console.log(error));
+        .catch((error) => devLog("Error in platform auth:", error))
+        .finally(() => setLoading(false));
     }
   }, [session, showAlert]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const wrappedApiRequest = withLoading(
+      apiRequest,
+      setLoading,
+      showAlert,
+      "Login"
+    );
+
     try {
-      setLoading(true);
-      const apiResponse = await loginUser(username, password);
-      if (apiResponse.status === false) {
-        if (process.env.NODE_ENV === "development") {
-          console.log("Login data:", apiResponse);
-        }
-        showAlert(apiResponse.message);
-        setLoading(false);
+      console.log("Username:", username);
+      console.log("Password:", password);
+      const response = await wrappedApiRequest("/account/auth", "POST", {
+        user_id: username,
+        password,
+      });
+
+      if (!response.success || response.status === false) {
+        devLog("Login error response:", response);
+        showAlert(response.message);
         return;
       }
-      if (process.env.NODE_ENV === "development") {
-        console.log("Login data:", apiResponse);
-      }
-      localStorage.setItem("authToken", apiResponse.authToken);
-      localStorage.setItem("email", apiResponse.data.email);
-      localStorage.setItem("userType", apiResponse.data.type);
-      localStorage.setItem("userid", apiResponse.data.user_id);
-      localStorage.setItem("security_token", apiResponse.data.security_token);
-      if (apiResponse.data.type === "applicant") {
-        localStorage.setItem(
-          "applicant_profile",
-          JSON.stringify(apiResponse.profileData)
-        );
-      }
-      if (process.env.NODE_ENV === "development") {
-        console.log("AuthToken", localStorage.getItem("authToken"));
-        console.log("Email", localStorage.getItem("email"));
-        console.log("UserType", localStorage.getItem("userType"));
-        console.log("UserId", localStorage.getItem("userid"));
-      }
-      showAlert(apiResponse.message);
-      setLoading(false);
-      if (apiResponse.data.type === "applicant") {
+
+      devLog("Login success data:", response.data);
+      localStorage.removeItem("platformName");
+      localStorage.setItem("authToken", response.data.security_token);
+      localStorage.setItem("email", response.data.email);
+      localStorage.setItem("userType", response.data.type);
+      localStorage.setItem("userid", response.data.user_id);
+      const authToken = localStorage.getItem("authToken");
+      const email = localStorage.getItem("email");
+      const userType = localStorage.getItem("userType");
+      const userid = localStorage.getItem("userid");
+
+      console.log("Auth Token:", authToken);
+      console.log("Email:", email);
+      console.log("User Type:", userType);
+      console.log("User ID:", userid);
+      showAlert("Logged In Successfully!");
+
+      if (userType === "applicant") {
         router.push("/applicant");
-      } else if (apiResponse.data.type === "student") {
+      } else if (userType === "student") {
         router.push("/student");
-      } else if (apiResponse.data.type === "faculty") {
+      } else if (userType === "faculty") {
         showAlert("Faculty is not ready yet");
         localStorage.clear();
-      } else if (apiResponse.data.type === "admin") {
+      } else if (userType === "admin") {
         router.push("/admin");
       } else {
         showAlert("Invalid User Type");
       }
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error in login:", error);
-      }
+      devLog("Global Error:", error);
+      showAlert("An unexpected error occurred. Please try again.");
     }
   };
 
-  const handleSocialLoginClick = (provider) => {
+  const handleSocialLoginClick = async (provider) => {
     showAlert(`Login with ${provider} is coming soon!`);
-    console.log("Session:", session);
-    console.log("signIn Function:", signIn);
-    console.log("signOut Function:", signOut);
-    console.log("useSession Function:", useSession);
+    devLog("API response for social provider:", provider);
   };
+
   const handleGoogleSignIn = async () => {
     await signIn("google");
     localStorage.setItem("platformName", "google");
   };
+
   const handleGithubSignIn = async () => {
     await signIn("github");
     localStorage.setItem("platformName", "github");
   };
+
   const handleFacebookSignIn = async () => {
     await signIn("facebook");
     localStorage.setItem("platformName", "facebook");
@@ -187,6 +172,7 @@ function Login() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="username-input"
+                required
               />
             </div>
             <div className="login-password">
@@ -203,6 +189,7 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="password-input"
+                required
               />
             </div>
 
@@ -251,6 +238,7 @@ function Login() {
                 />
               </div>
             </div>
+
             <div className="button-container">
               <button type="submit" className="login-button">
                 Login

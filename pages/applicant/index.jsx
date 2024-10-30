@@ -374,6 +374,9 @@ function ApplicantDashboard() {
           if (response.status === false) {
             alert(response.message);
             setLoading(false);
+            // ! need to change in future
+            localStorage.clear();
+            window.location.href = "/";
             return;
           }
           setProfileData(response.data);

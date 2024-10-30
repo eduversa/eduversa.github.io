@@ -10,7 +10,7 @@ export async function apiRequest(endpoint, method, body = {}, authToken = "") {
     } else if (endpoint === "/account/auth") {
       // Login route
       requestBody = JSON.stringify({
-        user_id: body.username,
+        user_id: body.user_id,
         password: body.password,
       });
     } else {
