@@ -4,15 +4,18 @@ import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
-import { loginUser, logIntoAccountWithSocialPlatform } from "@/functions";
+import { loginUser } from "@/functions";
 import { AllLoader } from "@/components";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useAlert } from "@/contexts/AlertContext";
+
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     const platformName = localStorage.getItem("platformName");
@@ -32,7 +35,7 @@ function Login() {
         .then((response) => response.json())
         .then(async (res) => {
           console.log(res);
-          alert(res.message);
+          showAlert(res.message);
           if (!res.status) {
             setLoading(false);
             return;
@@ -54,23 +57,23 @@ function Login() {
             console.log("UserType", localStorage.getItem("userType"));
             console.log("UserId", localStorage.getItem("userid"));
           }
-          alert(res.message);
+          showAlert(res.message);
           if (res.data.type === "applicant") {
             await signOut({ callbackUrl: "/applicant" });
           } else if (res.data.type === "student") {
             await signOut({ callbackUrl: "/student" });
           } else if (res.data.type === "faculty") {
-            alert("Faculty is not ready yet");
+            showAlert("Faculty is not ready yet");
             localStorage.clear();
           } else if (res.data.type === "admin") {
             await signOut({ callbackUrl: "/admin" });
           } else {
-            alert("Invalid User Type");
+            showAlert("Invalid User Type");
           }
         })
         .catch((error) => console.log(error));
     }
-  }, [session]);
+  }, [session, showAlert]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,7 +85,7 @@ function Login() {
         if (process.env.NODE_ENV === "development") {
           console.log("Login data:", apiResponse);
         }
-        alert(apiResponse.message);
+        showAlert(apiResponse.message);
         setLoading(false);
         return;
       }
@@ -106,19 +109,19 @@ function Login() {
         console.log("UserType", localStorage.getItem("userType"));
         console.log("UserId", localStorage.getItem("userid"));
       }
-      alert(apiResponse.message);
+      showAlert(apiResponse.message);
       setLoading(false);
       if (apiResponse.data.type === "applicant") {
         router.push("/applicant");
       } else if (apiResponse.data.type === "student") {
         router.push("/student");
       } else if (apiResponse.data.type === "faculty") {
-        alert("Faculty is not ready yet");
+        showAlert("Faculty is not ready yet");
         localStorage.clear();
       } else if (apiResponse.data.type === "admin") {
         router.push("/admin");
       } else {
-        alert("Invalid User Type");
+        showAlert("Invalid User Type");
       }
     } catch (error) {
       if (process.env.NODE_ENV === "development") {
@@ -128,10 +131,10 @@ function Login() {
   };
 
   const handleSocialLoginClick = (provider) => {
-    alert(`Login with ${provider} is coming soon!`);
+    showAlert(`Login with ${provider} is coming soon!`);
     console.log("Session:", session);
-    console.log("signIn Fnction:", signIn);
-    console.log("signOut Fnction:", signOut);
+    console.log("signIn Function:", signIn);
+    console.log("signOut Function:", signOut);
     console.log("useSession Function:", useSession);
   };
   const handleGoogleSignIn = async () => {
@@ -146,10 +149,7 @@ function Login() {
     await signIn("facebook");
     localStorage.setItem("platformName", "facebook");
   };
-  if (process.env.NODE_ENV === "development") {
-    // !  i need to enable it later
-    // console.log("Session:", session);
-  }
+
   return (
     <Fragment>
       <LandingLayout>
@@ -216,7 +216,7 @@ function Login() {
                   width={25}
                   className="google-icon"
                   onClick={handleGoogleSignIn}
-                ></Image>
+                />
                 <Image
                   src="/login/facebook.png"
                   alt="facebook"
@@ -224,7 +224,7 @@ function Login() {
                   width={25}
                   className="facebook-icon"
                   onClick={handleFacebookSignIn}
-                ></Image>
+                />
                 <Image
                   src="/login/twitter.png"
                   alt="twitter"
@@ -232,7 +232,7 @@ function Login() {
                   width={25}
                   className="twitter-icon"
                   onClick={() => handleSocialLoginClick("Twitter")}
-                ></Image>
+                />
                 <Image
                   src="/login/linkedin.png"
                   alt="linkedin"
@@ -240,7 +240,7 @@ function Login() {
                   width={25}
                   className="linkedin-icon"
                   onClick={() => handleSocialLoginClick("LinkedIn")}
-                ></Image>
+                />
                 <Image
                   src="/login/github.png"
                   alt="github"
@@ -248,7 +248,7 @@ function Login() {
                   width={25}
                   className="github-icon"
                   onClick={handleGithubSignIn}
-                ></Image>
+                />
               </div>
             </div>
             <div className="button-container">

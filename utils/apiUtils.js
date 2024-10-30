@@ -3,19 +3,18 @@ export async function apiRequest(endpoint, method, body = {}, authToken = "") {
   try {
     let requestBody;
 
-    // Construct the request body based on the endpoint
-    if (endpoint === "/account/auth" && method === "PUT") {
-      // Login request
+    // Determine the request body based on the endpoint
+    if (endpoint === "/account") {
+      // Register route
+      requestBody = JSON.stringify({ email: body.email });
+    } else if (endpoint === "/account/auth") {
+      // Login route
       requestBody = JSON.stringify({
-        user_id: body.username, // Assuming body contains 'username' for login
+        user_id: body.username,
         password: body.password,
       });
-    } else if (endpoint === "/account/register" && method === "POST") {
-      // Register request
-      requestBody = JSON.stringify({ email: body.email }); // Assuming body contains 'email' for registration
     } else {
-      // Default case for other endpoints
-      requestBody = JSON.stringify(body);
+      requestBody = method !== "GET" ? JSON.stringify(body) : null;
     }
 
     const response = await fetch(
@@ -26,7 +25,7 @@ export async function apiRequest(endpoint, method, body = {}, authToken = "") {
           "Content-Type": "application/json",
           ...(authToken && { Authorization: `Bearer ${authToken}` }),
         },
-        body: method !== "GET" ? requestBody : null,
+        body: requestBody,
       }
     );
 
