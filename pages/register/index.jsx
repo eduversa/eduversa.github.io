@@ -55,6 +55,7 @@ function Register() {
     const wrappedApiRequest = withLoading(
       apiRequest,
       setLoading,
+      showAlert,
       "Registration"
     );
 
