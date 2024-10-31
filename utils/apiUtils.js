@@ -6,6 +6,7 @@ export async function apiRequest(
   authToken = "",
   routeName
 ) {
+  console.log(endpoint, method, body, authToken, routeName);
   try {
     let requestBody;
 
@@ -19,6 +20,9 @@ export async function apiRequest(
         user_id: body.user_id,
         password: body.password,
       });
+    } else if (routeName === "logout") {
+      // Logout route
+      requestBody = null;
     } else {
       requestBody = method !== "GET" ? JSON.stringify(body) : null;
     }
@@ -29,7 +33,7 @@ export async function apiRequest(
         method,
         headers: {
           "Content-Type": "application/json",
-          ...(authToken && { Authorization: `Bearer ${authToken}` }),
+          authorization: authToken,
         },
         body: requestBody,
       }

@@ -3,41 +3,46 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { logoutApi } from "@/functions";
 import { AllLoader } from "@/components";
-
+import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
+import { useAlert } from "@/contexts/AlertContext";
 function ApplicantNavbar() {
   const router = useRouter();
   const logoText = "eduversa";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const { showAlert } = useAlert();
   const handleLogout = async () => {
     const userId = localStorage.getItem("userid");
     const authToken = localStorage.getItem("authToken");
 
     try {
-      setIsLoading(true);
-      const apiResponse = await logoutApi(userId, authToken);
-      if (apiResponse.status === false) {
-        alert(apiResponse.message);
-        setIsLoading(false);
+      const wrappedApiRequest = withLoading(
+        apiRequest,
+        setIsLoading,
+        showAlert,
+        "Logout"
+      );
+
+      const response = await wrappedApiRequest(
+        `/account/auth?user_id=${userId}`,
+        "PATCH",
+        null,
+        authToken,
+        "Logout"
+      );
+
+      if (!response.success || response.status === false) {
+        devLog("Logout error:", response);
+        showAlert(response.message);
         return;
       }
-      if (process.env.NODE_ENV === "development") {
-        console.log("Logout data:", apiResponse);
-      }
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("email");
-      localStorage.removeItem("userType");
-      localStorage.removeItem("userid");
-      localStorage.removeItem("applicant_profile");
+      devLog("Logout response:", response);
+      showAlert(response.message);
       localStorage.clear();
-      alert(apiResponse.message);
-      setIsLoading(false);
       router.push("/");
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Logout error:", error.message);
-      }
+      devLog("global error:", error);
+      showAlert("An unexpected error occurred. Please try again.");
     }
   };
   const menuItems = [

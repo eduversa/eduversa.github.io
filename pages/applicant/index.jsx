@@ -375,8 +375,8 @@ function ApplicantDashboard() {
             alert(response.message);
             setLoading(false);
             // ! need to change in future
-            localStorage.clear();
-            window.location.href = "/";
+            // localStorage.clear();
+            // window.location.href = "/";
             return;
           }
           setProfileData(response.data);
