@@ -36,6 +36,7 @@ export async function apiRequest(
           authorization: authToken,
         },
         body: requestBody,
+        // mode: "no-cors",
       }
     );
 
