@@ -1,13 +1,19 @@
 // Function to handle API requests
-export async function apiRequest(endpoint, method, body = {}, authToken = "") {
+export async function apiRequest(
+  endpoint,
+  method,
+  body = {},
+  authToken = "",
+  routeName
+) {
   try {
     let requestBody;
 
     // Determine the request body based on the endpoint
-    if (endpoint === "/account") {
+    if (routeName === "Registration") {
       // Register route
       requestBody = JSON.stringify({ email: body.email });
-    } else if (endpoint === "/account/auth") {
+    } else if (routeName === "login") {
       // Login route
       requestBody = JSON.stringify({
         user_id: body.user_id,
