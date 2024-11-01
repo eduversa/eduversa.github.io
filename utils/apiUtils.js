@@ -6,50 +6,59 @@ export async function apiRequest(
   authToken = "",
   routeName
 ) {
-  console.log(endpoint, method, body, authToken, routeName);
   try {
     let requestBody;
+    // Construct request body based on routeName
+    switch (routeName) {
+      case "Registration":
+        requestBody = JSON.stringify({ email: body.email });
+        break;
+      case "login":
+        requestBody = JSON.stringify({
+          user_id: body.user_id,
+          password: body.password,
+        });
+        break;
+      case "logout":
+        requestBody = null;
+        break;
+      default:
+        requestBody = method !== "GET" ? JSON.stringify(body) : null;
+    }
 
-    // Determine the request body based on the endpoint
-    if (routeName === "Registration") {
-      // Register route
-      requestBody = JSON.stringify({ email: body.email });
-    } else if (routeName === "login") {
-      // Login route
-      requestBody = JSON.stringify({
-        user_id: body.user_id,
-        password: body.password,
+    const headers = {
+      "Content-Type": "application/json",
+      ...(authToken && { authorization: authToken }),
+    };
+
+    if (isDevelopment()) {
+      devLog(`API Request - ${method} ${endpoint}`, {
+        headers,
+        body: requestBody,
       });
-    } else if (routeName === "logout") {
-      // Logout route
-      requestBody = null;
-    } else {
-      requestBody = method !== "GET" ? JSON.stringify(body) : null;
     }
 
     const response = await fetch(
       `https://eduversa-api.onrender.com${endpoint}`,
       {
         method,
-        headers: {
-          "Content-Type": "application/json",
-          authorization: authToken,
-        },
+        headers,
         body: requestBody,
-        // mode: "no-cors",
       }
     );
 
     const data = await response.json();
 
     if (!response.ok) {
-      // Improved error handling for specific status codes
-      const errorMessage =
-        data.message || "An error occurred while processing your request.";
-      throw new Error(errorMessage);
+      throw new Error(
+        data.message || "Error occurred while processing your request."
+      );
     }
 
-    // Structured success response
+    if (isDevelopment()) {
+      devLog(`API Response - ${method} ${endpoint}`, data);
+    }
+
     return {
       success: true,
       status: data.status,
@@ -57,7 +66,9 @@ export async function apiRequest(
       data: data.data,
     };
   } catch (error) {
-    devLog("Network or unexpected error:", error.message || error);
+    if (isDevelopment()) {
+      devLog("Network or unexpected error:", error.message || error);
+    }
     return {
       success: false,
       status: false,
@@ -67,7 +78,7 @@ export async function apiRequest(
   }
 }
 
-// Higher-order function to handle loading states, logging, and error alerts
+// Higher-order function to handle loading and alerts
 export function withLoading(
   asyncFunction,
   setLoading,
@@ -75,7 +86,7 @@ export function withLoading(
   routeName = ""
 ) {
   return async (...args) => {
-    if (process.env.NODE_ENV === "development") {
+    if (isDevelopment()) {
       devLog(`${routeName} route accessed`, args);
     }
 
@@ -83,19 +94,17 @@ export function withLoading(
     try {
       const result = await asyncFunction(...args);
 
-      // Log the response data in development mode
-      if (process.env.NODE_ENV === "development") {
+      if (isDevelopment()) {
         devLog(`Response from ${routeName} route`, result);
       }
 
-      // Handle alert on success/failure of request
-      if (!result.success || result.status === false) {
+      if (!result.success) {
         showAlert(result.message || "Request failed. Please try again.");
       }
 
       return result;
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
+      if (isDevelopment()) {
         devLog(`Error in ${routeName} route`, error.message);
       }
       showAlert(
@@ -108,9 +117,14 @@ export function withLoading(
   };
 }
 
-// Function to log data in development mode only
+// Helper to check development environment
+function isDevelopment() {
+  return process.env.NODE_ENV === "development";
+}
+
+// Logging function for development mode
 export function devLog(message, data = "") {
-  if (process.env.NODE_ENV === "development") {
+  if (isDevelopment()) {
     console.log(message, data);
   }
 }

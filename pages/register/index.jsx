@@ -20,34 +20,39 @@ function Register() {
     const platformName = localStorage.getItem("platformName");
     if (session) {
       if (process.env.NODE_ENV === "development") {
-        console.log("Session:", session);
+        devLog("Session detected:", session);
       }
+
       setLoading(true);
-      fetch(
-        `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(session),
-        }
-      )
-        .then((response) => response.json())
-        .then(async (res) => {
-          devLog("Auth platform response:", res);
-          showAlert(res.message);
-          if (!res.status) {
-            setLoading(false);
-            return;
-          }
-          localStorage.removeItem("platformName");
-          await signOut({ callbackUrl: "/" });
-        })
-        .catch((error) => devLog("Error in platform auth:", error))
+      handlePlatformAuth(platformName, session)
+        .catch((error) => devLog("Platform auth error:", error))
         .finally(() => setLoading(false));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session, showAlert]);
+
+  const handlePlatformAuth = async (platformName, sessionData) => {
+    const response = await fetch(
+      `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(sessionData),
+      }
+    );
+
+    const res = await response.json();
+    devLog("Auth platform response:", res);
+    showAlert(res.message);
+
+    if (!res.status) {
+      setLoading(false);
+      return;
+    }
+
+    localStorage.removeItem("platformName");
+    await signOut({ callbackUrl: "/" });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,7 +67,7 @@ function Register() {
     try {
       const response = await wrappedApiRequest("/account", "POST", { email });
 
-      if (!response.success || response.status === false) {
+      if (!response.success) {
         devLog("Registration error response:", response);
         showAlert(response.message);
         return;
@@ -79,24 +84,18 @@ function Register() {
     }
   };
 
-  const handleSocialRegisterClick = async (provider) => {
+  const handleSocialRegisterClick = (provider) => {
     showAlert(`Register with ${provider} is coming soon!`);
-    devLog("API response for social provider:", provider);
+    devLog("Social provider registration attempt:", provider);
   };
 
-  const handleGoogleSignIn = async () => {
-    await signIn("google");
-    localStorage.setItem("platformName", "google");
-  };
+  const handleGoogleSignIn = () => initiateSignIn("google");
+  const handleGithubSignIn = () => initiateSignIn("github");
+  const handleFacebookSignIn = () => initiateSignIn("facebook");
 
-  const handleGithubSignIn = async () => {
-    await signIn("github");
-    localStorage.setItem("platformName", "github");
-  };
-
-  const handleFacebookSignIn = async () => {
-    await signIn("facebook");
-    localStorage.setItem("platformName", "facebook");
+  const initiateSignIn = async (provider) => {
+    await signIn(provider);
+    localStorage.setItem("platformName", provider);
   };
 
   return (
@@ -117,7 +116,7 @@ function Register() {
         <div className="register-container">
           <h2 className="register-heading">Register</h2>
           <h3 className="register-subheading">
-            Your Pathway to Academic Excellence: Register Now on Eduversa😉
+            Your Pathway to Academic Excellence: Register Now on Eduversa 😉
           </h3>
           <form className="register-form" onSubmit={handleSubmit}>
             <div className="register-email">
@@ -147,7 +146,7 @@ function Register() {
                   height={25}
                   width={25}
                   className="google-icon"
-                  onClick={() => handleGoogleSignIn("Google")}
+                  onClick={handleGoogleSignIn}
                 />
                 <Image
                   src="/login/facebook.png"
@@ -155,7 +154,7 @@ function Register() {
                   height={25}
                   width={25}
                   className="facebook-icon"
-                  onClick={() => handleFacebookSignIn("Facebook")}
+                  onClick={handleFacebookSignIn}
                 />
                 <Image
                   src="/login/twitter.png"
@@ -179,7 +178,7 @@ function Register() {
                   height={25}
                   width={25}
                   className="github-icon"
-                  onClick={() => handleGithubSignIn("GitHub")}
+                  onClick={handleGithubSignIn}
                 />
               </div>
             </div>
