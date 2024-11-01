@@ -70,10 +70,16 @@ function Login() {
     );
 
     try {
-      const response = await wrappedApiRequest("/account/auth", "POST", {
-        user_id: username,
-        password,
-      });
+      const response = await wrappedApiRequest(
+        "/account/auth",
+        "POST",
+        {
+          user_id: username,
+          password,
+        },
+        localStorage.getItem("authToken"),
+        "Login"
+      );
 
       if (!response.success || !response.status) {
         devLog("Login error response:", response);

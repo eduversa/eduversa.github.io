@@ -16,11 +16,6 @@ function ApplicantNavbar() {
     const userId = localStorage.getItem("userid");
     const authToken = localStorage.getItem("authToken");
 
-    if (!userId || !authToken) {
-      showAlert("User is not logged in.");
-      return;
-    }
-
     try {
       const wrappedApiRequest = withLoading(
         apiRequest,
