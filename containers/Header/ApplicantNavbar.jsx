@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { logoutApi } from "@/functions";
 import { AllLoader } from "@/components";
 import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
 import { useAlert } from "@/contexts/AlertContext";

@@ -21,40 +21,43 @@ function Login() {
     const platformName = localStorage.getItem("platformName");
     if (session) {
       if (process.env.NODE_ENV === "development") {
-        console.log("Session:", session);
+        devLog("Session detected:", session);
       }
+
       setLoading(true);
-      fetch(
-        `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(session),
-        }
-      )
-        .then((response) => response.json())
-        .then(async (res) => {
-          devLog("Auth platform response:", res);
-          showAlert(res.message);
-          if (!res.status) {
-            setLoading(false);
-            return;
-          }
-
-          localStorage.removeItem("platformName");
-          localStorage.setItem("authToken", res.security_token);
-          localStorage.setItem("email", res.data.email);
-          localStorage.setItem("userType", res.data.type);
-          localStorage.setItem("userid", res.data.user_id);
-
-          await signOut({ callbackUrl: "/" });
-        })
+      authenticatePlatformUser(platformName, session)
         .catch((error) => devLog("Error in platform auth:", error))
         .finally(() => setLoading(false));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session, showAlert]);
+
+  const authenticatePlatformUser = async (platformName, sessionData) => {
+    const response = await apiRequest(
+      `/account/auth/platform?platform=${platformName}`,
+      "POST",
+      sessionData
+    );
+
+    devLog("Auth platform response:", response);
+    showAlert(response.message);
+
+    if (!response.status) {
+      return;
+    }
+
+    localStorage.removeItem("platformName");
+    storeUserData(response.data);
+
+    await signOut({ callbackUrl: "/" });
+  };
+
+  const storeUserData = (data) => {
+    localStorage.setItem("authToken", data.security_token);
+    localStorage.setItem("email", data.email);
+    localStorage.setItem("userType", data.type);
+    localStorage.setItem("userid", data.user_id);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,72 +70,62 @@ function Login() {
     );
 
     try {
-      console.log("Username:", username);
-      console.log("Password:", password);
       const response = await wrappedApiRequest("/account/auth", "POST", {
         user_id: username,
         password,
       });
 
-      if (!response.success || response.status === false) {
+      if (!response.success || !response.status) {
         devLog("Login error response:", response);
         showAlert(response.message);
         return;
       }
 
       devLog("Login success data:", response.data);
-      localStorage.removeItem("platformName");
-      localStorage.setItem("authToken", response.data.security_token);
-      localStorage.setItem("email", response.data.email);
-      localStorage.setItem("userType", response.data.type);
-      localStorage.setItem("userid", response.data.user_id);
-      const authToken = localStorage.getItem("authToken");
-      const email = localStorage.getItem("email");
-      const userType = localStorage.getItem("userType");
-      const userid = localStorage.getItem("userid");
+      storeUserData(response.data);
 
-      console.log("Auth Token:", authToken);
-      console.log("Email:", email);
-      console.log("User Type:", userType);
-      console.log("User ID:", userid);
-      showAlert("Logged In Successfully!");
-
-      if (userType === "applicant") {
-        router.push("/applicant");
-      } else if (userType === "student") {
-        router.push("/student");
-      } else if (userType === "faculty") {
-        showAlert("Faculty is not ready yet");
-        localStorage.clear();
-      } else if (userType === "admin") {
-        router.push("/admin");
-      } else {
-        showAlert("Invalid User Type");
-      }
+      navigateUser(response.data.type);
     } catch (error) {
       devLog("Global Error:", error);
       showAlert("An unexpected error occurred. Please try again.");
     }
   };
 
-  const handleSocialLoginClick = async (provider) => {
+  // Navigate user based on user type
+  const navigateUser = (userType) => {
+    showAlert("Logged In Successfully!");
+
+    switch (userType) {
+      case "applicant":
+        router.push("/applicant");
+        break;
+      case "student":
+        router.push("/student");
+        break;
+      case "faculty":
+        router.push("/faculty");
+        break;
+      case "admin":
+        router.push("/admin");
+        break;
+      case "superadmin":
+        router.push("/superadmin");
+      default:
+        showAlert("Invalid User Type");
+        localStorage.clear();
+        window.location.reload();
+        break;
+    }
+  };
+
+  const handleSocialLogin = async (provider) => {
+    await signIn(provider);
+    localStorage.setItem("platformName", provider);
+  };
+
+  const handleSocialLoginClick = (provider) => {
     showAlert(`Login with ${provider} is coming soon!`);
-    devLog("API response for social provider:", provider);
-  };
-
-  const handleGoogleSignIn = async () => {
-    await signIn("google");
-    localStorage.setItem("platformName", "google");
-  };
-
-  const handleGithubSignIn = async () => {
-    await signIn("github");
-    localStorage.setItem("platformName", "github");
-  };
-
-  const handleFacebookSignIn = async () => {
-    await signIn("facebook");
-    localStorage.setItem("platformName", "facebook");
+    devLog("Social provider login attempt:", provider);
   };
 
   return (
@@ -151,7 +144,7 @@ function Login() {
           <h2 className="login-heading">Login</h2>
           <div className="login-subheading-container">
             <h3 className="loginbox-heading">
-              Step Inside your Academic Realm
+              Step Inside your Academic Realm{" "}
               <span role="img" aria-label="Wink Emoji">
                 🙂
               </span>
@@ -202,7 +195,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="google-icon"
-                  onClick={handleGoogleSignIn}
+                  onClick={() => handleSocialLogin("google")}
                 />
                 <Image
                   src="/login/facebook.png"
@@ -210,7 +203,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="facebook-icon"
-                  onClick={handleFacebookSignIn}
+                  onClick={() => handleSocialLogin("facebook")}
                 />
                 <Image
                   src="/login/twitter.png"
@@ -234,7 +227,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="github-icon"
-                  onClick={handleGithubSignIn}
+                  onClick={() => handleSocialLogin("github")}
                 />
               </div>
             </div>
@@ -254,9 +247,9 @@ function Login() {
                 </Link>
               </div>
               <div className="register">
-                <span>New to eduversa?</span>
+                <span>New to Eduversa?</span>
                 <Link href="/register">
-                  <p className="rerister-promt">Click here to Register</p>
+                  <p className="register-prompt">Click here to Register</p>
                 </Link>
               </div>
             </div>
