@@ -4,15 +4,22 @@ import { useRouter } from "next/router";
 import { AllLoader } from "@/components";
 import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
 import { useAlert } from "@/contexts/AlertContext";
+
 function ApplicantNavbar() {
   const router = useRouter();
   const logoText = "eduversa";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { showAlert } = useAlert();
+
   const handleLogout = async () => {
     const userId = localStorage.getItem("userid");
     const authToken = localStorage.getItem("authToken");
+
+    if (!userId || !authToken) {
+      showAlert("User is not logged in.");
+      return;
+    }
 
     try {
       const wrappedApiRequest = withLoading(
@@ -26,8 +33,7 @@ function ApplicantNavbar() {
         `/account/auth?user_id=${userId}`,
         "PATCH",
         null,
-        authToken,
-        "Logout"
+        authToken
       );
 
       if (!response.success || response.status === false) {
@@ -35,15 +41,18 @@ function ApplicantNavbar() {
         showAlert(response.message);
         return;
       }
+
       devLog("Logout response:", response);
       showAlert(response.message);
+
       localStorage.clear();
       router.push("/");
     } catch (error) {
-      devLog("global error:", error);
+      devLog("Global error:", error);
       showAlert("An unexpected error occurred. Please try again.");
     }
   };
+
   const menuItems = [
     { label: "Dashboard", className: "nav-item", src: "/applicant" },
     {
@@ -82,7 +91,7 @@ function ApplicantNavbar() {
             </button>
           </div>
           <div
-            className={`menu ${isMenuOpen && "open"}`}
+            className={`menu ${isMenuOpen ? "open" : ""}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <div className="menu-line"></div>
