@@ -63,7 +63,7 @@ export async function apiRequest(
       success: true,
       status: data.status,
       message: data.message,
-      data: data.data,
+      data: data,
     };
   } catch (error) {
     if (isDevelopment()) {

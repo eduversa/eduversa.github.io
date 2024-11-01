@@ -53,10 +53,10 @@ function Login() {
   };
 
   const storeUserData = (data) => {
-    localStorage.setItem("authToken", data.security_token);
-    localStorage.setItem("email", data.email);
-    localStorage.setItem("userType", data.type);
-    localStorage.setItem("userid", data.user_id);
+    localStorage.setItem("authToken", data.authToken);
+    localStorage.setItem("email", data.data.email);
+    localStorage.setItem("userType", data.data.type);
+    localStorage.setItem("userid", data.data.user_id);
   };
 
   const handleSubmit = async (e) => {
@@ -84,7 +84,7 @@ function Login() {
       devLog("Login success data:", response.data);
       storeUserData(response.data);
 
-      navigateUser(response.data.type);
+      navigateUser(response.data.data.type);
     } catch (error) {
       devLog("Global Error:", error);
       showAlert("An unexpected error occurred. Please try again.");

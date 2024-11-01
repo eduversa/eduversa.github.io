@@ -33,7 +33,8 @@ function ApplicantNavbar() {
         `/account/auth?user_id=${userId}`,
         "PATCH",
         null,
-        authToken
+        authToken,
+        "logout"
       );
 
       if (!response.success || response.status === false) {
