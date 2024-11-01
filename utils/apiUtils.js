@@ -60,6 +60,9 @@ export async function apiRequest(
     }
 
     return {
+      success: true,
+      status: data.status,
+      message: data.message,
       data: data,
     };
   } catch (error) {

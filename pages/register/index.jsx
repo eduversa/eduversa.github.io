@@ -79,7 +79,7 @@ function Register() {
         return;
       }
 
-      devLog("Registration success data:", response.data);
+      devLog("Registration success data:", response);
       showAlert(
         "Registration Was Successful! Check Your Email For Login Credentials"
       );
