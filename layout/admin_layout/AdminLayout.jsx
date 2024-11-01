@@ -1,30 +1,37 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { Navbar, Footer, ChatBot } from "@/containers";
+
 function AdminLayout({ children }) {
   const router = useRouter();
+
+  const hasLogged = useRef(false);
+
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     const userType = localStorage.getItem("userType");
-    if (process.env.NODE_ENV === "development") {
+
+    if (process.env.NODE_ENV === "development" && !hasLogged.current) {
       console.log("AuthToken", authToken);
       console.log("UserType", userType);
+      hasLogged.current = true;
     }
+
     if (!authToken) {
       localStorage.clear();
       router.push("/");
-    }
-    if (userType !== "admin") {
+    } else if (userType !== "admin") {
       localStorage.clear();
       router.push("/");
     }
   }, [router]);
+
   return (
     <Fragment>
-      <Navbar></Navbar>
+      <Navbar />
       <div className="wrapper">{children}</div>
-      <Footer></Footer>
-      <ChatBot></ChatBot>
+      <Footer />
+      <ChatBot />
     </Fragment>
   );
 }
