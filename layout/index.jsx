@@ -4,3 +4,5 @@ export { default as AdminLayout } from "./admin_layout/AdminLayout";
 export { default as StudentLayout } from "./student_layout/StudentLayout";
 
 export { default as FacultyLayout } from "./faculty_layout/FacultyLayout";
+
+export { default as SuperAdminLayout } from "./superadmin_layout/SuperAdminLayout";
