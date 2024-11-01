@@ -65,7 +65,13 @@ function Register() {
     );
 
     try {
-      const response = await wrappedApiRequest("/account", "POST", { email });
+      const response = await wrappedApiRequest(
+        "/account",
+        "POST",
+        { email },
+        localStorage.getItem("authToken"),
+        "Registration"
+      );
 
       if (!response.success) {
         devLog("Registration error response:", response);
