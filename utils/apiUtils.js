@@ -1,25 +1,33 @@
+// Constants for route names
+const ROUTE_NAMES = {
+  REGISTRATION: "Registration",
+  LOGIN: "login",
+  LOGOUT: "logout",
+};
+
 // Function to handle API requests
-export async function apiRequest(
+export async function apiRequest({
   endpoint,
   method,
   body = {},
   authToken = "",
-  routeName
-) {
+  routeName,
+}) {
   try {
     let requestBody;
+
     // Construct request body based on routeName
     switch (routeName) {
-      case "Registration":
+      case ROUTE_NAMES.REGISTRATION:
         requestBody = JSON.stringify({ email: body.email });
         break;
-      case "login":
+      case ROUTE_NAMES.LOGIN:
         requestBody = JSON.stringify({
           user_id: body.user_id,
           password: body.password,
         });
         break;
-      case "logout":
+      case ROUTE_NAMES.LOGOUT:
         requestBody = null;
         break;
       default:
@@ -61,9 +69,9 @@ export async function apiRequest(
 
     return {
       success: true,
-      status: data.status,
-      message: data.message,
-      data: data.data,
+      status: data?.status,
+      message: data?.message,
+      data: data?.data,
     };
   } catch (error) {
     if (isDevelopment()) {
@@ -119,7 +127,7 @@ export function withLoading(
 
 // Helper to check development environment
 function isDevelopment() {
-  return process.env.NODE_ENV === "development";
+  return process.env.NODE_ENV === "development" || !process.env.NODE_ENV;
 }
 
 // Logging function for development mode
