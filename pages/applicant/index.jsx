@@ -403,8 +403,7 @@ function ApplicantDashboard() {
     };
 
     fetchSingleApplicantData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [applicantId, authToken, router, showAlert]);
 
   return (
     <Fragment>

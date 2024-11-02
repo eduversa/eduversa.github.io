@@ -1,9 +1,11 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import { AdminLayout } from "@/layout";
-import { getSingleApplicantApi, approveApplicantApi } from "@/functions";
+import { approveApplicantApi } from "@/functions";
 import { AllLoader } from "@/components";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
+import { useAlert } from "@/contexts/AlertContext";
 
 function generateClassName(prefix, key) {
   const formattedKey = key
@@ -361,7 +363,49 @@ function renderFields(data, parentKey = "") {
 function ApplicantDashboard() {
   const [profileData, setProfileData] = useState({});
   const [loading, setLoading] = useState(true);
+  const { showAlert } = useAlert();
   const router = useRouter();
+  const effectRun = useRef(false);
+
+  useEffect(() => {
+    const applicantId = localStorage.getItem("selected-applicantId");
+    const authToken = localStorage.getItem("authToken");
+    if (effectRun.current) return;
+    effectRun.current = true;
+
+    const fetchSingleApplicantData = async () => {
+      const wrappedApiRequest = withLoading(
+        apiRequest,
+        setLoading,
+        showAlert,
+        "GetSingleApplicant"
+      );
+      try {
+        const response = await wrappedApiRequest(
+          `/applicant/?user_id=${applicantId}`,
+          "GET",
+          null,
+          authToken,
+          "GetSingleApplicant"
+        );
+        if (!response.success || !response.status) {
+          devLog("Error in fetching single applicant data:", response);
+          showAlert(response.message || "Failed to fetch applicant data");
+          localStorage.clear();
+          router.push("/");
+          return;
+        }
+        setProfileData(response.data.data);
+      } catch (error) {
+        devLog("Error in fetching single applicant data:", error);
+        showAlert(error.message || "Failed to fetch applicant data");
+        localStorage.clear();
+        router.push("/");
+      }
+    };
+
+    fetchSingleApplicantData();
+  }, [router, showAlert]);
 
   async function approveHandler() {
     const id = localStorage.getItem("selected-applicantId");
@@ -394,34 +438,6 @@ function ApplicantDashboard() {
       alert("Error updating applicant. Please try again.");
     }
   }
-  useEffect(() => {
-    const applicantId = localStorage.getItem("selected-applicantId");
-    console.log("Applicant ID:", applicantId);
-
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await getSingleApplicantApi(applicantId);
-
-        if (response.status === false) {
-          alert(response.message);
-          setLoading(false);
-          return;
-        }
-        setProfileData(response.data);
-        localStorage.setItem(
-          "applicant_profile",
-          JSON.stringify(response.data)
-        );
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching applicant data:", error.message);
-      }
-    };
-
-    fetchData();
-    // }
-  }, []);
 
   return (
     <Fragment>
