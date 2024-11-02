@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { AllLoader } from "@/components";
 import { LandingLayout } from "@/layout";
-import { resetPasswordApi } from "@/functions";
 import Head from "next/head";
 import { useAlert } from "@/contexts/AlertContext";
 import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
@@ -128,37 +127,43 @@ function ForgetPassword() {
       showAlert("Please enter the OTP sent to your email address.");
       return;
     }
-
+    const wrappedApiRequest = withLoading(
+      apiRequest,
+      setLoading,
+      showAlert,
+      "ForgetPassword"
+    );
     try {
-      setLoading(true);
-      const resetPasswordResponse = await resetPasswordApi(
-        inputValue.trim(),
-        otp,
-        newPassword,
-        confirmPassword
+      const userIdOrEmail = inputValue.trim();
+      const response = await wrappedApiRequest(
+        `/account/password?query=${userIdOrEmail}&otp=${otp}`,
+        "PUT",
+        {
+          password: newPassword,
+          confirm_password: confirmPassword,
+        },
+        authToken,
+        "ForgetPassword"
       );
-      if (process.env.NODE_ENV === "development") {
-        console.log(resetPasswordResponse);
-      }
 
-      if (resetPasswordResponse.status) {
-        setNewPassword("");
-        setConfirmPassword("");
-        setOtp("");
-        setOtpResponse(null);
-        alert(resetPasswordResponse.message);
-        setLoading(false);
-        router.push("/");
-      } else {
-        alert(resetPasswordResponse.message);
+      if (!response.success || !response.status) {
+        devLog("Error in updating password:", response.message);
+        showAlert(
+          response.message || "Error updating password. Please try again."
+        );
+        return;
       }
+      setNewPassword("");
+      setConfirmPassword("");
+      setOtp("");
+      setOtpResponse(null);
+      showAlert(response.data.message);
+      router.push("/");
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error updating password:", error.message);
-      }
-      alert("An error occurred while updating the password.");
-    } finally {
-      setLoading(false);
+      devLog("Error updating password:", error.message);
+      showAlert(
+        error.message || "An error occurred while updating the password."
+      );
     }
   };
 
