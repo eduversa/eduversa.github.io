@@ -10,6 +10,8 @@ function Faculty() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [collegeData, setCollegeData] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState("");
+  const [selectedStream, setSelectedStream] = useState("");
   const { showAlert } = useAlert();
   const effectRun = useRef(false);
   const collegeId = 304;
@@ -19,6 +21,7 @@ function Faculty() {
     const authToken = localStorage.getItem("authToken");
     if (effectRun.current) return;
     effectRun.current = true;
+
     const getAllFaculty = async () => {
       const wrappedApiRequest = withLoading(
         apiRequest,
@@ -48,6 +51,7 @@ function Faculty() {
         showAlert(error.message || "Failed to fetch faculty data.");
       }
     };
+
     const getCollegeDetails = async () => {
       const wrappedApiRequest = withLoading(
         apiRequest,
@@ -86,8 +90,20 @@ function Faculty() {
     const fullName = `${faculty.personal_info.first_name || ""} ${
       faculty.personal_info.last_name || ""
     }`.toLowerCase();
-    return fullName.includes(searchQuery.toLowerCase());
+    const matchesName = fullName.includes(searchQuery.toLowerCase());
+
+    const department = faculty.job_info.department || "";
+    const matchesDepartment =
+      selectedStream === "" ||
+      department.toLowerCase() === selectedStream.toLowerCase();
+
+    return matchesName && matchesDepartment;
   });
+
+  const courses = collegeData?.college_courses || [];
+  const streams = selectedCourse
+    ? courses.find((course) => course.code === selectedCourse)?.streams || []
+    : [];
 
   return (
     <Fragment>
@@ -102,6 +118,36 @@ function Faculty() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="search-bar"
         />
+
+        <select
+          value={selectedCourse}
+          onChange={(e) => {
+            setSelectedCourse(e.target.value);
+            setSelectedStream("");
+          }}
+          className="course-dropdown"
+        >
+          <option value="">Select Course</option>
+          {courses.map((course) => (
+            <option key={course._id} value={course.code}>
+              {course.name}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={selectedStream}
+          onChange={(e) => setSelectedStream(e.target.value)}
+          className="stream-dropdown"
+          disabled={!selectedCourse}
+        >
+          <option value="">Select Stream</option>
+          {streams.map((stream) => (
+            <option key={stream._id} value={stream.name}>
+              {stream.name}
+            </option>
+          ))}
+        </select>
 
         <div>
           {filteredFaculties.length > 0 ? (
