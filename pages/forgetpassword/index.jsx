@@ -111,19 +111,21 @@ function ForgetPassword() {
     e.preventDefault();
 
     if (!passwordMatch) {
-      alert("Passwords do not match. Please make sure the passwords match.");
+      showAlert(
+        "Passwords do not match. Please make sure the passwords match."
+      );
       return;
     }
 
     if (!isStrongPassword(newPassword)) {
-      alert(
+      showAlert(
         "Please enter a password that is at least 8 characters long, contains at least one uppercase letter, one lowercase letter, one digit, and one special character."
       );
       return;
     }
 
     if (!otp) {
-      alert("Please enter the OTP.");
+      showAlert("Please enter the OTP sent to your email address.");
       return;
     }
 
