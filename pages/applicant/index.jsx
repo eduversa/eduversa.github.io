@@ -1,8 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { ApplicantLayout } from "@/layout";
-import { getSingleApplicantApi } from "@/functions";
+// import { getSingleApplicantApi } from "@/functions";
 import { AllLoader } from "@/components";
 import Image from "next/image";
+import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
+import { useAlert } from "@/contexts/AlertContext";
 
 function generateClassName(prefix, key) {
   const formattedKey = key
@@ -359,35 +361,44 @@ function renderFields(data, parentKey = "") {
 function ApplicantDashboard() {
   const [profileData, setProfileData] = useState({});
   const [loading, setLoading] = useState(true);
+  const { showAlert } = useAlert();
+  const router = useRouter();
+  const applicantId = localStorage.getItem("userid");
+  const authToken = localStorage.getItem("authToken");
 
   useEffect(() => {
-    const userType = localStorage.getItem("userType");
-
-    if (userType === "applicant") {
-      const applicantId = localStorage.getItem("userid");
-
-      const fetchData = async () => {
-        try {
-          setLoading(true);
-          const response = await getSingleApplicantApi(applicantId);
-
-          if (response.status === false) {
-            alert(response.message);
-            setLoading(false);
-            // ! need to change in future
-            // localStorage.clear();
-            // window.location.href = "/";
-            return;
-          }
-          setProfileData(response.data);
-          setLoading(false);
-        } catch (error) {
-          console.error("Error fetching applicant data:", error.message);
+    const fetchSingleApplicantData = async () => {
+      const wrappedApiRequest = withLoading(
+        apiRequest,
+        setLoading,
+        showAlert,
+        "Login"
+      );
+      try {
+        const response = await wrappedApiRequest(
+          `/applicant/${applicantId}`,
+          "GET",
+          null,
+          authToken,
+          "GetSingleApplicant"
+        );
+        if (!response.success || !response.status) {
+          devLog("Error in fetching single applicant data:", response);
+          showAlert(response.message || "Failed to fetch applicant data");
+          localStorage.clear();
+          router.push("/");
+          return;
         }
-      };
-
-      fetchData();
-    }
+        setProfileData(response.data);
+      } catch (error) {
+        devLog("Error in fetching single applicant data:", error);
+        showAlert(error.message || "Failed to fetch applicant data");
+        localStorage.clear();
+        router.push("/");
+      }
+    };
+    fetchSingleApplicantData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

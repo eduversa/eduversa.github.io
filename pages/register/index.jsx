@@ -79,14 +79,17 @@ function Register() {
         return;
       }
 
-      devLog("Registration success data:", response);
+      // devLog("Registration success data:", response);
       showAlert(
-        "Registration Was Successful! Check Your Email For Login Credentials"
+        "Registration Was Successful! Check Your Email For Login Credentials" ||
+          response.message
       );
       router.push("/");
     } catch (error) {
       devLog("Global Error:", error);
-      showAlert("An unexpected error occurred. Please try again.");
+      showAlert(
+        error.message || "An unexpected error occurred. Please try again."
+      );
     }
   };
 

@@ -83,17 +83,19 @@ function Login() {
 
       if (!response.success || !response.status) {
         devLog("Login error response:", response);
-        showAlert(response.message);
+        showAlert(response.message || "Login failed. Please try again.");
         return;
       }
 
-      devLog("Login success data:", response.data);
+      // devLog("Login success data:", response.data);
       storeUserData(response.data);
 
       navigateUser(response.data.data.type);
     } catch (error) {
       devLog("Global Error:", error);
-      showAlert("An unexpected error occurred. Please try again.");
+      showAlert(
+        error.message || "An unexpected error occurred. Please try again."
+      );
     }
   };
 

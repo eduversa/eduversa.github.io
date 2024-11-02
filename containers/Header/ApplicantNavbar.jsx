@@ -38,14 +38,16 @@ function ApplicantNavbar() {
         return;
       }
 
-      devLog("Logout response:", response);
+      // devLog("Logout response:", response);
       showAlert(response.message);
 
       localStorage.clear();
       router.push("/");
     } catch (error) {
       devLog("Global error:", error);
-      showAlert("An unexpected error occurred. Please try again.");
+      showAlert(
+        error.message || "An unexpected error occurred. Please try again."
+      );
     }
   };
 

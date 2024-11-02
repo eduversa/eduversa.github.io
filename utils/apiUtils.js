@@ -22,6 +22,9 @@ export async function apiRequest(
       case "logout":
         requestBody = null;
         break;
+      case "GetSingleApplicant":
+        requestBody = null;
+        break;
       default:
         requestBody = method !== "GET" ? JSON.stringify(body) : null;
     }
