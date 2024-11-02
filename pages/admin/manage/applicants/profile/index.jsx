@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState, useRef } from "react";
 import { AdminLayout } from "@/layout";
-import { approveApplicantApi } from "@/functions";
 import { AllLoader } from "@/components";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -391,16 +390,12 @@ function ApplicantDashboard() {
         if (!response.success || !response.status) {
           devLog("Error in fetching single applicant data:", response);
           showAlert(response.message || "Failed to fetch applicant data");
-          localStorage.clear();
-          router.push("/");
           return;
         }
         setProfileData(response.data.data);
       } catch (error) {
         devLog("Error in fetching single applicant data:", error);
         showAlert(error.message || "Failed to fetch applicant data");
-        localStorage.clear();
-        router.push("/");
       }
     };
 
@@ -408,34 +403,49 @@ function ApplicantDashboard() {
   }, [router, showAlert]);
 
   async function approveHandler() {
-    const id = localStorage.getItem("selected-applicantId");
-    console.log("Approve applicant with id:", id);
+    const applicantId = localStorage.getItem("selected-applicantId");
+    const authToken = localStorage.getItem("authToken");
+    console.log("Approve applicant with id:", applicantId);
     const confirmApprove = confirm(
       "Are you sure you want to approve this applicant?"
     );
 
     if (confirmApprove) {
+      const wrappedApiRequest = withLoading(
+        apiRequest,
+        setLoading,
+        showAlert,
+        "ApproveApplicant"
+      );
       try {
-        setLoading(true);
-        const response = await approveApplicantApi(id);
-        setLoading(false);
-        alert(response.message);
+        const response = await wrappedApiRequest(
+          `/student/approve?user_id=${applicantId}`,
+          "POST",
+          null,
+          authToken,
+          "ApproveApplicant"
+        );
+        if (!response.success || !response.status) {
+          devLog("Error in approving applicant:", response);
+          showAlert(response.message || "Failed to approve applicant");
+          return;
+        }
+        showAlert(response.message);
         router.push("/admin/manage/applicants");
       } catch (error) {
-        console.error("Error approving applicant:", error);
-        setLoading(false);
-        alert("Error approving applicant. Please try again.");
+        devLog("Error in approving applicant:", error);
+        showAlert(error.message || "Failed to approve applicant");
       }
     }
   }
   async function updateHandler() {
-    // console.log("Approve applicant with id:", id);
-
     try {
       router.push("/admin/manage/applicants/profile/update");
     } catch (error) {
       console.error("Error updating applicant:", error);
-      alert("Error updating applicant. Please try again.");
+      showAlert(
+        error.message || "Failed to update applicant, please try again"
+      );
     }
   }
 

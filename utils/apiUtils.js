@@ -1,4 +1,3 @@
-// Function to handle API requests
 export async function apiRequest(
   endpoint,
   method,
@@ -8,7 +7,7 @@ export async function apiRequest(
 ) {
   try {
     let requestBody;
-    // Construct request body based on routeName
+
     switch (routeName) {
       case "Registration":
         requestBody = JSON.stringify({ email: body.email });
@@ -32,6 +31,9 @@ export async function apiRequest(
         requestBody = null;
         break;
       case "DeleteApplicant":
+        requestBody = null;
+        break;
+      case "ApproveApplicant":
         requestBody = null;
         break;
       default:
@@ -90,7 +92,6 @@ export async function apiRequest(
   }
 }
 
-// Higher-order function to handle loading and alerts
 export function withLoading(
   asyncFunction,
   setLoading,
@@ -129,12 +130,10 @@ export function withLoading(
   };
 }
 
-// Helper to check development environment
 function isDevelopment() {
   return process.env.NODE_ENV === "development";
 }
 
-// Logging function for development mode
 export function devLog(message, data = "") {
   if (isDevelopment()) {
     console.log(message, data);
