@@ -21,6 +21,12 @@ export async function apiRequest(
       case "logout":
         requestBody = null;
         break;
+      case "ForgetPassword":
+        requestBody = JSON.stringify({
+          password: body.password,
+          confirm_password: body.confirm_password,
+        });
+        break;
       case "GenerateOTP":
         requestBody = null;
         break;
