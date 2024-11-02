@@ -28,6 +28,9 @@ export async function apiRequest(
       case "GetAllApplicants":
         requestBody = null;
         break;
+      case "GetCollegeDetails":
+        requestBody = null;
+        break;
       default:
         requestBody = method !== "GET" ? JSON.stringify(body) : null;
     }

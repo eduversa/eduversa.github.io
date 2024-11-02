@@ -22,6 +22,7 @@ function Index() {
   const [searchTerm, setSearchTerm] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const year = new Date().getFullYear();
+  const collegeId = 304;
   const router = useRouter();
   const { showAlert } = useAlert();
   const effectRun = useRef(false);
@@ -58,18 +59,39 @@ function Index() {
         showAlert(error.message || "Failed to fetch applicant data");
       }
     };
-    getApplicantsByYearApi();
-  }, [showAlert, year]);
+    const getCollegeDetailsApi = async () => {
+      const wrappedApiRequest = withLoading(
+        apiRequest,
+        setLoading,
+        showAlert,
+        "GetCollegeDetails"
+      );
+      try {
+        const response = await wrappedApiRequest(
+          `/college/?college_id=${collegeId}`,
+          "GET",
+          null,
+          authToken,
+          "GetCollegeDetails"
+        );
+        if (!response.success || !response.status) {
+          devLog("Error in fetching college details:", response.message);
+          showAlert(response.message || "Failed to fetch college details");
+          return;
+        }
+        setCollegeData(response.data.data);
+      } catch (error) {
+        devLog("Error in fetching college details:", error);
+        showAlert(error.message || "Failed to fetch college details");
+      }
+    };
 
-  useEffect(() => {
-    getCollegeDetailsApi(304)
-      .then((data) => {
-        setCollegeData(data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching college details:", error);
-      });
-  }, []);
+    const onloadHandler = async () => {
+      await getApplicantsByYearApi();
+      await getCollegeDetailsApi();
+    };
+    onloadHandler();
+  }, [showAlert, year]);
 
   const indexOfLastApplicant = currentPage * pageSize;
   const indexOfFirstApplicant = indexOfLastApplicant - pageSize;
