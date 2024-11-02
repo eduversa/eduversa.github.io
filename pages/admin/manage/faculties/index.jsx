@@ -109,15 +109,15 @@ function Faculty() {
     <Fragment>
       <AdminLayout>
         {loading && <AllLoader />}
-        <div className="manage-faculty-container">
-          <h1 className="title">Faculties of Eduversa:</h1>
+        <div className="manage-faculty">
+          <h1 className="manage-faculty__title">Faculties of Eduversa:</h1>
 
           <input
             type="text"
             placeholder="Search by name..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-bar"
+            className="manage-faculty__search-bar"
           />
 
           <select
@@ -126,7 +126,7 @@ function Faculty() {
               setSelectedCourse(e.target.value);
               setSelectedStream("");
             }}
-            className="course-dropdown"
+            className="manage-faculty__course-dropdown"
           >
             <option value="">Select Course</option>
             {courses.map((course) => (
@@ -139,7 +139,7 @@ function Faculty() {
           <select
             value={selectedStream}
             onChange={(e) => setSelectedStream(e.target.value)}
-            className="stream-dropdown"
+            className="manage-faculty__stream-dropdown"
             disabled={!selectedCourse}
           >
             <option value="">Select Stream</option>
@@ -150,48 +150,60 @@ function Faculty() {
             ))}
           </select>
 
-          <div>
+          <div className="manage-faculty__list">
             {filteredFaculties.length > 0 ? (
               filteredFaculties.map((faculty) => (
-                <div key={faculty._id} className="faculty-card">
+                <div key={faculty._id} className="manage-faculty__card">
                   <Image
                     src={faculty.image || placeholderImage}
                     alt="Faculty"
-                    className="faculty-image"
+                    className="manage-faculty__image"
                     width={100}
                     height={100}
                     objectFit="cover"
                   />
-                  <h2>
+                  <h2 className="manage-faculty__name">
                     {faculty.personal_info.first_name || "No Name"}{" "}
                     {faculty.personal_info.last_name || ""}
                   </h2>
-                  <p>Email: {faculty.personal_info.email}</p>
-                  <p>User ID: {faculty.user_id}</p>
-                  <p>
+                  <p className="manage-faculty__email">
+                    Email: {faculty.personal_info.email}
+                  </p>
+                  <p className="manage-faculty__user-id">
+                    User ID: {faculty.user_id}
+                  </p>
+                  <p className="manage-faculty__address">
                     Address:{" "}
                     {faculty.personal_info.present_address.street || "N/A"},{" "}
                     {faculty.personal_info.present_address.city || "N/A"},{" "}
                     {faculty.personal_info.present_address.district || "N/A"},{" "}
                     {faculty.personal_info.present_address.state || "N/A"}
                   </p>
-                  <p>Gender: {faculty.personal_info.gender || "N/A"}</p>
-                  <p>
+                  <p className="manage-faculty__gender">
+                    Gender: {faculty.personal_info.gender || "N/A"}
+                  </p>
+                  <p className="manage-faculty__dob">
                     DOB:{" "}
                     {faculty.personal_info.dob
                       ? new Date(faculty.personal_info.dob).toLocaleDateString()
                       : "N/A"}
                   </p>
-                  <p>Contact: {faculty.personal_info.contact || "N/A"}</p>
-                  <p>Faculty ID: {faculty.job_info.faculty_id}</p>
-                  <p>Room: {faculty.job_info.room || "N/A"}</p>
-                  <p>
+                  <p className="manage-faculty__contact">
+                    Contact: {faculty.personal_info.contact || "N/A"}
+                  </p>
+                  <p className="manage-faculty__faculty-id">
+                    Faculty ID: {faculty.job_info.faculty_id}
+                  </p>
+                  <p className="manage-faculty__room">
+                    Room: {faculty.job_info.room || "N/A"}
+                  </p>
+                  <p className="manage-faculty__department">
                     Department: {faculty.job_info.department || "Not Assigned"}
                   </p>
                 </div>
               ))
             ) : (
-              <p>No faculties found.</p>
+              <p className="manage-faculty__no-results">No faculties found.</p>
             )}
           </div>
         </div>
