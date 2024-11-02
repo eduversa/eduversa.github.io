@@ -21,6 +21,9 @@ export async function apiRequest(
       case "logout":
         requestBody = null;
         break;
+      case "GenerateOTP":
+        requestBody = null;
+        break;
       case "GetCollegeDetails":
         requestBody = null;
         break;

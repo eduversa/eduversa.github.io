@@ -3,8 +3,10 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { AllLoader } from "@/components";
 import { LandingLayout } from "@/layout";
-import { generateOtpApi, resetPasswordApi } from "@/functions";
+import { resetPasswordApi } from "@/functions";
 import Head from "next/head";
+import { useAlert } from "@/contexts/AlertContext";
+import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
 function ForgetPassword() {
   const [inputValue, setInputValue] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -23,35 +25,43 @@ function ForgetPassword() {
   const [newPasswordFocused, setNewPasswordFocused] = useState(false);
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
   const router = useRouter();
+  const { showAlert } = useAlert();
+  const authToken = localStorage.getItem("authToken");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const wrappedApiRequest = withLoading(
+      apiRequest,
+      setLoading,
+      showAlert,
+      "GenerateOTP"
+    );
     try {
-      setLoading(true);
       const userIdOrEmail = inputValue.trim();
 
       if (!userIdOrEmail) {
         alert("Please enter your userId or Email address.");
-        setLoading(false);
         return;
       }
-
-      const otpResponse = await generateOtpApi(userIdOrEmail);
-      if (process.env.NODE_ENV === "development") {
-        console.log(otpResponse);
+      const response = await wrappedApiRequest(
+        `/account/OTP/?query=${userIdOrEmail}`,
+        "PUT",
+        null,
+        authToken,
+        "GenerateOTP"
+      );
+      if (!response.success || !response.status) {
+        devLog("Error in generating OTP:", response.message);
+        showAlert(
+          response.message || "Error generating OTP. Please try again."
+        );
+        return;
       }
-      alert(otpResponse.message);
-
-      if (otpResponse.status) {
-        setOtpResponse(otpResponse);
-      }
+      setOtpResponse(response);
+      showAlert(response.message);
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error generating OTP:", error);
-      }
-      alert(otpResponse.message);
-    } finally {
-      setLoading(false);
+      devLog("Error generating OTP:", error.message);
+      showAlert(error.message || "An error occurred while generating OTP.");
     }
   };
 
