@@ -1,0 +1,115 @@
+.faculty-list {
+  padding: 20px;
+  background-color: #f9f9f9;
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .faculty-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .faculty-title {
+      font-size: 20px;
+      margin: 0;
+      color: #007bff;
+    }
+
+    p {
+      margin: 10px 0;
+
+      strong {
+        font-weight: bold;
+        color: #555;
+      }
+
+      span {
+        color: #666;
+      }
+    }
+
+    .faculty-details {
+      margin-top: 10px;
+
+      .nested-object {
+        margin: 10px 0;
+
+        &.level-0 {
+          padding: 10px;
+          background-color: #f1f1f1;
+          border-radius: 5px;
+        }
+
+        &.level-1 {
+          margin-left: 20px;
+          padding: 8px;
+          border-left: 4px solid #007bff;
+        }
+
+        &.level-2 {
+          margin-left: 30px;
+          padding: 6px;
+          border-left: 4px solid #28a745;
+        }
+      }
+
+      .key-value-pair {
+        margin-bottom: 10px;
+
+        &.level-0 {
+          font-weight: bold;
+        }
+
+        &.level-1 {
+          font-weight: normal;
+          font-style: italic;
+        }
+
+        .heading-level-0 {
+          font-size: 18px;
+          color: #333;
+        }
+
+        .subheading-level-1 {
+          font-size: 16px;
+          color: #555;
+        }
+
+        .value-container {
+          margin-top: 5px;
+          color: #444;
+          span.value-text {
+            color: #666;
+          }
+        }
+      }
+    }
+  }
+
+  .list-level-0 {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      margin-bottom: 10px;
+
+      &.item-level-0 {
+        font-weight: bold;
+        color: #333;
+      }
+
+      &.item-level-1 {
+        font-weight: normal;
+        color: #555;
+      }
+    }
+  }
+}
