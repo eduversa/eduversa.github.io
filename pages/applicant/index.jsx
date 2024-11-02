@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import { ApplicantLayout } from "@/layout";
 import { AllLoader } from "@/components";
 import Image from "next/image";
@@ -365,8 +365,12 @@ function ApplicantDashboard() {
   const router = useRouter();
   const applicantId = localStorage.getItem("userid");
   const authToken = localStorage.getItem("authToken");
+  const effectRun = useRef(false);
 
   useEffect(() => {
+    if (effectRun.current) return;
+    effectRun.current = true;
+
     const fetchSingleApplicantData = async () => {
       const wrappedApiRequest = withLoading(
         apiRequest,
@@ -397,6 +401,7 @@ function ApplicantDashboard() {
         router.push("/");
       }
     };
+
     fetchSingleApplicantData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
