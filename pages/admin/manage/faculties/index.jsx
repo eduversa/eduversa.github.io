@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState, Fragment, useRef } from "react";
 import Image from "next/image";
 import { AdminLayout } from "@/layout";
 import { AllLoader } from "@/components";
@@ -9,11 +9,15 @@ function Faculty() {
   const [faculties, setFaculties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const authToken = localStorage.getItem("authToken");
   const { showAlert } = useAlert();
+  const effectRun = useRef(false);
+  const collegeId = 304;
   const placeholderImage = "/images/placeholder.png";
 
   useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    if (effectRun.current) return;
+    effectRun.current = true;
     const getAllFaculty = async () => {
       const wrappedApiRequest = withLoading(
         apiRequest,
@@ -43,9 +47,39 @@ function Faculty() {
         showAlert(error.message || "Failed to fetch faculty data.");
       }
     };
+    const getCollegeDetails = async () => {
+      const wrappedApiRequest = withLoading(
+        apiRequest,
+        setLoading,
+        showAlert,
+        "GetCollegeDetails"
+      );
+      try {
+        const response = await wrappedApiRequest(
+          `/college/?college_id=${collegeId}`,
+          "GET",
+          null,
+          authToken,
+          "GetCollegeDetails"
+        );
+        if (!response.success || !response.status) {
+          devLog("Error in fetching college details:", response.message);
+          showAlert(response.message || "Failed to fetch college details");
+          return;
+        }
+        setCollegeData(response.data.data);
+      } catch (error) {
+        devLog("Error in fetching college details:", error);
+        showAlert(error.message || "Failed to fetch college details");
+      }
+    };
 
-    getAllFaculty();
-  }, [authToken, showAlert]);
+    const onLoadHandler = async () => {
+      await getAllFaculty();
+      await getCollegeDetails();
+    };
+    onLoadHandler();
+  }, [showAlert]);
 
   const filteredFaculties = faculties.filter((faculty) => {
     const fullName = `${faculty.personal_info.first_name || ""} ${

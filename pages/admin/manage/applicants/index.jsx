@@ -82,12 +82,12 @@ function Index() {
       }
     };
 
-    const onloadHandler = async () => {
+    const onLoadHandler = async () => {
       await getApplicantsByYear();
       await getCollegeDetails();
     };
 
-    onloadHandler();
+    onLoadHandler();
   }, [showAlert, year]);
 
   const indexOfLastApplicant = currentPage * pageSize;
