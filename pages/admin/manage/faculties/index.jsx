@@ -9,6 +9,7 @@ function Faculty() {
   const [faculties, setFaculties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [collegeData, setCollegeData] = useState(null);
   const { showAlert } = useAlert();
   const effectRun = useRef(false);
   const collegeId = 304;
