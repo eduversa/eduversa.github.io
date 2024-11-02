@@ -1,13 +1,15 @@
-import { useEffect, useState, Fragment } from "react";
+import { useEffect, useState, Fragment, useRef } from "react";
 import {
   getApplicantsByYearApi,
   getCollegeDetailsApi,
   deleteSingleApplicantApi,
 } from "@/functions";
-import { AllLoader } from "@/components";
 import Image from "next/image";
 import { AdminLayout } from "@/layout";
 import { useRouter } from "next/router";
+import { AllLoader } from "@/components";
+import { useAlert } from "@/contexts/AlertContext";
+import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
 
 function Index() {
   const [applicants, setApplicants] = useState([]);
@@ -21,22 +23,43 @@ function Index() {
   const [submitted, setSubmitted] = useState(false);
   const year = new Date().getFullYear();
   const router = useRouter();
+  const { showAlert } = useAlert();
+  const effectRun = useRef(false);
+
   useEffect(() => {
-    setLoading(true);
-    getApplicantsByYearApi(year)
-      .then((data) => {
-        if (Array.isArray(data.data)) {
-          setApplicants(data.data);
-        } else {
-          console.error("Applicants data is not an array:", data.data);
+    const authToken = localStorage.getItem("authToken");
+    if (effectRun.current) return;
+    effectRun.current = true;
+
+    const getApplicantsByYearApi = async () => {
+      const wrappedApiRequest = withLoading(
+        apiRequest,
+        setLoading,
+        showAlert,
+        "GetAllApplicants"
+      );
+      try {
+        const response = await wrappedApiRequest(
+          `/applicant/year?year=${year}`,
+          "GET",
+          null,
+          authToken,
+          "GetAllApplicants"
+        );
+
+        if (!response.success || !response.status) {
+          devLog("Error in fetching single applicant data:", response.message);
+          showAlert(response.message || "Failed to fetch applicant data");
+          return;
         }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching applicants:", error);
-        setLoading(false);
-      });
-  }, [year]);
+        setApplicants(response.data.data);
+      } catch (error) {
+        devLog("Error in fetching single applicant data:", error);
+        showAlert(error.message || "Failed to fetch applicant data");
+      }
+    };
+    getApplicantsByYearApi();
+  }, [showAlert, year]);
 
   useEffect(() => {
     getCollegeDetailsApi(304)

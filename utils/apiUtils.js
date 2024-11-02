@@ -25,6 +25,9 @@ export async function apiRequest(
       case "GetSingleApplicant":
         requestBody = null;
         break;
+      case "GetAllApplicants":
+        requestBody = null;
+        break;
       default:
         requestBody = method !== "GET" ? JSON.stringify(body) : null;
     }
