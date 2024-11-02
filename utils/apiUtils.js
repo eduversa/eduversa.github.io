@@ -21,13 +21,13 @@ export async function apiRequest(
       case "logout":
         requestBody = null;
         break;
+      case "GetCollegeDetails":
+        requestBody = null;
+        break;
       case "GetSingleApplicant":
         requestBody = null;
         break;
       case "GetAllApplicants":
-        requestBody = null;
-        break;
-      case "GetCollegeDetails":
         requestBody = null;
         break;
       case "DeleteApplicant":
