@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { ApplicantLayout } from "@/layout";
-// import { getSingleApplicantApi } from "@/functions";
 import { AllLoader } from "@/components";
 import Image from "next/image";
 import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
@@ -157,7 +156,7 @@ function renderFields(data, parentKey = "") {
         "contact",
         // % H3
         "guardian",
-        // & H4
+        // * H4
         "office_address",
         "first_name",
         "middle_name",
