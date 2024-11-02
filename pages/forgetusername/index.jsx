@@ -31,7 +31,6 @@ function ForgetUsername() {
       "GenerateOTP"
     );
     try {
-      setLoading(true);
       const userIdOrEmail = inputValue.trim();
 
       if (!userIdOrEmail) {
@@ -68,31 +67,36 @@ function ForgetUsername() {
   };
 
   const handleVerifyOtp = async () => {
+    const wrappedApiRequest = withLoading(
+      apiRequest,
+      setLoading,
+      showAlert,
+      "ForgetUsername"
+    );
     try {
-      setLoading(true);
       if (!otp) {
-        alert("Please enter the OTP.");
+        showAlert("Please enter the OTP.");
         setLoading(false);
         return;
       }
-      const verifyOtpResponse = await resetUserNameApi(inputValue.trim(), otp);
-      if (process.env.NODE_ENV === "development") {
-        console.log(verifyOtpResponse);
+      const userIdOrEmail = inputValue.trim();
+      const response = await wrappedApiRequest(
+        `/account/userid?query=${userIdOrEmail}&otp=${otp}`,
+        "GET",
+        null,
+        authToken,
+        "ForgetUsername"
+      );
+      if (!response.success || !response.status) {
+        devLog("Error in verifying OTP:", response.message);
+        showAlert(response.message || "Error verifying OTP. Please try again.");
+        return;
       }
-
-      if (verifyOtpResponse.status) {
-        alert(verifyOtpResponse.message);
-        router.push("/");
-      } else {
-        alert("OTP verification failed. Please try again.");
-      }
+      showAlert(response.message || "OTP verified successfully.");
+      router.push("/");
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error verifying OTP:", error);
-      }
-      alert("An error occurred while verifying OTP.");
-    } finally {
-      setLoading(false);
+      devLog("Error verifying OTP:", error.message);
+      showAlert(error.message || "An error occurred while verifying OTP.");
     }
   };
 

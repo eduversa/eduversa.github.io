@@ -27,6 +27,9 @@ export async function apiRequest(
           confirm_password: body.confirm_password,
         });
         break;
+      case "ForgetUsername":
+        requestBody = null;
+        break;
       case "GenerateOTP":
         requestBody = null;
         break;
