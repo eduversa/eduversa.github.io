@@ -5,6 +5,7 @@ import { AllLoader } from "@/components";
 import Image from "next/image";
 import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
 import { useAlert } from "@/contexts/AlertContext";
+import { useRouter } from "next/router";
 
 function generateClassName(prefix, key) {
   const formattedKey = key
@@ -372,11 +373,11 @@ function ApplicantDashboard() {
         apiRequest,
         setLoading,
         showAlert,
-        "Login"
+        "GetSingleApplicant"
       );
       try {
         const response = await wrappedApiRequest(
-          `/applicant/${applicantId}`,
+          `/applicant/?user_id=${applicantId}`,
           "GET",
           null,
           authToken,
@@ -389,7 +390,7 @@ function ApplicantDashboard() {
           router.push("/");
           return;
         }
-        setProfileData(response.data);
+        setProfileData(response.data.data);
       } catch (error) {
         devLog("Error in fetching single applicant data:", error);
         showAlert(error.message || "Failed to fetch applicant data");

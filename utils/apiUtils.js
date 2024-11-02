@@ -31,7 +31,7 @@ export async function apiRequest(
 
     const headers = {
       "Content-Type": "application/json",
-      ...(authToken && { authorization: authToken }),
+      authorization: authToken,
     };
 
     if (isDevelopment()) {
