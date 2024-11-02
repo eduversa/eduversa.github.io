@@ -8,9 +8,11 @@ import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
 function Faculty() {
   const [faculties, setFaculties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
   const authToken = localStorage.getItem("authToken");
   const { showAlert } = useAlert();
   const placeholderImage = "/images/placeholder.png";
+
   useEffect(() => {
     const getAllFaculty = async () => {
       const wrappedApiRequest = withLoading(
@@ -45,14 +47,30 @@ function Faculty() {
     getAllFaculty();
   }, [authToken, showAlert]);
 
+  const filteredFaculties = faculties.filter((faculty) => {
+    const fullName = `${faculty.personal_info.first_name || ""} ${
+      faculty.personal_info.last_name || ""
+    }`.toLowerCase();
+    return fullName.includes(searchQuery.toLowerCase());
+  });
+
   return (
     <Fragment>
       <AdminLayout>
         {loading && <AllLoader />}
         <h1 className="title">Faculties of Eduversa:</h1>
+
+        <input
+          type="text"
+          placeholder="Search by name..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-bar"
+        />
+
         <div>
-          {faculties.length > 0 ? (
-            faculties.map((faculty) => (
+          {filteredFaculties.length > 0 ? (
+            filteredFaculties.map((faculty) => (
               <div key={faculty._id} className="faculty-card">
                 <Image
                   src={faculty.image || placeholderImage}
