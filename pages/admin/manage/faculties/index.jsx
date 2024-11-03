@@ -17,6 +17,7 @@ function Faculty() {
   const [currentPage, setCurrentPage] = useState(1);
   const [favorites, setFavorites] = useState([]);
   const [cache, setCache] = useState({});
+  const [showFavorites, setShowFavorites] = useState(false); // New state for favorite filter
   const { showAlert } = useAlert();
   const effectRun = useRef(false);
   const collegeId = 304;
@@ -122,8 +123,14 @@ function Faculty() {
       selectedGender === "" || gender === selectedGender.toLowerCase();
     const matchesDepartment =
       selectedStream === "" || department === selectedStream.toLowerCase();
+    const matchesFavorites = !showFavorites || favorites.includes(faculty._id); // Filter based on favorites
 
-    return (matchesName || matchesEmail) && matchesGender && matchesDepartment;
+    return (
+      (matchesName || matchesEmail) &&
+      matchesGender &&
+      matchesDepartment &&
+      matchesFavorites
+    );
   });
 
   const totalPages = Math.ceil(filteredFaculties.length / pageSize);
@@ -249,6 +256,15 @@ function Faculty() {
             <option value="other">Other</option>
           </select>
 
+          <label>
+            <input
+              type="checkbox"
+              checked={showFavorites}
+              onChange={() => setShowFavorites((prev) => !prev)}
+            />
+            Show Only Favorites
+          </label>
+
           <button
             onClick={exportFacultyDataAsCSV}
             className="manage-faculty__export-button"
@@ -268,43 +284,34 @@ function Faculty() {
                 />
               ))
             ) : (
-              <p className="manage-faculty__no-results">No Results Found</p>
+              <p>No faculties found.</p>
             )}
           </div>
 
-          <div className="manage-faculty__pagination-container">
-            <div className="manage-faculty__page-size-select">
-              <select
-                value={pageSize}
-                onChange={handleChangePageSize}
-                className="manage-faculty__select-pagesize"
+          <div className="manage-faculty__pagination">
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index}
+                onClick={() => paginate(index + 1)}
+                disabled={index + 1 === currentPage}
+                className={`pagination-button ${
+                  index + 1 === currentPage ? "active" : ""
+                }`}
               >
-                <option value={9}>9</option>
-                <option value={18}>18</option>
-                <option value={27}>27</option>
-                <option value={36}>36</option>
-              </select>
-            </div>
-            <div className="manage-faculty__pagination">
-              <ul className="manage-faculty__pagination-list">
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <li
-                    key={index}
-                    className={`manage-faculty__pagination-item ${
-                      currentPage === index + 1 ? "active" : ""
-                    }`}
-                  >
-                    <button
-                      className="manage-faculty__pagination-link"
-                      onClick={() => paginate(index + 1)}
-                    >
-                      {index + 1}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                {index + 1}
+              </button>
+            ))}
           </div>
+
+          <select
+            value={pageSize}
+            onChange={handleChangePageSize}
+            className="manage-faculty__page-size-dropdown"
+          >
+            <option value={9}>9 per page</option>
+            <option value={18}>18 per page</option>
+            <option value={27}>27 per page</option>
+          </select>
         </div>
       </AdminLayout>
     </Fragment>
