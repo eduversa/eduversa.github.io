@@ -9,6 +9,11 @@ const FacultyIdCard = ({
 }) => {
   const facultyId = faculty.user_id;
 
+  const handleViewProfile = () => {
+    localStorage.setItem("selectedFacultyId", facultyId);
+    console.log(localStorage.getItem("selectedFacultyId"));
+  };
+
   return (
     <div className="faculty-card">
       <Image
@@ -49,6 +54,14 @@ const FacultyIdCard = ({
         aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
       >
         {isFavorite ? "Unfavorite" : "Favorite"}
+      </button>
+
+      <button
+        onClick={handleViewProfile}
+        className="view-profile-button"
+        aria-label="View Profile"
+      >
+        View Profile
       </button>
     </div>
   );
