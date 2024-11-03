@@ -1,4 +1,11 @@
-import { useEffect, useState, Fragment, useRef } from "react";
+import {
+  useEffect,
+  useState,
+  Fragment,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import { AdminLayout } from "@/layout";
 import { AllLoader } from "@/components";
 import { useAlert } from "@/contexts/AlertContext";
@@ -104,34 +111,39 @@ function Faculty() {
     setFavorites(savedFavorites);
   }, [showAlert, cache]);
 
-  const filteredFaculties = faculties.filter((faculty) => {
-    const fullName = `${faculty.personal_info.first_name || ""} ${
-      faculty.personal_info.last_name || ""
-    }`.toLowerCase();
+  const filteredFaculties = useMemo(() => {
+    return faculties.filter((faculty) => {
+      const fullName = `${faculty.personal_info.first_name || ""} ${
+        faculty.personal_info.last_name || ""
+      }`.toLowerCase();
+      const email = (faculty.personal_info?.email || "").toLowerCase();
+      const gender = (faculty.personal_info.gender || "").toLowerCase();
+      const department = (faculty.job_info.department || "").toLowerCase();
 
-    const email = (
-      (faculty.personal_info && faculty.personal_info.email) ||
-      ""
-    ).toLowerCase();
+      const matchesName = fullName.includes(searchQuery.toLowerCase());
+      const matchesEmail = email.includes(searchQuery.toLowerCase());
+      const matchesGender =
+        selectedGender === "" || gender === selectedGender.toLowerCase();
+      const matchesDepartment =
+        selectedStream === "" || department === selectedStream.toLowerCase();
+      const matchesFavorites =
+        !showFavorites || favorites.includes(faculty._id);
 
-    const gender = (faculty.personal_info.gender || "").toLowerCase();
-    const department = (faculty.job_info.department || "").toLowerCase();
-
-    const matchesName = fullName.includes(searchQuery.toLowerCase());
-    const matchesEmail = email.includes(searchQuery.toLowerCase());
-    const matchesGender =
-      selectedGender === "" || gender === selectedGender.toLowerCase();
-    const matchesDepartment =
-      selectedStream === "" || department === selectedStream.toLowerCase();
-    const matchesFavorites = !showFavorites || favorites.includes(faculty._id);
-
-    return (
-      (matchesName || matchesEmail) &&
-      matchesGender &&
-      matchesDepartment &&
-      matchesFavorites
-    );
-  });
+      return (
+        (matchesName || matchesEmail) &&
+        matchesGender &&
+        matchesDepartment &&
+        matchesFavorites
+      );
+    });
+  }, [
+    faculties,
+    searchQuery,
+    selectedGender,
+    selectedStream,
+    showFavorites,
+    favorites,
+  ]);
 
   const totalPages = Math.ceil(filteredFaculties.length / pageSize);
   const paginatedFaculties = filteredFaculties.slice(
@@ -149,11 +161,11 @@ function Faculty() {
     setCurrentPage(1);
   };
 
-  const paginate = (pageNumber) => {
+  const paginate = useCallback((pageNumber) => {
     setCurrentPage(pageNumber);
-  };
+  }, []);
 
-  const toggleFavorite = (facultyId) => {
+  const toggleFavorite = useCallback((facultyId) => {
     setFavorites((prevFavorites) => {
       const updatedFavorites = prevFavorites.includes(facultyId)
         ? prevFavorites.filter((id) => id !== facultyId)
@@ -162,9 +174,9 @@ function Faculty() {
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
       return updatedFavorites;
     });
-  };
+  }, []);
 
-  const exportFacultyDataAsCSV = () => {
+  const exportFacultyDataAsCSV = useCallback(() => {
     const headers = [
       "First Name",
       "Last Name",
@@ -174,21 +186,17 @@ function Faculty() {
       "Course",
       "Stream",
     ];
-
-    const rows = filteredFaculties.map((faculty) => {
-      return [
-        faculty.personal_info.first_name || "",
-        faculty.personal_info.last_name || "",
-        faculty.personal_info?.email || "",
-        faculty.personal_info.gender || "",
-        faculty.job_info.department || "",
-        faculty.job_info.course || "",
-        faculty.job_info.stream || "",
-      ];
-    });
+    const rows = filteredFaculties.map((faculty) => [
+      faculty.personal_info.first_name || "",
+      faculty.personal_info.last_name || "",
+      faculty.personal_info?.email || "",
+      faculty.personal_info.gender || "",
+      faculty.job_info.department || "",
+      faculty.job_info.course || "",
+      faculty.job_info.stream || "",
+    ]);
 
     const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
-
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -198,7 +206,7 @@ function Faculty() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-  };
+  }, [filteredFaculties]);
 
   return (
     <Fragment>
@@ -225,7 +233,7 @@ function Faculty() {
           >
             <option value="">Select Course</option>
             {courses.map((course) => (
-              <option key={Math.random()} value={course.code}>
+              <option key={course.name} value={course.code}>
                 {course.name}
               </option>
             ))}
@@ -239,7 +247,7 @@ function Faculty() {
           >
             <option value="">Select Stream</option>
             {streams.map((stream) => (
-              <option key={Math.random()} value={stream.name}>
+              <option key={stream.name} value={stream.name}>
                 {stream.name}
               </option>
             ))}
@@ -289,6 +297,12 @@ function Faculty() {
           </div>
 
           <div className="manage-faculty__pagination">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
             {[...Array(totalPages)].map((_, index) => (
               <button
                 key={index}
@@ -301,6 +315,12 @@ function Faculty() {
                 {index + 1}
               </button>
             ))}
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
           </div>
 
           <select
