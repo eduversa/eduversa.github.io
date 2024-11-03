@@ -17,11 +17,11 @@ function Faculty() {
   const [currentPage, setCurrentPage] = useState(1);
   const [favorites, setFavorites] = useState([]);
   const [cache, setCache] = useState({});
-  const [showFavorites, setShowFavorites] = useState(false); // New state for favorite filter
+  const [showFavorites, setShowFavorites] = useState(false);
   const { showAlert } = useAlert();
   const effectRun = useRef(false);
   const collegeId = 304;
-  const placeholderImage = "/images/placeholder.png";
+  const placeholderImage = "/user.png";
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -123,7 +123,7 @@ function Faculty() {
       selectedGender === "" || gender === selectedGender.toLowerCase();
     const matchesDepartment =
       selectedStream === "" || department === selectedStream.toLowerCase();
-    const matchesFavorites = !showFavorites || favorites.includes(faculty._id); // Filter based on favorites
+    const matchesFavorites = !showFavorites || favorites.includes(faculty._id);
 
     return (
       (matchesName || matchesEmail) &&
@@ -225,7 +225,7 @@ function Faculty() {
           >
             <option value="">Select Course</option>
             {courses.map((course) => (
-              <option key={course._id} value={course.code}>
+              <option key={Math.random()} value={course.code}>
                 {course.name}
               </option>
             ))}
@@ -239,7 +239,7 @@ function Faculty() {
           >
             <option value="">Select Stream</option>
             {streams.map((stream) => (
-              <option key={stream._id} value={stream.name}>
+              <option key={Math.random()} value={stream.name}>
                 {stream.name}
               </option>
             ))}

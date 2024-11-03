@@ -6,6 +6,7 @@ const FacultyIdCard = ({
   isFavorite,
   toggleFavorite,
 }) => {
+  const facultyId = faculty.user_id;
   return (
     <div className="faculty-card">
       <Image
@@ -40,7 +41,6 @@ const FacultyIdCard = ({
       <p>Room: {faculty.job_info.room || "N/A"}</p>
       <p>Department: {faculty.job_info.department || "Not Assigned"}</p>
 
-      {/* Favorite Button */}
       <button
         onClick={toggleFavorite}
         className={`favorite-button ${isFavorite ? "favorited" : ""}`}
