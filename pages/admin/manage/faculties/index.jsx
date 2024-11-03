@@ -96,7 +96,11 @@ function Faculty() {
         await getCollegeDetails();
       }
     };
+
     onLoadHandler();
+
+    const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(savedFavorites);
   }, [showAlert, cache]);
 
   const filteredFaculties = faculties.filter((faculty) => {
@@ -143,11 +147,17 @@ function Faculty() {
   };
 
   const toggleFavorite = (facultyId) => {
-    setFavorites((prevFavorites) =>
-      prevFavorites.includes(facultyId)
+    setFavorites((prevFavorites) => {
+      const updatedFavorites = prevFavorites.includes(facultyId)
         ? prevFavorites.filter((id) => id !== facultyId)
-        : [...prevFavorites, facultyId]
-    );
+        : [...prevFavorites, facultyId];
+
+      if (typeof window !== "undefined") {
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      }
+
+      return updatedFavorites;
+    });
   };
 
   const exportFacultyDataAsCSV = () => {
@@ -237,9 +247,9 @@ function Faculty() {
             className="manage-faculty__gender-dropdown"
           >
             <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
           </select>
 
           <button

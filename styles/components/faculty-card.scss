@@ -42,4 +42,14 @@
       color: #6c757d;
     }
   }
+  .favorite-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: blue; /* Change to your desired color */
+  }
+
+  .favorite-button.favorited {
+    color: red; /* Change to your desired color for favorited state */
+  }
 }

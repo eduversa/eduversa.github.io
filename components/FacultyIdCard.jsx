@@ -1,6 +1,11 @@
 import Image from "next/image";
 
-const FacultyIdCard = ({ faculty, placeholderImage }) => {
+const FacultyIdCard = ({
+  faculty,
+  placeholderImage,
+  isFavorite,
+  toggleFavorite,
+}) => {
   return (
     <div className="faculty-card">
       <Image
@@ -15,7 +20,7 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
         {faculty.personal_info.first_name || "No Name"}{" "}
         {faculty.personal_info.last_name || ""}
       </h2>
-      <p>Email: {faculty.personal_info.email}</p>
+      <p>Email: {faculty.personal_info?.email || "N/A"}</p>
       <p>User ID: {faculty.user_id}</p>
       <p>
         Address: {faculty.personal_info.present_address.street || "N/A"},{" "}
@@ -34,6 +39,14 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
       <p>Faculty ID: {faculty.job_info.faculty_id}</p>
       <p>Room: {faculty.job_info.room || "N/A"}</p>
       <p>Department: {faculty.job_info.department || "Not Assigned"}</p>
+
+      {/* Favorite Button */}
+      <button
+        onClick={toggleFavorite}
+        className={`favorite-button ${isFavorite ? "favorited" : ""}`}
+      >
+        {isFavorite ? "Unfavorite" : "Favorite"}
+      </button>
     </div>
   );
 };
