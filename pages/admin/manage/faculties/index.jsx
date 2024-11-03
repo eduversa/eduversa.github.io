@@ -187,15 +187,15 @@ function Faculty() {
     <Fragment>
       <AdminLayout>
         {loading && <AllLoader />}
-        <div className="manage-faculty-container">
-          <h1 className="title">Faculties of Eduversa:</h1>
+        <div className="manage-faculty">
+          <h1 className="manage-faculty__title">Faculties of Eduversa:</h1>
 
           <input
             type="text"
             placeholder="Search by name or email..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-bar"
+            className="manage-faculty__search-bar"
           />
 
           <select
@@ -204,7 +204,7 @@ function Faculty() {
               setSelectedCourse(e.target.value);
               setSelectedStream("");
             }}
-            className="course-dropdown"
+            className="manage-faculty__course-dropdown"
           >
             <option value="">Select Course</option>
             {courses.map((course) => (
@@ -217,7 +217,7 @@ function Faculty() {
           <select
             value={selectedStream}
             onChange={(e) => setSelectedStream(e.target.value)}
-            className="stream-dropdown"
+            className="manage-faculty__stream-dropdown"
             disabled={!selectedCourse}
           >
             <option value="">Select Stream</option>
@@ -231,7 +231,7 @@ function Faculty() {
           <select
             value={selectedGender}
             onChange={(e) => setSelectedGender(e.target.value)}
-            className="gender-dropdown"
+            className="manage-faculty__gender-dropdown"
           >
             <option value="">Select Gender</option>
             <option value="male">Male</option>
@@ -239,11 +239,14 @@ function Faculty() {
             <option value="other">Other</option>
           </select>
 
-          <button onClick={exportFacultyDataAsCSV} className="export-button">
+          <button
+            onClick={exportFacultyDataAsCSV}
+            className="manage-faculty__export-button"
+          >
             Export Data as CSV
           </button>
 
-          <div>
+          <div className="manage-faculty__list">
             {paginatedFaculties.length > 0 ? (
               paginatedFaculties.map((faculty) => (
                 <FacultyIdCard
@@ -252,14 +255,15 @@ function Faculty() {
                   placeholderImage={placeholderImage}
                   toggleFavorite={toggleFavorite}
                   isFavorite={favorites.includes(faculty._id)}
+                  className="manage-faculty__faculty-card"
                 />
               ))
             ) : (
-              <p>No faculties found.</p>
+              <p className="manage-faculty__no-results">No faculties found.</p>
             )}
           </div>
 
-          <div className="manage-faculty__page-management">
+          <div className="manage-faculty__pagination-container">
             <div className="manage-faculty__page-size-select">
               <select
                 value={pageSize}
