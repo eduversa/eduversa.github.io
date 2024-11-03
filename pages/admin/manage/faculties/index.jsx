@@ -152,10 +152,7 @@ function Faculty() {
         ? prevFavorites.filter((id) => id !== facultyId)
         : [...prevFavorites, facultyId];
 
-      if (typeof window !== "undefined") {
-        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      }
-
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
       return updatedFavorites;
     });
   };
@@ -247,9 +244,9 @@ function Faculty() {
             className="manage-faculty__gender-dropdown"
           >
             <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
           </select>
 
           <button
@@ -265,14 +262,13 @@ function Faculty() {
                 <FacultyIdCard
                   key={faculty._id}
                   faculty={faculty}
-                  placeholderImage={placeholderImage}
-                  toggleFavorite={toggleFavorite}
                   isFavorite={favorites.includes(faculty._id)}
-                  className="manage-faculty__faculty-card"
+                  toggleFavorite={() => toggleFavorite(faculty._id)}
+                  placeholderImage={placeholderImage}
                 />
               ))
             ) : (
-              <p className="manage-faculty__no-results">No faculties found.</p>
+              <p className="manage-faculty__no-results">No Results Found</p>
             )}
           </div>
 
