@@ -26,148 +26,95 @@ const CourseInfo = ({
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [streams, setStreams] = useState([]);
-  const [showStream, setShowStream] = useState(false);
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    getCollegeDetails();
-  }, []);
 
   useEffect(() => {
-    if (Array.isArray(courses)) {
-      const course = courses.find((course) => course.name === selectedCourse);
-      if (course) {
-        setStreams(course.streams);
-      }
-    }
-  }, [selectedCourse, courses]);
-
-  async function getCollegeDetails() {
-    setLoading(true);
-    try {
-      const collegeData = await getCollegeDetailsApi(304);
-      if (process.env.NODE_ENV === "development") {
+    const fetchCollegeDetails = async () => {
+      setLoading(true);
+      try {
         const collegeData = await getCollegeDetailsApi(304);
-        console.log(collegeData);
+        setCourses(collegeData.data.college_courses);
+
+        if (formData.course_info.course_name) {
+          const savedCourse = collegeData.data.college_courses.find(
+            course => course.name === formData.course_info.course_name
+          );
+          if (savedCourse) {
+            setSelectedCourse(formData.course_info.course_name);
+            setStreams(savedCourse.streams || []);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching college details:", error);
+      } finally {
         setLoading(false);
       }
-      setCourses(collegeData.data.college_courses);
-      setLoading(false);
-    } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.log(error);
-      }
-    }
-  }
+    };
+
+    fetchCollegeDetails();
+  }, [formData.course_info.course_name]);
 
   useEffect(() => {
-    const savedCourseInfo = JSON.parse(localStorage.getItem("course_info"));
-    if (savedCourseInfo) {
-      const { course_name, stream, admission_year } = savedCourseInfo;
-
-      setFormData((prevFormData) => ({
+    if (!formData.course_info.admission_year) {
+      setFormData(prevFormData => ({
         ...prevFormData,
-        course_info: savedCourseInfo,
+        course_info: {
+          ...prevFormData.course_info,
+          admission_year: currentYear,
+        },
       }));
-
-      setSelectedCourse(course_name);
-      setShowStream(true);
-
-      if (Array.isArray(courses)) {
-        const selectedCourse = courses.find(
-          (course) => course.name === course_name
-        );
-        if (selectedCourse) {
-          setStreams(selectedCourse.streams);
-
-          setFormData((prevFormData) => ({
-            ...prevFormData,
-            course_info: {
-              ...prevFormData.course_info,
-              duration: selectedCourse.duration,
-            },
-          }));
-        }
-      }
     }
-  }, [setFormData, courses]);
+  }, [currentYear, formData.course_info.admission_year, setFormData]);
 
   const handleCourseChange = (event) => {
-    handleChange(event);
     const selectedCourseName = event.target.value;
-    const selectedCourse = courses.find(
+    const selectedCourseData = courses.find(
       (course) => course.name === selectedCourseName
     );
+
+    setSelectedCourse(selectedCourseName);
+    setStreams(selectedCourseData?.streams || []);
 
     setFormData((prevFormData) => ({
       ...prevFormData,
       course_info: {
         ...prevFormData.course_info,
         course_name: selectedCourseName,
-        duration: selectedCourse ? selectedCourse.duration : "",
+        duration: selectedCourseData?.duration || "",
+        stream: "", 
       },
     }));
-
-    setSelectedCourse(selectedCourseName);
-    setShowStream(true);
-
-    if (selectedCourse) {
-      setStreams(selectedCourse.streams);
-    }
   };
 
-  useEffect(() => {
-    // const savedCourseInfo = JSON.parse(localStorage.getItem("course_info"));
-    // if (savedCourseInfo){
-    //   setFormData((prevFormData) => ({
-    //     ...prevFormData,
-    //     course_info: savedCourseInfo,
-    //   }));
-    // }
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      course_info: {
-        ...prevFormData.course_info,
-        admission_year: currentYear,
-      },
-    }));
-  }, [setFormData, currentYear]);
-
-  async function onSubmitHandler() {
-
-    // check to see if tehre are any changes to the form
+  const onSubmitHandler = async () => {
     const initialFormData = localStorage.getItem('applicant_profile');
     if (initialFormData === JSON.stringify(formData)) {
       return true;
     }
+
     setLoading(true);
-    localStorage.setItem(
-      "applicant_profile",
-      JSON.stringify(formData)
-    );
-    const data = JSON.stringify(formData.course_info);
-    const type = "course";
-    // const userid = localStorage.getItem("userid");
     try {
-      const response = await updateAppplicantData(userid, type, data);
+      const response = await updateAppplicantData(
+        userid,
+        "course",
+        JSON.stringify(formData.course_info)
+      );
+
       if (!response.status) {
         alert(response.message);
-        setLoading(false);
         return false;
       }
-      if (process.env.NODE_ENV === "development") {
-        console.log(response);
-      }
+
       localStorage.setItem("applicant_profile", JSON.stringify(formData));
       alert(response.message);
-      setLoading(false);
       return true;
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.log(error);
-      }
+      console.error("Error updating course info:", error);
       return false;
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <Fragment>
@@ -175,11 +122,11 @@ const CourseInfo = ({
       <form
         className="page--content"
         onSubmit={async (event) => {
-            event.preventDefault();
-            const success = await onSubmitHandler();
-            if (success) {
-              handleNextClick();
-            }
+          event.preventDefault();
+          const success = await onSubmitHandler();
+          if (success) {
+            handleNextClick();
+          }
         }}
       >
         <div className="grid-col-2">
@@ -191,27 +138,23 @@ const CourseInfo = ({
             required
             options={[
               { key: "Select your course", value: "" },
-              ...(Array.isArray(courses)
-                ? courses.map((course) => ({
-                    key: course.name,
-                    value: course.name,
-                  }))
-                : []),
+              ...courses.map((course) => ({
+                key: course.name,
+                value: course.name,
+              })),
             ]}
           />
           <Number
             label="Duration"
             name="course_info.duration"
             value={formData.course_info.duration}
-            onChange={handleCourseChange}
+            onChange={handleChange}
             readOnly
             required
           />
         </div>
         <div className="grid-col-2">
-          {!showStream ? (
-            ""
-          ) : (
+          {selectedCourse && (
             <Select
               label="Stream"
               name="course_info.stream"
@@ -220,7 +163,7 @@ const CourseInfo = ({
               required
               options={[
                 { key: "Select your stream", value: "" },
-                ...(Array.isArray(streams) && streams.length > 0
+                ...(streams.length > 0
                   ? streams.map((stream) => ({
                       key: stream.name,
                       value: stream.name,
@@ -234,7 +177,7 @@ const CourseInfo = ({
             label="Admission Year"
             name="course_info.admission_year"
             onChange={handleChange}
-            value={formData.course_info.year ? formData.course_info.year : currentYear}
+            value={formData.course_info.admission_year ? formData.course_info.admission_year : currentYear}
             readOnly
             required
           />

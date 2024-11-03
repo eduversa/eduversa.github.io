@@ -79,6 +79,8 @@ const PersonalInfo = ({
   const controller = useRef(null);
 
   useEffect(() => {
+    let isSubscribed = true;
+    
     if (presentPincode.length === 6 && presentPincode !== prevPresentPincode) {
       if (fetching) {
         controller.current.abort();
@@ -93,24 +95,25 @@ const PersonalInfo = ({
         setPresentPincodeError,
         controller.current
       ).then(() => {
-        setFetching(false);
-        setPrevPresentPincode(presentPincode);
+        if (isSubscribed) {
+          setFetching(false);
+          setPrevPresentPincode(presentPincode);
+        }
       });
     }
-  }, [
-    presentPincode,
-    setPresentPincodeError,
-    formData,
-    handleChange,
-    prevPresentPincode,
-    fetching,
-  ]);
+  
+    return () => {
+      isSubscribed = false;
+      if (controller.current) {
+        controller.current.abort();
+      }
+    };
+  }, [presentPincode, setPresentPincodeError, formData, handleChange, prevPresentPincode, fetching]);
 
   useEffect(() => {
-    if (
-      permanentPincode.length === 6 &&
-      permanentPincode !== prevPermanentPincode
-    ) {
+    let isSubscribed = true;
+    
+    if (permanentPincode.length === 6 && permanentPincode !== prevPermanentPincode) {
       if (fetching) {
         controller.current.abort();
       }
@@ -124,18 +127,20 @@ const PersonalInfo = ({
         setPermanentPincodeError,
         controller.current
       ).then(() => {
-        setFetching(false);
-        setPrevPermanentPincode(permanentPincode);
+        if (isSubscribed) {
+          setFetching(false);
+          setPrevPresentPincode(permanentPincode);
+        }
       });
     }
-  }, [
-    permanentPincode,
-    setPermanentPincodeError,
-    formData,
-    handleChange,
-    prevPermanentPincode,
-    fetching,
-  ]);
+  
+    return () => {
+      isSubscribed = false;
+      if (controller.current) {
+        controller.current.abort();
+      }
+    };
+  }, [permanentPincode, setPermanentPincodeError, formData, handleChange, prevPermanentPincode, fetching]);
 
   useEffect(() => {
     setAreAddressesSame(formData.personal_info.are_addresses_same);

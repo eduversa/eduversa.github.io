@@ -9,7 +9,7 @@ import {
 import { getSingleApplicantApi } from "@/functions";
 
 const ApplicantForm = ({userid}) => {
-  let year = new Date().getFullYear().toString();
+  let currYear = new Date().getFullYear().toString();
 
   const initialFormData = useMemo(
     () => ({
@@ -98,11 +98,11 @@ const ApplicantForm = ({userid}) => {
         course_name: "",
         duration: "",
         stream: "",
-        admission_year: { year },
+        admission_year: currYear ,
       },
       image: null,
     }),
-    [year]
+    [currYear]
   );
   const [formData, setFormData] = useState(initialFormData);
 

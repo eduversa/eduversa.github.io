@@ -208,9 +208,9 @@ const FamilyInfo = ({
             required
             options={[
               { key: "Select Relation", value: "" },
-              { key: "Father", value: "others" },
+              { key: "Father", value: "father" },
               { key: "Mother", value: "mother" },
-              { key: "Others", value: "father" },
+              { key: "Others", value: "other" },
             ]}
           />
           <TextNoNumber
