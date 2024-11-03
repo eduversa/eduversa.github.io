@@ -30,3 +30,4 @@ export { default as ManageApp } from "./ManageApp";
 export { default as CommonMeta } from "./CommonMeta";
 
 export { default as IdCard } from "./IdCard";
+export { default as FacultyIdCard } from "./FacultyIdCard";

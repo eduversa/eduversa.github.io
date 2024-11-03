@@ -48,6 +48,9 @@ export async function apiRequest(
       case "ApproveApplicant":
         requestBody = null;
         break;
+      case "GetAllFaculties":
+        requestBody = null;
+        break;
       default:
         requestBody = method !== "GET" ? JSON.stringify(body) : null;
     }

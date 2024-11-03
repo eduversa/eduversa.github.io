@@ -1,9 +1,9 @@
 import { useEffect, useState, Fragment, useRef } from "react";
-import Image from "next/image";
 import { AdminLayout } from "@/layout";
 import { AllLoader } from "@/components";
 import { useAlert } from "@/contexts/AlertContext";
 import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
+import { FacultyIdCard } from "@/components";
 
 function Faculty() {
   const [faculties, setFaculties] = useState([]);
@@ -129,15 +129,15 @@ function Faculty() {
     <Fragment>
       <AdminLayout>
         {loading && <AllLoader />}
-        <div className="manage-faculty">
-          <h1 className="manage-faculty__title">Faculties of Eduversa:</h1>
+        <div className="manage-faculty-container">
+          <h1 className="title">Faculties of Eduversa:</h1>
 
           <input
             type="text"
             placeholder="Search by name..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="manage-faculty__search-bar"
+            className="search-bar"
           />
 
           <select
@@ -146,7 +146,7 @@ function Faculty() {
               setSelectedCourse(e.target.value);
               setSelectedStream("");
             }}
-            className="manage-faculty__course-dropdown"
+            className="course-dropdown"
           >
             <option value="">Select Course</option>
             {courses.map((course) => (
@@ -159,7 +159,7 @@ function Faculty() {
           <select
             value={selectedStream}
             onChange={(e) => setSelectedStream(e.target.value)}
-            className="manage-faculty__stream-dropdown"
+            className="stream-dropdown"
             disabled={!selectedCourse}
           >
             <option value="">Select Stream</option>
@@ -170,60 +170,17 @@ function Faculty() {
             ))}
           </select>
 
-          <div className="manage-faculty__list">
-            {paginatedFaculties.length > 0 ? (
-              paginatedFaculties.map((faculty) => (
-                <div key={faculty._id} className="manage-faculty__card">
-                  <Image
-                    src={faculty.image || placeholderImage}
-                    alt="Faculty"
-                    className="manage-faculty__image"
-                    width={100}
-                    height={100}
-                    objectFit="cover"
-                  />
-                  <h2 className="manage-faculty__name">
-                    {faculty.personal_info.first_name || "No Name"}{" "}
-                    {faculty.personal_info.last_name || ""}
-                  </h2>
-                  <p className="manage-faculty__email">
-                    Email: {faculty.personal_info.email}
-                  </p>
-                  <p className="manage-faculty__user-id">
-                    User ID: {faculty.user_id}
-                  </p>
-                  <p className="manage-faculty__address">
-                    Address:{" "}
-                    {faculty.personal_info.present_address.street || "N/A"},{" "}
-                    {faculty.personal_info.present_address.city || "N/A"},{" "}
-                    {faculty.personal_info.present_address.district || "N/A"},{" "}
-                    {faculty.personal_info.present_address.state || "N/A"}
-                  </p>
-                  <p className="manage-faculty__gender">
-                    Gender: {faculty.personal_info.gender || "N/A"}
-                  </p>
-                  <p className="manage-faculty__dob">
-                    DOB:{" "}
-                    {faculty.personal_info.dob
-                      ? new Date(faculty.personal_info.dob).toLocaleDateString()
-                      : "N/A"}
-                  </p>
-                  <p className="manage-faculty__contact">
-                    Contact: {faculty.personal_info.contact || "N/A"}
-                  </p>
-                  <p className="manage-faculty__faculty-id">
-                    Faculty ID: {faculty.job_info.faculty_id}
-                  </p>
-                  <p className="manage-faculty__room">
-                    Room: {faculty.job_info.room || "N/A"}
-                  </p>
-                  <p className="manage-faculty__department">
-                    Department: {faculty.job_info.department || "Not Assigned"}
-                  </p>
-                </div>
+          <div>
+            {filteredFaculties.length > 0 ? (
+              filteredFaculties.map((faculty) => (
+                <FacultyIdCard
+                  key={faculty._id}
+                  faculty={faculty}
+                  placeholderImage={placeholderImage}
+                />
               ))
             ) : (
-              <p className="manage-faculty__no-results">No faculties found.</p>
+              <p>No faculties found.</p>
             )}
           </div>
           <div className="manage-faculty__page-management">
