@@ -164,7 +164,7 @@ function Faculty() {
       return [
         faculty.personal_info.first_name || "",
         faculty.personal_info.last_name || "",
-        (faculty.contact_info && faculty.contact_info.email) || "",
+        faculty.contact_info?.email || "",
         faculty.personal_info.gender || "",
         faculty.job_info.department || "",
         faculty.job_info.course || "",
@@ -179,7 +179,9 @@ function Faculty() {
     const link = document.createElement("a");
     link.href = url;
     link.download = "faculty_data.csv";
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
 
@@ -270,14 +272,15 @@ function Faculty() {
                 onChange={handleChangePageSize}
                 className="manage-faculty__select-pagesize"
               >
-                <option value={9}>9 cards per page</option>
-                <option value={24}>24 cards per page</option>
-                <option value={50}>50 cards per page</option>
+                <option value={9}>9</option>
+                <option value={18}>18</option>
+                <option value={27}>27</option>
+                <option value={36}>36</option>
               </select>
             </div>
             <div className="manage-faculty__pagination">
               <ul className="manage-faculty__pagination-list">
-                {Array.from({ length: totalPages }).map((_, index) => (
+                {Array.from({ length: totalPages }, (_, index) => (
                   <li
                     key={index}
                     className={`manage-faculty__pagination-item ${
