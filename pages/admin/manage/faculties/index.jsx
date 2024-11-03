@@ -12,8 +12,11 @@ function Faculty() {
   const [collegeData, setCollegeData] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
+  const [selectedGender, setSelectedGender] = useState("");
   const [pageSize, setPageSize] = useState(9);
   const [currentPage, setCurrentPage] = useState(1);
+  const [favorites, setFavorites] = useState([]);
+  const [cache, setCache] = useState({});
   const { showAlert } = useAlert();
   const effectRun = useRef(false);
   const collegeId = 304;
@@ -48,6 +51,10 @@ function Faculty() {
           return;
         }
         setFaculties(response.data.data);
+        setCache((prevCache) => ({
+          ...prevCache,
+          faculties: response.data.data,
+        }));
       } catch (error) {
         devLog("Error in getting faculties:", error);
         showAlert(error.message || "Failed to fetch faculty data.");
@@ -82,30 +89,39 @@ function Faculty() {
     };
 
     const onLoadHandler = async () => {
-      await getAllFaculty();
-      await getCollegeDetails();
+      if (cache.faculties) {
+        setFaculties(cache.faculties);
+      } else {
+        await getAllFaculty();
+        await getCollegeDetails();
+      }
     };
     onLoadHandler();
-  }, [showAlert]);
+  }, [showAlert, cache]);
 
   const filteredFaculties = faculties.filter((faculty) => {
     const fullName = `${faculty.personal_info.first_name || ""} ${
       faculty.personal_info.last_name || ""
     }`.toLowerCase();
+
+    const email = (
+      (faculty.contact_info && faculty.contact_info.email) ||
+      ""
+    ).toLowerCase();
+    const gender = (faculty.personal_info.gender || "").toLowerCase();
+    const department = (faculty.job_info.department || "").toLowerCase();
+
     const matchesName = fullName.includes(searchQuery.toLowerCase());
-
-    const department = faculty.job_info.department || "";
+    const matchesEmail = email.includes(searchQuery.toLowerCase());
+    const matchesGender =
+      selectedGender === "" || gender === selectedGender.toLowerCase();
     const matchesDepartment =
-      selectedStream === "" ||
-      department.toLowerCase() === selectedStream.toLowerCase();
+      selectedStream === "" || department === selectedStream.toLowerCase();
 
-    return matchesName && matchesDepartment;
+    return (matchesName || matchesEmail) && matchesGender && matchesDepartment;
   });
 
-  // Calculate total pages based on filtered faculties and page size
   const totalPages = Math.ceil(filteredFaculties.length / pageSize);
-
-  // Get the current page of faculties to display
   const paginatedFaculties = filteredFaculties.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
@@ -117,12 +133,54 @@ function Faculty() {
     : [];
 
   const handleChangePageSize = (e) => {
-    setPageSize(Number(e.target.value)); // Update page size
-    setCurrentPage(1); // Reset to first page
+    setPageSize(Number(e.target.value));
+    setCurrentPage(1);
   };
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+  const toggleFavorite = (facultyId) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.includes(facultyId)
+        ? prevFavorites.filter((id) => id !== facultyId)
+        : [...prevFavorites, facultyId]
+    );
+  };
+
+  const exportFacultyDataAsCSV = () => {
+    const headers = [
+      "First Name",
+      "Last Name",
+      "Email",
+      "Gender",
+      "Department",
+      "Course",
+      "Stream",
+    ];
+
+    const rows = filteredFaculties.map((faculty) => {
+      return [
+        faculty.personal_info.first_name || "",
+        faculty.personal_info.last_name || "",
+        (faculty.contact_info && faculty.contact_info.email) || "",
+        faculty.personal_info.gender || "",
+        faculty.job_info.department || "",
+        faculty.job_info.course || "",
+        faculty.job_info.stream || "",
+      ];
+    });
+
+    const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "faculty_data.csv";
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -134,7 +192,7 @@ function Faculty() {
 
           <input
             type="text"
-            placeholder="Search by name..."
+            placeholder="Search by name or email..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="search-bar"
@@ -170,19 +228,37 @@ function Faculty() {
             ))}
           </select>
 
+          <select
+            value={selectedGender}
+            onChange={(e) => setSelectedGender(e.target.value)}
+            className="gender-dropdown"
+          >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+
+          <button onClick={exportFacultyDataAsCSV} className="export-button">
+            Export Data as CSV
+          </button>
+
           <div>
-            {filteredFaculties.length > 0 ? (
-              filteredFaculties.map((faculty) => (
+            {paginatedFaculties.length > 0 ? (
+              paginatedFaculties.map((faculty) => (
                 <FacultyIdCard
                   key={faculty._id}
                   faculty={faculty}
                   placeholderImage={placeholderImage}
+                  toggleFavorite={toggleFavorite}
+                  isFavorite={favorites.includes(faculty._id)}
                 />
               ))
             ) : (
               <p>No faculties found.</p>
             )}
           </div>
+
           <div className="manage-faculty__page-management">
             <div className="manage-faculty__page-size-select">
               <select
