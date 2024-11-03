@@ -17,6 +17,7 @@
 @import "admin/scanner";
 @import "admin/dashboard";
 @import "admin/manageStudent";
+@import "admin/manageFaculties";
 // student
 @import "student/dashboard";
 
@@ -28,3 +29,4 @@
 @import "createRoutine/periodCell";
 
 @import "createSubject/subject";
+@import "routine/routineLayout";
