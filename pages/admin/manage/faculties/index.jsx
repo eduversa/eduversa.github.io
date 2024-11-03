@@ -12,6 +12,8 @@ function Faculty() {
   const [collegeData, setCollegeData] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedStream, setSelectedStream] = useState("");
+  const [pageSize, setPageSize] = useState(9);
+  const [currentPage, setCurrentPage] = useState(1);
   const { showAlert } = useAlert();
   const effectRun = useRef(false);
   const collegeId = 304;
@@ -100,10 +102,28 @@ function Faculty() {
     return matchesName && matchesDepartment;
   });
 
+  // Calculate total pages based on filtered faculties and page size
+  const totalPages = Math.ceil(filteredFaculties.length / pageSize);
+
+  // Get the current page of faculties to display
+  const paginatedFaculties = filteredFaculties.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
+
   const courses = collegeData?.college_courses || [];
   const streams = selectedCourse
     ? courses.find((course) => course.code === selectedCourse)?.streams || []
     : [];
+
+  const handleChangePageSize = (e) => {
+    setPageSize(Number(e.target.value)); // Update page size
+    setCurrentPage(1); // Reset to first page
+  };
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <Fragment>
@@ -151,8 +171,8 @@ function Faculty() {
           </select>
 
           <div className="manage-faculty__list">
-            {filteredFaculties.length > 0 ? (
-              filteredFaculties.map((faculty) => (
+            {paginatedFaculties.length > 0 ? (
+              paginatedFaculties.map((faculty) => (
                 <div key={faculty._id} className="manage-faculty__card">
                   <Image
                     src={faculty.image || placeholderImage}
@@ -205,6 +225,38 @@ function Faculty() {
             ) : (
               <p className="manage-faculty__no-results">No faculties found.</p>
             )}
+          </div>
+          <div className="manage-faculty__page-management">
+            <div className="manage-faculty__page-size-select">
+              <select
+                value={pageSize}
+                onChange={handleChangePageSize}
+                className="manage-faculty__select-pagesize"
+              >
+                <option value={9}>9 cards per page</option>
+                <option value={24}>24 cards per page</option>
+                <option value={50}>50 cards per page</option>
+              </select>
+            </div>
+            <div className="manage-faculty__pagination">
+              <ul className="manage-faculty__pagination-list">
+                {Array.from({ length: totalPages }).map((_, index) => (
+                  <li
+                    key={index}
+                    className={`manage-faculty__pagination-item ${
+                      currentPage === index + 1 ? "active" : ""
+                    }`}
+                  >
+                    <button
+                      className="manage-faculty__pagination-link"
+                      onClick={() => paginate(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </AdminLayout>
