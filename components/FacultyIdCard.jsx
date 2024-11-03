@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Image from "next/image";
 
 const FacultyIdCard = ({
@@ -7,11 +8,12 @@ const FacultyIdCard = ({
   toggleFavorite,
 }) => {
   const facultyId = faculty.user_id;
+
   return (
     <div className="faculty-card">
       <Image
         src={faculty.image || placeholderImage}
-        alt="Faculty"
+        alt={`${faculty.personal_info.first_name || "No Name"}'s Image`}
         className="faculty-image"
         width={100}
         height={100}
@@ -24,10 +26,10 @@ const FacultyIdCard = ({
       <p>Email: {faculty.personal_info?.email || "N/A"}</p>
       <p>User ID: {faculty.user_id}</p>
       <p>
-        Address: {faculty.personal_info.present_address.street || "N/A"},{" "}
-        {faculty.personal_info.present_address.city || "N/A"},{" "}
-        {faculty.personal_info.present_address.district || "N/A"},{" "}
-        {faculty.personal_info.present_address.state || "N/A"}
+        Address: {faculty.personal_info.present_address?.street || "N/A"},{" "}
+        {faculty.personal_info.present_address?.city || "N/A"},{" "}
+        {faculty.personal_info.present_address?.district || "N/A"},{" "}
+        {faculty.personal_info.present_address?.state || "N/A"}
       </p>
       <p>Gender: {faculty.personal_info.gender || "N/A"}</p>
       <p>
@@ -44,11 +46,41 @@ const FacultyIdCard = ({
       <button
         onClick={toggleFavorite}
         className={`favorite-button ${isFavorite ? "favorited" : ""}`}
+        aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
       >
         {isFavorite ? "Unfavorite" : "Favorite"}
       </button>
     </div>
   );
+};
+
+FacultyIdCard.propTypes = {
+  faculty: PropTypes.shape({
+    user_id: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    personal_info: PropTypes.shape({
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
+      present_address: PropTypes.shape({
+        street: PropTypes.string,
+        city: PropTypes.string,
+        district: PropTypes.string,
+        state: PropTypes.string,
+      }),
+      gender: PropTypes.string,
+      dob: PropTypes.string,
+      contact: PropTypes.string,
+    }),
+    job_info: PropTypes.shape({
+      faculty_id: PropTypes.string,
+      room: PropTypes.string,
+      department: PropTypes.string,
+    }),
+  }).isRequired,
+  placeholderImage: PropTypes.string.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
 };
 
 export default FacultyIdCard;
