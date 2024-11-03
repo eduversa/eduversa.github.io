@@ -105,9 +105,10 @@ function Faculty() {
     }`.toLowerCase();
 
     const email = (
-      (faculty.contact_info && faculty.contact_info.email) ||
+      (faculty.personal_info && faculty.personal_info.email) ||
       ""
     ).toLowerCase();
+
     const gender = (faculty.personal_info.gender || "").toLowerCase();
     const department = (faculty.job_info.department || "").toLowerCase();
 
@@ -164,7 +165,7 @@ function Faculty() {
       return [
         faculty.personal_info.first_name || "",
         faculty.personal_info.last_name || "",
-        faculty.contact_info?.email || "",
+        faculty.personal_info?.email || "",
         faculty.personal_info.gender || "",
         faculty.job_info.department || "",
         faculty.job_info.course || "",
