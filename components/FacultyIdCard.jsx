@@ -1,4 +1,3 @@
-// FacultyIdCard.jsx
 import Image from "next/image";
 
 const FacultyIdCard = ({ faculty, placeholderImage }) => {
