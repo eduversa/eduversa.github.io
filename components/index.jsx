@@ -1,5 +1,7 @@
 export { default as TypingText } from "./TypingText";
 export { default as ApplicantForm } from "./ApplicantForm/ApplicantForm";
+export { default as AlertModal } from "./AlertModal";
+
 // Loading Components
 export { default as Circle } from "./Loading/Circle";
 export { default as Default } from "./Loading/Default";
@@ -28,3 +30,4 @@ export { default as ManageApp } from "./ManageApp";
 export { default as CommonMeta } from "./CommonMeta";
 
 export { default as IdCard } from "./IdCard";
+export { default as FacultyIdCard } from "./FacultyIdCard";

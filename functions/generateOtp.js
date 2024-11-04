@@ -37,3 +37,5 @@ const generateOtpApi = async (userIdOrEmail) => {
 };
 
 export default generateOtpApi;
+
+

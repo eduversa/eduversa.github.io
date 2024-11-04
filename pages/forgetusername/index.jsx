@@ -3,83 +3,100 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
 import { AllLoader } from "@/components";
-import { generateOtpApi, resetUserNameApi } from "@/functions";
+import { resetUserNameApi } from "@/functions";
 import Head from "next/head";
+import { useAlert } from "@/contexts/AlertContext";
+import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
+
 function ForgetUsername() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [otp, setOtp] = useState("");
   const [otpResponse, setOtpResponse] = useState(null);
+  const { showAlert } = useAlert();
 
   function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
   const handleSubmit = async (e) => {
+    const authToken = localStorage.getItem("authToken");
     e.preventDefault();
 
+    const wrappedApiRequest = withLoading(
+      apiRequest,
+      setLoading,
+      showAlert,
+      "GenerateOTP"
+    );
     try {
-      setLoading(true);
       const userIdOrEmail = inputValue.trim();
 
       if (!userIdOrEmail) {
-        alert("Please enter your Email address.");
+        showAlert("Please enter your Email address.");
         setLoading(false);
         return;
       }
 
       if (!isValidEmail(userIdOrEmail)) {
-        alert("Please enter a valid Email address.");
+        showAlert("Please enter a valid Email address.");
         setLoading(false);
         return;
       }
-
-      const otpResponse = await generateOtpApi(userIdOrEmail);
-      if (process.env.NODE_ENV === "development") {
-        console.log(otpResponse);
+      const response = await wrappedApiRequest(
+        `/account/OTP/?query=${userIdOrEmail}`,
+        "PUT",
+        null,
+        authToken,
+        "GenerateOTP"
+      );
+      if (!response.success || !response.status) {
+        devLog("Error in generating OTP:", response.message);
+        showAlert(
+          response.message || "Error generating OTP. Please try again."
+        );
+        return;
       }
-      alert(otpResponse.message);
-
-      if (otpResponse.status) {
-        setOtpResponse(otpResponse);
-      }
+      setOtpResponse(response);
+      showAlert(response.message);
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error generating OTP:", error);
-      }
-      alert("An error occurred while generating OTP.");
-    } finally {
-      setLoading(false);
+      devLog("Error generating OTP:", error.message);
+      showAlert(error.message || "An error occurred while generating OTP.");
     }
   };
 
   const handleVerifyOtp = async () => {
+    const wrappedApiRequest = withLoading(
+      apiRequest,
+      setLoading,
+      showAlert,
+      "ForgetUsername"
+    );
     try {
-      setLoading(true);
       if (!otp) {
-        alert("Please enter the OTP.");
+        showAlert("Please enter the OTP.");
         setLoading(false);
         return;
       }
-      const verifyOtpResponse = await resetUserNameApi(inputValue.trim(), otp);
-      if (process.env.NODE_ENV === "development") {
-        console.log(verifyOtpResponse);
+      const userIdOrEmail = inputValue.trim();
+      const response = await wrappedApiRequest(
+        `/account/userid?query=${userIdOrEmail}&otp=${otp}`,
+        "GET",
+        null,
+        authToken,
+        "ForgetUsername"
+      );
+      if (!response.success || !response.status) {
+        devLog("Error in verifying OTP:", response.message);
+        showAlert(response.message || "Error verifying OTP. Please try again.");
+        return;
       }
-
-      if (verifyOtpResponse.status) {
-        alert(verifyOtpResponse.message);
-        router.push("/");
-      } else {
-        alert("OTP verification failed. Please try again.");
-      }
+      showAlert(response.message || "OTP verified successfully.");
+      router.push("/");
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error verifying OTP:", error);
-      }
-      alert("An error occurred while verifying OTP.");
-    } finally {
-      setLoading(false);
+      devLog("Error verifying OTP:", error.message);
+      showAlert(error.message || "An error occurred while verifying OTP.");
     }
   };
 
