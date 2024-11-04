@@ -34,27 +34,31 @@ const fetchAddressFromPincode = async (
           .filter((value) => Boolean(value) && value !== "NA")
           .join(", ");
 
-        let updatedFormData = { ...formData };
-        let currentLevel = updatedFormData;
-        const addressTypeKeys = addressType.split(".");
-        for (let i = 0; i < addressTypeKeys.length; i++) {
-          if (i === addressTypeKeys.length - 1) {
-            currentLevel[addressTypeKeys[i]] = {
-              ...currentLevel[addressTypeKeys[i]],
-              street: street,
-              city: postOffice.Region !== "NA" ? postOffice.Region : "",
-              district: postOffice.District !== "NA" ? postOffice.District : "",
-              state: postOffice.State !== "NA" ? postOffice.State : "",
-            };
-          } else {
-            currentLevel[addressTypeKeys[i]] = {
-              ...currentLevel[addressTypeKeys[i]],
-            };
-            currentLevel = currentLevel[addressTypeKeys[i]];
-          }
-        }
+        handleChange({
+          target: {
+            name: `${addressType}.street`,
+            value: street,
+          },
+        });
+        handleChange({
+          target: {
+            name: `${addressType}.city`,
+            value: postOffice.Region !== "NA" ? postOffice.Region : "",
+          },
+        });
+        handleChange({
+          target: {
+            name: `${addressType}.district`,
+            value: postOffice.District !== "NA" ? postOffice.District : "",
+          },
+        });
+        handleChange({
+          target: {
+            name: `${addressType}.state`,
+            value: postOffice.State !== "NA" ? postOffice.State : "",
+          },
+        });
 
-        handleChange({ target: { name: "formData", value: updatedFormData } });
         setPincodeError(false);
       }
     } else {

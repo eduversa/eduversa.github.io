@@ -16,6 +16,7 @@ import {
 } from "../inputComponent/InputComponent";
 import fetchAddressFromPincode from "../inputComponent/fetchAddressFromPincode";
 import { updateAppplicantData } from "@/functions";
+import AddressComponent from "../inputComponent/AddressComponent";
 
 const FamilyInfo = ({
   formData,
@@ -31,12 +32,8 @@ const FamilyInfo = ({
   officePincodeError,
   setOfficePincodeError,
 }) => {
-  const [officePincode, setOfficePincode] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const [fetching, setFetching] = useState(false);
-  const controller = useRef(null);
-  const [prevOfficePincode, setPrevOfficePincode] = useState("");
+  const [loading, setLoading] = useState(false);
 
   //fn to change the fields of guardian based on the relation field
   const handleRelationChange = (event) => {
@@ -70,26 +67,6 @@ const FamilyInfo = ({
     }
   }, [formData.family_info, handleChange]);
 
-  useEffect(() => {
-    if (officePincode.length === 6 && officePincode !== prevOfficePincode) {
-      if (fetching) {
-        controller.current.abort();
-      }
-      setFetching(true);
-      controller.current = new AbortController();
-      fetchAddressFromPincode(
-        formData,
-        handleChange,
-        "family_info.guardian.office_address",
-        officePincode,
-        setOfficePincodeError,
-        controller.current
-      ).then(() => {
-        setFetching(false);
-        setPrevOfficePincode(officePincode);
-      });
-    }
-  }, [officePincode, setOfficePincodeError, formData, handleChange, prevOfficePincode, fetching]);
 
   async function onSubmitHandler() {
 
@@ -277,51 +254,14 @@ const FamilyInfo = ({
           />
         </div>
         <h4 className="sub-sub-heading">Office Address</h4>{" "}
-        <div>
-          <Text
-            label="Street"
-            name="family_info.guardian.office_address.street"
-            value={formData.family_info.guardian.office_address.street}
-            onChange={handleChange}
-          />
-
-          <div className="grid-col-2">
-            <Pincode
-              label="Pincode"
-              name="family_info.guardian.office_address.pincode"
-              value={formData.family_info.guardian.office_address.pincode}
-              onChange={(e) => {
-                handleChange(e);
-                if (e.target.value.length === 6) {
-                  setOfficePincode(e.target.value);
-                  setOfficePincodeError(false);
-                }
-              }}
-              className={officePincodeError ? "invalid" : ""}
-            />
-            <Text
-              label="City"
-              name="family_info.guardian.office_address.city"
-              value={formData.family_info.guardian.office_address.city}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="grid-col-2">
-            <Text
-              label="District"
-              name="family_info.guardian.office_address.district"
-              value={formData.family_info.guardian.office_address.district}
-              onChange={handleChange}
-            />
-            <Text
-              label="State"
-              name="family_info.guardian.office_address.state"
-              value={formData.family_info.guardian.office_address.state}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
+        <AddressComponent
+          addressPath="family_info.guardian.office_address"
+          formData={formData}
+          handleChange={handleChange}
+          pincodeError={officePincodeError}
+          setPincodeError={setOfficePincodeError}
+          required
+        />
         <FormButtons
           handlePreviousClick={handlePreviousClick}
           clearFormData={() => clearFormData(currentStep)}

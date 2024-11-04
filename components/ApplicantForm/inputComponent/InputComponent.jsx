@@ -233,6 +233,7 @@ export const Pan = ({ label, name, value, required, ...props }) => {
         value={value}
         pattern="^[A-Z]{5}[0-9]{4}[A-Z]{1}$"
         onKeyDown={preventSpace}
+        minLength={10}
         maxLength={10}
         required={required}
         {...props}
@@ -279,7 +280,7 @@ export const DateInput = ({ label, name, value, required, ...props }) => {
   );
 };
 
-export const Select = ({ label, name, value, options, ...props }) => {
+export const Select = ({ label, name, value, options, required, ...props }) => {
   return (
     <div className="inputs">
       <label htmlFor={name}>
