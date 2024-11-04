@@ -51,6 +51,9 @@ export async function apiRequest(
       case "GetAllFaculties":
         requestBody = null;
         break;
+      case "GetSinglefaculty":
+        requestBody = null;
+        break;
       default:
         requestBody = method !== "GET" ? JSON.stringify(body) : null;
     }
