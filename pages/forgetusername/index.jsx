@@ -15,13 +15,13 @@ function ForgetUsername() {
   const [otp, setOtp] = useState("");
   const [otpResponse, setOtpResponse] = useState(null);
   const { showAlert } = useAlert();
-  const authToken = localStorage.getItem("authToken");
 
   function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
   const handleSubmit = async (e) => {
+    const authToken = localStorage.getItem("authToken");
     e.preventDefault();
 
     const wrappedApiRequest = withLoading(

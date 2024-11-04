@@ -25,9 +25,9 @@ function ForgetPassword() {
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
   const router = useRouter();
   const { showAlert } = useAlert();
-  const authToken = localStorage.getItem("authToken");
 
   const handleSubmit = async (e) => {
+    const authToken = localStorage.getItem("authToken");
     e.preventDefault();
     const wrappedApiRequest = withLoading(
       apiRequest,
