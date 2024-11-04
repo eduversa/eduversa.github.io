@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import {
   Text,
   Email,
@@ -7,8 +7,24 @@ import {
   Name,
   TextNoNumber,
 } from '../ApplicantForm/inputComponent/InputComponent';
+import AddressComponent from '../ApplicantForm/inputComponent/AddressComponent';
 
 const StudentUpdateReqForm = ({ userid, userData }) => {
+  const addressFields = {
+    'personal_info.present_address': {
+      label: 'Personal Info - Present Address',
+      fields: ['street', 'pincode', 'city', 'district', 'state']
+    },
+    'personal_info.permanent_address': {
+      label: 'Personal Info - Permanent Address',
+      fields: ['street', 'pincode', 'city', 'district', 'state']
+    },
+    'family_info.guardian.office_address': {
+      label: 'Family Info - Guardian - Office Address',
+      fields: ['street', 'pincode', 'city', 'district', 'state']
+    }
+  };
+
   const initialOptions = [
     {
       value: 'personal_info.email',
@@ -21,54 +37,14 @@ const StudentUpdateReqForm = ({ userid, userData }) => {
       type: 'phone',
     },
     {
-      value: 'personal_info.present_address.street',
-      label: 'Personal Info - Present Address - Street',
-      type: 'text',
+      value: 'personal_info.present_address',
+      label: 'Personal Info - Present Address',
+      type: 'address',
     },
     {
-      value: 'personal_info.present_address.pincode',
-      label: 'Personal Info - Present Address - Pincode',
-      type: 'pincode',
-    },
-    {
-      value: 'personal_info.present_address.city',
-      label: 'Personal Info - Present Address - City',
-      type: 'text',
-    },
-    {
-      value: 'personal_info.present_address.district',
-      label: 'Personal Info - Present Address - District',
-      type: 'text',
-    },
-    {
-      value: 'personal_info.present_address.state',
-      label: 'Personal Info - Present Address - State',
-      type: 'text',
-    },
-    {
-      value: 'personal_info.permanent_address.street',
-      label: 'Personal Info - Permanent Address - Street',
-      type: 'text',
-    },
-    {
-      value: 'personal_info.permanent_address.pincode',
-      label: 'Personal Info - Permanent Address - Pincode',
-      type: 'pincode',
-    },
-    {
-      value: 'personal_info.permanent_address.city',
-      label: 'Personal Info - Permanent Address - City',
-      type: 'text',
-    },
-    {
-      value: 'personal_info.permanent_address.district',
-      label: 'Personal Info - Permanent Address - District',
-      type: 'text',
-    },
-    {
-      value: 'personal_info.permanent_address.state',
-      label: 'Personal Info - Permanent Address - State',
-      type: 'text',
+      value: 'personal_info.permanent_address',
+      label: 'Personal Info - Permanent Address',
+      type: 'address',
     },
     {
       value: 'family_info.father.email',
@@ -131,29 +107,9 @@ const StudentUpdateReqForm = ({ userid, userData }) => {
       type: 'text',
     },
     {
-      value: 'family_info.guardian.office_address.street',
-      label: 'Family Info - Guardian - Office Address - Street',
-      type: 'text',
-    },
-    {
-      value: 'family_info.guardian.office_address.pincode',
-      label: 'Family Info - Guardian - Office Address - Pincode',
-      type: 'pincode',
-    },
-    {
-      value: 'family_info.guardian.office_address.city',
-      label: 'Family Info - Guardian - Office Address - City',
-      type: 'text',
-    },
-    {
-      value: 'family_info.guardian.office_address.district',
-      label: 'Family Info - Guardian - Office Address - District',
-      type: 'text',
-    },
-    {
-      value: 'family_info.guardian.office_address.state',
-      label: 'Family Info - Guardian - Office Address - State',
-      type: 'text',
+      value: 'family_info.guardian.office_address',
+      label: 'Family Info - Guardian - Office Address',
+      type: 'address',
     },
   ];
 
@@ -168,6 +124,8 @@ const StudentUpdateReqForm = ({ userid, userData }) => {
 
   const [updateFields, setUpdateFields] = useState([]);
   const [availableOptions, setAvailableOptions] = useState(initialOptions);
+  const [pincodeErrors, setPincodeErrors] = useState({});
+  const [consentDocument, setConsentDocument] = useState(null); 
 
   const getNestedValue = (obj, path) => {
     try {
@@ -216,10 +174,14 @@ const StudentUpdateReqForm = ({ userid, userData }) => {
       }
     }
     setUpdateFields((prev) => prev.filter((_, i) => i !== index));
+    setPincodeErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors[index];
+      return newErrors;
+    });
   };
 
   const handleFieldSelect = (index, selectedValue) => {
-    // console.log(index, selectedValue)
     setUpdateFields((prevFields) => {
       const updatedFields = [...prevFields];
       const currentField = updatedFields[index];
@@ -238,11 +200,21 @@ const StudentUpdateReqForm = ({ userid, userData }) => {
       }
 
       const oldValue = getNestedValue(userData, selectedValue);
+      const selectedOption = initialOptions.find(opt => opt.value === selectedValue);
+      
       updatedFields[index] = {
         ...currentField,
         field: selectedValue,
         oldValue: oldValue,
-        newValue: '',
+        newValue: selectedOption?.type === 'address' ? {
+          street: '',
+          pincode: '',
+          city: '',
+          district: '',
+          state: ''
+        } : '',
+        type: selectedOption?.type,
+        document: null
       };
       return updatedFields;
     });
@@ -252,17 +224,39 @@ const StudentUpdateReqForm = ({ userid, userData }) => {
     );
   };
 
-  // useEffect(() => {
-  //   console.log("UpdateFields:", updateFields);
-  //   console.log("AvailableOptions:", availableOptions);
-  // }, [updateFields, availableOptions]);
-
-  const handleValueChange = (index, value) => {
+  const handleValueChange = (index, value, subfield = null) => {
     setUpdateFields((prev) =>
-      prev.map((field, i) =>
-        i === index ? { ...field, newValue: value } : field
-      )
+      prev.map((field, i) => {
+        if (i === index) {
+          if (field.type === 'address') {
+            return {
+              ...field,
+              newValue: {
+                ...field.newValue,
+                [subfield]: value
+              }
+            };
+          }
+          return { ...field, newValue: value };
+        }
+        return field;
+      })
     );
+  };
+  
+  const handleDocumentUpload = (index, file) => {
+    setUpdateFields((prev) =>
+      prev.map((field, i) => {
+        if (i === index) {
+          return { ...field, document: file };
+        }
+        return field;
+      })
+    );
+  };
+  
+  const handleConsentDocumentUpload = (file) => {
+    setConsentDocument(file);
   };
 
   const handleSubmit = (e) => {
@@ -274,29 +268,60 @@ const StudentUpdateReqForm = ({ userid, userData }) => {
     }
 
     for (const field of updateFields) {
-      if (!field.newValue) {
+      if (field.type === 'address') {
+        const addressConfig = addressFields[field.field];
+        const hasEmptyFields = addressConfig.fields.some(subfield => 
+          !field.newValue[subfield]
+        );
+        if (hasEmptyFields) {
+          alert(`Please fill all address fields for ${getLabelByValue(field.field)}`);
+          return;
+        }
+        
+        if (!field.document) {
+          alert(`Please upload a verification document for ${getLabelByValue(field.field)}`);
+          return;
+        }
+
+      } else if (!field.newValue) {
         alert(`${getLabelByValue(field.field)} is empty`);
         return;
       }
-      if (field.newValue === field.oldValue) {
+
+      if (JSON.stringify(field.newValue) === JSON.stringify(field.oldValue)) {
         alert(`New value is same as the old value in ${getLabelByValue(field.field)}`);
         return;
       }
     }
 
+    if (Object.values(pincodeErrors).some(error => error)) {
+      alert('Please fix the pincode errors before submitting');
+      return;
+    }
+
+    if (!consentDocument) {
+      alert('Please upload the consent document before submitting');
+      return;
+    }
+
+    const updatedData = {
+      'fields': updateFields,
+      'consent': consentDocument, 
+    }
     if (process.env.NODE_ENV === 'development') {
-      console.log('Update Data:', updateFields);
+      // console.log('Update Data:', updateFields, 'Consent Document:', consentDocument);
+      console.log('Updated Data:', updatedData)
     }
 
     alert('Form submitted successfully');
   };
 
-  const renderInput = (type, value, onChange, label) => {
+  const renderInput = (type, value, onChange, label, field = null, index) => {
     const props = {
       label: label || 'New Value',
       value: value || '',
       onChange: (e) => onChange(e.target.value),
-      required: true
+      required: true,
     };
 
     switch (type) {
@@ -304,23 +329,45 @@ const StudentUpdateReqForm = ({ userid, userData }) => {
         return <Email {...props} />;
       case 'phone':
         return <PhoneNumber {...props} />;
-      case 'pincode':
-        return <Pincode {...props} />;
       case 'name':
         return <Name {...props} />;
+      case 'address':
+        if (!field) return null;
+        return (
+          <Fragment>
+            <label className='address-label-main'>New Value:</label>
+            <AddressComponent
+              addressPath={`updateFields.${index}.newValue`}
+              formData={{ updateFields }}
+              handleChange={(e) => {
+                const fieldName = e.target.name.split('.').pop();
+                handleValueChange(index, e.target.value, fieldName);
+              }}
+              pincodeError={pincodeErrors[index]}
+              setPincodeError={(error) => {
+                setPincodeErrors(prev => ({
+                  ...prev,
+                  [index]: error
+                }));
+              }}
+              required
+            />
+            <label>Upload Document for {getLabelByValue(field)}:</label>
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={(e) => handleDocumentUpload(index, e.target.files[0])}
+              required
+            />
+          </Fragment>
+        );
       default:
         return <TextNoNumber {...props} />;
     }
   };
 
-  // useEffect(() => {
-  //   if (updateFields.length === 0) {
-  //     addUpdateField();
-  //   }
-  // }, []);
-
   return (
-    <div className='form'>
+    <div className="form">
       <h2>Update Request Form</h2>
       <form onSubmit={handleSubmit} className="student_update_form">
         {updateFields.map((field, index) => (
@@ -338,25 +385,37 @@ const StudentUpdateReqForm = ({ userid, userData }) => {
                 ))}
               </select>
             ) : (
-              <h4>
-                {/* {initialOptions.find(option => option.value === field.field)?.label || field.field} */}
-                {getLabelByValue(field.field)}
-              </h4>
+              <h4>{getLabelByValue(field.field)}</h4>
             )}
 
             {field.field && (
               <div>
-                <div>
-                  <label>Current Value:</label>
-                  <span>{field.oldValue || 'Not set'}</span>
-                </div>
+                {field.type === 'address' ? (
+                  <div className="address-fields-current">
+                    <label className='address-label-main'>Current Value:</label>
+                    <div className="address-component">
+                      {addressFields[field.field].fields.map(subfield => (
+                        <div key={subfield} className="address-sub-fields">
+                          <label>{subfield.charAt(0).toUpperCase() + subfield.slice(1)}:</label>
+                          <span className='old-values-address'>{field.oldValue[subfield] || 'Not set'}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <label>Current Value:</label>
+                    <span className='old-values'>{field.oldValue || 'Not set'}</span>
+                  </div>
+                )}
                 <div>
                   {renderInput(
-                    initialOptions.find((opt) => opt.value === field.field)
-                      ?.type,
+                    field.type,
                     field.newValue,
-                    (value) => handleValueChange(index, value),
-                    'New Value'
+                    (value, subfield) => handleValueChange(index, value, subfield),
+                    'New Value',
+                    field.field,
+                    index
                   )}
                 </div>
               </div>
@@ -368,6 +427,15 @@ const StudentUpdateReqForm = ({ userid, userData }) => {
           </div>
         ))}
 
+        <div>
+          <label>Upload Consent Document:</label>
+          <input
+            type="file"
+            accept=".pdf"
+            onChange={(e) => handleConsentDocumentUpload(e.target.files[0])}
+            required
+          />
+        </div>
         <div className="form-actions">
           <button
             type="button"
