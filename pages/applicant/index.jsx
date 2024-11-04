@@ -363,11 +363,11 @@ function ApplicantDashboard() {
   const [loading, setLoading] = useState(true);
   const { showAlert } = useAlert();
   const router = useRouter();
-  const applicantId = localStorage.getItem("userid");
-  const authToken = localStorage.getItem("authToken");
   const effectRun = useRef(false);
 
   useEffect(() => {
+    const applicantId = localStorage.getItem("userid");
+    const authToken = localStorage.getItem("authToken");
     if (effectRun.current) return;
     effectRun.current = true;
 
@@ -403,7 +403,7 @@ function ApplicantDashboard() {
     };
 
     fetchSingleApplicantData();
-  }, [applicantId, authToken, router, showAlert]);
+  }, [router, showAlert]);
 
   return (
     <Fragment>
