@@ -1,0 +1,195 @@
+/* Neuromorphic Theme for Faculty Dashboard */
+
+/* Dashboard Title */
+.faculty-dashboard-title {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 2rem;
+  font-weight: 600;
+}
+
+/* Faculty Data Section */
+.faculty-data-section {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #e0e5ec;
+  border-radius: 20px;
+  box-shadow: 8px 8px 15px #a1b1c2, -8px -8px 15px #ffffff;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 12px 12px 20px #a1b1c2, -12px -12px 20px #ffffff;
+  }
+
+  .faculty-data-heading {
+    font-size: 1.75rem;
+    color: #34495e;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #2980b9;
+  }
+
+  .faculty-data-subheading {
+    font-size: 1.5rem;
+    color: #2980b9;
+    margin: 1.5rem 0;
+    font-weight: 500;
+  }
+
+  .faculty-loading-text {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #c0392b;
+    font-weight: bold;
+  }
+}
+
+/* Rendered Data Styling */
+.faculty-data {
+  &--empty {
+    color: #7f8c8d;
+    font-style: italic;
+  }
+
+  &--object {
+    margin-left: 1.5rem;
+    padding-left: 1rem;
+    border-left: 2px dashed #ddd;
+  }
+
+  &--array {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+    border-left: 2px dashed #ddd;
+
+    .item {
+      padding: 0.25rem 0;
+    }
+  }
+
+  &--string {
+    color: #27ae60;
+    font-weight: bold;
+    padding: 0.25rem 0;
+    background: #f0f7fb;
+    border-radius: 10px;
+    box-shadow: inset 5px 5px 10px #d1d9e6, inset -5px -5px 10px #ffffff;
+  }
+
+  &--number {
+    color: #8e44ad;
+    font-weight: bold;
+    padding: 0.25rem 0;
+    background: #f0f7fb;
+    border-radius: 10px;
+    box-shadow: inset 5px 5px 10px #d1d9e6, inset -5px -5px 10px #ffffff;
+  }
+
+  &--boolean {
+    color: #c0392b;
+    font-weight: bold;
+    padding: 0.25rem 0;
+    background: #f0f7fb;
+    border-radius: 10px;
+    box-shadow: inset 5px 5px 10px #d1d9e6, inset -5px -5px 10px #ffffff;
+  }
+
+  .faculty-data-entry {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .faculty-data-label {
+      display: inline-block;
+      font-weight: 600;
+      color: #3498db;
+      margin-right: 0.5rem;
+      text-transform: capitalize;
+    }
+
+    > div {
+      padding: 0.25rem;
+      border-radius: 10px;
+      background: #f0f7fb;
+      margin-top: 0.5rem;
+      box-shadow: inset 5px 5px 10px #d1d9e6, inset -5px -5px 10px #ffffff;
+      width: 100%;
+    }
+  }
+
+  &--object,
+  &--array {
+    margin-left: 1.5rem;
+    padding-left: 1rem;
+    border-left: 2px dashed #ddd;
+  }
+
+  .faculty-data-entry {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faculty-empty-array {
+    color: #7f8c8d;
+    font-style: italic;
+    margin-left: 1.5rem;
+  }
+
+  .faculty-data-label {
+    font-weight: 600;
+    color: #2980b9;
+    margin-right: 0.5rem;
+    text-transform: capitalize;
+  }
+
+  .faculty-data--string,
+  .faculty-data--number,
+  .faculty-data--boolean {
+    color: #2c3e50;
+    font-weight: bold;
+    padding: 0.25rem 0;
+    background: #f0f7fb;
+    border-radius: 10px;
+    box-shadow: inset 5px 5px 10px #d1d9e6, inset -5px -5px 10px #ffffff;
+  }
+}
+
+/* Empty Data Handling */
+.faculty-empty-array {
+  color: #7f8c8d;
+  font-style: italic;
+  margin-left: 1.5rem;
+}
+
+/* Card-like Elements for Entries */
+.card {
+  background-color: #e0e5ec;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 5px 5px 15px #a1b1c2, -5px -5px 15px #ffffff;
+  margin: 1.5rem 0;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 10px 10px 20px #a1b1c2, -10px -10px 20px #ffffff;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .card-content {
+    font-size: 1.2rem;
+    color: #34495e;
+  }
+}
