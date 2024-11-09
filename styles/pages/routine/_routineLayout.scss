@@ -1,0 +1,482 @@
+
+
+// $colors: (
+//   blue: #dbeafe,
+//   green: #dcfce7,
+//   yellow: #fef9c3,
+//   red: #fee2e2,
+//   purple: #f3e8ff,
+// );
+
+// $breakpoint-sm: 640px;
+
+// @mixin sm {
+//   @media (min-width: #{$breakpoint-sm}) {
+//     @content;
+//   }
+// }
+
+// .routine-container {
+//   max-width: 1200px;
+//   // width: 100%;
+//   margin: 0 auto;
+//   padding: 1rem;
+
+
+ 
+
+//   .routine-card {
+//     background-color: rgba(255, 255, 255, 0.3);
+//     backdrop-filter: blur(4px);
+//     border-radius: 0.5rem;
+//     border: 1px solid rgba(255, 255, 255, 0.3);
+//     padding: 1rem;
+//     overflow-x: auto;
+
+//     @include sm {
+//       padding: 1.5rem;
+//     }
+//   }
+
+//   .routine-header {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     justify-content: space-between;
+//     margin-bottom: 1.5rem;
+
+//     @include sm {
+//       flex-direction: row;
+//       align-items: center;
+//     }
+
+//     h2 {
+//       font-size: 1.5rem;
+//       font-weight: bold;
+//       margin-bottom: 0.5rem;
+
+//       @include sm {
+//         font-size: 1.5rem;
+//         margin-bottom: 0;
+//       }
+//     }
+
+//     .date-range {
+//       font-size: 0.875rem;
+//       color: #6b7280;
+
+//       @include sm {
+//         font-size: 1rem;
+//       }
+//     }
+//   }
+
+//   .routine-grid {
+//     display: grid;
+//     grid-template-columns: auto repeat(5, minmax(0, 1fr));
+//     gap: 0.5rem;
+//     // min-width: max-content;
+//     overflow-x: auto;
+
+//     @include sm {
+//       gap: 1rem;
+//     }
+
+//     .grid-header {
+//       font-weight: 600;
+//       text-align: center;
+//       font-size: 0.75rem;
+//       padding: 0.25rem;
+//       border-radius: 0.375rem;
+//       // width: 4rem;
+
+//       &.day {
+//         padding: 0.5rem;
+//       }
+
+//       @each $color, $value in $colors {
+//         &.#{$color} {
+//           background-color: $value;
+//         }
+//       }
+//     }
+
+//     .period-number {
+//       font-weight: 600;
+//       display: flex;
+//       justify-content: center;
+//       align-items: center;
+//       font-size: 0.75rem;
+//       background-color: #f3f4f6;
+//       border: 2px solid #d1d5db;
+//       padding: 0.25rem;
+//       border-radius: 0.375rem;
+//       width: 4rem;
+//     }
+
+//     .subject-cell {
+//       border-radius: 0.5rem;
+//       padding: 0.5rem;
+//       display: flex;
+//       flex-direction: column;
+//       border: 1px solid #d1d5db;
+
+//       @include sm {
+//         padding: 0.75rem;
+//       }
+
+//       @each $color, $value in $colors {
+//         &.#{$color} {
+//           background-color: rgba($value, 0.6);
+//         }
+//       }
+
+//       h3 {
+//         font-size: 0.75rem;
+//         font-weight: bold;
+
+//         @include sm {
+//           font-size: 1rem;
+//         }
+//       }
+
+//       p {
+//         font-size: 0.75rem;
+//         color: #6b7280;
+
+//         @include sm {
+//           font-size: 0.875rem;
+//         }
+//       }
+//     }
+//   }
+// }
+
+
+// 
+
+
+// $colors: (
+//   blue: #dbeafe,
+//   green: #dcfce7,
+//   yellow: #fef9c3,
+//   red: #fee2e2,
+//   purple: #f3e8ff,
+// );
+
+// $breakpoint-sm: 640px;
+
+// @mixin sm {
+//   @media (min-width: #{$breakpoint-sm}) {
+//     @content;
+//   }
+// }
+
+// .routine-container {
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   padding: 1rem;
+
+//   .routine-card {
+//     background-color: rgba(255, 255, 255, 0.3);
+//     backdrop-filter: blur(4px);
+//     border-radius: 0.5rem;
+//     border: 1px solid rgba(255, 255, 255, 0.3);
+//     padding: 1rem;
+
+//     @include sm {
+//       padding: 1.5rem;
+//     }
+//   }
+
+//   .routine-header {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     justify-content: space-between;
+//     margin-bottom: 1.5rem;
+
+//     @include sm {
+//       flex-direction: row;
+//       align-items: center;
+//     }
+
+//     h2 {
+//       font-size: 1.25rem;
+//       font-weight: bold;
+//       margin-bottom: 0.5rem;
+
+//       @include sm {
+//         font-size: 1.5rem;
+//         margin-bottom: 0;
+//       }
+//     }
+
+//     .date-range {
+//       font-size: 0.875rem;
+//       color: #6b7280;
+
+//       @include sm {
+//         font-size: 1rem;
+//       }
+//     }
+//   }
+
+//   .routine-grid-wrapper {
+//     overflow-x: auto;
+//     -webkit-overflow-scrolling: touch;
+//   }
+
+//   .routine-grid {
+//     display: grid;
+//     grid-template-columns: auto repeat(5, minmax(120px, 1fr));
+//     gap: 0.5rem;
+//     min-width: 600px; // Adjust this value based on your content
+
+//     @include sm {
+//       gap: 1rem;
+//     }
+
+//     .grid-header {
+//       font-weight: 600;
+//       text-align: center;
+//       font-size: 0.75rem;
+//       padding: 0.25rem;
+//       border-radius: 0.375rem;
+
+//       &.day {
+//         padding: 0.5rem;
+//       }
+
+//       @each $color, $value in $colors {
+//         &.#{$color} {
+//           background-color: $value;
+//         }
+//       }
+//     }
+
+//     .period-number {
+//       font-weight: 600;
+//       display: flex;
+//       justify-content: center;
+//       align-items: center;
+//       font-size: 0.75rem;
+//       background-color: #f3f4f6;
+//       border: 2px solid #d1d5db;
+//       padding: 0.25rem;
+//       border-radius: 0.375rem;
+//       width: 3rem;
+//     }
+
+//     .subject-cell {
+//       border-radius: 0.5rem;
+//       padding: 0.5rem;
+//       display: flex;
+//       flex-direction: column;
+//       border: 1px solid #d1d5db;
+
+//       @include sm {
+//         padding: 0.75rem;
+//       }
+
+//       @each $color, $value in $colors {
+//         &.#{$color} {
+//           background-color: rgba($value, 0.6);
+//         }
+//       }
+
+//       h3 {
+//         font-size: 0.75rem;
+//         font-weight: bold;
+
+//         @include sm {
+//           font-size: 0.875rem;
+//         }
+//       }
+
+//       p {
+//         font-size: 0.675rem;
+//         color: #6b7280;
+
+//         @include sm {
+//           font-size: 0.75rem;
+//         }
+//       }
+//     }
+//   }
+// }
+
+
+
+
+
+$colors: (
+  blue: #dbeafe,
+  green: #dcfce7,
+  yellow: #fef9c3,
+  red: #fee2e2,
+  purple: #f3e8ff,
+);
+
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+
+@mixin sm {
+  @media (min-width: #{$breakpoint-sm}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: #{$breakpoint-md}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: #{$breakpoint-lg}) {
+    @content;
+  }
+}
+
+.routine-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  .routine-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    @include sm {
+      padding: 1.5rem;
+    }
+  }
+
+  .routine-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    @include sm {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+
+      @include sm {
+        font-size: 1.75rem;
+        margin-bottom: 0;
+      }
+    }
+
+    .date-range {
+      font-size: 1rem;
+      color: #6b7280;
+
+      @include sm {
+        font-size: 1.125rem;
+      }
+    }
+  }
+
+  .routine-grid-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    will-change: transform;
+  }
+
+  .routine-grid {
+    display: grid;
+    grid-template-columns: auto repeat(5, minmax(150px, 1fr));
+    gap: 0.75rem;
+    min-width: 800px;
+
+    @include md {
+      gap: 1rem;
+    }
+
+    .grid-header {
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.875rem;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+
+      &.day {
+        padding: 0.75rem;
+        font-size: 1rem;
+      }
+
+      @each $color, $value in $colors {
+        &.#{$color} {
+          background-color: $value;
+        }
+      }
+    }
+
+    .period-number {
+      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1rem;
+      background-color: #f3f4f6;
+      border: 2px solid #d1d5db;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      width: 4rem;
+    }
+
+    .subject-cell {
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #d1d5db;
+      min-height: 80px;
+      transform: translateZ(0);
+
+      @include sm {
+        padding: 1rem;
+      }
+
+      @each $color, $value in $colors {
+        &.#{$color} {
+          background-color: $value;
+        }
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+
+        @include sm {
+          font-size: 1.125rem;
+        }
+      }
+
+      p {
+        font-size: 0.875rem;
+        color: #6b7280;
+
+        @include sm {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}

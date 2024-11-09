@@ -97,6 +97,11 @@ function Navbar() {
         src: "/admin/manage/students",
       },
       {
+        label: "Manage Faculties",
+        className: "nav-item",
+        src: "/admin/manage/faculties",
+      },
+      {
         label: "Contact Us",
         className: "nav-item",
         src: "/admin/contact",
@@ -112,9 +117,7 @@ function Navbar() {
         src: "/admin/scanner",
       },
     ],
-    faculty: [
-      { label: "Dashboard", className: "nav-item", src: "/faculty/dashboard" },
-    ],
+    faculty: [{ label: "Dashboard", className: "nav-item", src: "/faculty" }],
     student: [
       { label: "Dashboard", className: "nav-item", src: "/student" },
       {

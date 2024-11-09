@@ -1,10 +1,9 @@
 import React, { Fragment, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { Navbar, Footer, ChatBot } from "@/containers";
+import { Footer, Navbar, ChatBot } from "@/containers";
 
-function AdminLayout({ children }) {
+function FacultyLayout({ children }) {
   const router = useRouter();
-
   const hasLogged = useRef(false);
 
   useEffect(() => {
@@ -20,7 +19,7 @@ function AdminLayout({ children }) {
     if (!authToken) {
       localStorage.clear();
       router.push("/");
-    } else if (userType !== "admin") {
+    } else if (userType !== "faculty") {
       localStorage.clear();
       router.push("/");
     }
@@ -36,4 +35,4 @@ function AdminLayout({ children }) {
   );
 }
 
-export default AdminLayout;
+export default FacultyLayout;

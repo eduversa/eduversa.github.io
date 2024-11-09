@@ -3,97 +3,110 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { LandingLayout } from "@/layout";
-import { registerUser, createAccountWithSocialPlatform } from "@/functions";
+import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
 import { AllLoader } from "@/components";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Head from "next/head";
+import { useAlert } from "@/contexts/AlertContext";
+
 function Register() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     const platformName = localStorage.getItem("platformName");
     if (session) {
       if (process.env.NODE_ENV === "development") {
-        console.log("Session:", session);
+        devLog("Session detected:", session);
       }
+
       setLoading(true);
-      fetch(
-        `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(session),
-        }
-      )
-        .then((response) => response.json())
-        .then(async (res) => {
-          console.log(res);
-          alert(res.message);
-          if (!res.status) {
-            setLoading(false);
-            return;
-          }
-          localStorage.removeItem("platformName");
-          await signOut({ callbackUrl: "/" });
-        })
-        .catch((error) => console.log(error));
+      handlePlatformAuth(platformName, session)
+        .catch((error) => devLog("Platform auth error:", error))
+        .finally(() => setLoading(false));
     }
-  }, [session]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session, showAlert]);
+
+  const handlePlatformAuth = async (platformName, sessionData) => {
+    const response = await fetch(
+      `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(sessionData),
+      }
+    );
+
+    const res = await response.json();
+    devLog("Auth platform response:", res);
+    showAlert(res.message);
+
+    if (!res.status) {
+      setLoading(false);
+      return;
+    }
+
+    localStorage.removeItem("platformName");
+    await signOut({ callbackUrl: "/" });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const wrappedApiRequest = withLoading(
+      apiRequest,
+      setLoading,
+      showAlert,
+      "Registration"
+    );
+
     try {
-      setLoading(true);
-      const registrationData = await registerUser(email);
-      if (registrationData.status === false) {
-        if (process.env.NODE_ENV === "development") {
-          console.log("Registration data:", registrationData);
-        }
-        alert(registrationData.message);
-        setLoading(false);
+      const response = await wrappedApiRequest(
+        "/account",
+        "POST",
+        { email },
+        localStorage.getItem("authToken"),
+        "Registration"
+      );
+
+      if (!response.success) {
+        devLog("Registration error response:", response);
+        showAlert(response.message);
         return;
       }
-      if (process.env.NODE_ENV === "development") {
-        console.log("Registration data:", registrationData);
-      }
-      alert(
-        "Registration Was Successful! Check Your Email For Login Credentials"
+
+      // devLog("Registration success data:", response);
+      showAlert(
+        "Registration Was Successful! Check Your Email For Login Credentials" ||
+          response.message
       );
-      setLoading(false);
       router.push("/");
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error during registration:", error.message);
-      }
+      devLog("Global Error:", error);
+      showAlert(
+        error.message || "An unexpected error occurred. Please try again."
+      );
     }
   };
 
-  const handleSocialRegisterClick = async (provider) => {
-    alert(`Register with ${provider} is coming soon!`);
-    console.log("apiResponse", apiResponse);
-    console.log("Session:", session);
+  const handleSocialRegisterClick = (provider) => {
+    showAlert(`Register with ${provider} is coming soon!`);
+    devLog("Social provider registration attempt:", provider);
   };
-  const handleGoogleSignIn = async () => {
-    await signIn("google");
-    localStorage.setItem("platformName", "google");
+
+  const handleGoogleSignIn = () => initiateSignIn("google");
+  const handleGithubSignIn = () => initiateSignIn("github");
+  const handleFacebookSignIn = () => initiateSignIn("facebook");
+
+  const initiateSignIn = async (provider) => {
+    await signIn(provider);
+    localStorage.setItem("platformName", provider);
   };
-  const handleGithubSignIn = async () => {
-    await signIn("github");
-    localStorage.setItem("platformName", "github");
-  };
-  const handleFacebookSignIn = async () => {
-    await signIn("facebook");
-    localStorage.setItem("platformName", "facebook");
-  };
-  if (process.env.NODE_ENV === "development") {
-    console.log("Session:", session);
-  }
+
   return (
     <Fragment>
       <LandingLayout>
@@ -112,7 +125,7 @@ function Register() {
         <div className="register-container">
           <h2 className="register-heading">Register</h2>
           <h3 className="register-subheading">
-            Your Pathway to Academic Excellence: Register Now on Eduversa😉
+            Your Pathway to Academic Excellence: Register Now on Eduversa 😉
           </h3>
           <form className="register-form" onSubmit={handleSubmit}>
             <div className="register-email">
@@ -142,16 +155,16 @@ function Register() {
                   height={25}
                   width={25}
                   className="google-icon"
-                  onClick={() => handleGoogleSignIn("Google")}
-                ></Image>
+                  onClick={handleGoogleSignIn}
+                />
                 <Image
                   src="/login/facebook.png"
                   alt="facebook"
                   height={25}
                   width={25}
                   className="facebook-icon"
-                  onClick={() => handleFacebookSignIn("Facebook")}
-                ></Image>
+                  onClick={handleFacebookSignIn}
+                />
                 <Image
                   src="/login/twitter.png"
                   alt="twitter"
@@ -159,25 +172,23 @@ function Register() {
                   width={25}
                   className="twitter-icon"
                   onClick={() => handleSocialRegisterClick("Twitter")}
-                ></Image>
+                />
                 <Image
                   src="/login/linkedin.png"
                   alt="linkedin"
                   height={25}
                   width={25}
                   className="linkedin-icon"
-                  onClick={async () =>
-                    await handleSocialRegisterClick("LinkedIn")
-                  }
-                ></Image>
+                  onClick={() => handleSocialRegisterClick("LinkedIn")}
+                />
                 <Image
                   src="/login/github.png"
                   alt="github"
                   height={25}
                   width={25}
                   className="github-icon"
-                  onClick={() => handleGithubSignIn("GitHub")}
-                ></Image>
+                  onClick={handleGithubSignIn}
+                />
               </div>
             </div>
 

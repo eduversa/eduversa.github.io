@@ -1,13 +1,10 @@
-import { useEffect, useState, Fragment } from "react";
-import {
-  getApplicantsByYearApi,
-  getCollegeDetailsApi,
-  deleteSingleApplicantApi,
-} from "@/functions";
-import { AllLoader } from "@/components";
+import { useEffect, useState, Fragment, useRef } from "react";
 import Image from "next/image";
 import { AdminLayout } from "@/layout";
 import { useRouter } from "next/router";
+import { AllLoader } from "@/components";
+import { useAlert } from "@/contexts/AlertContext";
+import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
 
 function Index() {
   const [applicants, setApplicants] = useState([]);
@@ -20,33 +17,78 @@ function Index() {
   const [searchTerm, setSearchTerm] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const year = new Date().getFullYear();
+  const collegeId = 304;
   const router = useRouter();
-  useEffect(() => {
-    setLoading(true);
-    getApplicantsByYearApi(year)
-      .then((data) => {
-        if (Array.isArray(data.data)) {
-          setApplicants(data.data);
-        } else {
-          console.error("Applicants data is not an array:", data.data);
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching applicants:", error);
-        setLoading(false);
-      });
-  }, [year]);
+  const { showAlert } = useAlert();
+  const effectRun = useRef(false);
 
   useEffect(() => {
-    getCollegeDetailsApi(304)
-      .then((data) => {
-        setCollegeData(data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching college details:", error);
-      });
-  }, []);
+    const authToken = localStorage.getItem("authToken");
+    if (effectRun.current) return;
+    effectRun.current = true;
+
+    const getApplicantsByYear = async () => {
+      const wrappedApiRequest = withLoading(
+        apiRequest,
+        setLoading,
+        showAlert,
+        "GetAllApplicants"
+      );
+      try {
+        const response = await wrappedApiRequest(
+          `/applicant/year?year=${year}`,
+          "GET",
+          null,
+          authToken,
+          "GetAllApplicants"
+        );
+
+        if (!response.success || !response.status) {
+          devLog("Error in fetching applicant data:", response.message);
+          showAlert(response.message || "Failed to fetch applicant data");
+          return;
+        }
+        setApplicants(response.data.data);
+      } catch (error) {
+        devLog("Error in fetching applicant data:", error);
+        showAlert(error.message || "Failed to fetch applicant data");
+      }
+    };
+
+    const getCollegeDetails = async () => {
+      const wrappedApiRequest = withLoading(
+        apiRequest,
+        setLoading,
+        showAlert,
+        "GetCollegeDetails"
+      );
+      try {
+        const response = await wrappedApiRequest(
+          `/college/?college_id=${collegeId}`,
+          "GET",
+          null,
+          authToken,
+          "GetCollegeDetails"
+        );
+        if (!response.success || !response.status) {
+          devLog("Error in fetching college details:", response.message);
+          showAlert(response.message || "Failed to fetch college details");
+          return;
+        }
+        setCollegeData(response.data.data);
+      } catch (error) {
+        devLog("Error in fetching college details:", error);
+        showAlert(error.message || "Failed to fetch college details");
+      }
+    };
+
+    const onLoadHandler = async () => {
+      await getApplicantsByYear();
+      await getCollegeDetails();
+    };
+
+    onLoadHandler();
+  }, [showAlert, year]);
 
   const indexOfLastApplicant = currentPage * pageSize;
   const indexOfFirstApplicant = indexOfLastApplicant - pageSize;
@@ -104,19 +146,37 @@ function Index() {
       );
       setApplicants(filteredApplicants);
     } else {
-      getApplicantsByYearApi()
-        .then((data) => {
-          if (Array.isArray(data.data)) {
-            setApplicants(data.data);
-          } else {
-            console.error("Applicants data is not an array:", data.data);
+      const getApplicantsByYear = async () => {
+        const wrappedApiRequest = withLoading(
+          apiRequest,
+          setLoading,
+          showAlert,
+          "GetAllApplicants"
+        );
+        try {
+          const response = await wrappedApiRequest(
+            `/applicant/year?year=${year}`,
+            "GET",
+            null,
+            authToken,
+            "GetAllApplicants"
+          );
+
+          if (!response.success || !response.status) {
+            devLog("Error in fetching applicant data:", response.message);
+            showAlert(response.message || "Failed to fetch applicant data");
+            return;
           }
-        })
-        .catch((error) => {
-          console.error("Error fetching applicants:", error);
-        });
+          setApplicants(response.data.data);
+        } catch (error) {
+          devLog("Error in fetching applicant data:", error);
+          showAlert(error.message || "Failed to fetch applicant data");
+        }
+      };
+      getApplicantsByYear();
     }
   };
+
   function handleShowProfile(id) {
     console.log("Show profile for applicant with id:", id);
     localStorage.setItem("selected-applicantId", id);
@@ -126,20 +186,40 @@ function Index() {
   async function handleDeleteApplicant(id) {
     console.log("Delete applicant with id:", id);
     localStorage.setItem("selected-applicantId", id);
+    const authToken = localStorage.getItem("authToken");
     const confirmDelete = confirm(
       "Are you sure you want to delete this applicant?"
     );
 
     if (confirmDelete) {
+      const wrappedApiRequest = withLoading(
+        apiRequest,
+        setLoading,
+        showAlert,
+        "DeleteApplicant"
+      );
       try {
-        setLoading(true);
-        await deleteSingleApplicantApi(id);
-        setLoading(false);
-        window.location.reload();
+        localStorage.getItem("authToken");
+        const response = await wrappedApiRequest(
+          `/applicant/?user_id=${id}`,
+          "DELETE",
+          null,
+          authToken,
+          "DeleteApplicant"
+        );
+
+        if (response.success) {
+          window.location.reload();
+        } else {
+          showAlert(
+            response.message || "Error deleting applicant. Please try again."
+          );
+        }
       } catch (error) {
-        console.error("Error deleting applicant:", error);
-        setLoading(false);
-        alert("Error deleting applicant. Please try again.");
+        devLog("Error deleting applicant:", error);
+        showAlert(
+          response.message || "Error deleting applicant. Please try again."
+        );
       }
     }
   }

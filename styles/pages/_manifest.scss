@@ -17,6 +17,9 @@
 @import "admin/scanner";
 @import "admin/dashboard";
 @import "admin/manageStudent";
+@import "admin/manageFaculties";
 // student
 @import "student/dashboard";
+
+@import "routine/routineLayout";
 @import "student/studentUpdateFormRequest";

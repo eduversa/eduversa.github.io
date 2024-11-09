@@ -1,8 +1,10 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import { ApplicantLayout } from "@/layout";
-import { getSingleApplicantApi } from "@/functions";
 import { AllLoader } from "@/components";
 import Image from "next/image";
+import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
+import { useAlert } from "@/contexts/AlertContext";
+import { useRouter } from "next/router";
 
 function generateClassName(prefix, key) {
   const formattedKey = key
@@ -154,7 +156,7 @@ function renderFields(data, parentKey = "") {
         "contact",
         // % H3
         "guardian",
-        // & H4
+        // * H4
         "office_address",
         "first_name",
         "middle_name",
@@ -359,33 +361,49 @@ function renderFields(data, parentKey = "") {
 function ApplicantDashboard() {
   const [profileData, setProfileData] = useState({});
   const [loading, setLoading] = useState(true);
+  const { showAlert } = useAlert();
+  const router = useRouter();
+  const effectRun = useRef(false);
 
   useEffect(() => {
-    const userType = localStorage.getItem("userType");
+    const applicantId = localStorage.getItem("userid");
+    const authToken = localStorage.getItem("authToken");
+    if (effectRun.current) return;
+    effectRun.current = true;
 
-    if (userType === "applicant") {
-      const applicantId = localStorage.getItem("userid");
-
-      const fetchData = async () => {
-        try {
-          setLoading(true);
-          const response = await getSingleApplicantApi(applicantId);
-
-          if (response.status === false) {
-            alert(response.message);
-            setLoading(false);
-            return;
-          }
-          setProfileData(response.data);
-          setLoading(false);
-        } catch (error) {
-          console.error("Error fetching applicant data:", error.message);
+    const fetchSingleApplicantData = async () => {
+      const wrappedApiRequest = withLoading(
+        apiRequest,
+        setLoading,
+        showAlert,
+        "GetSingleApplicant"
+      );
+      try {
+        const response = await wrappedApiRequest(
+          `/applicant/?user_id=${applicantId}`,
+          "GET",
+          null,
+          authToken,
+          "GetSingleApplicant"
+        );
+        if (!response.success || !response.status) {
+          devLog("Error in fetching single applicant data:", response);
+          showAlert(response.message || "Failed to fetch applicant data");
+          localStorage.clear();
+          router.push("/");
+          return;
         }
-      };
+        setProfileData(response.data.data);
+      } catch (error) {
+        devLog("Error in fetching single applicant data:", error);
+        showAlert(error.message || "Failed to fetch applicant data");
+        localStorage.clear();
+        router.push("/");
+      }
+    };
 
-      fetchData();
-    }
-  }, []);
+    fetchSingleApplicantData();
+  }, [router, showAlert]);
 
   return (
     <Fragment>
