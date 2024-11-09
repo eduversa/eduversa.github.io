@@ -1,21 +1,17 @@
-import React, { useState, useEffect, Fragment, useRef } from "react";
+import React, { useState, Fragment } from "react";
 import { AllLoader } from "@/components";
 import { updateAppplicantData } from "@/functions";
 import {
-  Text,
   Name,
   Email,
-  Number,
   Select,
-  DateInput,
-  Pincode,
   Aadhar,
   Pan,
   PhoneNumber,
   FormButtons,
   Dob,
 } from "../inputComponent/InputComponent";
-import fetchAddressFromPincode from "../inputComponent/fetchAddressFromPincode";
+import AddressComponent from "../inputComponent/AddressComponent";
 
 const PersonalInfo = ({
   formData,
@@ -32,129 +28,31 @@ const PersonalInfo = ({
   permanentPincodeError,
   setPermanentPincodeError,
 }) => {
+  const [loading, setLoading] = useState(false);
+  const [areAddressesSame, setAreAddressesSame] = useState(formData.personal_info.are_addresses_same);
+
   const copyAddress = (e) => {
     const isChecked = e.target.checked;
     setAreAddressesSame(isChecked);
 
-    let updatedFormData;
-    if (isChecked) {
-      const presentAddress = formData.personal_info.present_address;
-      updatedFormData = {
-        ...formData,
-        personal_info: {
-          ...formData.personal_info,
-          permanent_address: { ...presentAddress },
-          are_addresses_same: true,
-        },
-      };
-    } else {
-      updatedFormData = {
-        ...formData,
-        personal_info: {
-          ...formData.personal_info,
-          permanent_address: {
-            street: "",
-            pincode: "",
-            city: "",
-            district: "",
-            state: "",
-          },
-          are_addresses_same: false,
-        },
-      };
-    }
+    const updatedFormData = {
+      ...formData,
+      personal_info: {
+        ...formData.personal_info,
+        permanent_address: isChecked 
+          ? { ...formData.personal_info.present_address }
+          : {
+              street: "",
+              pincode: "",
+              city: "",
+              district: "",
+              state: "",
+            },
+        are_addresses_same: isChecked,
+      },
+    };
     handleChange({ target: { name: "formData", value: updatedFormData } });
   };
-
-  const [presentPincode, setPresentPincode] = useState("");
-  const [permanentPincode, setPermanentPincode] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const [prevPresentPincode, setPrevPresentPincode] = useState("");
-  const [prevPermanentPincode, setPrevPermanentPincode] = useState("");
-  
-  const [areAddressesSame, setAreAddressesSame] = useState();
-
-  const [fetching, setFetching] = useState(false);
-  const controller = useRef(null);
-
-  useEffect(() => {
-    if (presentPincode.length === 6 && presentPincode !== prevPresentPincode) {
-      if (fetching) {
-        controller.current.abort();
-      }
-      setFetching(true);
-      controller.current = new AbortController();
-      fetchAddressFromPincode(
-        formData,
-        handleChange,
-        "personal_info.present_address",
-        presentPincode,
-        setPresentPincodeError,
-        controller.current
-      ).then(() => {
-        setFetching(false);
-        setPrevPresentPincode(presentPincode);
-      });
-    }
-  }, [
-    presentPincode,
-    setPresentPincodeError,
-    formData,
-    handleChange,
-    prevPresentPincode,
-    fetching,
-  ]);
-
-  useEffect(() => {
-    if (
-      permanentPincode.length === 6 &&
-      permanentPincode !== prevPermanentPincode
-    ) {
-      if (fetching) {
-        controller.current.abort();
-      }
-      setFetching(true);
-      controller.current = new AbortController();
-      fetchAddressFromPincode(
-        formData,
-        handleChange,
-        "personal_info.permanent_address",
-        permanentPincode,
-        setPermanentPincodeError,
-        controller.current
-      ).then(() => {
-        setFetching(false);
-        setPrevPermanentPincode(permanentPincode);
-      });
-    }
-  }, [
-    permanentPincode,
-    setPermanentPincodeError,
-    formData,
-    handleChange,
-    prevPermanentPincode,
-    fetching,
-  ]);
-
-  useEffect(() => {
-    setAreAddressesSame(formData.personal_info.are_addresses_same);
-    if (areAddressesSame) {
-      const presentAddress = formData.personal_info.present_address;
-      const permanentAddress = formData.personal_info.permanent_address;
-      
-      if (JSON.stringify(presentAddress) !== JSON.stringify(permanentAddress)) {
-        const updatedFormData = {
-          ...formData,
-          personal_info: {
-            ...formData.personal_info,
-            permanent_address: { ...presentAddress },
-          },
-        };
-        handleChange({ target: { name: "formData", value: updatedFormData } });
-      }
-    }
-  }, [formData, areAddressesSame, handleChange]);
 
   async function onSubmitHandler() {
 
@@ -195,11 +93,11 @@ const PersonalInfo = ({
       <form
         className="page--content"
         onSubmit={async (event) => {
-            event.preventDefault();
-            const success = await onSubmitHandler();
-            if (success) {
-              handleNextClick();
-            }
+          event.preventDefault();
+          const success = await onSubmitHandler();
+          if (success) {
+            handleNextClick();
+          }
         }}
       >
         <Name
@@ -296,55 +194,20 @@ const PersonalInfo = ({
             value={formData.personal_info.pan_number}
             onChange={handleChange}
             required
-            minLength="10"
-            maxLength="10"
           />
         </div>
         <hr />
+
         <h3 className="sub-heading">Present Address</h3>
-        <Text
-          label="Street"
-          name="personal_info.present_address.street"
-          value={formData.personal_info.present_address.street}
-          onChange={handleChange}
+        <AddressComponent
+          addressPath="personal_info.present_address"
+          formData={formData}
+          handleChange={handleChange}
+          pincodeError={presentPincodeError}
+          setPincodeError={setPresentPincodeError}
           required
         />
-        <div className="grid-col-2">
-          <Pincode
-            label="Pincode"
-            name="personal_info.present_address.pincode"
-            value={formData.personal_info.present_address.pincode}
-            onChange={(e) => {
-              handleChange(e);
-              setPresentPincode(e.target.value);
-            }}
-            required
-            className={presentPincodeError ? "invalid" : ""}
-          />
-          <Text
-            label="City"
-            name="personal_info.present_address.city"
-            value={formData.personal_info.present_address.city}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="grid-col-2">
-          <Text
-            label="District"
-            name="personal_info.present_address.district"
-            value={formData.personal_info.present_address.district}
-            onChange={handleChange}
-            required
-          />
-          <Text
-            label="State"
-            name="personal_info.present_address.state"
-            value={formData.personal_info.present_address.state}
-            onChange={handleChange}
-            required
-          />
-        </div>
+
         <hr />
         <h3 className="sub-heading">Permanent Address</h3>
         <div>
@@ -352,50 +215,23 @@ const PersonalInfo = ({
             <input
               type="checkbox"
               name="personal_info.are_addresses_same"
-              checked={formData.personal_info.are_addresses_same}
+              checked={areAddressesSame}
               onChange={copyAddress}
             />
             Same as Present Address
           </label>
         </div>
-        <Text
-          label="Street"
-          name="personal_info.permanent_address.street"
-          value={formData.personal_info.permanent_address.street}
-          onChange={handleChange}
-        />
-        <div className="grid-col-2">
-          <Pincode
-            label="Pincode"
-            name="personal_info.permanent_address.pincode"
-            value={formData.personal_info.permanent_address.pincode}
-            onChange={(e) => {
-              handleChange(e);
-              setPermanentPincode(e.target.value);
-            }}
-            className={permanentPincodeError ? "invalid" : ""}
+        
+        {!areAddressesSame && (
+          <AddressComponent
+            addressPath="personal_info.permanent_address"
+            formData={formData}
+            handleChange={handleChange}
+            pincodeError={permanentPincodeError}
+            setPincodeError={setPermanentPincodeError}
           />
-          <Text
-            label="City"
-            name="personal_info.permanent_address.city"
-            value={formData.personal_info.permanent_address.city}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="grid-col-2">
-          <Text
-            label="District"
-            name="personal_info.permanent_address.district"
-            value={formData.personal_info.permanent_address.district}
-            onChange={handleChange}
-          />
-          <Text
-            label="State"
-            name="personal_info.permanent_address.state"
-            value={formData.personal_info.permanent_address.state}
-            onChange={handleChange}
-          />
-        </div>
+        )}
+
         <FormButtons
           handlePreviousClick={handlePreviousClick}
           clearFormData={() => clearFormData(currentStep)}

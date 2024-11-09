@@ -1,0 +1,223 @@
+.student_update_form {
+  // max-width: 24rem;
+  width: 100%;
+  // min-width: 40%;
+  // max-width: 80%;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px hsla(0, 0%, 0%, 0.1);
+
+  --border-color: hsl(210, 16%, 93%);
+  --grey-button-1: hsl(210, 7%, 45%);
+  --grey-button-2: hsl(210, 7%, 35%);
+  --grey-button-3: hsl(210, 10%, 83%);
+  --red-button-1: hsl(354, 70%, 55%);
+  --red-button-2: hsl(354, 70%, 45%);
+  --green-button-1: hsl(130, 60%, 40%);
+  --green-button-2: hsl(130, 60%, 30%);
+  --background: hsl(194, 100%, 97%);
+  --background-dark: hsl(210, 33%, 95%);
+  h4 {
+    align-items: center;
+    font-family: var(--font-elianto);
+    margin: 0.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    font-size: var(--font-12);
+    color: var(--purple-4);
+  }
+
+  label {
+    font-family: var(--font-tektur);
+    font-size: var(--font-13);
+    color: hsl(200, 4%, 39%);
+    font-weight: 500;
+    // padding-left: 0.5rem;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    // border-radius: 4px;
+    transition: border-color 0.2s ease;
+  }
+  .old-values {
+    padding: 0.5rem;
+    background: white;
+    // background: var(--background-dark);
+    &-address {
+      padding: 0.5rem;
+      background: var(--background-dark);
+    }
+  }
+
+  > div {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background: var(--background);
+
+    > div {
+      display: grid;
+      grid-gap: 1rem;
+      margin: 1rem 0 0 0;
+
+      span {
+        display: inline-block;
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+        // margin-left: 0.5rem;
+      }
+
+      .address-component {
+        padding: 0.75rem;
+        margin: 0.75rem 0;
+        background: white;
+        border-radius: 8px;
+        .address-sub-fields {
+          padding: 0.5rem 0.25rem;
+        }
+      }
+    }
+
+    button {
+      background: var(--red-button-1);
+      color: white;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: var(--font-12);
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+        padding: 0.75rem 1rem;
+      }
+      @media (max-width: $breakpoint-tablet) {
+        padding: 0.5rem 1rem;
+      }
+      @media (max-width: $breakpoint-phone) {
+        padding: 0.3rem 0.7rem;
+      }
+
+      &:hover {
+        background: var(--red-button-2);
+      }
+    }
+  }
+
+  input[type="file"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    background-color: var(--background);
+    // background: var(--background-dark);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: white;
+      color: var(--grey-button-2);
+    }
+
+    &::-webkit-file-upload-button {
+      background: var(--grey-button-1);
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: var(--grey-button-2);
+      }
+
+      &:disabled {
+        background: var(--grey-button-3);
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    // gap: 1rem;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-top: 2px solid var(--border-color);
+
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+      justify-content: space-between;
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      font-size: var(--font-12);
+
+      @media (max-width: $breakpoint-desktop-wide) {
+      }
+      @media (max-width: $breakpoint-desktop) {
+      }
+      @media (max-width: $breakpoint-large-tablet) {
+        padding: 0.75rem 1rem;
+      }
+      @media (max-width: $breakpoint-tablet) {
+        padding: 0.5rem 1rem;
+      }
+      @media (max-width: $breakpoint-phone) {
+        padding: 0.3rem 0.7rem;
+      }
+      &[type="button"] {
+        background: var(--grey-button-1);
+        color: white;
+
+        &:hover {
+          background: var(--grey-button-2);
+        }
+
+        &:disabled {
+          background: var(--grey-button-3);
+          cursor: not-allowed;
+        }
+      }
+
+      &[type="submit"] {
+        background: var(--green-button-1);
+        color: white;
+
+        &:hover {
+          background: var(--green-button-2);
+        }
+      }
+    }
+  }
+  .inputs {
+    margin-bottom: 1.5rem;
+  }
+}
