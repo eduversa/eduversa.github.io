@@ -174,6 +174,7 @@ export const PhoneNumber = ({ label, name, value, required, ...props }) => {
   );
 };
 
+
 export const Pincode = ({ label, name, value, required, ...props }) => {
   return (
     <div className="inputs">
