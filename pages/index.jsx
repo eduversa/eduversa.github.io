@@ -226,7 +226,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="google-icon"
-                  onClick={() => handleSocialLogin("google")}
+                  onClick={() => handleSocialLoginClick("Google")}
                 />
                 <Image
                   src="/login/facebook.png"
@@ -234,7 +234,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="facebook-icon"
-                  onClick={() => handleSocialLogin("facebook")}
+                  onClick={() => handleSocialLoginClick("Facebook")}
                 />
                 <Image
                   src="/login/twitter.png"
@@ -258,7 +258,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="github-icon"
-                  onClick={() => handleSocialLogin("github")}
+                  onClick={() => handleSocialLoginClick("GitHub")}
                 />
               </div>
             </div>
