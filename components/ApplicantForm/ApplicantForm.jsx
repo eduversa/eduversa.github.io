@@ -7,8 +7,36 @@ import {
   FileUpload,
 } from "./formPages";
 import { getSingleApplicantApi } from "@/functions";
+import { AllLoader } from "@/components";
+
 
 const ApplicantForm = ({userid}) => {
+  const [userData, setUserData] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const userType = localStorage.getItem("userType");
+    const applicantId = userType === "applicant" ? localStorage.getItem("userid") : userid;
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await getSingleApplicantApi(applicantId);
+        if (response.status === false) {
+          alert(response.message);
+          setLoading(false);
+          return;
+        }
+        setUserData(response.data);
+        localStorage.setItem("applicant_profile", JSON.stringify(userData));
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching student data:", error.message);
+        setLoading(f)
+      }
+    };
+    fetchData();
+  }, [userData, userid]);
+
   let currYear = new Date().getFullYear().toString();
 
   const initialFormData = useMemo(
