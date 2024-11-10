@@ -41,10 +41,12 @@ function Login() {
     showAlert(response.message);
     setLoading(false);
     if (!response.status) {
+      setLoading(false);
       return;
     }
 
     localStorage.removeItem("platformName");
+    setLoading(false);
     storeUserData(response.data);
 
     await signOut({ callbackUrl: "/" });
