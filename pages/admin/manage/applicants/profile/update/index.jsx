@@ -14,7 +14,6 @@ const UpdateApplicant = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-
     const userType = localStorage.getItem("userType");
     
     if (userType === "admin" && userid) {
