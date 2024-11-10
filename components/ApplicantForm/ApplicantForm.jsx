@@ -423,7 +423,6 @@ const ApplicantForm = ({userid, userData}) => {
   };
 
   const handleNextClick = (event) => {
-
     devLog(formData);
 
     if (presentPincodeError || permanentPincodeError || officePincodeError) {
