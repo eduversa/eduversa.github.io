@@ -4,6 +4,8 @@ import { Save, Minus, Plus } from "lucide-react";
 
 import { Header } from "@/components/RoutineForm/Header";
 import { PeriodCell } from "@/components/RoutineForm/PeriodCell";
+import { devLog } from "@/utils/apiUtils";
+import { useAlert } from "@/contexts/AlertContext";
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 export const subjects = [
@@ -73,6 +75,7 @@ export const existingSchedules = [
   },
 ];
 function App() {
+  const { showAlert } = useAlert();
   const [selectedClass, setSelectedClass] = useState("Class 8B");
   const [periodCount, setPeriodCount] = useState(8);
 
@@ -104,7 +107,7 @@ function App() {
     name: "periods",
   });
 
-  console.log(fields);
+ 
   useEffect(() => {
     reset({
       periods: Array(periodCount).fill({
@@ -170,8 +173,8 @@ function App() {
       }));
       return acc;
     }, {});
-    console.log(transformedData);
-    alert("Routine making success");
+    devLog("transformed data",transformedData);
+    showAlert("Routine making success");
     reset();
   };
 

@@ -20,35 +20,60 @@ function Login() {
   useEffect(() => {
     const platformName = localStorage.getItem("platformName");
     if (session) {
-      devLog("Session detected:", session);
-
+      console.log("session--->", session);
       setLoading(true);
-      authenticatePlatformUser(platformName, session)
-        .catch((error) => devLog("Error in platform auth:", error))
-        .finally(() => setLoading(false));
+      fetch(
+        `https://eduversa-api.onrender.com/account/auth/platform?platform=${platformName}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(session),
+        }
+      )
+        .then((response) => response.json())
+        .then(async (res) => {
+          console.log(res);
+          alert(res.message);
+          if (!res.status) {
+            setLoading(false);
+            return;
+          }
+          localStorage.removeItem("platformName");
+          localStorage.setItem("authToken", res.authToken);
+          localStorage.setItem("email", res.data.email);
+          localStorage.setItem("userType", res.data.type);
+          localStorage.setItem("userid", res.data.user_id);
+          if (res.data.type === "applicant") {
+            localStorage.setItem(
+              "applicant_profile",
+              JSON.stringify(res.profileData)
+            );
+          }
+          if (process.env.NODE_ENV === "development") {
+            console.log("AuthToken", localStorage.getItem("authToken"));
+            console.log("Email", localStorage.getItem("email"));
+            console.log("UserType", localStorage.getItem("userType"));
+            console.log("UserId", localStorage.getItem("userid"));
+          }
+          alert(res.message);
+          if (res.data.type === "applicant") {
+            await signOut({ callbackUrl: "/applicant" });
+          } else if (res.data.type === "student") {
+            await signOut({ callbackUrl: "/student" });
+          } else if (res.data.type === "faculty") {
+            await signOut({ callbackUrl: "/faculty" });
+            localStorage.clear();
+          } else if (res.data.type === "admin") {
+            await signOut({ callbackUrl: "/admin" });
+          } else {
+            alert("Invalid User Type");
+          }
+        })
+        .catch((error) => console.log(error));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session, showAlert]);
-
-  const authenticatePlatformUser = async (platformName, sessionData) => {
-    const response = await apiRequest(
-      `/account/auth/platform?platform=${platformName}`,
-      "POST",
-      sessionData
-    );
-
-    devLog("Auth platform response:", response);
-    showAlert(response.message);
-
-    if (!response.status) {
-      return;
-    }
-
-    localStorage.removeItem("platformName");
-    storeUserData(response.data);
-
-    await signOut({ callbackUrl: "/" });
-  };
+  }, [session]);
 
   const storeUserData = (data) => {
     localStorage.setItem("authToken", data.authToken);
@@ -125,8 +150,8 @@ function Login() {
   };
 
   const handleSocialLogin = async (provider) => {
-    await signIn(provider);
     localStorage.setItem("platformName", provider);
+    await signIn(provider);
   };
 
   const handleSocialLoginClick = (provider) => {
@@ -201,7 +226,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="google-icon"
-                  onClick={() => handleSocialLogin("google")}
+                  onClick={() => handleSocialLoginClick("Google")}
                 />
                 <Image
                   src="/login/facebook.png"
@@ -209,7 +234,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="facebook-icon"
-                  onClick={() => handleSocialLogin("facebook")}
+                  onClick={() => handleSocialLoginClick("Facebook")}
                 />
                 <Image
                   src="/login/twitter.png"
@@ -233,7 +258,7 @@ function Login() {
                   height={25}
                   width={25}
                   className="github-icon"
-                  onClick={() => handleSocialLogin("github")}
+                  onClick={() => handleSocialLoginClick("GitHub")}
                 />
               </div>
             </div>

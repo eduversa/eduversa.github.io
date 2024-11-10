@@ -370,10 +370,20 @@ $text-dark: #111827;
           color: $success-color;
         }
 
-        &.practical {
+        &.sessional {
           background-color: rgba($info-color, 0.1);
           color: $info-color;
         }
+
+        &.unavailable {
+          background-color: $danger-color;
+          color: white;
+        }
+
+        &.faculty{
+            background-color: #059669;
+            color: white;
+        }        
 
         &.both {
           background-color: rgba($warning-color, 0.1);
@@ -406,7 +416,7 @@ $text-dark: #111827;
           color: $primary-color;
 
           &:hover {
-            color: darken($primary-color, 10%);
+            color: darken($primary-color, 1%);
           }
         }
 
