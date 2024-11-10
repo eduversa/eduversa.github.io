@@ -1,9 +1,7 @@
+import { devLog } from "@/utils/apiUtils"
 import { Pencil,Trash2 } from "lucide-react"
-
-
-
-export default function SubjectList({ totalSubjects }) {
-
+export default function SubjectList({ totalSubjects,onEdit,onDelete }) {
+  devLog("total subjects", totalSubjects)
     if(totalSubjects.length === 0) {
     return(
         <div className="empty-state">
@@ -36,14 +34,14 @@ export default function SubjectList({ totalSubjects }) {
               </td>
               <td className="actions">
                 <button
-                  onClick={() => console.log('abc')}
+                  onClick={() => onEdit(subject)}
                   className="edit-btn"
                 >
                   <Pencil className="icon" />
                   Edit
                 </button>
                 <button
-                  onClick={() => console.log("def")}
+                  onClick={() => onDelete(subject._id)}
                   className="delete-btn"
                 >
                   <Trash2 className="icon" />
