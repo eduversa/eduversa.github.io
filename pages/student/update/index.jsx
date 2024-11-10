@@ -42,6 +42,7 @@ function StudentProfileUpdateReq() {
     }
   }, []);
 
+  
   return (
     <Fragment>
       <StudentLayout>
