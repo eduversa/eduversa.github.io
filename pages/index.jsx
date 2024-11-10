@@ -150,8 +150,8 @@ function Login() {
   };
 
   const handleSocialLogin = async (provider) => {
-    await signIn(provider);
     localStorage.setItem("platformName", provider);
+    await signIn(provider);
   };
 
   const handleSocialLoginClick = (provider) => {
