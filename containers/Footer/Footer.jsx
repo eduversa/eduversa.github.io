@@ -44,7 +44,15 @@ const Footer = () => {
       { label: "Contact Us", href: "/admin/contact" },
       { label: "manage Applicants", href: "/admin/manage/applicants" },
       { label: "manage Students", href: "/admin/manage/students" },
+      { label: "manage Faculties", href: "/admin/manage/faculties" },
       { label: "scanner", href: "/admin/scanner" },
+    ],
+    faculty: [
+      { label: "Dashboard", href: "/faculty" },
+      { label: "Update Profile", href: "/faculty/update" },
+      { label: "Contact Us", href: "/faculty/contact" },
+      { label: "About Us", href: "/faculty/about" },
+      { label: "Scanner", href: "/faculty/scanner" },
     ],
   };
 

@@ -117,7 +117,30 @@ function Navbar() {
         src: "/admin/scanner",
       },
     ],
-    faculty: [{ label: "Dashboard", className: "nav-item", src: "/faculty" }],
+    faculty: [
+      { label: "Dashboard", className: "nav-item", src: "/faculty" },
+
+      {
+        label: "Update Profile",
+        className: "nav-item",
+        src: "/faculty/update",
+      },
+      {
+        label: "Contact Us",
+        className: "nav-item",
+        src: "/faculty/contact",
+      },
+      {
+        label: "About Us",
+        className: "nav-item",
+        src: "/faculty/about",
+      },
+      {
+        label: "Scanner",
+        className: "nav-item",
+        src: "/faculty/scanner",
+      },
+    ],
     student: [
       { label: "Dashboard", className: "nav-item", src: "/student" },
       {

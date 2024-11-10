@@ -2,6 +2,8 @@ export { default as TypingText } from "./TypingText";
 export { default as ApplicantForm } from "./ApplicantForm/ApplicantForm";
 export { default as AlertModal } from "./AlertModal";
 
+export { default as StudentUpdateReqForm } from "./StudentUpdateReqForm/StudentUpdateReqForm";
+
 // Loading Components
 export { default as Circle } from "./Loading/Circle";
 export { default as Default } from "./Loading/Default";

@@ -11,6 +11,7 @@ import {
   TextArea,
   Year,
   SubjectMarks,
+  TextNoNumber,
 } from "../inputComponent/InputComponent";
 const AcademicInfo = ({
   formData,
@@ -150,20 +151,20 @@ const AcademicInfo = ({
           />
         </div>
         <div className="grid-col-2">
-          <Text
+          <TextNoNumber
             label="Board"
             name="academic_info.secondary.board"
             value={formData.academic_info.secondary.board}
             onChange={handleChange}
             required
           />
-          <Number
+          {/* <Number
             label="Aggregate"
             name="academic_info.secondary.aggregate"
             value={formData.academic_info.secondary.aggregate}
             onChange={handleChange}
             required
-          />
+          /> */}
         </div>
         <SubjectMarks
           name="academic_info.secondary.marks"
@@ -206,13 +207,13 @@ const AcademicInfo = ({
             onChange={handleChange}
             required
           />
-          <Number
+          {/* <Number
             label="Aggregate"
             name="academic_info.higher_secondary.aggregate"
             value={formData.academic_info.higher_secondary.aggregate}
             onChange={handleChange}
             required
-          />
+          /> */}
         </div>
         <SubjectMarks
           name="academic_info.higher_secondary.marks"
