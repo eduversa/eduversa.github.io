@@ -39,7 +39,7 @@ function Login() {
 
     devLog("Auth platform response:", response);
     showAlert(response.message);
-
+    setLoading(false);
     if (!response.status) {
       return;
     }
