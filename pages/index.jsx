@@ -20,9 +20,7 @@ function Login() {
   useEffect(() => {
     const platformName = localStorage.getItem("platformName");
     if (session) {
-      if (process.env.NODE_ENV === "development") {
-        devLog("Session detected:", session);
-      }
+      devLog("Session detected:", session);
 
       setLoading(true);
       authenticatePlatformUser(platformName, session)

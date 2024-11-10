@@ -56,6 +56,7 @@
     "qr-scanner": "^1.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.53.1",
     "sharp": "^0.33.3",
     "sitemap": "^8.0.0"
   },
