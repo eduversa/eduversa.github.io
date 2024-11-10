@@ -1,0 +1,110 @@
+$primary-color: #1d4ed8;
+$secondary-color: #f3f4f6;
+$border-color: #e5e7eb;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$addition-color : #32de84;
+$delete-color : #FF033E;
+
+.routine-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eff6ff 0%, #eef2ff 100%);
+  padding: 1.5rem;
+
+  .routine-wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px $shadow-color;
+    padding: 1.5rem;
+  }
+
+  .routine-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    border-radius: 0.5rem;
+    border: 1px solid $border-color;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th, td {
+        border: 1px solid $border-color;
+        padding: 0.75rem;
+      }
+
+      th {
+        background: $secondary-color;
+        font-weight: 600;
+        color: #374151;
+        text-align: left;
+      }
+
+      .period-number {
+        text-align: center;
+        font-weight: 500;
+        color: #4b5563;
+      }
+
+      tr:hover {
+        background: #fafafa;
+      }
+    }
+  }
+
+  .submit-container {
+    display: flex;
+    justify-content: flex-end;
+
+    .submit-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: $primary-color;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 6px $shadow-color;
+
+      &:hover {
+        background: darken($primary-color, 5%);
+        box-shadow: 0 6px 8px $shadow-color;
+      }
+    }
+  }
+}
+  .adds-buttons{
+    display: flex;
+    gap: 1rem;
+
+    .append-remove-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: $addition-color;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 6px $shadow-color;
+
+       
+    }
+
+    .remove {
+      background: $delete-color;
+    }
+  }
