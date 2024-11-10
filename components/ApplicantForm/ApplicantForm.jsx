@@ -7,36 +7,9 @@ import {
   FileUpload,
 } from "./formPages";
 import { getSingleApplicantApi } from "@/functions";
-import { AllLoader } from "@/components";
+import { devLog } from "@/utils/apiUtils";
 
-
-const ApplicantForm = ({userid}) => {
-  const [userData, setUserData] = useState({});
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const userType = localStorage.getItem("userType");
-    const applicantId = userType === "applicant" ? localStorage.getItem("userid") : userid;
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await getSingleApplicantApi(applicantId);
-        if (response.status === false) {
-          alert(response.message);
-          setLoading(false);
-          return;
-        }
-        setUserData(response.data);
-        localStorage.setItem("applicant_profile", JSON.stringify(userData));
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching student data:", error.message);
-        setLoading(f)
-      }
-    };
-    fetchData();
-  }, [userData, userid]);
-
+const ApplicantForm = ({userid, userData}) => {
   let currYear = new Date().getFullYear().toString();
 
   const initialFormData = useMemo(
@@ -184,7 +157,8 @@ const ApplicantForm = ({userid}) => {
   };
 
   const loadSavedFormData = useCallback(() => {
-    const savedFormData = JSON.parse(localStorage.getItem("applicant_profile"));
+    // const savedFormData = JSON.parse(localStorage.getItem("applicant_profile"));
+    const savedFormData = userData;
     if (savedFormData) {
       if (!savedFormData.family_info) {
         savedFormData.family_info = initialFormData.family_info;
@@ -197,7 +171,7 @@ const ApplicantForm = ({userid}) => {
       return savedFormData;
     }
     return null;
-  }, [initialFormData]);
+  }, [initialFormData, userData]);
 
   const processFormData = useCallback((savedFormData) => {
     const fullName = savedFormData.personal_info
@@ -449,9 +423,8 @@ const ApplicantForm = ({userid}) => {
   };
 
   const handleNextClick = (event) => {
-    if (process.env.NODE_ENV === "development") {
-      console.log(formData);
-    }
+
+    devLog(formData);
 
     if (presentPincodeError || permanentPincodeError || officePincodeError) {
       alert("Please enter a valid pincode.");
@@ -464,9 +437,7 @@ const ApplicantForm = ({userid}) => {
         localStorage.setItem("currentStep", JSON.stringify(nextStep));
       }
     } else {
-      if (process.env.NODE_ENV === "development") {
-        console.log("Form Submitted");
-      }
+      devLog("Form Submitted");
     }
   };
 

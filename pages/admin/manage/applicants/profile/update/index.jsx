@@ -1,10 +1,11 @@
 import { Fragment, useEffect } from "react";
 import { AdminLayout } from "@/layout";
 import { ApplicantForm } from "@/components";
+import { devLog } from "@/utils/apiUtils";
 
 const UpdateApplicant = () => {
   useEffect(() => {
-    console.log("HI, Debargha", localStorage.getItem("selected-applicantId"));
+    devLog("HI, Debargha", localStorage.getItem("selected-applicantId"));
   }, []);
 
   const userid =
