@@ -18,6 +18,7 @@ function Register() {
 
   useEffect(() => {
     const platformName = localStorage.getItem("platformName");
+    console.log("platformName--->", platformName);
     if (session) {
       if (process.env.NODE_ENV === "development") {
         devLog("Session detected:", session);
