@@ -1,11 +1,11 @@
 .manage-faculty {
-  $primary-color: #4caf50;
+  $primary-color: #007bff;
   $background-color: #e0e5ec;
   $text-color: #333333;
   $card-color: #ffffff;
   $shadow-light: rgba(255, 255, 255, 0.8);
   $shadow-dark: rgba(0, 0, 0, 0.2);
-  $border-radius: 15px;
+  $border-radius: 10px;
   $transition-speed: 0.4s;
 
   @mixin neumorphic($bg-color, $shadow-light, $shadow-dark) {
@@ -25,22 +25,54 @@
       transform: translateY(2px);
     }
   }
-  padding: 3rem;
+  padding: 1rem 2rem 1rem 2rem;
   background-color: $background-color;
   color: $text-color;
-  font-family: "Poppins", sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
+  font-family: var(--font-oswald);
+  min-height: 100dvh;
+  @include flex-container(column, nowrap, center, none);
   &__title {
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: darken($primary-color, 15%);
-    text-shadow: 0 3px 6px $shadow-dark;
-    margin-bottom: 2rem;
+    position: relative;
     text-align: center;
+    overflow: hidden;
+    z-index: 1;
+    color: var(--black);
+    font-family: var(--font-oswald);
+    font-size: var(--font-7);
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 0 0 1% 0;
+    @media (max-width: $breakpoint-desktop-wide) {
+    }
+    @media (max-width: $breakpoint-desktop) {
+    }
+    @media (max-width: $breakpoint-large-tablet) {
+    }
+    @media (max-width: $breakpoint-tablet) {
+    }
+    @media (max-width: $breakpoint-phone) {
+      margin: 0 0 3% 0;
+    }
+    &::before {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--pink-3), var(--purple-4));
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      border-radius: 20px;
+      transform: translateX(-50%);
+      transition: width 2s ease-in-out;
+      animation: underlineAnimation 2s infinite alternate;
+    }
+    @keyframes underlineAnimation {
+      to {
+        width: 20%;
+      }
+    }
   }
 
   &__search-bar {
@@ -61,28 +93,29 @@
       box-shadow: 0 0 12px lighten($primary-color, 40%);
     }
   }
+  &__dropdowns {
+    @include flex-container(row, nowrap, space-between, center);
+    select {
+      @include neumorphic($card-color, $shadow-light, $shadow-dark);
+      width: 100%;
+      max-width: 250px;
+      padding: 1rem;
+      font-size: 1rem;
+      margin: 1rem 0;
+      border: none;
+      outline: none;
+      color: $text-color;
 
-  select {
-    @include neumorphic($card-color, $shadow-light, $shadow-dark);
-    width: 100%;
-    max-width: 250px;
-    padding: 1rem;
-    font-size: 1rem;
-    margin: 1rem 0;
-    border: none;
-    outline: none;
-    color: $text-color;
+      &:focus {
+        box-shadow: 0 0 12px lighten($primary-color, 40%);
+      }
 
-    &:focus {
-      box-shadow: 0 0 12px lighten($primary-color, 40%);
-    }
-
-    &:disabled {
-      color: lighten($text-color, 40%);
-      cursor: not-allowed;
+      &:disabled {
+        color: lighten($text-color, 40%);
+        cursor: not-allowed;
+      }
     }
   }
-
   &__export-button {
     @include neumorphic(
       $primary-color,

@@ -213,7 +213,7 @@ function Faculty() {
       <AdminLayout>
         {loading && <AllLoader />}
         <div className="manage-faculty">
-          <h1 className="manage-faculty__title">Faculties of Eduversa:</h1>
+          <h1 className="manage-faculty__title">Faculties of Eduversa</h1>
 
           <input
             type="text"
@@ -222,57 +222,61 @@ function Faculty() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="manage-faculty__search-bar"
           />
-
-          <select
-            value={selectedCourse}
-            onChange={(e) => {
-              setSelectedCourse(e.target.value);
-              setSelectedStream("");
-            }}
-            className="manage-faculty__course-dropdown"
+          <div
+            className="
+         manage-faculty__dropdowns
+         "
           >
-            <option value="">Select Course</option>
-            {courses.map((course) => (
-              <option key={course.name} value={course.code}>
-                {course.name}
-              </option>
-            ))}
-          </select>
+            <select
+              value={selectedCourse}
+              onChange={(e) => {
+                setSelectedCourse(e.target.value);
+                setSelectedStream("");
+              }}
+              className="manage-faculty__course-dropdown"
+            >
+              <option value="">Select Course</option>
+              {courses.map((course) => (
+                <option key={course.name} value={course.code}>
+                  {course.name}
+                </option>
+              ))}
+            </select>
 
-          <select
-            value={selectedStream}
-            onChange={(e) => setSelectedStream(e.target.value)}
-            className="manage-faculty__stream-dropdown"
-            disabled={!selectedCourse}
-          >
-            <option value="">Select Stream</option>
-            {streams.map((stream) => (
-              <option key={stream.name} value={stream.name}>
-                {stream.name}
-              </option>
-            ))}
-          </select>
+            <select
+              value={selectedStream}
+              onChange={(e) => setSelectedStream(e.target.value)}
+              className="manage-faculty__stream-dropdown"
+              disabled={!selectedCourse}
+            >
+              <option value="">Select Stream</option>
+              {streams.map((stream) => (
+                <option key={stream.name} value={stream.name}>
+                  {stream.name}
+                </option>
+              ))}
+            </select>
 
-          <select
-            value={selectedGender}
-            onChange={(e) => setSelectedGender(e.target.value)}
-            className="manage-faculty__gender-dropdown"
-          >
-            <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
+            <select
+              value={selectedGender}
+              onChange={(e) => setSelectedGender(e.target.value)}
+              className="manage-faculty__gender-dropdown"
+            >
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
 
-          <label>
-            <input
-              type="checkbox"
-              checked={showFavorites}
-              onChange={() => setShowFavorites((prev) => !prev)}
-            />
-            Show Only Favorites
-          </label>
-
+            <label>
+              <input
+                type="checkbox"
+                checked={showFavorites}
+                onChange={() => setShowFavorites((prev) => !prev)}
+              />
+              Show Only Favorites
+            </label>
+          </div>
           <button
             onClick={exportFacultyDataAsCSV}
             className="manage-faculty__export-button"
