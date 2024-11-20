@@ -1,34 +1,30 @@
-// Variables for styling
-$primary-color: #4caf50;
-$background-color: #f0f3f7;
-$text-color: #333333;
-$card-color: #ffffff;
-$shadow-light: rgba(255, 255, 255, 0.8);
-$shadow-dark: rgba(0, 0, 0, 0.2);
-$border-radius: 15px;
-$transition-speed: 0.4s;
-
-// Neumorphic Mixin
-@mixin neumorphic($bg-color, $shadow-light, $shadow-dark) {
-  background: $bg-color;
-  border-radius: $border-radius;
-  box-shadow: 8px 8px 16px $shadow-dark, -8px -8px 16px $shadow-light;
-  transition: box-shadow $transition-speed, transform $transition-speed;
-
-  &:hover {
-    box-shadow: 4px 4px 10px $shadow-dark, -4px -4px 10px $shadow-light;
-    transform: translateY(-4px);
-  }
-
-  &:active {
-    box-shadow: inset 4px 4px 10px $shadow-dark,
-      inset -4px -4px 10px $shadow-light;
-    transform: translateY(2px);
-  }
-}
-
-// Faculty Card Styling
 .faculty-card {
+  $primary-color: #4caf50;
+  $background-color: #f0f3f7;
+  $text-color: #333333;
+  $card-color: #ffffff;
+  $shadow-light: rgba(255, 255, 255, 0.8);
+  $shadow-dark: rgba(0, 0, 0, 0.2);
+  $border-radius: 15px;
+  $transition-speed: 0.4s;
+
+  @mixin neumorphic($bg-color, $shadow-light, $shadow-dark) {
+    background: $bg-color;
+    border-radius: $border-radius;
+    box-shadow: 8px 8px 16px $shadow-dark, -8px -8px 16px $shadow-light;
+    transition: box-shadow $transition-speed, transform $transition-speed;
+
+    &:hover {
+      box-shadow: 4px 4px 10px $shadow-dark, -4px -4px 10px $shadow-light;
+      transform: translateY(-4px);
+    }
+
+    &:active {
+      box-shadow: inset 4px 4px 10px $shadow-dark,
+        inset -4px -4px 10px $shadow-light;
+      transform: translateY(2px);
+    }
+  }
   @include neumorphic($card-color, $shadow-light, $shadow-dark);
   padding: 1.5rem;
   text-align: center;
@@ -59,7 +55,6 @@ $transition-speed: 0.4s;
     @include neumorphic($card-color, $shadow-light, $shadow-dark);
   }
 
-  // Favorite Button
   .favorite-button {
     @include neumorphic(
       $primary-color,
@@ -87,7 +82,6 @@ $transition-speed: 0.4s;
     }
   }
 
-  // View Profile Button
   .view-profile-button {
     @include neumorphic($card-color, $shadow-light, $shadow-dark);
     padding: 0.8rem 1.5rem;
@@ -101,6 +95,78 @@ $transition-speed: 0.4s;
     &:hover {
       background-color: $primary-color;
       color: $card-color;
+    }
+  }
+  @media (max-width: $breakpoint-desktop-wide) {
+    padding: 1.2rem;
+
+    h2 {
+      font-size: 1.6rem;
+    }
+
+    .faculty-image {
+      width: 90px;
+      height: 90px;
+    }
+  }
+
+  @media (max-width: $breakpoint-desktop) {
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: $breakpoint-large-tablet) {
+    padding: 0.8rem;
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    .faculty-image {
+      width: 80px;
+      height: 80px;
+    }
+
+    .favorite-button,
+    .view-profile-button {
+      padding: 0.7rem 1.2rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: $breakpoint-tablet) {
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: $breakpoint-phone) {
+    padding: 0.5rem;
+
+    h2 {
+      font-size: 1rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+    }
+
+    .faculty-image {
+      width: 70px;
+      height: 70px;
+    }
+
+    .favorite-button,
+    .view-profile-button {
+      padding: 0.6rem 1rem;
+      font-size: 0.8rem;
     }
   }
 }
