@@ -1,23 +1,23 @@
 /* Main Faculty Card Styles */
 .faculty-card {
-  background: #e0e5ec; /* Light background to create subtle depth */
+  background: #e0e5ec;
   border-radius: 20px;
-  box-shadow: 8px 8px 15px rgba(255, 255, 255, 0.3),
-    -8px -8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 30px rgba(255, 255, 255, 0.3),
+    -10px -10px 30px rgba(0, 0, 0, 0.2);
   padding: 20px;
   width: 320px;
   transition: all 0.3s ease;
   overflow: hidden;
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.4),
-      -10px -10px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-7px);
+    box-shadow: 12px 12px 35px rgba(255, 255, 255, 0.4),
+      -12px -12px 35px rgba(0, 0, 0, 0.25);
   }
 
   .faculty-card__image {
@@ -26,47 +26,63 @@
     border-radius: 50%;
     object-fit: cover;
     border: 5px solid #e0e5ec;
-    box-shadow: inset 5px 5px 10px rgba(255, 255, 255, 0.5),
-      inset -5px -5px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
+    box-shadow: inset 6px 6px 12px rgba(255, 255, 255, 0.6),
+      inset -6px -6px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
     transition: all 0.3s ease;
 
     &:hover {
-      box-shadow: inset 8px 8px 15px rgba(255, 255, 255, 0.6),
-        inset -8px -8px 15px rgba(0, 0, 0, 0.1);
+      box-shadow: inset 8px 8px 18px rgba(255, 255, 255, 0.7),
+        inset -8px -8px 18px rgba(0, 0, 0, 0.15);
     }
   }
 
   .faculty-card__name {
-    font-size: 1.6rem;
-    font-weight: 600;
-    margin-bottom: 10px;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 15px;
     color: #333;
     text-align: center;
-    transition: color 0.3s ease;
+    text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.6);
+    transition: color 0.3s ease, transform 0.3s ease;
 
     &:hover {
       color: #007bff;
+      transform: translateY(-3px);
     }
   }
 
   .faculty-card__info {
     width: 100%;
     margin-bottom: 20px;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: #555;
 
     .faculty-card__info-group {
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .faculty-card__info-item {
       font-size: 1rem;
-      margin: 8px 0;
-      color: #777;
+      margin: 10px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      color: #777;
+      position: relative;
+      padding-left: 20px;
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 5px;
+        height: 5px;
+        background: #007bff;
+        border-radius: 50%;
+        transform: translateY(-50%);
+      }
 
       strong {
         color: #333;
@@ -80,12 +96,12 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-top: 15px;
+    margin-top: 20px;
 
     .faculty-card__favorite-button {
       background: #e0e5ec;
       border: none;
-      padding: 10px 20px;
+      padding: 10px 25px;
       border-radius: 50px;
       color: #333;
       font-size: 1rem;
@@ -94,20 +110,20 @@
       align-items: center;
       gap: 10px;
       transition: all 0.3s ease;
-      box-shadow: inset 4px 4px 6px rgba(255, 255, 255, 0.6),
-        inset -4px -4px 6px rgba(0, 0, 0, 0.2);
+      box-shadow: inset 5px 5px 10px rgba(255, 255, 255, 0.6),
+        inset -5px -5px 10px rgba(0, 0, 0, 0.2);
       outline: none;
 
       &:hover {
         background: #d1d9e6;
-        box-shadow: inset 6px 6px 8px rgba(255, 255, 255, 0.7),
-          inset -6px -6px 8px rgba(0, 0, 0, 0.25);
+        box-shadow: inset 7px 7px 12px rgba(255, 255, 255, 0.7),
+          inset -7px -7px 12px rgba(0, 0, 0, 0.25);
       }
 
       .favorite-icon {
-        font-size: 1.3rem;
-        transition: transform 0.3s ease;
-        color: #999;
+        font-size: 1.5rem;
+        color: #ddd;
+        transition: transform 0.3s ease, color 0.3s ease;
 
         &.hollow {
           color: #ddd;
@@ -115,7 +131,7 @@
 
         &.filled {
           color: #ff6666;
-          transform: scale(1.1);
+          transform: scale(1.2);
         }
       }
     }
@@ -124,19 +140,19 @@
       background: #e0e5ec;
       color: #333;
       border: none;
-      padding: 10px 20px;
+      padding: 10px 25px;
       border-radius: 50px;
       font-size: 1rem;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: inset 4px 4px 6px rgba(255, 255, 255, 0.6),
-        inset -4px -4px 6px rgba(0, 0, 0, 0.2);
+      box-shadow: inset 5px 5px 10px rgba(255, 255, 255, 0.6),
+        inset -5px -5px 10px rgba(0, 0, 0, 0.2);
       outline: none;
 
       &:hover {
         background: #d1d9e6;
-        box-shadow: inset 6px 6px 8px rgba(255, 255, 255, 0.7),
-          inset -6px -6px 8px rgba(0, 0, 0, 0.25);
+        box-shadow: inset 7px 7px 12px rgba(255, 255, 255, 0.7),
+          inset -7px -7px 12px rgba(0, 0, 0, 0.25);
       }
     }
   }
