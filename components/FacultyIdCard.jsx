@@ -1,6 +1,33 @@
 import PropTypes from "prop-types";
 import Image from "next/image";
 
+const FacultyImage = ({ image, placeholderImage, altText }) => (
+  <Image
+    src={image || placeholderImage}
+    alt={altText || "Faculty's profile picture"}
+    className="faculty-card__image"
+    width={100}
+    height={100}
+    style={{ objectFit: "cover" }}
+  />
+);
+
+const FacultyDetails = ({ label, value }) => (
+  <p className="faculty-card__info-item">
+    <strong>{label}:</strong> {value || "N/A"}
+  </p>
+);
+
+const FavoriteButton = ({ isFavorite, toggleFavorite }) => (
+  <button
+    onClick={toggleFavorite}
+    className={`faculty-card__favorite-button ${isFavorite ? "favorited" : ""}`}
+    aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+  >
+    {isFavorite ? "Unfavorite" : "Favorite"}
+  </button>
+);
+
 const FacultyIdCard = ({
   faculty,
   placeholderImage,
@@ -14,55 +41,77 @@ const FacultyIdCard = ({
     console.log(localStorage.getItem("selectedFacultyId"));
   };
 
+  const {
+    first_name,
+    last_name,
+    email,
+    present_address,
+    gender,
+    dob,
+    contact,
+  } = faculty.personal_info || {};
+  const { faculty_id, room, department } = faculty.job_info || {};
+
   return (
-    <div className="faculty-card">
-      <Image
-        src={faculty.image || placeholderImage}
-        alt={`${faculty.personal_info.first_name || "No Name"}'s Image`}
-        className="faculty-image"
-        width={100}
-        height={100}
-        objectFit="cover"
+    <div className="faculty-card" role="button">
+      <FacultyImage
+        image={faculty.image}
+        placeholderImage={placeholderImage}
+        altText={`${first_name || "No Name"}'s profile picture`}
       />
-      <h2>
-        {faculty.personal_info.first_name || "No Name"}{" "}
-        {faculty.personal_info.last_name || ""}
+      <h2 className="faculty-card__name">
+        {first_name || "No Name"} {last_name || ""}
       </h2>
-      <p>Email: {faculty.personal_info?.email || "N/A"}</p>
-      <p>User ID: {faculty.user_id}</p>
-      <p>
-        Address: {faculty.personal_info.present_address?.street || "N/A"},{" "}
-        {faculty.personal_info.present_address?.city || "N/A"},{" "}
-        {faculty.personal_info.present_address?.district || "N/A"},{" "}
-        {faculty.personal_info.present_address?.state || "N/A"}
-      </p>
-      <p>Gender: {faculty.personal_info.gender || "N/A"}</p>
-      <p>
-        DOB:{" "}
-        {faculty.personal_info.dob
-          ? new Date(faculty.personal_info.dob).toLocaleDateString()
-          : "N/A"}
-      </p>
-      <p>Contact: {faculty.personal_info.contact || "N/A"}</p>
-      <p>Faculty ID: {faculty.job_info.faculty_id}</p>
-      <p>Room: {faculty.job_info.room || "N/A"}</p>
-      <p>Department: {faculty.job_info.department || "Not Assigned"}</p>
 
-      <button
-        onClick={toggleFavorite}
-        className={`favorite-button ${isFavorite ? "favorited" : ""}`}
-        aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-      >
-        {isFavorite ? "Unfavorite" : "Favorite"}
-      </button>
+      <div className="faculty-card__info">
+        <div className="faculty-card__info-group">
+          <FacultyDetails label="Email" value={email} />
+          <FacultyDetails label="User ID" value={faculty.user_id} />
+        </div>
 
-      <button
-        onClick={handleViewProfile}
-        className="view-profile-button"
-        aria-label="View Profile"
-      >
-        View Profile
-      </button>
+        <div className="faculty-card__info-group">
+          <FacultyDetails
+            label="Address"
+            value={`${present_address?.street || "N/A"}, ${
+              present_address?.city || "N/A"
+            }, ${present_address?.district || "N/A"}, ${
+              present_address?.state || "N/A"
+            }`}
+          />
+        </div>
+
+        <div className="faculty-card__info-group">
+          <FacultyDetails label="Gender" value={gender} />
+          <FacultyDetails
+            label="DOB"
+            value={dob ? new Date(dob).toLocaleDateString() : "N/A"}
+          />
+          <FacultyDetails label="Contact" value={contact} />
+        </div>
+
+        <div className="faculty-card__info-group">
+          <FacultyDetails label="Faculty ID" value={faculty_id} />
+          <FacultyDetails label="Room" value={room} />
+          <FacultyDetails
+            label="Department"
+            value={department || "Not Assigned"}
+          />
+        </div>
+      </div>
+
+      <div className="faculty-card__actions">
+        <FavoriteButton
+          isFavorite={isFavorite}
+          toggleFavorite={toggleFavorite}
+        />
+        <button
+          onClick={handleViewProfile}
+          className="faculty-card__view-profile-button"
+          aria-label="View Profile"
+        >
+          View Profile
+        </button>
+      </div>
     </div>
   );
 };
