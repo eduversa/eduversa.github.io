@@ -1,6 +1,6 @@
-/* Neuromorphic Card Styles */
+/* Main Faculty Card Styles */
 .faculty-card {
-  background: #e0e5ec; /* Light background to give the card a subtle depth */
+  background: #e0e5ec; /* Light background to create subtle depth */
   border-radius: 20px;
   box-shadow: 8px 8px 15px rgba(255, 255, 255, 0.3),
     -8px -8px 15px rgba(0, 0, 0, 0.1);
@@ -19,130 +19,125 @@
     box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.4),
       -10px -10px 20px rgba(0, 0, 0, 0.15);
   }
-}
 
-/* Faculty Image Styling */
-.faculty-card__image {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 5px solid #e0e5ec;
-  box-shadow: inset 5px 5px 10px rgba(255, 255, 255, 0.5),
-    inset -5px -5px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 15px;
-  transition: all 0.3s ease;
+  .faculty-card__image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #e0e5ec;
+    box-shadow: inset 5px 5px 10px rgba(255, 255, 255, 0.5),
+      inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
 
-  &:hover {
-    box-shadow: inset 8px 8px 15px rgba(255, 255, 255, 0.6),
-      inset -8px -8px 15px rgba(0, 0, 0, 0.1);
+    &:hover {
+      box-shadow: inset 8px 8px 15px rgba(255, 255, 255, 0.6),
+        inset -8px -8px 15px rgba(0, 0, 0, 0.1);
+    }
   }
-}
 
-/* Name Styling */
-.faculty-card__name {
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #333;
-  text-align: center;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #007bff; /* Change color on hover */
-  }
-}
-
-/* Info Group and Items Styling */
-.faculty-card__info {
-  margin-bottom: 20px;
-  font-size: 0.95rem;
-  color: #555;
-}
-
-.faculty-card__info-group {
-  margin-bottom: 18px;
-}
-
-.faculty-card__info-item {
-  font-size: 1rem;
-  margin: 8px 0;
-  color: #777;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  strong {
-    color: #333;
+  .faculty-card__name {
+    font-size: 1.6rem;
     font-weight: 600;
-  }
-}
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+    transition: color 0.3s ease;
 
-/* Button and Interaction Styles */
-.faculty-card__actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-top: 15px;
-}
-
-/* Neuromorphic Favorite Button */
-.faculty-card__favorite-button {
-  background: #e0e5ec;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 50px;
-  color: #333;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: all 0.3s ease;
-  box-shadow: inset 4px 4px 6px rgba(255, 255, 255, 0.6),
-    inset -4px -4px 6px rgba(0, 0, 0, 0.2);
-  outline: none;
-
-  &:hover {
-    background: #d1d9e6;
-    box-shadow: inset 6px 6px 8px rgba(255, 255, 255, 0.7),
-      inset -6px -6px 8px rgba(0, 0, 0, 0.25);
-  }
-
-  .favorite-icon {
-    font-size: 1.3rem;
-    transition: transform 0.3s ease;
-    color: #999;
-
-    &.hollow {
-      color: #ddd;
-    }
-
-    &.filled {
-      color: #ff6666;
-      transform: scale(1.1);
+    &:hover {
+      color: #007bff;
     }
   }
-}
 
-/* Neuromorphic View Profile Button */
-.faculty-card__view-profile-button {
-  background: #e0e5ec;
-  color: #333;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 50px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: inset 4px 4px 6px rgba(255, 255, 255, 0.6),
-    inset -4px -4px 6px rgba(0, 0, 0, 0.2);
-  outline: none;
+  .faculty-card__info {
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    color: #555;
 
-  &:hover {
-    background: #d1d9e6;
-    box-shadow: inset 6px 6px 8px rgba(255, 255, 255, 0.7),
-      inset -6px -6px 8px rgba(0, 0, 0, 0.25);
+    .faculty-card__info-group {
+      margin-bottom: 18px;
+    }
+
+    .faculty-card__info-item {
+      font-size: 1rem;
+      margin: 8px 0;
+      color: #777;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      strong {
+        color: #333;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .faculty-card__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 15px;
+
+    .faculty-card__favorite-button {
+      background: #e0e5ec;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      color: #333;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      box-shadow: inset 4px 4px 6px rgba(255, 255, 255, 0.6),
+        inset -4px -4px 6px rgba(0, 0, 0, 0.2);
+      outline: none;
+
+      &:hover {
+        background: #d1d9e6;
+        box-shadow: inset 6px 6px 8px rgba(255, 255, 255, 0.7),
+          inset -6px -6px 8px rgba(0, 0, 0, 0.25);
+      }
+
+      .favorite-icon {
+        font-size: 1.3rem;
+        transition: transform 0.3s ease;
+        color: #999;
+
+        &.hollow {
+          color: #ddd;
+        }
+
+        &.filled {
+          color: #ff6666;
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    .faculty-card__view-profile-button {
+      background: #e0e5ec;
+      color: #333;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: inset 4px 4px 6px rgba(255, 255, 255, 0.6),
+        inset -4px -4px 6px rgba(0, 0, 0, 0.2);
+      outline: none;
+
+      &:hover {
+        background: #d1d9e6;
+        box-shadow: inset 6px 6px 8px rgba(255, 255, 255, 0.7),
+          inset -6px -6px 8px rgba(0, 0, 0, 0.25);
+      }
+    }
   }
 }
