@@ -9,26 +9,6 @@ $focus-shadow: rgba(0, 0, 0, 0.3);
 $highlight-shadow: rgba(0, 0, 0, 0.2);
 $shadow-hover: rgba(0, 0, 0, 0.1);
 
-@keyframes slide-up {
-  0% {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 .faculty-management {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: $background-color;
@@ -37,7 +17,6 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
   border-radius: 18px;
   box-shadow: 20px 20px 40px $shadow-dark, -20px -20px 40px $shadow-light;
   transition: all 0.3s ease;
-  animation: fade-in 0.5s ease-in-out;
 
   &__title {
     font-size: 3.5rem;
@@ -73,7 +52,6 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     margin-bottom: 3rem;
-    animation: slide-up 0.5s ease-in-out;
 
     .faculty-management__search-bar,
     .faculty-management__export-btn {
@@ -123,7 +101,6 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     margin-bottom: 3rem;
-    animation: slide-up 0.5s ease-in-out;
 
     &-dropdowns {
       display: flex;
@@ -189,7 +166,6 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 3rem;
     margin-bottom: 3rem;
-    animation: slide-up 0.5s ease-in-out;
 
     .faculty-id-card {
       border: 1px solid $secondary-color;
@@ -252,7 +228,6 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     justify-content: center;
     gap: 2.5rem;
     margin-bottom: 3rem;
-    animation: slide-up 0.5s ease-in-out;
 
     .faculty-management__pagination-btn {
       padding: 1.5rem 2rem;
