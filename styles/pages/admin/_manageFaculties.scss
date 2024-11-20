@@ -207,3 +207,65 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     }
   }
 }
+
+// Checkbox and Dropdown styling
+input[type="checkbox"] {
+  appearance: none;
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid $primary-color;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  position: relative;
+
+  &:checked {
+    background-color: $primary-color;
+  }
+
+  &:checked::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 1rem;
+    height: 1rem;
+    background-color: white;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 4px rgba(77, 128, 225, 0.4);
+  }
+}
+
+// Styled dropdown
+select {
+  background-color: $secondary-color;
+  padding: 1.3rem;
+  font-size: 1.2rem;
+  width: 250px;
+  border-radius: 22px;
+  border: none;
+  box-shadow: 10px 10px 30px $shadow-dark, -10px -10px 30px $shadow-light;
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+
+  &:focus {
+    box-shadow: 14px 14px 36px $focus-shadow, -14px -14px 36px $focus-shadow;
+    transform: translateY(-4px);
+  }
+
+  &:disabled {
+    background-color: #e0e5ec;
+    cursor: not-allowed;
+  }
+
+  option {
+    background-color: $background-color;
+    padding: 1rem;
+  }
+}
