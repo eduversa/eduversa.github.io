@@ -1,201 +1,209 @@
-.manage-faculty {
-  $primary-color: #007bff;
-  $background-color: #e0e5ec;
-  $text-color: #333333;
-  $card-color: #ffffff;
-  $shadow-light: rgba(255, 255, 255, 0.8);
-  $shadow-dark: rgba(0, 0, 0, 0.2);
-  $border-radius: 10px;
-  $transition-speed: 0.4s;
+$primary-color: #4d80e1;
+$secondary-color: #e0e5ec;
+$background-color: #f5f7fa;
+$text-color: #333;
+$highlight-color: #ffde00;
+$shadow-light: rgba(255, 255, 255, 0.8);
+$shadow-dark: rgba(0, 0, 0, 0.25);
+$focus-shadow: rgba(0, 0, 0, 0.3);
+$highlight-shadow: rgba(0, 0, 0, 0.2);
+$shadow-hover: rgba(0, 0, 0, 0.1);
 
-  @mixin neumorphic($bg-color, $shadow-light, $shadow-dark) {
-    background: $bg-color;
-    border-radius: $border-radius;
-    box-shadow: 8px 8px 16px $shadow-dark, -8px -8px 16px $shadow-light;
-    transition: box-shadow $transition-speed, transform $transition-speed;
-
-    &:hover {
-      box-shadow: 4px 4px 10px $shadow-dark, -4px -4px 10px $shadow-light;
-      transform: translateY(-4px);
-    }
-
-    &:active {
-      box-shadow: inset 4px 4px 10px $shadow-dark,
-        inset -4px -4px 10px $shadow-light;
-      transform: translateY(2px);
-    }
-  }
-  padding: 1rem 2rem 1rem 2rem;
+.faculty-management {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: $background-color;
   color: $text-color;
-  font-family: var(--font-oswald);
-  min-height: 100dvh;
-  border-radius: $border-radius;
-  @include flex-container(column, nowrap, center, none);
+  padding: 4rem;
+  border-radius: 18px;
+  box-shadow: 20px 20px 40px $shadow-dark, -20px -20px 40px $shadow-light;
+  transition: all 0.3s ease;
+
   &__title {
-    position: relative;
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+    color: $primary-color;
     text-align: center;
-    overflow: hidden;
-    z-index: 1;
-    color: var(--black);
-    font-family: var(--font-oswald);
-    font-size: var(--font-7);
-    font-weight: 400;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin: 0 0 1% 0;
-    @media (max-width: $breakpoint-desktop-wide) {
-    }
-    @media (max-width: $breakpoint-desktop) {
-    }
-    @media (max-width: $breakpoint-large-tablet) {
-    }
-    @media (max-width: $breakpoint-tablet) {
-    }
-    @media (max-width: $breakpoint-phone) {
-      margin: 0 0 3% 0;
-    }
-    &::before {
-      content: "";
-      display: block;
-      width: 50%;
-      height: 5px;
-      background: linear-gradient(90deg, var(--pink-3), var(--purple-4));
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      border-radius: 20px;
-      transform: translateX(-50%);
-      transition: width 2s ease-in-out;
-      animation: underlineAnimation 2s infinite alternate;
-    }
-    @keyframes underlineAnimation {
-      to {
-        width: 20%;
-      }
-    }
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
   }
-  &__top {
-    @include flex-container(row, nowrap, center, center);
-    gap: 10%;
-    &__search-bar {
-      @include neumorphic($card-color, $shadow-light, $shadow-dark);
-      width: 100%;
-      max-width: 600px;
-      padding: 1rem;
-      font-size: 1.2rem;
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+
+    .faculty-management__search-bar,
+    .faculty-management__export-btn {
+      background: $secondary-color;
+      border-radius: 22px;
+      padding: 1.5rem 2.5rem;
+      font-size: 1.3rem;
       border: none;
+      box-shadow: 10px 10px 30px $shadow-dark, -10px -10px 30px $shadow-light;
+      transition: box-shadow 0.4s ease, transform 0.3s ease,
+        background-color 0.3s ease;
       outline: none;
-      margin-bottom: 1.5rem;
-
-      &::placeholder {
-        color: lighten($text-color, 30%);
-      }
-
-      &:focus {
-        box-shadow: 0 0 12px lighten($primary-color, 40%);
-      }
-    }
-    &__export-button {
-      @include neumorphic(
-        $primary-color,
-        lighten($primary-color, 40%),
-        darken($primary-color, 20%)
-      );
-      padding: 1rem 2.5rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: $card-color;
-      text-transform: uppercase;
-      margin: 1.5rem 0;
       cursor: pointer;
 
       &:hover {
-        background-color: lighten($primary-color, 10%);
+        box-shadow: 14px 14px 36px $shadow-dark, -14px -14px 36px $shadow-light;
+        transform: translateY(-6px);
+        background-color: lighten($secondary-color, 7%);
+      }
+
+      &:active {
+        transform: translateY(2px);
+        box-shadow: 6px 6px 18px $shadow-dark, -6px -6px 18px $shadow-light;
+      }
+
+      &:disabled {
+        background-color: #d1dbe1;
+        cursor: not-allowed;
       }
     }
-  }
-  &_bottom {
-    &__dropdowns {
-      @include flex-container(row, nowrap, space-between, center);
-      select {
-        @include neumorphic($card-color, $shadow-light, $shadow-dark);
-        width: 100%;
-        max-width: 250px;
-        padding: 1rem;
-        font-size: 1rem;
-        margin: 1rem 0;
-        border: none;
-        outline: none;
-        color: $text-color;
 
-        &:focus {
-          box-shadow: 0 0 12px lighten($primary-color, 40%);
-        }
-
-        &:disabled {
-          color: lighten($text-color, 40%);
-          cursor: not-allowed;
-        }
-      }
+    .faculty-management__search-bar {
+      width: 70%;
     }
-  }
-  &__list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-    margin-top: 2rem;
 
-    .faculty-card {
-      @include neumorphic($card-color, $shadow-light, $shadow-dark);
-      padding: 1.5rem;
-      transition: transform $transition-speed;
+    .faculty-management__export-btn {
+      background-color: $primary-color;
+      color: white;
 
       &:hover {
-        transform: scale(1.05);
+        background-color: darken($primary-color, 7%);
+      }
+    }
+  }
+
+  &__filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+
+    &-dropdowns {
+      display: flex;
+      gap: 3rem;
+    }
+
+    &__dropdown {
+      background: $secondary-color;
+      padding: 1.3rem;
+      font-size: 1.2rem;
+      width: 250px;
+      border-radius: 22px;
+      border: none;
+      box-shadow: 10px 10px 30px $shadow-dark, -10px -10px 30px $shadow-light;
+      transition: box-shadow 0.4s ease, transform 0.3s ease;
+
+      &:focus {
+        box-shadow: 14px 14px 36px $focus-shadow, -14px -14px 36px $focus-shadow;
+        transform: translateY(-4px);
+      }
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
       }
     }
 
-    p {
-      text-align: center;
-      font-size: 1.2rem;
-      color: darken($primary-color, 20%);
+    &__favorites-toggle {
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: $text-color;
+
+      input {
+        transform: scale(1.5);
+        transition: transform 0.3s ease;
+      }
+
+      input:focus {
+        transform: scale(1.6);
+      }
     }
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  &__empty {
+    text-align: center;
+    font-size: 2rem;
+    color: #888;
+    margin-top: 3rem;
   }
 
   &__pagination {
     display: flex;
-    gap: 0.5rem;
-    margin-top: 2rem;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
 
-    button {
-      @include neumorphic($card-color, $shadow-light, $shadow-dark);
-      padding: 0.8rem 1.2rem;
-      font-size: 1rem;
+    .faculty-management__pagination-btn {
+      padding: 1.5rem 2rem;
+      background: $secondary-color;
       color: $text-color;
+      border-radius: 22px;
       border: none;
-      cursor: pointer;
+      box-shadow: 10px 10px 30px $shadow-dark, -10px -10px 30px $shadow-light;
+      transition: box-shadow 0.4s ease, transform 0.3s ease;
 
-      &.active {
+      &:hover {
+        box-shadow: 14px 14px 36px $shadow-dark, -14px -14px 36px $shadow-light;
+        transform: translateY(-6px);
+      }
+
+      &:active {
+        transform: translateY(3px);
+        box-shadow: 8px 8px 24px $shadow-dark, -8px -8px 24px $shadow-light;
+      }
+
+      &--active {
         background-color: $primary-color;
-        color: $card-color;
-        box-shadow: inset 4px 4px 6px darken($primary-color, 15%),
-          inset -4px -4px 6px lighten($primary-color, 40%);
+        color: white;
+        box-shadow: none;
       }
 
       &:disabled {
-        color: lighten($text-color, 50%);
+        background: #f1f1f1;
         cursor: not-allowed;
       }
     }
   }
 
-  &__page-size-dropdown {
-    @include neumorphic($card-color, $shadow-light, $shadow-dark);
-    padding: 0.8rem;
-    font-size: 1rem;
-    width: 180px;
-    margin-top: 1.5rem;
+  &__page-size {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2.5rem;
+    align-items: center;
+
+    label {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .faculty-management__page-size-dropdown {
+      background: $secondary-color;
+      padding: 1.3rem;
+      font-size: 1.2rem;
+      border-radius: 22px;
+      border: none;
+      transition: box-shadow 0.4s ease;
+
+      &:focus {
+        box-shadow: 14px 14px 36px $focus-shadow, -14px -14px 36px $focus-shadow;
+      }
+    }
   }
 }

@@ -212,33 +212,34 @@ function Faculty() {
     <Fragment>
       <AdminLayout>
         {loading && <AllLoader />}
-        <div className="manage-faculty">
-          <h1 className="manage-faculty__title">Faculties of Eduversa</h1>
+        <div className="faculty-management">
+          <h1 className="faculty-management__title">Faculties of Eduversa</h1>
 
-          <div className="manage-faculty__top">
+          <div className="faculty-management__actions">
             <input
               type="text"
               placeholder="Search by name or email..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="manage-faculty__top__search-bar"
+              className="faculty-management__search-bar"
             />
             <button
               onClick={exportFacultyDataAsCSV}
-              className="manage-faculty__top__export-button"
+              className="faculty-management__export-btn"
             >
               Export Data as CSV
             </button>
           </div>
-          <div className="manage-faculty__bottom">
-            <div className=" manage-faculty__dropdowns">
+
+          <div className="faculty-management__filters">
+            <div className="faculty-management__filters-dropdowns">
               <select
                 value={selectedCourse}
                 onChange={(e) => {
                   setSelectedCourse(e.target.value);
                   setSelectedStream("");
                 }}
-                className="manage-faculty__course-dropdown"
+                className="faculty-management__dropdown"
               >
                 <option value="">Select Course</option>
                 {courses.map((course) => (
@@ -251,7 +252,7 @@ function Faculty() {
               <select
                 value={selectedStream}
                 onChange={(e) => setSelectedStream(e.target.value)}
-                className="manage-faculty__stream-dropdown"
+                className="faculty-management__dropdown"
                 disabled={!selectedCourse}
               >
                 <option value="">Select Stream</option>
@@ -265,7 +266,7 @@ function Faculty() {
               <select
                 value={selectedGender}
                 onChange={(e) => setSelectedGender(e.target.value)}
-                className="manage-faculty__gender-dropdown"
+                className="faculty-management__dropdown"
               >
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>
@@ -273,7 +274,7 @@ function Faculty() {
                 <option value="other">Other</option>
               </select>
             </div>
-            <label>
+            <label className="faculty-management__favorites-toggle">
               <input
                 type="checkbox"
                 checked={showFavorites}
@@ -283,7 +284,7 @@ function Faculty() {
             </label>
           </div>
 
-          <div className="manage-faculty__list">
+          <div className="faculty-management__list">
             {paginatedFaculties.length > 0 ? (
               paginatedFaculties.map((faculty) => (
                 <FacultyIdCard
@@ -295,16 +296,15 @@ function Faculty() {
                 />
               ))
             ) : (
-              <p className=" manage-faculty__no-faculties-text">
-                No faculties found.
-              </p>
+              <p className="faculty-management__empty">No faculties found.</p>
             )}
           </div>
 
-          <div className="manage-faculty__pagination">
+          <div className="faculty-management__pagination">
             <button
               onClick={() => paginate(currentPage - 1)}
               disabled={currentPage === 1}
+              className="faculty-management__pagination-btn"
             >
               Previous
             </button>
@@ -313,8 +313,10 @@ function Faculty() {
                 key={index}
                 onClick={() => paginate(index + 1)}
                 disabled={index + 1 === currentPage}
-                className={`pagination-button ${
-                  index + 1 === currentPage ? "active" : ""
+                className={`faculty-management__pagination-btn ${
+                  index + 1 === currentPage
+                    ? "faculty-management__pagination-btn--active"
+                    : ""
                 }`}
               >
                 {index + 1}
@@ -323,20 +325,24 @@ function Faculty() {
             <button
               onClick={() => paginate(currentPage + 1)}
               disabled={currentPage === totalPages}
+              className="faculty-management__pagination-btn"
             >
               Next
             </button>
           </div>
 
-          <select
-            value={pageSize}
-            onChange={handleChangePageSize}
-            className="manage-faculty__page-size-dropdown"
-          >
-            <option value={9}>9 per page</option>
-            <option value={18}>18 per page</option>
-            <option value={27}>27 per page</option>
-          </select>
+          <div className="faculty-management__page-size">
+            <label>Items per page:</label>
+            <select
+              value={pageSize}
+              onChange={handleChangePageSize}
+              className="faculty-management__page-size-dropdown"
+            >
+              <option value={9}>9</option>
+              <option value={18}>18</option>
+              <option value={27}>27</option>
+            </select>
+          </div>
         </div>
       </AdminLayout>
     </Fragment>
