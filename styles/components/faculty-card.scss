@@ -1,55 +1,106 @@
-.faculty-card {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 15px;
-  transition: transform 0.3s, box-shadow 0.3s;
+// Variables for styling
+$primary-color: #4caf50;
+$background-color: #f0f3f7;
+$text-color: #333333;
+$card-color: #ffffff;
+$shadow-light: rgba(255, 255, 255, 0.8);
+$shadow-dark: rgba(0, 0, 0, 0.2);
+$border-radius: 15px;
+$transition-speed: 0.4s;
+
+// Neumorphic Mixin
+@mixin neumorphic($bg-color, $shadow-light, $shadow-dark) {
+  background: $bg-color;
+  border-radius: $border-radius;
+  box-shadow: 8px 8px 16px $shadow-dark, -8px -8px 16px $shadow-light;
+  transition: box-shadow $transition-speed, transform $transition-speed;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 4px 4px 10px $shadow-dark, -4px -4px 10px $shadow-light;
+    transform: translateY(-4px);
   }
 
-  .faculty-image {
-    margin-bottom: 15px;
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border: 3px solid #007bff;
+  &:active {
+    box-shadow: inset 4px 4px 10px $shadow-dark,
+      inset -4px -4px 10px $shadow-light;
+    transform: translateY(2px);
+  }
+}
+
+// Faculty Card Styling
+.faculty-card {
+  @include neumorphic($card-color, $shadow-light, $shadow-dark);
+  padding: 1.5rem;
+  text-align: center;
+  color: $text-color;
+  font-family: "Poppins", sans-serif;
+  margin: 1rem;
+  transition: transform $transition-speed;
+
+  &:hover {
+    transform: scale(1.02);
   }
 
   h2 {
     font-size: 1.8rem;
-    color: #343a40;
-    margin-bottom: 10px;
-    text-align: center;
+    font-weight: 600;
+    color: darken($primary-color, 15%);
+    margin: 1rem 0;
   }
 
   p {
     font-size: 1rem;
-    color: #495057;
-    margin: 5px 0;
+    margin: 0.5rem 0;
+    color: darken($text-color, 20%);
   }
 
-  .faculty-info {
-    &__label {
-      font-weight: bold;
-      color: #007bff;
-    }
-
-    &__value {
-      color: #6c757d;
-    }
+  .faculty-image {
+    border-radius: 50%;
+    @include neumorphic($card-color, $shadow-light, $shadow-dark);
   }
+
+  // Favorite Button
   .favorite-button {
-    background-color: transparent;
+    @include neumorphic(
+      $primary-color,
+      lighten($primary-color, 30%),
+      darken($primary-color, 20%)
+    );
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    color: $card-color;
+    text-transform: uppercase;
     border: none;
+    margin-top: 1rem;
     cursor: pointer;
-    color: blue; /* Change to your desired color */
+    transition: background-color $transition-speed, transform $transition-speed;
+
+    &.favorited {
+      background-color: lighten($primary-color, 10%);
+      box-shadow: inset 4px 4px 6px darken($primary-color, 15%),
+        inset -4px -4px 6px lighten($primary-color, 40%);
+      transform: translateY(2px);
+    }
+
+    &:hover {
+      background-color: lighten($primary-color, 15%);
+    }
   }
 
-  .favorite-button.favorited {
-    color: red; /* Change to your desired color for favorited state */
+  // View Profile Button
+  .view-profile-button {
+    @include neumorphic($card-color, $shadow-light, $shadow-dark);
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    color: $primary-color;
+    border: 1px solid $primary-color;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $primary-color;
+      color: $card-color;
+    }
   }
 }
