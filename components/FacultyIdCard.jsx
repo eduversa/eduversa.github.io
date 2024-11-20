@@ -24,6 +24,9 @@ const FavoriteButton = ({ isFavorite, toggleFavorite }) => (
     className={`faculty-card__favorite-button ${isFavorite ? "favorited" : ""}`}
     aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
   >
+    <span className={`favorite-icon ${isFavorite ? "filled" : "hollow"}`}>
+      &#10084;
+    </span>
     {isFavorite ? "Unfavorite" : "Favorite"}
   </button>
 );
