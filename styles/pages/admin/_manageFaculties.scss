@@ -30,6 +30,7 @@
   color: $text-color;
   font-family: var(--font-oswald);
   min-height: 100dvh;
+  border-radius: $border-radius;
   @include flex-container(column, nowrap, center, none);
   &__title {
     position: relative;
@@ -74,67 +75,71 @@
       }
     }
   }
-
-  &__search-bar {
-    @include neumorphic($card-color, $shadow-light, $shadow-dark);
-    width: 100%;
-    max-width: 600px;
-    padding: 1rem;
-    font-size: 1.2rem;
-    border: none;
-    outline: none;
-    margin-bottom: 1.5rem;
-
-    &::placeholder {
-      color: lighten($text-color, 30%);
-    }
-
-    &:focus {
-      box-shadow: 0 0 12px lighten($primary-color, 40%);
-    }
-  }
-  &__dropdowns {
-    @include flex-container(row, nowrap, space-between, center);
-    select {
+  &__top {
+    @include flex-container(row, nowrap, center, center);
+    gap: 10%;
+    &__search-bar {
       @include neumorphic($card-color, $shadow-light, $shadow-dark);
       width: 100%;
-      max-width: 250px;
+      max-width: 600px;
       padding: 1rem;
-      font-size: 1rem;
-      margin: 1rem 0;
+      font-size: 1.2rem;
       border: none;
       outline: none;
-      color: $text-color;
+      margin-bottom: 1.5rem;
+
+      &::placeholder {
+        color: lighten($text-color, 30%);
+      }
 
       &:focus {
         box-shadow: 0 0 12px lighten($primary-color, 40%);
       }
+    }
+    &__export-button {
+      @include neumorphic(
+        $primary-color,
+        lighten($primary-color, 40%),
+        darken($primary-color, 20%)
+      );
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: $card-color;
+      text-transform: uppercase;
+      margin: 1.5rem 0;
+      cursor: pointer;
 
-      &:disabled {
-        color: lighten($text-color, 40%);
-        cursor: not-allowed;
+      &:hover {
+        background-color: lighten($primary-color, 10%);
       }
     }
   }
-  &__export-button {
-    @include neumorphic(
-      $primary-color,
-      lighten($primary-color, 40%),
-      darken($primary-color, 20%)
-    );
-    padding: 1rem 2.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: $card-color;
-    text-transform: uppercase;
-    margin: 1.5rem 0;
-    cursor: pointer;
+  &_bottom {
+    &__dropdowns {
+      @include flex-container(row, nowrap, space-between, center);
+      select {
+        @include neumorphic($card-color, $shadow-light, $shadow-dark);
+        width: 100%;
+        max-width: 250px;
+        padding: 1rem;
+        font-size: 1rem;
+        margin: 1rem 0;
+        border: none;
+        outline: none;
+        color: $text-color;
 
-    &:hover {
-      background-color: lighten($primary-color, 10%);
+        &:focus {
+          box-shadow: 0 0 12px lighten($primary-color, 40%);
+        }
+
+        &:disabled {
+          color: lighten($text-color, 40%);
+          cursor: not-allowed;
+        }
+      }
     }
   }
-
   &__list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -192,66 +197,5 @@
     font-size: 1rem;
     width: 180px;
     margin-top: 1.5rem;
-  }
-
-  @media (max-width: $breakpoint-desktop-wide) {
-    .manage-faculty__title {
-      font-size: 2.4rem;
-    }
-
-    .manage-faculty__list {
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-  }
-
-  @media (max-width: $breakpoint-desktop) {
-    padding: 2rem;
-
-    .manage-faculty__title {
-      font-size: 2.2rem;
-    }
-
-    .faculty-card {
-      padding: 1.2rem;
-    }
-  }
-
-  @media (max-width: $breakpoint-large-tablet) {
-    .manage-faculty__title {
-      font-size: 2rem;
-    }
-
-    .faculty-card {
-      padding: 1rem;
-    }
-  }
-
-  @media (max-width: $breakpoint-tablet) {
-    padding: 1.5rem;
-
-    .manage-faculty__title {
-      font-size: 1.8rem;
-    }
-
-    .faculty-card {
-      padding: 0.8rem;
-    }
-  }
-
-  @media (max-width: $breakpoint-phone) {
-    padding: 1rem;
-
-    .manage-faculty__title {
-      font-size: 1.6rem;
-    }
-
-    .faculty-card {
-      padding: 0.5rem;
-    }
-
-    &__search-bar {
-      max-width: 100%;
-      font-size: 1rem;
-    }
   }
 }

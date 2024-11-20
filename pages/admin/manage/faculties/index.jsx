@@ -215,59 +215,64 @@ function Faculty() {
         <div className="manage-faculty">
           <h1 className="manage-faculty__title">Faculties of Eduversa</h1>
 
-          <input
-            type="text"
-            placeholder="Search by name or email..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="manage-faculty__search-bar"
-          />
-          <div
-            className="
-         manage-faculty__dropdowns
-         "
-          >
-            <select
-              value={selectedCourse}
-              onChange={(e) => {
-                setSelectedCourse(e.target.value);
-                setSelectedStream("");
-              }}
-              className="manage-faculty__course-dropdown"
+          <div className="manage-faculty__top">
+            <input
+              type="text"
+              placeholder="Search by name or email..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="manage-faculty__top__search-bar"
+            />
+            <button
+              onClick={exportFacultyDataAsCSV}
+              className="manage-faculty__top__export-button"
             >
-              <option value="">Select Course</option>
-              {courses.map((course) => (
-                <option key={course.name} value={course.code}>
-                  {course.name}
-                </option>
-              ))}
-            </select>
+              Export Data as CSV
+            </button>
+          </div>
+          <div className="manage-faculty__bottom">
+            <div className=" manage-faculty__dropdowns">
+              <select
+                value={selectedCourse}
+                onChange={(e) => {
+                  setSelectedCourse(e.target.value);
+                  setSelectedStream("");
+                }}
+                className="manage-faculty__course-dropdown"
+              >
+                <option value="">Select Course</option>
+                {courses.map((course) => (
+                  <option key={course.name} value={course.code}>
+                    {course.name}
+                  </option>
+                ))}
+              </select>
 
-            <select
-              value={selectedStream}
-              onChange={(e) => setSelectedStream(e.target.value)}
-              className="manage-faculty__stream-dropdown"
-              disabled={!selectedCourse}
-            >
-              <option value="">Select Stream</option>
-              {streams.map((stream) => (
-                <option key={stream.name} value={stream.name}>
-                  {stream.name}
-                </option>
-              ))}
-            </select>
+              <select
+                value={selectedStream}
+                onChange={(e) => setSelectedStream(e.target.value)}
+                className="manage-faculty__stream-dropdown"
+                disabled={!selectedCourse}
+              >
+                <option value="">Select Stream</option>
+                {streams.map((stream) => (
+                  <option key={stream.name} value={stream.name}>
+                    {stream.name}
+                  </option>
+                ))}
+              </select>
 
-            <select
-              value={selectedGender}
-              onChange={(e) => setSelectedGender(e.target.value)}
-              className="manage-faculty__gender-dropdown"
-            >
-              <option value="">Select Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-
+              <select
+                value={selectedGender}
+                onChange={(e) => setSelectedGender(e.target.value)}
+                className="manage-faculty__gender-dropdown"
+              >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
             <label>
               <input
                 type="checkbox"
@@ -277,12 +282,6 @@ function Faculty() {
               Show Only Favorites
             </label>
           </div>
-          <button
-            onClick={exportFacultyDataAsCSV}
-            className="manage-faculty__export-button"
-          >
-            Export Data as CSV
-          </button>
 
           <div className="manage-faculty__list">
             {paginatedFaculties.length > 0 ? (
@@ -296,7 +295,9 @@ function Faculty() {
                 />
               ))
             ) : (
-              <p>No faculties found.</p>
+              <p className=" manage-faculty__no-faculties-text">
+                No faculties found.
+              </p>
             )}
           </div>
 
