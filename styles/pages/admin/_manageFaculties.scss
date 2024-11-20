@@ -1,28 +1,18 @@
-$primary-color: #4d80e1;
-$secondary-color: #e0e5ec;
-$background-color: #f5f7fa;
-$text-color: #333;
-$highlight-color: #ffde00;
-$shadow-light: rgba(255, 255, 255, 0.8);
-$shadow-dark: rgba(0, 0, 0, 0.25);
-$focus-shadow: rgba(0, 0, 0, 0.3);
-$highlight-shadow: rgba(0, 0, 0, 0.2);
-$shadow-hover: rgba(0, 0, 0, 0.1);
-
 .faculty-management {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: $background-color;
-  color: $text-color;
+  background-color: #f5f7fa;
+  color: #333;
   padding: 4rem;
   border-radius: 18px;
-  box-shadow: 20px 20px 40px $shadow-dark, -20px -20px 40px $shadow-light;
+  box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.25),
+    -20px -20px 40px rgba(255, 255, 255, 0.8);
   transition: all 0.3s ease;
 
   &__title {
     font-size: 3.5rem;
     font-weight: 800;
     margin-bottom: 3rem;
-    color: $primary-color;
+    color: #4d80e1;
     text-align: center;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     letter-spacing: 1px;
@@ -34,7 +24,7 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
       position: absolute;
       width: 100%;
       height: 3px;
-      background-color: $primary-color;
+      background-color: #4d80e1;
       bottom: -10px;
       left: 0;
       transform: scaleX(0);
@@ -55,26 +45,29 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
 
     .faculty-management__search-bar,
     .faculty-management__export-btn {
-      background: $secondary-color;
+      background: #e0e5ec;
       border-radius: 22px;
       padding: 1.5rem 2.5rem;
       font-size: 1.3rem;
       border: none;
-      box-shadow: 10px 10px 30px $shadow-dark, -10px -10px 30px $shadow-light;
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
+        -10px -10px 30px rgba(255, 255, 255, 0.8);
       transition: box-shadow 0.4s ease, transform 0.3s ease,
         background-color 0.3s ease;
       outline: none;
       cursor: pointer;
 
       &:hover {
-        box-shadow: 14px 14px 36px $shadow-dark, -14px -14px 36px $shadow-light;
+        box-shadow: 14px 14px 36px rgba(0, 0, 0, 0.25),
+          -14px -14px 36px rgba(255, 255, 255, 0.8);
         transform: translateY(-6px);
-        background-color: lighten($secondary-color, 7%);
+        background-color: lighten(#e0e5ec, 7%);
       }
 
       &:active {
         transform: translateY(2px);
-        box-shadow: 6px 6px 18px $shadow-dark, -6px -6px 18px $shadow-light;
+        box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.25),
+          -6px -6px 18px rgba(255, 255, 255, 0.8);
       }
 
       &:disabled {
@@ -88,11 +81,11 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     }
 
     .faculty-management__export-btn {
-      background-color: $primary-color;
+      background-color: #4d80e1;
       color: white;
 
       &:hover {
-        background-color: darken($primary-color, 7%);
+        background-color: darken(#4d80e1, 7%);
       }
     }
   }
@@ -108,17 +101,19 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     }
 
     &__dropdown {
-      background: $secondary-color;
+      background: #e0e5ec;
       padding: 1.3rem;
       font-size: 1.2rem;
       width: 250px;
       border-radius: 22px;
       border: none;
-      box-shadow: 10px 10px 30px $shadow-dark, -10px -10px 30px $shadow-light;
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
+        -10px -10px 30px rgba(255, 255, 255, 0.8);
       transition: box-shadow 0.4s ease, transform 0.3s ease;
 
       &:focus {
-        box-shadow: 14px 14px 36px $focus-shadow, -14px -14px 36px $focus-shadow;
+        box-shadow: 14px 14px 36px rgba(0, 0, 0, 0.3),
+          -14px -14px 36px rgba(0, 0, 0, 0.3);
         transform: translateY(-4px);
       }
 
@@ -138,7 +133,7 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
         right: 12px;
         transform: translateY(-50%);
         font-size: 1.5rem;
-        color: $text-color;
+        color: #333;
       }
     }
 
@@ -147,7 +142,7 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
       display: flex;
       align-items: center;
       gap: 0.8rem;
-      color: $text-color;
+      color: #333;
 
       input {
         transform: scale(1.5);
@@ -168,15 +163,17 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     margin-bottom: 3rem;
 
     .faculty-id-card {
-      border: 1px solid $secondary-color;
+      border: 1px solid #e0e5ec;
       border-radius: 12px;
       padding: 2rem;
-      box-shadow: 10px 10px 30px $shadow-dark, -10px -10px 30px $shadow-light;
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
+        -10px -10px 30px rgba(255, 255, 255, 0.8);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
 
       &:hover {
         transform: translateY(-6px);
-        box-shadow: 14px 14px 36px $shadow-dark, -14px -14px 36px $shadow-light;
+        box-shadow: 14px 14px 36px rgba(0, 0, 0, 0.25),
+          -14px -14px 36px rgba(255, 255, 255, 0.8);
       }
 
       &__image {
@@ -197,7 +194,7 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
 
       &__name {
         font-weight: 700;
-        color: $primary-color;
+        color: #4d80e1;
       }
 
       &__favorite-icon {
@@ -205,7 +202,7 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
         top: 10px;
         right: 10px;
         font-size: 2rem;
-        color: $highlight-color;
+        color: #ffde00;
         cursor: pointer;
         transition: transform 0.3s ease;
 
@@ -231,25 +228,28 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
 
     .faculty-management__pagination-btn {
       padding: 1.5rem 2rem;
-      background: $secondary-color;
-      color: $text-color;
+      background: #e0e5ec;
+      color: #333;
       border-radius: 22px;
       border: none;
-      box-shadow: 10px 10px 30px $shadow-dark, -10px -10px 30px $shadow-light;
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
+        -10px -10px 30px rgba(255, 255, 255, 0.8);
       transition: box-shadow 0.4s ease, transform 0.3s ease;
 
       &:hover {
-        box-shadow: 14px 14px 36px $shadow-dark, -14px -14px 36px $shadow-light;
+        box-shadow: 14px 14px 36px rgba(0, 0, 0, 0.25),
+          -14px -14px 36px rgba(255, 255, 255, 0.8);
         transform: translateY(-6px);
       }
 
       &:active {
         transform: translateY(3px);
-        box-shadow: 8px 8px 24px $shadow-dark, -8px -8px 24px $shadow-light;
+        box-shadow: 8px 8px 24px rgba(0, 0, 0, 0.25),
+          -8px -8px 24px rgba(255, 255, 255, 0.8);
       }
 
       &--active {
-        background-color: $primary-color;
+        background-color: #4d80e1;
         color: white;
         box-shadow: none;
       }
@@ -273,76 +273,77 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     }
 
     .faculty-management__page-size-dropdown {
-      background: $secondary-color;
-      padding: 1.3rem;
-      font-size: 1.2rem;
+      background: #e0e5ec;
+      padding: 1.5rem;
+      font-size: 1.4rem;
       border-radius: 22px;
       border: none;
-      transition: box-shadow 0.4s ease;
-
-      &:focus {
-        box-shadow: 14px 14px 36px $focus-shadow, -14px -14px 36px $focus-shadow;
-      }
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
+        -10px -10px 30px rgba(255, 255, 255, 0.8);
+      transition: box-shadow 0.4s ease, transform 0.3s ease;
     }
   }
-}
-
-input[type="checkbox"] {
-  appearance: none;
-  width: 2rem;
-  height: 2rem;
-  border: 2px solid $primary-color;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  position: relative;
-
-  &:checked {
-    background-color: $primary-color;
-  }
-
-  &:checked::after {
-    content: "";
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 1rem;
-    height: 1rem;
-    background-color: white;
+  // Checkbox styles
+  input[type="checkbox"] {
+    appearance: none;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #4d80e1; // Primary color
     border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    position: relative;
+
+    &:checked {
+      background-color: #4d80e1; // Primary color
+    }
+
+    &:checked::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 1rem;
+      height: 1rem;
+      background-color: white;
+      border-radius: 50%;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 4px rgba(77, 128, 225, 0.4); // Primary color shadow
+    }
   }
 
-  &:hover {
-    transform: scale(1.1);
-  }
+  // Select dropdown styles
+  select {
+    background-color: #e0e5ec; // Secondary color
+    padding: 1.3rem;
+    font-size: 1.2rem;
+    width: 250px;
+    border-radius: 22px;
+    border: none;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
+      -10px -10px 30px rgba(255, 255, 255, 0.8); // Shadow colors
+    transition: box-shadow 0.4s ease, transform 0.3s ease;
 
-  &:focus {
-    box-shadow: 0 0 0 4px rgba(77, 128, 225, 0.4);
-  }
-}
+    &:focus {
+      box-shadow: 14px 14px 36px rgba(0, 0, 0, 0.3),
+        -14px -14px 36px rgba(0, 0, 0, 0.3); // Focus shadow
+      transform: translateY(-4px);
+    }
 
-select {
-  background-color: $secondary-color;
-  padding: 1.3rem;
-  font-size: 1.2rem;
-  width: 250px;
-  border-radius: 22px;
-  border: none;
-  box-shadow: 10px 10px 30px $shadow-dark, -10px -10px 30px $shadow-light;
-  transition: box-shadow 0.4s ease, transform 0.3s ease;
+    &:disabled {
+      background-color: #e0e5ec;
+      cursor: not-allowed;
+    }
 
-  &:focus {
-    box-shadow: 14px 14px 36px $focus-shadow, -14px -14px 36px $focus-shadow;
-    transform: translateY(-4px);
-  }
-
-  &:disabled {
-    background-color: #e0e5ec;
-    cursor: not-allowed;
-  }
-
-  option {
-    background-color: $background-color;
-    padding: 1rem;
+    option {
+      background-color: #f5f7fa; // Background color
+      padding: 1rem;
+    }
   }
 }
