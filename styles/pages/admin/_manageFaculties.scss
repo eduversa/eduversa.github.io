@@ -9,6 +9,26 @@ $focus-shadow: rgba(0, 0, 0, 0.3);
 $highlight-shadow: rgba(0, 0, 0, 0.2);
 $shadow-hover: rgba(0, 0, 0, 0.1);
 
+@keyframes slide-up {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .faculty-management {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: $background-color;
@@ -17,6 +37,7 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
   border-radius: 18px;
   box-shadow: 20px 20px 40px $shadow-dark, -20px -20px 40px $shadow-light;
   transition: all 0.3s ease;
+  animation: fade-in 0.5s ease-in-out;
 
   &__title {
     font-size: 3.5rem;
@@ -26,12 +47,33 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     text-align: center;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      background-color: $primary-color;
+      bottom: -10px;
+      left: 0;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
   }
 
   &__actions {
     display: flex;
     justify-content: space-between;
     margin-bottom: 3rem;
+    animation: slide-up 0.5s ease-in-out;
 
     .faculty-management__search-bar,
     .faculty-management__export-btn {
@@ -81,6 +123,7 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     margin-bottom: 3rem;
+    animation: slide-up 0.5s ease-in-out;
 
     &-dropdowns {
       display: flex;
@@ -110,6 +153,16 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
         background-color: #888;
         border-radius: 10px;
       }
+
+      &::before {
+        content: "🔽";
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%);
+        font-size: 1.5rem;
+        color: $text-color;
+      }
     }
 
     &__favorites-toggle {
@@ -122,6 +175,7 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
       input {
         transform: scale(1.5);
         transition: transform 0.3s ease;
+        cursor: pointer;
       }
 
       input:focus {
@@ -135,6 +189,55 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 3rem;
     margin-bottom: 3rem;
+    animation: slide-up 0.5s ease-in-out;
+
+    .faculty-id-card {
+      border: 1px solid $secondary-color;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 10px 10px 30px $shadow-dark, -10px -10px 30px $shadow-light;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-6px);
+        box-shadow: 14px 14px 36px $shadow-dark, -14px -14px 36px $shadow-light;
+      }
+
+      &__image {
+        width: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+
+      &__details {
+        padding: 1rem;
+        font-size: 1.4rem;
+      }
+
+      &__name {
+        font-weight: 700;
+        color: $primary-color;
+      }
+
+      &__favorite-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 2rem;
+        color: $highlight-color;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
   }
 
   &__empty {
@@ -149,6 +252,7 @@ $shadow-hover: rgba(0, 0, 0, 0.1);
     justify-content: center;
     gap: 2.5rem;
     margin-bottom: 3rem;
+    animation: slide-up 0.5s ease-in-out;
 
     .faculty-management__pagination-btn {
       padding: 1.5rem 2rem;
