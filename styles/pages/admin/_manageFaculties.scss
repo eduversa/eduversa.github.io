@@ -46,10 +46,10 @@
     .faculty-management__search-bar,
     .faculty-management__export-btn {
       background: var(--white-14);
-      font-family: var(--font-elianto);
+      font-family: var(--font-oswald);
       font-size: var(--font-11);
       font-weight: 400;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       border-radius: 20px;
       padding: 1rem 2rem 1rem 2rem;
       border: none;
@@ -101,22 +101,28 @@
       @include flex-container(row, nowrap, center, center);
       gap: 5%;
       &__dropdown {
+        position: relative;
         background: var(--white-14);
-        padding: 1.3rem;
-        font-size: 1.2rem;
-        width: 250px;
+        font-family: var(--font-playfair);
+        font-size: var(--font-12);
+        font-weight: 600;
+        letter-spacing: 4px;
+        padding: 1rem 1.5rem 1rem 1.5rem;
         border-radius: 22px;
         border: none;
         box-shadow: 10px 10px 30px var(--black-shadow-light-2),
           -10px -10px 30px var(--white-shadow-0);
         transition: box-shadow 0.4s ease, transform 0.3s ease;
-
+        outline: none;
         &:focus {
           box-shadow: 14px 14px 36px var(--black-shadow-light-2),
             -14px -14px 36px var(--black-shadow-light-2);
           transform: translateY(-4px);
         }
-
+        &:disabled {
+          background-color: var(--white-14);
+          cursor: not-allowed;
+        }
         &::before {
           content: "🔽";
           position: absolute;
@@ -127,11 +133,16 @@
           color: #333;
         }
 
-        &:disabled {
-          background-color: var(--white-14);
-          cursor: not-allowed;
+        &::after {
+          content: "✨";
+          position: absolute;
+          bottom: 10px;
+          left: 15px;
+          font-size: 1.8rem;
+          color: #4d80e1;
+          opacity: 0.5;
+          transition: all 0.3s ease;
         }
-
         option {
           background: linear-gradient(45deg, var(--white-1), var(--white-12));
           padding: 1rem;

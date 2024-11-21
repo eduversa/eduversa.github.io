@@ -185,6 +185,7 @@ function Faculty() {
       "Department",
       "Course",
       "Stream",
+      "Favorite",
     ];
     const rows = filteredFaculties.map((faculty) => [
       faculty.personal_info.first_name || "",
@@ -194,6 +195,7 @@ function Faculty() {
       faculty.job_info.department || "",
       faculty.job_info.course || "",
       faculty.job_info.stream || "",
+      favorites.includes(faculty._id) ? "Yes" : "No",
     ]);
 
     const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
@@ -201,12 +203,12 @@ function Faculty() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "faculty_data.csv";
+    link.download = `faculty_data_${new Date().toISOString()}.csv`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-  }, [filteredFaculties]);
+  }, [filteredFaculties, favorites]);
 
   return (
     <Fragment>
