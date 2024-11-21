@@ -107,7 +107,7 @@
         font-family: var(--font-roboto);
         font-size: var(--font-12);
         font-weight: 400;
-        padding: 0.7rem 1rem 0.7rem 1rem;
+        padding: 1rem 1rem 1rem 1rem;
         border-radius: 15px;
         border: none;
         box-shadow: 10px 10px 30px var(--black-shadow-light-2),
@@ -223,13 +223,17 @@
   &__pagination {
     @include flex-container(row, nowrap, center, center);
     gap: 5%;
-    margin: 5% 0 5% 0;
-    .faculty-management__pagination-btn {
-      padding: 1.5rem 2rem;
+    margin: 3% 0 2.5% 0;
+    &__btn {
+      font-family: var(--font-roboto);
+      font-size: var(--font-11);
       background: var(--white-14);
       color: var(--light-black-2);
-      border-radius: 22px;
+      letter-spacing: 2px;
+      padding: 1rem 1.5rem;
+      border-radius: 15px;
       border: none;
+      outline: none;
       box-shadow: 10px 10px 30px var(--black-shadow-light-2),
         -10px -10px 30px var(--white-shadow-0);
       transition: box-shadow 0.4s ease, transform 0.3s ease;
@@ -237,7 +241,7 @@
       &:hover {
         box-shadow: 14px 14px 36px var(--black-shadow-light-2),
           -14px -14px 36px var(--white-shadow-0);
-        transform: translateY(-6px);
+        transform: translateY(-4px);
       }
 
       &:active {
@@ -246,14 +250,12 @@
           -8px -8px 24px var(--white-shadow-0);
       }
 
-      &--active {
-        background-color: #4d80e1;
+      &__active {
+        background: #4d80e1;
         color: white;
-        box-shadow: none;
       }
 
       &:disabled {
-        background: #f1f1f1;
         cursor: not-allowed;
       }
     }

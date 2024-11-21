@@ -305,7 +305,7 @@ function Faculty() {
             <button
               onClick={() => paginate(currentPage - 1)}
               disabled={currentPage === 1}
-              className="faculty-management__pagination-btn"
+              className="faculty-management__pagination__btn"
             >
               Previous
             </button>
@@ -314,9 +314,9 @@ function Faculty() {
                 key={index}
                 onClick={() => paginate(index + 1)}
                 disabled={index + 1 === currentPage}
-                className={`faculty-management__pagination-btn ${
+                className={`faculty-management__pagination__btn ${
                   index + 1 === currentPage
-                    ? "faculty-management__pagination-btn--active"
+                    ? "faculty-management__pagination__btn__active"
                     : ""
                 }`}
               >
@@ -326,7 +326,7 @@ function Faculty() {
             <button
               onClick={() => paginate(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="faculty-management__pagination-btn"
+              className="faculty-management__pagination__btn"
             >
               Next
             </button>
