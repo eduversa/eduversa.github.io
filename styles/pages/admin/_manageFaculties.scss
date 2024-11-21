@@ -200,65 +200,26 @@
   &__list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 3rem;
-    margin-bottom: 3rem;
-
-    .faculty-id-card {
-      border: 1px solid var(--white-14);
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 10px 10px 30px var(--black-shadow-light-2),
-        -10px -10px 30px var(--white-shadow-0);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-      &:hover {
-        transform: translateY(-6px);
-        box-shadow: 14px 14px 36px var(--black-shadow-light-2),
-          -14px -14px 36px var(--white-shadow-0);
-      }
-
-      &__image {
-        width: 100%;
-        border-radius: 10px;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-
-        &:hover {
-          transform: scale(1.05);
-        }
-      }
-
-      &__details {
-        padding: 1rem;
-        font-size: 1.4rem;
-      }
-
-      &__name {
-        font-weight: 700;
-        color: #4d80e1;
-      }
-
-      &__favorite-icon {
+    gap: 3vw;
+    &__empty {
+      position: relative;
+      color: gray;
+      font-family: var(--font-playfair);
+      font-size: var(--font-9);
+      font-weight: 400;
+      text-transform: capitalize;
+      letter-spacing: 2.5px;
+      margin: 2.5% 0 2.5% 0;
+      grid-column: 2;
+      left: 10%;
+      &::before {
+        content: "🫡";
         position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 2rem;
-        color: #ffde00;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-
-        &:hover {
-          transform: scale(1.2);
-        }
+        left: -15%;
+        top: 45%;
+        transform: translateY(-50%);
       }
     }
-  }
-
-  &__empty {
-    text-align: center;
-    font-size: 2rem;
-    color: #888;
-    margin-top: 3rem;
   }
 
   &__pagination {

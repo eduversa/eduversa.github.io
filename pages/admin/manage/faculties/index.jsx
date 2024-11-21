@@ -295,7 +295,9 @@ function Faculty() {
                 />
               ))
             ) : (
-              <p className="faculty-management__empty">No faculties found.</p>
+              <p className="faculty-management__list__empty">
+                No faculties found.
+              </p>
             )}
           </div>
 
