@@ -46,7 +46,7 @@
     .faculty-management__search-bar,
     .faculty-management__export-btn {
       background: var(--white-14);
-      font-family: var(--font-oswald);
+      font-family: var(--font-roboto);
       font-size: var(--font-11);
       font-weight: 400;
       letter-spacing: 2px;
@@ -95,18 +95,18 @@
   }
 
   &__filters {
-    @include flex-container(row, nowrap, space-between, center);
+    @include flex-container(row, wrap, center, center);
     margin: 0 0 4% 0;
+    gap: 10%;
     &__dropdowns {
       @include flex-container(row, nowrap, center, center);
       gap: 5%;
       select {
         position: relative;
         background: var(--white-14);
-        font-family: var(--font-playfair);
-        font-size: var(--font-13);
-        font-weight: 600;
-        letter-spacing: 4px;
+        font-family: var(--font-roboto);
+        font-size: var(--font-12);
+        font-weight: 400;
         padding: 0.7rem 1rem 0.7rem 1rem;
         border-radius: 15px;
         border: none;
@@ -126,7 +126,7 @@
           right: 12px;
           transform: translateY(-50%);
           font-size: 1.5rem;
-          color: #333;
+          color: var(--light-black-2);
         }
 
         &::after {
@@ -146,11 +146,12 @@
       }
     }
     &__favorites-toggle {
-      font-size: 1.4rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      color: #333;
+      @include flex-container(row, nowrap, center, center);
+      font-family: var(--font-roboto);
+      color: var(--light-black-2);
+      font-size: var(--font-12);
+      letter-spacing: 2px;
+      gap: 0.5vw;
 
       input {
         transition: transform 0.3s ease;
@@ -228,7 +229,7 @@
     .faculty-management__pagination-btn {
       padding: 1.5rem 2rem;
       background: var(--white-14);
-      color: #333;
+      color: var(--light-black-2);
       border-radius: 22px;
       border: none;
       box-shadow: 10px 10px 30px var(--black-shadow-light-2),
