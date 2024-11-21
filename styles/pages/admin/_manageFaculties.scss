@@ -100,7 +100,7 @@
     &__dropdowns {
       @include flex-container(row, nowrap, center, center);
       gap: 5%;
-      &__dropdown {
+      select {
         position: relative;
         background: var(--white-14);
         font-family: var(--font-playfair);
