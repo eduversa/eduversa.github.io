@@ -95,14 +95,11 @@
   }
 
   &__filters {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 3rem;
-
+    @include flex-container(row, nowrap, space-between, center);
+    margin: 0 0 4% 0;
     &-dropdowns {
-      display: flex;
-      gap: 3rem;
-
+      @include flex-container(row, nowrap, center, center);
+      gap: 5%;
       &__dropdown {
         background: #e0e5ec;
         padding: 1.3rem;
