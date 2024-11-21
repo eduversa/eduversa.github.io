@@ -1,13 +1,11 @@
 .faculty-management {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f7fa;
-  color: #333;
-  padding: 4rem;
+  color: var(--black);
+  padding: 2rem 4rem 2rem 3rem;
   border-radius: 18px;
   box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.25),
     -20px -20px 40px rgba(255, 255, 255, 0.8);
   transition: all 0.3s ease;
-
   &__title {
     position: relative;
     text-align: center;
