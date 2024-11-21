@@ -273,7 +273,7 @@ function Faculty() {
                 <option value="other">Other</option>
               </select>
             </div>
-            <label className="faculty-management__favorites-toggle">
+            <label className="faculty-management__filters__favorites-toggle">
               <input
                 type="checkbox"
                 checked={showFavorites}
