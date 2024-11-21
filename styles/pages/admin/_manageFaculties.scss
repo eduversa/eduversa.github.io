@@ -149,21 +149,54 @@
         }
       }
     }
-    &__favorites-toggle {
-      font-size: 1.4rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      color: #333;
+  }
+  &__favorites-toggle {
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #333;
 
-      input {
-        transform: scale(1.5);
-        transition: transform 0.3s ease;
-        cursor: pointer;
+    input {
+      transform: scale(1.5);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    input:focus {
+      transform: scale(1.6);
+    }
+    input[type="checkbox"] {
+      appearance: none;
+      width: 2rem;
+      height: 2rem;
+      border: 2px solid #4d80e1; // Primary color
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      position: relative;
+
+      &:checked {
+        background-color: #4d80e1; // Primary color
       }
 
-      input:focus {
-        transform: scale(1.6);
+      &:checked::after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 1rem;
+        height: 1rem;
+        background-color: white;
+        border-radius: 50%;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 4px rgba(77, 128, 225, 0.4); // Primary color shadow
       }
     }
   }
@@ -296,41 +329,4 @@
     }
   }
   // Checkbox styles
-  input[type="checkbox"] {
-    appearance: none;
-    width: 2rem;
-    height: 2rem;
-    border: 2px solid #4d80e1; // Primary color
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    position: relative;
-
-    &:checked {
-      background-color: #4d80e1; // Primary color
-    }
-
-    &:checked::after {
-      content: "";
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 1rem;
-      height: 1rem;
-      background-color: white;
-      border-radius: 50%;
-    }
-
-    &:hover {
-      transform: scale(1.1);
-    }
-
-    &:focus {
-      box-shadow: 0 0 0 4px rgba(77, 128, 225, 0.4); // Primary color shadow
-    }
-  }
-
-  // // Select dropdown styles
-  // select {
-  // }
 }
