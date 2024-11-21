@@ -119,10 +119,6 @@
             -14px -14px 36px var(--black-shadow-light-2);
           transform: translateY(-4px);
         }
-        &:disabled {
-          background-color: var(--white-14);
-          cursor: not-allowed;
-        }
         &::before {
           content: "🔽";
           position: absolute;
@@ -143,9 +139,9 @@
           opacity: 0.5;
           transition: all 0.3s ease;
         }
-        option {
-          background: linear-gradient(45deg, var(--white-1), var(--white-12));
-          padding: 1rem;
+        &:disabled {
+          background-color: var(--white-14);
+          cursor: not-allowed;
         }
       }
     }
