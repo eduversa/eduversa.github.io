@@ -45,10 +45,13 @@
 
     .faculty-management__search-bar,
     .faculty-management__export-btn {
-      font-size: var(--font-11);
       background: #e0e5ec;
+      font-family: var(--font-elianto);
+      font-size: var(--font-11);
+      font-weight: 400;
+      letter-spacing: 1px;
       border-radius: 20px;
-      padding: 1rem 2rem;
+      padding: 1rem 2rem 1rem 2rem;
       border: none;
       box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
         -10px -10px 30px rgba(255, 255, 255, 0.8);
@@ -77,7 +80,8 @@
     }
 
     .faculty-management__search-bar {
-      width: 70%;
+      width: 50%;
+      cursor: auto;
     }
 
     .faculty-management__export-btn {
