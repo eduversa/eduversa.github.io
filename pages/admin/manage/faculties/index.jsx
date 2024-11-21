@@ -232,14 +232,14 @@ function Faculty() {
           </div>
 
           <div className="faculty-management__filters">
-            <div className="faculty-management__filters-dropdowns">
+            <div className="faculty-management__filters__dropdowns">
               <select
                 value={selectedCourse}
                 onChange={(e) => {
                   setSelectedCourse(e.target.value);
                   setSelectedStream("");
                 }}
-                className="faculty-management__dropdown"
+                className="faculty-management__filters__dropdowns__dropdown"
               >
                 <option value="">Select Course</option>
                 {courses.map((course) => (
@@ -252,7 +252,7 @@ function Faculty() {
               <select
                 value={selectedStream}
                 onChange={(e) => setSelectedStream(e.target.value)}
-                className="faculty-management__dropdown"
+                className="faculty-management__filters__dropdowns__dropdown"
                 disabled={!selectedCourse}
               >
                 <option value="">Select Stream</option>
@@ -266,7 +266,7 @@ function Faculty() {
               <select
                 value={selectedGender}
                 onChange={(e) => setSelectedGender(e.target.value)}
-                className="faculty-management__dropdown"
+                className="faculty-management__filters__dropdowns__dropdown"
               >
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>
