@@ -337,7 +337,7 @@ function Faculty() {
             <select
               value={pageSize}
               onChange={handleChangePageSize}
-              className="faculty-management__page-size-dropdown"
+              className="faculty-management__page-size__dropdown"
             >
               <option value={9}>9</option>
               <option value={18}>18</option>

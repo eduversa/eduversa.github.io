@@ -114,30 +114,10 @@
           -10px -10px 30px var(--white-shadow-0);
         transition: box-shadow 0.4s ease, transform 0.3s ease;
         outline: none;
-        &:focus {
-          box-shadow: 14px 14px 36px var(--black-shadow-light-2),
+        &:hover {
+          box-shadow: 14px 14px 36px var(--white-shadow-0),
             -14px -14px 36px var(--black-shadow-light-2);
           transform: translateY(-4px);
-        }
-        &::before {
-          content: "🔽";
-          position: absolute;
-          top: 50%;
-          right: 12px;
-          transform: translateY(-50%);
-          font-size: 1.5rem;
-          color: var(--light-black-2);
-        }
-
-        &::after {
-          content: "✨";
-          position: absolute;
-          bottom: 10px;
-          left: 15px;
-          font-size: 1.8rem;
-          color: #4d80e1;
-          opacity: 0.5;
-          transition: all 0.3s ease;
         }
         &:disabled {
           background-color: var(--white-14);
@@ -236,12 +216,13 @@
       outline: none;
       box-shadow: 10px 10px 30px var(--black-shadow-light-2),
         -10px -10px 30px var(--white-shadow-0);
+      box-shadow: 2px 5px 10px var(--black-shadow-light-2);
       transition: box-shadow 0.4s ease, transform 0.3s ease;
 
       &:hover {
         box-shadow: 14px 14px 36px var(--black-shadow-light-2),
           -14px -14px 36px var(--white-shadow-0);
-        transform: translateY(-4px);
+        transform: translateY(-2px);
       }
 
       &:active {
@@ -262,25 +243,31 @@
   }
 
   &__page-size {
-    display: flex;
-    justify-content: flex-end;
-    gap: 2.5rem;
-    align-items: center;
-
+    @include flex-container(row, nowrap, flex-end, center);
+    gap: 2.5%;
     label {
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-family: var(--font-roboto);
+      color: var(--light-black-2);
+      font-size: var(--font-12);
+      letter-spacing: 2px;
+      gap: 0.5vw;
     }
 
-    .faculty-management__page-size-dropdown {
+    &__dropdown {
+      font-family: var(--font-roboto);
+      color: var(--light-black-2);
+      font-size: var(--font-12);
       background: var(--white-14);
-      padding: 1.5rem;
-      font-size: 1.4rem;
-      border-radius: 22px;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
       border: none;
-      box-shadow: 10px 10px 30px var(--black-shadow-light-2),
-        -10px -10px 30px var(--white-shadow-0);
-      transition: box-shadow 0.4s ease, transform 0.3s ease;
+      outline: none;
+      box-shadow: 2px 5px 10px var(--black-shadow-light-2);
+      &:hover {
+        box-shadow: 10px 10px 30px var(--black-shadow-light-2),
+          -10px -10px 30px var(--white-shadow-0);
+        transition: box-shadow 0.4s ease, transform 0.3s ease;
+      }
     }
   }
 }
