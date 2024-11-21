@@ -40,16 +40,15 @@
   }
 
   &__actions {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 3rem;
+    @include flex-container(row, nowrap, space-between, center);
+    margin: 0 0 3% 0;
 
     .faculty-management__search-bar,
     .faculty-management__export-btn {
+      font-size: var(--font-11);
       background: #e0e5ec;
-      border-radius: 22px;
-      padding: 1.5rem 2.5rem;
-      font-size: 1.3rem;
+      border-radius: 20px;
+      padding: 1rem 2rem;
       border: none;
       box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
         -10px -10px 30px rgba(255, 255, 255, 0.8);
