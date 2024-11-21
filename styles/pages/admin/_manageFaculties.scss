@@ -1,10 +1,10 @@
 .faculty-management {
-  background-color: #f5f7fa;
+  background: linear-gradient(45deg, var(--white-1), var(--white-12));
   color: var(--black);
   padding: 2rem 4rem 2rem 3rem;
   border-radius: 18px;
-  box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.25),
-    -20px -20px 40px rgba(255, 255, 255, 0.8);
+  box-shadow: 20px 20px 40px var(--black-shadow-light-1),
+    -20px -20px 40px var(--white-shadow-0);
   transition: all 0.3s ease;
   &__title {
     position: relative;
@@ -45,7 +45,7 @@
 
     .faculty-management__search-bar,
     .faculty-management__export-btn {
-      background: #e0e5ec;
+      background: var(--white-14);
       font-family: var(--font-elianto);
       font-size: var(--font-11);
       font-weight: 400;
@@ -53,24 +53,24 @@
       border-radius: 20px;
       padding: 1rem 2rem 1rem 2rem;
       border: none;
-      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
-        -10px -10px 30px rgba(255, 255, 255, 0.8);
+      box-shadow: 10px 10px 30px var(--black-shadow-light-2),
+        -10px -10px 30px var(--white-shadow-0);
       transition: box-shadow 0.4s ease, transform 0.3s ease,
         background-color 0.3s ease;
       outline: none;
       cursor: pointer;
 
       &:hover {
-        box-shadow: 14px 14px 36px rgba(0, 0, 0, 0.25),
-          -14px -14px 36px rgba(255, 255, 255, 0.8);
+        box-shadow: 14px 14px 36px var(--black-shadow-light-2),
+          -14px -14px 36px var(--white-shadow-0);
         transform: translateY(-6px);
         background-color: lighten(#e0e5ec, 7%);
       }
 
       &:active {
         transform: translateY(2px);
-        box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.25),
-          -6px -6px 18px rgba(255, 255, 255, 0.8);
+        box-shadow: 6px 6px 18px var(--black-shadow-light-2),
+          -6px -6px 18px var(--white-shadow-0);
       }
 
       &:disabled {
@@ -101,29 +101,20 @@
       @include flex-container(row, nowrap, center, center);
       gap: 5%;
       &__dropdown {
-        background: #e0e5ec;
+        background: var(--white-14);
         padding: 1.3rem;
         font-size: 1.2rem;
         width: 250px;
         border-radius: 22px;
         border: none;
-        box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
-          -10px -10px 30px rgba(255, 255, 255, 0.8);
+        box-shadow: 10px 10px 30px var(--black-shadow-light-2),
+          -10px -10px 30px var(--white-shadow-0);
         transition: box-shadow 0.4s ease, transform 0.3s ease;
 
         &:focus {
-          box-shadow: 14px 14px 36px rgba(0, 0, 0, 0.3),
-            -14px -14px 36px rgba(0, 0, 0, 0.3);
+          box-shadow: 14px 14px 36px var(--black-shadow-light-2),
+            -14px -14px 36px var(--black-shadow-light-2);
           transform: translateY(-4px);
-        }
-
-        &::-webkit-scrollbar {
-          width: 8px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background-color: #888;
-          border-radius: 10px;
         }
 
         &::before {
@@ -163,17 +154,17 @@
     margin-bottom: 3rem;
 
     .faculty-id-card {
-      border: 1px solid #e0e5ec;
+      border: 1px solid var(--white-14);
       border-radius: 12px;
       padding: 2rem;
-      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
-        -10px -10px 30px rgba(255, 255, 255, 0.8);
+      box-shadow: 10px 10px 30px var(--black-shadow-light-2),
+        -10px -10px 30px var(--white-shadow-0);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
 
       &:hover {
         transform: translateY(-6px);
-        box-shadow: 14px 14px 36px rgba(0, 0, 0, 0.25),
-          -14px -14px 36px rgba(255, 255, 255, 0.8);
+        box-shadow: 14px 14px 36px var(--black-shadow-light-2),
+          -14px -14px 36px var(--white-shadow-0);
       }
 
       &__image {
@@ -228,24 +219,24 @@
 
     .faculty-management__pagination-btn {
       padding: 1.5rem 2rem;
-      background: #e0e5ec;
+      background: var(--white-14);
       color: #333;
       border-radius: 22px;
       border: none;
-      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
-        -10px -10px 30px rgba(255, 255, 255, 0.8);
+      box-shadow: 10px 10px 30px var(--black-shadow-light-2),
+        -10px -10px 30px var(--white-shadow-0);
       transition: box-shadow 0.4s ease, transform 0.3s ease;
 
       &:hover {
-        box-shadow: 14px 14px 36px rgba(0, 0, 0, 0.25),
-          -14px -14px 36px rgba(255, 255, 255, 0.8);
+        box-shadow: 14px 14px 36px var(--black-shadow-light-2),
+          -14px -14px 36px var(--white-shadow-0);
         transform: translateY(-6px);
       }
 
       &:active {
         transform: translateY(3px);
-        box-shadow: 8px 8px 24px rgba(0, 0, 0, 0.25),
-          -8px -8px 24px rgba(255, 255, 255, 0.8);
+        box-shadow: 8px 8px 24px var(--black-shadow-light-2),
+          -8px -8px 24px var(--white-shadow-0);
       }
 
       &--active {
@@ -273,13 +264,13 @@
     }
 
     .faculty-management__page-size-dropdown {
-      background: #e0e5ec;
+      background: var(--white-14);
       padding: 1.5rem;
       font-size: 1.4rem;
       border-radius: 22px;
       border: none;
-      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
-        -10px -10px 30px rgba(255, 255, 255, 0.8);
+      box-shadow: 10px 10px 30px var(--black-shadow-light-2),
+        -10px -10px 30px var(--white-shadow-0);
       transition: box-shadow 0.4s ease, transform 0.3s ease;
     }
   }
@@ -320,29 +311,33 @@
 
   // Select dropdown styles
   select {
-    background-color: #e0e5ec; // Secondary color
+    background-color: var(--white-14); // Secondary color
     padding: 1.3rem;
     font-size: 1.2rem;
     width: 250px;
     border-radius: 22px;
     border: none;
-    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25),
-      -10px -10px 30px rgba(255, 255, 255, 0.8); // Shadow colors
+    box-shadow: 10px 10px 30px var(--black-shadow-light-2),
+      -10px -10px 30px var(--white-shadow-0); // Shadow colors
     transition: box-shadow 0.4s ease, transform 0.3s ease;
 
     &:focus {
-      box-shadow: 14px 14px 36px rgba(0, 0, 0, 0.3),
-        -14px -14px 36px rgba(0, 0, 0, 0.3); // Focus shadow
+      box-shadow: 14px 14px 36px var(--black-shadow-light-2),
+        -14px -14px 36px var(--black-shadow-light-2); // Focus shadow
       transform: translateY(-4px);
     }
 
     &:disabled {
-      background-color: #e0e5ec;
+      background-color: var(--white-14);
       cursor: not-allowed;
     }
 
     option {
-      background-color: #f5f7fa; // Background color
+      background: linear-gradient(
+        45deg,
+        var(--white-1),
+        var(--white-12)
+      ); // Background color
       padding: 1rem;
     }
   }
