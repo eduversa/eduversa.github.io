@@ -13,9 +13,11 @@ const FacultyImage = ({ image, placeholderImage, altText }) => (
   />
 );
 
-const FacultyDetails = ({ icon, value, onClick }) => (
+const FacultyDetails = ({ icon, value, onClick, tooltipText }) => (
   <p className="faculty-card__info-item" onClick={onClick}>
-    <span className="faculty-card__icon">{icon}</span>
+    <span className="faculty-card__icon" title={tooltipText}>
+      {icon}
+    </span>
     {value || "N/A"}
   </p>
 );
@@ -24,11 +26,15 @@ const BookmarkButton = ({ isBookmarked, toggleBookmark }) => (
   <button
     onClick={toggleBookmark}
     className={`faculty-card__bookmark-button ${
-      isBookmarked ? "bookmarked" : ""
+      isBookmarked ? "faculty-card__bookmark-button--bookmarked" : ""
     }`}
     aria-label={isBookmarked ? "Remove Bookmark" : "Bookmark"}
   >
-    <span className={`bookmark-icon ${isBookmarked ? "filled" : "hollow"}`}>
+    <span
+      className={`faculty-card__bookmark-icon ${
+        isBookmarked ? "faculty-card__bookmark-icon--filled" : ""
+      }`}
+    >
       &#9733;
     </span>
     {isBookmarked ? "Unbookmark" : "Bookmark"}
@@ -82,8 +88,22 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
     console.log("Viewing profile of:", faculty.personal_info?.first_name);
   };
 
-  const { first_name, last_name, email, contact } = faculty.personal_info || {};
-  const { room, department } = faculty.job_info || {};
+  const { first_name, last_name, email, contact, room, department } =
+    faculty.personal_info || {};
+
+  const handleEmailClick = () => {
+    if (
+      window.confirm("Are you sure you want to send an email to this faculty?")
+    ) {
+      window.location.href = `mailto:${email}`;
+    }
+  };
+
+  const handleCallClick = () => {
+    if (window.confirm("Are you sure you want to call this faculty?")) {
+      window.location.href = `tel:${contact}`;
+    }
+  };
 
   return (
     <div
@@ -104,7 +124,8 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
           <FacultyDetails
             icon="📧"
             value={email}
-            onClick={() => (window.location.href = `mailto:${email}`)}
+            onClick={handleEmailClick}
+            tooltipText="Click to send email"
           />
         </div>
 
@@ -112,13 +133,18 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
           <FacultyDetails
             icon="📞"
             value={contact}
-            onClick={() => (window.location.href = `tel:${contact}`)}
+            onClick={handleCallClick}
+            tooltipText="Click to call"
           />
         </div>
 
         <div className="faculty-card__info-group">
-          <FacultyDetails icon="📍" value={room} />
-          <FacultyDetails icon="🏛️" value={department || "Not Assigned"} />
+          <FacultyDetails icon="📍" value={room} tooltipText="Room" />
+          <FacultyDetails
+            icon="🏛️"
+            value={department || "Not Assigned"}
+            tooltipText="Department"
+          />
         </div>
       </div>
 
