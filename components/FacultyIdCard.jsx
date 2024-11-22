@@ -15,10 +15,9 @@ const FacultyImage = ({ image, placeholderImage, altText }) => (
 
 const FacultyDetails = ({ icon, value, onClick, tooltipText }) => (
   <p className="faculty-card__info-item" onClick={onClick}>
-    <span className="faculty-card__icon" title={tooltipText}>
-      {icon}
-    </span>
+    <span className="faculty-card__icon">{icon}</span>
     {value || "N/A"}
+    <span className="tooltip">{tooltipText}</span>
   </p>
 );
 
@@ -26,15 +25,11 @@ const BookmarkButton = ({ isBookmarked, toggleBookmark }) => (
   <button
     onClick={toggleBookmark}
     className={`faculty-card__bookmark-button ${
-      isBookmarked ? "faculty-card__bookmark-button--bookmarked" : ""
+      isBookmarked ? "bookmarked" : ""
     }`}
     aria-label={isBookmarked ? "Remove Bookmark" : "Bookmark"}
   >
-    <span
-      className={`faculty-card__bookmark-icon ${
-        isBookmarked ? "faculty-card__bookmark-icon--filled" : ""
-      }`}
-    >
+    <span className={`bookmark-icon ${isBookmarked ? "filled" : "hollow"}`}>
       &#9733;
     </span>
     {isBookmarked ? "Unbookmark" : "Bookmark"}
@@ -91,16 +86,24 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
   const { first_name, last_name, email, contact, room, department } =
     faculty.personal_info || {};
 
+  // Handle Email Click (with faculty's name)
   const handleEmailClick = () => {
     if (
-      window.confirm("Are you sure you want to send an email to this faculty?")
+      window.confirm(
+        `Are you sure you want to send an email to ${first_name} ${last_name}?`
+      )
     ) {
       window.location.href = `mailto:${email}`;
     }
   };
 
+  // Handle Call Click (with faculty's name)
   const handleCallClick = () => {
-    if (window.confirm("Are you sure you want to call this faculty?")) {
+    if (
+      window.confirm(
+        `Are you sure you want to call ${first_name} ${last_name}?`
+      )
+    ) {
       window.location.href = `tel:${contact}`;
     }
   };
