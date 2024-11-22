@@ -1,0 +1,160 @@
+.faculty-card {
+  background: #e0e5ec;
+  border-radius: 20px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1),
+    -10px -10px 20px rgba(255, 255, 255, 0.7);
+  width: 100%;
+  max-width: 350px;
+  margin: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &--science {
+    border-left: 5px solid #009688;
+  }
+
+  &--arts {
+    border-left: 5px solid #ff5722;
+  }
+
+  &--commerce {
+    border-left: 5px solid #3f51b5;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.2),
+      -15px -15px 30px rgba(255, 255, 255, 0.8);
+  }
+
+  .faculty-card__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.1),
+      inset -6px -6px 12px rgba(255, 255, 255, 0.7);
+  }
+
+  .faculty-card__name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 15px 0;
+    text-align: center;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+  }
+
+  .faculty-card__info {
+    padding: 10px 20px;
+    color: #555;
+
+    .faculty-card__info-group {
+      margin-bottom: 10px;
+    }
+
+    .faculty-card__info-item {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      margin: 5px 0;
+
+      .faculty-card__icon {
+        font-size: 1.5rem;
+        color: #009688;
+        margin-right: 10px;
+        cursor: pointer;
+        transition: color 0.3s;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+
+        &:hover {
+          color: #00796b;
+        }
+      }
+    }
+  }
+
+  .faculty-card__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-top: 1px solid #e0e5ec;
+    background-color: #f0f4f8;
+    border-radius: 0 0 20px 20px;
+    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.05),
+      inset -5px -5px 15px rgba(255, 255, 255, 0.5);
+
+    .faculty-card__bookmark-button,
+    .faculty-card__share-button,
+    .faculty-card__view-profile-button {
+      background-color: #e0e5ec;
+      color: #555;
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: none;
+      font-weight: 500;
+      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1),
+        -6px -6px 12px rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #f5f7fa;
+        box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.15),
+          -8px -8px 16px rgba(255, 255, 255, 0.8);
+      }
+
+      &:active {
+        transform: scale(0.98);
+        box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.15),
+          inset -4px -4px 8px rgba(255, 255, 255, 0.6);
+      }
+    }
+
+    .faculty-card__bookmark-button {
+      background-color: #e0e5ec;
+      color: #009688;
+      border: 2px solid #009688;
+
+      &.bookmarked {
+        background-color: #009688;
+        color: #fff;
+        border-color: #00796b;
+        box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1),
+          -6px -6px 12px rgba(255, 255, 255, 0.7);
+      }
+
+      &:hover {
+        background-color: #e0e5ec;
+        color: #00796b;
+        box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1),
+          -8px -8px 16px rgba(255, 255, 255, 0.7);
+      }
+    }
+
+    .faculty-card__view-profile-button,
+    .faculty-card__share-button {
+      background-color: #e0e5ec;
+      color: #3f51b5;
+      border: 2px solid #3f51b5;
+
+      &:hover {
+        background-color: #f5f7fa;
+        color: #2c387e;
+        border-color: #2c387e;
+        box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1),
+          -8px -8px 16px rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+}
+
+/* Button Hover and Active States */
+button:focus {
+  outline: none;
+}
+
+button:active {
+  transform: scale(0.98);
+}

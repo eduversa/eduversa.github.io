@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 const FacultyImage = ({ image, placeholderImage, altText }) => (
   <Image
@@ -12,31 +13,73 @@ const FacultyImage = ({ image, placeholderImage, altText }) => (
   />
 );
 
-const FacultyDetails = ({ label, value }) => (
+const FacultyDetails = ({ icon, value, onClick }) => (
   <p className="faculty-card__info-item">
-    <strong>{label}:</strong> {value || "N/A"}
+    <span className="faculty-card__icon" onClick={onClick}>
+      {icon}
+    </span>
+    {value || "N/A"}
   </p>
 );
 
-const FavoriteButton = ({ isFavorite, toggleFavorite }) => (
+const BookmarkButton = ({ isBookmarked, toggleBookmark }) => (
   <button
-    onClick={toggleFavorite}
-    className={`faculty-card__favorite-button ${isFavorite ? "favorited" : ""}`}
-    aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+    onClick={toggleBookmark}
+    className={`faculty-card__bookmark-button ${
+      isBookmarked ? "bookmarked" : ""
+    }`}
+    aria-label={isBookmarked ? "Remove Bookmark" : "Bookmark"}
   >
-    <span className={`favorite-icon ${isFavorite ? "filled" : "hollow"}`}>
-      &#10084;
+    <span className={`bookmark-icon ${isBookmarked ? "filled" : "hollow"}`}>
+      &#9733;
     </span>
-    {isFavorite ? "Unfavorite" : "Favorite"}
+    {isBookmarked ? "Unbookmark" : "Bookmark"}
   </button>
 );
 
-const FacultyIdCard = ({
-  faculty,
-  placeholderImage,
-  isFavorite,
-  toggleFavorite,
-}) => {
+const FacultyIdCard = ({ faculty, placeholderImage }) => {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  useEffect(() => {
+    const bookmarks =
+      JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
+    setIsBookmarked(bookmarks.includes(faculty.personal_info?.email));
+  }, [faculty.personal_info?.email]);
+
+  const toggleBookmark = () => {
+    const bookmarks =
+      JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
+    if (isBookmarked) {
+      const updatedBookmarks = bookmarks.filter(
+        (email) => email !== faculty.personal_info?.email
+      );
+      localStorage.setItem(
+        "bookmarkedFaculty",
+        JSON.stringify(updatedBookmarks)
+      );
+      setIsBookmarked(false);
+    } else {
+      bookmarks.push(faculty.personal_info?.email);
+      localStorage.setItem("bookmarkedFaculty", JSON.stringify(bookmarks));
+      setIsBookmarked(true);
+    }
+  };
+
+  const handleShare = () => {
+    const shareText = `Check out this faculty profile: ${faculty.personal_info?.first_name} ${faculty.personal_info?.last_name}`;
+    const shareUrl = window.location.href;
+
+    if (navigator.share) {
+      navigator.share({
+        title: "Faculty Profile",
+        text: shareText,
+        url: shareUrl,
+      });
+    } else {
+      alert("Sharing not supported on this device.");
+    }
+  };
+
   const handleViewProfile = () => {
     console.log("Viewing profile of:", faculty.personal_info?.first_name);
   };
@@ -45,7 +88,10 @@ const FacultyIdCard = ({
   const { room, department } = faculty.job_info || {};
 
   return (
-    <div className="faculty-card" role="button">
+    <div
+      className={`faculty-card faculty-card--${department?.toLowerCase()}`}
+      role="button"
+    >
       <FacultyImage
         image={faculty.image}
         placeholderImage={placeholderImage}
@@ -57,27 +103,39 @@ const FacultyIdCard = ({
 
       <div className="faculty-card__info">
         <div className="faculty-card__info-group">
-          <FacultyDetails label="Email" value={email} />
-        </div>
-
-        <div className="faculty-card__info-group">
-          <FacultyDetails label="Contact" value={contact} />
-        </div>
-
-        <div className="faculty-card__info-group">
-          <FacultyDetails label="Room" value={room} />
           <FacultyDetails
-            label="Department"
-            value={department || "Not Assigned"}
+            icon="📧"
+            value={email}
+            onClick={() => (window.location.href = `mailto:${email}`)}
           />
+        </div>
+
+        <div className="faculty-card__info-group">
+          <FacultyDetails
+            icon="📞"
+            value={contact}
+            onClick={() => (window.location.href = `tel:${contact}`)}
+          />
+        </div>
+
+        <div className="faculty-card__info-group">
+          <FacultyDetails icon="📍" value={room} />
+          <FacultyDetails icon="🏛️" value={department || "Not Assigned"} />
         </div>
       </div>
 
       <div className="faculty-card__actions">
-        <FavoriteButton
-          isFavorite={isFavorite}
-          toggleFavorite={toggleFavorite}
+        <BookmarkButton
+          isBookmarked={isBookmarked}
+          toggleBookmark={toggleBookmark}
         />
+        <button
+          onClick={handleShare}
+          className="faculty-card__share-button"
+          aria-label="Share Profile"
+        >
+          Share Profile
+        </button>
         <button
           onClick={handleViewProfile}
           className="faculty-card__view-profile-button"
@@ -105,8 +163,6 @@ FacultyIdCard.propTypes = {
     }),
   }).isRequired,
   placeholderImage: PropTypes.string.isRequired,
-  isFavorite: PropTypes.bool.isRequired,
-  toggleFavorite: PropTypes.func.isRequired,
 };
 
 export default FacultyIdCard;
