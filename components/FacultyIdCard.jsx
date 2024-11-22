@@ -42,15 +42,15 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
   useEffect(() => {
     const bookmarks =
       JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
-    setIsBookmarked(bookmarks.includes(faculty.personal_info?.email));
-  }, [faculty.personal_info?.email]);
+    setIsBookmarked(bookmarks.includes(faculty?.personal_info?.email));
+  }, [faculty?.personal_info?.email]);
 
   const toggleBookmark = () => {
     const bookmarks =
       JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
     if (isBookmarked) {
       const updatedBookmarks = bookmarks.filter(
-        (email) => email !== faculty.personal_info?.email
+        (email) => email !== faculty?.personal_info?.email
       );
       localStorage.setItem(
         "bookmarkedFaculty",
@@ -58,14 +58,14 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
       );
       setIsBookmarked(false);
     } else {
-      bookmarks.push(faculty.personal_info?.email);
+      bookmarks.push(faculty?.personal_info?.email);
       localStorage.setItem("bookmarkedFaculty", JSON.stringify(bookmarks));
       setIsBookmarked(true);
     }
   };
 
   const handleShare = () => {
-    const shareText = `Check out this faculty profile: ${faculty.personal_info?.first_name} ${faculty.personal_info?.last_name}`;
+    const shareText = `Check out this faculty profile: ${faculty?.personal_info?.first_name} ${faculty?.personal_info?.last_name}`;
     const shareUrl = window.location.href;
 
     if (navigator.share) {
@@ -80,13 +80,12 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
   };
 
   const handleViewProfile = () => {
-    console.log("Viewing profile of:", faculty.personal_info?.first_name);
+    console.log("Viewing profile of:", faculty?.personal_info?.first_name);
   };
 
   const { first_name, last_name, email, contact, room, department } =
-    faculty.personal_info || {};
+    faculty?.personal_info || {};
 
-  // Handle Email Click (with faculty's name)
   const handleEmailClick = () => {
     if (
       window.confirm(
@@ -97,7 +96,6 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
     }
   };
 
-  // Handle Call Click (with faculty's name)
   const handleCallClick = () => {
     if (
       window.confirm(
@@ -111,7 +109,7 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
   return (
     <div className={`faculty-card`} role="button">
       <FacultyImage
-        image={faculty.image}
+        image={faculty?.image}
         placeholderImage={placeholderImage}
         altText={`${first_name || "No Name"}'s profile picture`}
       />
@@ -180,7 +178,9 @@ FacultyIdCard.propTypes = {
       last_name: PropTypes.string,
       email: PropTypes.string,
       contact: PropTypes.string,
-    }),
+      room: PropTypes.string,
+      department: PropTypes.string,
+    }).isRequired,
     job_info: PropTypes.shape({
       room: PropTypes.string,
       department: PropTypes.string,
