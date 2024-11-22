@@ -1,155 +1,208 @@
-// Base variables
-$primary-bg: #e0e5ec;
-$secondary-bg: #f2f7ff;
-$highlight-color: #a1a6b0;
-$button-bg: #d1e2f0;
-$button-hover-bg: #b0c8f2;
-$button-active-bg: #91a8c0;
-$text-color: #333;
-$tooltip-bg: rgba(0, 0, 0, 0.7);
-$tooltip-text-color: #fff;
-$neumorphic-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1),
-  -5px -5px 15px rgba(255, 255, 255, 0.3);
+// Base colors for neumorphism
+$bg-light: #e4e8f1; // Light background color for the card
+$bg-dark: #c2c8d1; // Darker background for shadowed sections
+$button-bg: #d9dfe9; // Soft blue button background
+$button-hover-bg: #b3c6e1; // Hover effect background
+$button-active-bg: #9bbce1; // Active button color
+$tooltip-bg: rgba(0, 0, 0, 0.7); // Tooltip background color
+$tooltip-text-color: #ffffff; // Tooltip text color
+$card-shadow: 10px 10px 30px rgba(0, 0, 0, 0.15),
+  -10px -10px 30px rgba(255, 255, 255, 0.2); // Main shadow effect
+$neumorphic-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.05),
+  inset -6px -6px 12px rgba(255, 255, 255, 0.15); // Inset shadows
+$hover-light-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1),
+  -4px -4px 10px rgba(255, 255, 255, 0.4);
 
-// Faculty card container
+// Main container for faculty card
 .faculty-card {
-  background-color: $primary-bg;
-  border-radius: 15px;
-  box-shadow: $neumorphic-shadow;
-  padding: 20px;
-  width: 300px;
-  transition: all 0.3s ease;
+  background: linear-gradient(145deg, $bg-light, $bg-dark);
+  border-radius: 30px;
+  box-shadow: $card-shadow;
+  padding: 30px;
+  width: 360px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 25px;
+  overflow: hidden;
+  height: fit-content;
 
+  // Hover effect: slightly lift the card
   &:hover {
-    box-shadow: 7px 7px 25px rgba(0, 0, 0, 0.1),
-      -7px -7px 25px rgba(255, 255, 255, 0.3);
+    box-shadow: 15px 15px 40px rgba(0, 0, 0, 0.2),
+      -15px -15px 40px rgba(255, 255, 255, 0.3);
+    transform: translateY(-5px);
   }
 
+  // Dynamic backgrounds based on department
   &--science {
-    background-color: #e0f7fa;
+    background: linear-gradient(145deg, #e4f7fa, #a8e1f1);
   }
 
   &--arts {
-    background-color: #f9e0e0;
+    background: linear-gradient(145deg, #f9e0e0, #f4cccc);
   }
 
   &--engineering {
-    background-color: #e0e0e0;
+    background: linear-gradient(145deg, #f0f0f0, #d4d6d9);
   }
 
+  // Profile image container
   &__image {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1),
-      -4px -4px 10px rgba(255, 255, 255, 0.3);
-    margin-bottom: 15px;
-  }
-
-  &__name {
-    font-size: 1.5rem;
-    color: $text-color;
-    margin: 10px 0;
-    font-weight: bold;
-  }
-
-  &__info {
     margin-bottom: 20px;
+    box-shadow: $neumorphic-shadow;
+    transition: all 0.3s ease;
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1),
+        -5px -5px 15px rgba(255, 255, 255, 0.2);
+    }
   }
 
+  // Faculty name styling
+  &__name {
+    font-size: 1.85rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+  }
+
+  // Faculty info section
+  &__info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 15px;
+  }
+
+  // Faculty info group (email, contact, room, department)
   &__info-group {
-    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
+  // Styling for each information item (email, contact, etc.)
   &__info-item {
-    font-size: 1rem;
-    color: $highlight-color;
+    font-size: 1.1rem;
+    color: #888;
     cursor: pointer;
     position: relative;
-    padding-left: 30px;
-    margin: 10px 0;
-    transition: all 0.3s ease;
+    padding-left: 35px;
+    padding-right: 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
 
     &:hover {
-      color: #5f6368;
+      color: #333;
+      transform: translateX(6px);
     }
 
-    &:hover .tooltip {
-      opacity: 1;
-      visibility: visible;
-    }
-
+    // Icon styling
     .faculty-card__icon {
       position: absolute;
       left: 10px;
-      font-size: 1.2rem;
-      color: #5f6368;
+      font-size: 1.6rem;
+      color: #6e6e6e;
+      transition: color 0.3s ease;
     }
 
+    // Tooltip styling
     .tooltip {
       position: absolute;
-      bottom: -25px;
+      bottom: -35px;
       left: 0;
       background-color: $tooltip-bg;
       color: $tooltip-text-color;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.85rem;
+      padding: 6px 15px;
+      border-radius: 10px;
+      font-size: 0.95rem;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease;
       z-index: 10;
     }
+
+    // Tooltip show on hover
+    &:hover .tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 
+  // Actions section (buttons for bookmark, share, and view profile)
   &__actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
+    margin-top: 20px;
+  }
 
-    .faculty-card__bookmark-button {
-      background-color: $button-bg;
-      border: none;
-      color: $text-color;
-      padding: 10px;
-      font-size: 1rem;
-      border-radius: 50px;
-      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1),
-        -4px -4px 10px rgba(255, 255, 255, 0.3);
-      transition: all 0.3s ease;
+  // Button styling (bookmark, share, view profile)
+  &__bookmark-button,
+  &__share-button,
+  &__view-profile-button {
+    background-color: $button-bg;
+    color: #333;
+    border: none;
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    border-radius: 20px;
+    box-shadow: $neumorphic-shadow;
+    transition: all 0.3s ease;
+    cursor: pointer;
 
-      &:hover {
-        background-color: $button-hover-bg;
-      }
-
-      &.bookmarked {
-        background-color: #90e0ef;
-      }
-
-      & .bookmark-icon {
-        font-size: 1.5rem;
-        color: #ff5c8e;
-      }
+    &:hover {
+      background-color: $button-hover-bg;
+      box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.1),
+        -6px -6px 18px rgba(255, 255, 255, 0.2);
     }
 
-    .faculty-card__share-button,
-    .faculty-card__view-profile-button {
-      background-color: $button-bg;
-      color: $text-color;
-      padding: 10px;
-      font-size: 1rem;
-      border-radius: 10px;
-      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1),
-        -4px -4px 10px rgba(255, 255, 255, 0.3);
-      transition: all 0.3s ease;
+    &:active {
+      background-color: $button-active-bg;
+      box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1),
+        -4px -4px 12px rgba(255, 255, 255, 0.2);
+    }
 
-      &:hover {
-        background-color: $button-hover-bg;
-      }
+    &.bookmarked {
+      background-color: #90e0ef;
+      color: #2c3e50;
+    }
 
-      &:active {
-        background-color: $button-active-bg;
-      }
+    .bookmark-icon {
+      font-size: 1.5rem;
+      color: #ff5c8e;
     }
   }
+
+  // Smooth transition for all interactive buttons
+  &:hover .faculty-card__actions button {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+  }
+}
+
+// Animation for a smooth hover effect on cards and buttons
+@keyframes hoverPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.faculty-card__info-item:hover {
+  animation: hoverPulse 0.6s ease-in-out;
+}
+
+.faculty-card__actions button {
+  animation: hoverPulse 0.6s ease-in-out;
 }
