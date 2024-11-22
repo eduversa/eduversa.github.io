@@ -1,23 +1,18 @@
 .faculty-card {
   background: #e0e5ec;
   border-radius: 24px;
-  box-shadow: 12px 12px 55px rgba(255, 255, 255, 0.5),
-    -12px -12px 55px rgba(0, 0, 0, 0.4);
-  padding: 35px;
-  width: 350px;
-  transition: all 0.4s ease;
+  box-shadow: 20px 20px 40px var(--black-shadow-light-1),
+    -20px -20px 40px var(--white-shadow-0);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  @include flex-container(column, nowrap, center, center);
   position: relative;
   cursor: pointer;
+  transition: all 0.3s ease;
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 16px 16px 60px rgba(255, 255, 255, 0.6),
-      -16px -16px 60px rgba(0, 0, 0, 0.45);
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px var(--black-shadow-light-1),
+      0 0 40px var(--black-shadow-light);
   }
 
   .faculty-card__image {
