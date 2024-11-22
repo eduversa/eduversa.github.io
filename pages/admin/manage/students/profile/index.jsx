@@ -44,7 +44,8 @@ const fieldsToIgnore = [
   "subjects",
   "are_addresses_same",
   "is_completely_filled"
-] 
+]
+
 const ignoreFields = (key) => {
   return fieldsToIgnore.includes(key)
 }
