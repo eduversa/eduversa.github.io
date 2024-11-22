@@ -14,10 +14,8 @@ const FacultyImage = ({ image, placeholderImage, altText }) => (
 );
 
 const FacultyDetails = ({ icon, value, onClick }) => (
-  <p className="faculty-card__info-item">
-    <span className="faculty-card__icon" onClick={onClick}>
-      {icon}
-    </span>
+  <p className="faculty-card__info-item" onClick={onClick}>
+    <span className="faculty-card__icon">{icon}</span>
     {value || "N/A"}
   </p>
 );
