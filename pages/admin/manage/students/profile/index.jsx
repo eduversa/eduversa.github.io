@@ -18,6 +18,7 @@ function formatDate(date) {
     timeZoneName: 'short' 
   });
 }
+
 function formatDOB(date) {
   return date.toLocaleString('en-US', {
     weekday: 'long', 
