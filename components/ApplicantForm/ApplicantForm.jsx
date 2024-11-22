@@ -6,11 +6,12 @@ import {
   CourseInfo,
   FileUpload,
 } from "./formPages";
-import { getSingleApplicantApi } from "@/functions";
 import { devLog } from "@/utils/apiUtils";
+import { useAlert } from "@/contexts/AlertContext";
 
-const ApplicantForm = ({userid, userData}) => {
+const ApplicantForm = ({userid, userData, selected_user_type}) => {
   let currYear = new Date().getFullYear().toString();
+  const { showAlert } = useAlert();
 
   const initialFormData = useMemo(
     () => ({
@@ -356,15 +357,15 @@ const ApplicantForm = ({userid, userData}) => {
 
     if (name === "personal_info.email") {
       if (value && value === formData.family_info.father.email) {
-        alert(`Student's email should not be same as Father's email. ${value}`);
+        (`Student's email should not be same as Father's email. ${value}`);
         return;
       }
       else if (value && value === formData.family_info.mother.email) {
-        alert(`Student's email should not be same as Mother's email. ${value}`);
+        showAlert(`Student's email should not be same as Mother's email. ${value}`);
         return;
       }
       else if (value && value === formData.family_info.guardian.email) {
-        alert(`Student's email should not be same as Guardian's email. ${value}`);
+        showAlert(`Student's email should not be same as Guardian's email. ${value}`);
         return;
       }
     }
@@ -374,7 +375,7 @@ const ApplicantForm = ({userid, userData}) => {
       name === "family_info.guardian.email"
     ) {
       if (value && value === formData.personal_info.email) {
-        alert(`Father's, mother's or guardian's email should not be same as student's email. ${formData.personal_info.email}`);
+        showAlert(`Father's, mother's or guardian's email should not be same as student's email. ${formData.personal_info.email}`);
         return;
       }
     }
@@ -426,7 +427,7 @@ const ApplicantForm = ({userid, userData}) => {
     devLog(formData);
 
     if (presentPincodeError || permanentPincodeError || officePincodeError) {
-      alert("Please enter a valid pincode.");
+      showAlert("Please enter a valid pincode.");
       return;
     }
     if (currentStep !== totalSteps) {
@@ -489,17 +490,24 @@ const ApplicantForm = ({userid, userData}) => {
       setPermanentPincodeError={setPermanentPincodeError}
       officePincodeError={officePincodeError}
       setOfficePincodeError={setOfficePincodeError}
+      selected_user_type = {selected_user_type}
     />
   ));
 
   const progress = (currentStep / formSteps.length) * 100;
+
+  function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
 
   return (
     <div
       className="form"
       // style={{ background: `hsl(${(currentStep - 1) * 62.5}, 40% , 85%)` }}
     >
-      <h1 className="form--heading">Applicant Form</h1>
+      <h1 className="form--heading">
+        {capitalize(selected_user_type)} Form
+      </h1>
 
       <div className="form--content">
         <div

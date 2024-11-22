@@ -54,6 +54,15 @@ export async function apiRequest(
       case "GetSinglefaculty":
         requestBody = null;
         break;
+      case "GetSingleStudent":
+        requestBody = null;
+        break;
+      case "UpdateApplicantData":
+        requestBody = body;
+        break;
+      case "UpdateStudentData":
+        requestBody = body;
+        break;
       default:
         requestBody = method !== "GET" ? JSON.stringify(body) : null;
     }

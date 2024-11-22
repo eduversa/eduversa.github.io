@@ -14,9 +14,9 @@ import {
   Name,
   TextNoNumber,
 } from "../inputComponent/InputComponent";
-import fetchAddressFromPincode from "../inputComponent/fetchAddressFromPincode";
-import { updateAppplicantData } from "@/functions";
 import AddressComponent from "../inputComponent/AddressComponent";
+import { withLoading, apiRequest } from "@/utils/apiUtils";
+import { useAlert } from "@/contexts/AlertContext";
 
 const FamilyInfo = ({
   formData,
@@ -28,12 +28,13 @@ const FamilyInfo = ({
   currentStep,
   totalSteps,
   userid,
-
+  selected_user_type,
   officePincodeError,
   setOfficePincodeError,
 }) => {
 
   const [loading, setLoading] = useState(false);
+  const { showAlert } = useAlert();
 
   //fn to change the fields of guardian based on the relation field
   const handleRelationChange = (event) => {
@@ -66,38 +67,66 @@ const FamilyInfo = ({
         }
     }
   }, [formData.family_info, handleChange]);
-
+  
 
   async function onSubmitHandler() {
+    const type = "family"; 
+    const authToken = localStorage.getItem("authToken");
+    let initialFormData;
+    let apiUrl;
+    let routeName;
 
-    // check to see if tehre are any changes to the form
-    const initialFormData = localStorage.getItem('applicant_profile');
+    if (selected_user_type === "applicant") {
+      initialFormData = localStorage.getItem('applicant_profile');
+      apiUrl = `/applicant/?user_id=${userid}&type=${type}`
+      routeName = "UpdateApplicantData"
+    } else if (selected_user_type === "student") {
+      initialFormData = localStorage.getItem('student_profile');
+      apiUrl = `/student/?user_id=${userid}&type=${type}`
+      routeName = "UpdateStudentData"
+    } 
+  
     if (initialFormData === JSON.stringify(formData)) {
       return true;
     }
-    setLoading(true);
+  
     const data = JSON.stringify(formData.family_info);
-    const type = "family";
-    // const userid = localStorage.getItem("userid");
-
+    
+    const wrappedApiRequest = withLoading(
+      apiRequest, 
+      setLoading, 
+      showAlert, 
+      routeName
+    );
+  
     try {
-      const response = await updateAppplicantData(userid, type, data);
-      if (!response.status) {
-        alert(response.message);
+      const response = await wrappedApiRequest(
+        apiUrl, 
+        "PUT",
+        data, 
+        authToken, 
+        routeName
+      );
+  
+      if (!response.success || !response.status) {
+        showAlert(response.message || `Failed to update ${selected_user_type} data`);
         setLoading(false);
         return false;
       }
-      if (process.env.NODE_ENV === "development") {
-        console.log(response);
+
+      if (selected_user_type === "student") {
+        localStorage.setItem("student_profile", JSON.stringify(formData));
+      } else if (selected_user_type === "applicant") {
+        localStorage.setItem("applicant_profile", JSON.stringify(formData));
       }
-      localStorage.setItem("applicant_profile", JSON.stringify(formData));
-      alert(response.message);
+      showAlert(response.message);
       setLoading(false);
       return true;
+  
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.log(error);
-      }
+      console.error(`Error in updating ${selected_user_type} data:`, error);
+      showAlert(error.message || `Failed to update ${selected_user_type} data`);
+      setLoading(false);
       return false;
     }
   }

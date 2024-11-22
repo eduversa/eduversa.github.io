@@ -1,6 +1,5 @@
 import React, { useState, Fragment } from "react";
 import { AllLoader } from "@/components";
-import { updateAppplicantData } from "@/functions";
 import {
   Name,
   Email,
@@ -12,6 +11,8 @@ import {
   Dob,
 } from "../inputComponent/InputComponent";
 import AddressComponent from "../inputComponent/AddressComponent";
+import { withLoading, apiRequest } from "@/utils/apiUtils";
+import { useAlert } from "@/contexts/AlertContext";
 
 const PersonalInfo = ({
   formData,
@@ -23,6 +24,7 @@ const PersonalInfo = ({
   currentStep,
   totalSteps,
   userid,
+  selected_user_type,
   presentPincodeError,
   setPresentPincodeError,
   permanentPincodeError,
@@ -30,6 +32,7 @@ const PersonalInfo = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [areAddressesSame, setAreAddressesSame] = useState(formData.personal_info.are_addresses_same);
+  const { showAlert } = useAlert();
 
   const copyAddress = (e) => {
     const isChecked = e.target.checked;
@@ -54,35 +57,65 @@ const PersonalInfo = ({
     handleChange({ target: { name: "formData", value: updatedFormData } });
   };
 
-  async function onSubmitHandler() {
 
-    // check to see if tehre are any changes to the form
-    const initialFormData = localStorage.getItem('applicant_profile');
+  async function onSubmitHandler() {
+    const type = "personal"; 
+    const authToken = localStorage.getItem("authToken");
+    let initialFormData;
+    let apiUrl;
+    let routeName;
+
+    if (selected_user_type === "applicant") {
+      initialFormData = localStorage.getItem('applicant_profile');
+      apiUrl = `/applicant/?user_id=${userid}&type=${type}`
+      routeName = "UpdateApplicantData"
+    } else if (selected_user_type === "student") {
+      initialFormData = localStorage.getItem('student_profile');
+      apiUrl = `/student/?user_id=${userid}&type=${type}`
+      routeName = "UpdateStudentData"
+    } 
+  
     if (initialFormData === JSON.stringify(formData)) {
       return true;
     }
-    setLoading(true);
+  
     const data = JSON.stringify(formData.personal_info);
-    const type = "personal";
-    // const userid = localStorage.getItem("userid");
+    
+    const wrappedApiRequest = withLoading(
+      apiRequest, 
+      setLoading, 
+      showAlert, 
+      routeName
+    );
+  
     try {
-      const response = await updateAppplicantData(userid, type, data);
-      if (!response.status) {
-        alert(response.message);
+      const response = await wrappedApiRequest(
+        apiUrl, 
+        "PUT",
+        data, 
+        authToken, 
+        routeName
+      );
+  
+      if (!response.success || !response.status) {
+        showAlert(response.message || `Failed to update ${selected_user_type} data`);
         setLoading(false);
         return false;
       }
-      if (process.env.NODE_ENV === "development") {
-        console.log(response);
+
+      if (selected_user_type === "student") {
+        localStorage.setItem("student_profile", JSON.stringify(formData));
+      } else if (selected_user_type === "applicant") {
+        localStorage.setItem("applicant_profile", JSON.stringify(formData));
       }
-      localStorage.setItem("applicant_profile", JSON.stringify(formData));
-      alert(response.message);
+      showAlert(response.message);
       setLoading(false);
       return true;
+  
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.log(error);
-      }
+      console.error(`Error in updating ${selected_user_type} data:`, error);
+      showAlert(error.message || `Failed to update ${selected_user_type} data`);
+      setLoading(false);
       return false;
     }
   }

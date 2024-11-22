@@ -9,7 +9,9 @@ import {
   FormButtons,
   Year,
 } from "../inputComponent/InputComponent";
-import { getCollegeDetailsApi, updateAppplicantData } from "@/functions";
+import { getCollegeDetailsApi } from "@/functions";
+import { withLoading, apiRequest } from "@/utils/apiUtils";
+import { useAlert } from "@/contexts/AlertContext";
 
 const CourseInfo = ({
   formData,
@@ -21,12 +23,14 @@ const CourseInfo = ({
   currentStep,
   totalSteps,
   userid,
+  selected_user_type,
 }) => {
   const currentYear = new Date().getFullYear().toString();
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [streams, setStreams] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     const fetchCollegeDetails = async () => {
@@ -86,35 +90,67 @@ const CourseInfo = ({
     }));
   };
 
-  const onSubmitHandler = async () => {
-    const initialFormData = localStorage.getItem('applicant_profile');
+  async function onSubmitHandler() {
+    const type = "course"; 
+    const authToken = localStorage.getItem("authToken");
+    let initialFormData;
+    let apiUrl;
+    let routeName;
+
+    if (selected_user_type === "applicant") {
+      initialFormData = localStorage.getItem('applicant_profile');
+      apiUrl = `/applicant/?user_id=${userid}&type=${type}`
+      routeName = "UpdateApplicantData"
+    } else if (selected_user_type === "student") {
+      initialFormData = localStorage.getItem('student_profile');
+      apiUrl = `/student/?user_id=${userid}&type=${type}`
+      routeName = "UpdateStudentData"
+    } 
+  
     if (initialFormData === JSON.stringify(formData)) {
       return true;
     }
-
-    setLoading(true);
+  
+    const data = JSON.stringify(formData.course_info);
+    
+    const wrappedApiRequest = withLoading(
+      apiRequest, 
+      setLoading, 
+      showAlert, 
+      routeName
+    );
+  
     try {
-      const response = await updateAppplicantData(
-        userid,
-        "course",
-        JSON.stringify(formData.course_info)
+      const response = await wrappedApiRequest(
+        apiUrl, 
+        "PUT",
+        data, 
+        authToken, 
+        routeName
       );
-
-      if (!response.status) {
-        alert(response.message);
+  
+      if (!response.success || !response.status) {
+        showAlert(response.message || `Failed to update ${selected_user_type} data`);
+        setLoading(false);
         return false;
       }
 
-      localStorage.setItem("applicant_profile", JSON.stringify(formData));
-      alert(response.message);
-      return true;
-    } catch (error) {
-      console.error("Error updating course info:", error);
-      return false;
-    } finally {
+      if (selected_user_type === "student") {
+        localStorage.setItem("student_profile", JSON.stringify(formData));
+      } else if (selected_user_type === "applicant") {
+        localStorage.setItem("applicant_profile", JSON.stringify(formData));
+      }
+      showAlert(response.message);
       setLoading(false);
+      return true;
+  
+    } catch (error) {
+      console.error(`Error in updating ${selected_user_type} data:`, error);
+      showAlert(error.message || `Failed to update ${selected_user_type} data`);
+      setLoading(false);
+      return false;
     }
-  };
+  }
 
   return (
     <Fragment>
