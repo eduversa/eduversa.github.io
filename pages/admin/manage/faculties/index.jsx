@@ -22,9 +22,9 @@ function Faculty() {
   const [selectedGender, setSelectedGender] = useState("");
   const [pageSize, setPageSize] = useState(9);
   const [currentPage, setCurrentPage] = useState(1);
-  const [favorites, setFavorites] = useState([]);
+  const [bookmarkedFaculties, setBookmarkedFaculties] = useState([]);
   const [cache, setCache] = useState({});
-  const [showFavorites, setShowFavorites] = useState(false);
+  const [showBookmarks, setShowBookmarks] = useState(false);
   const { showAlert } = useAlert();
   const effectRun = useRef(false);
   const collegeId = 304;
@@ -107,8 +107,9 @@ function Faculty() {
 
     onLoadHandler();
 
-    const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavorites(savedFavorites);
+    const savedBookmarks =
+      JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
+    setBookmarkedFaculties(savedBookmarks);
   }, [showAlert, cache]);
 
   const filteredFaculties = useMemo(() => {
@@ -126,14 +127,14 @@ function Faculty() {
         selectedGender === "" || gender === selectedGender.toLowerCase();
       const matchesDepartment =
         selectedStream === "" || department === selectedStream.toLowerCase();
-      const matchesFavorites =
-        !showFavorites || favorites.includes(faculty._id);
+      const matchesBookmarks =
+        !showBookmarks || bookmarkedFaculties.includes(faculty._id);
 
       return (
         (matchesName || matchesEmail) &&
         matchesGender &&
         matchesDepartment &&
-        matchesFavorites
+        matchesBookmarks
       );
     });
   }, [
@@ -141,8 +142,8 @@ function Faculty() {
     searchQuery,
     selectedGender,
     selectedStream,
-    showFavorites,
-    favorites,
+    showBookmarks,
+    bookmarkedFaculties,
   ]);
 
   const totalPages = Math.ceil(filteredFaculties.length / pageSize);
@@ -165,14 +166,17 @@ function Faculty() {
     setCurrentPage(pageNumber);
   }, []);
 
-  const toggleFavorite = useCallback((facultyId) => {
-    setFavorites((prevFavorites) => {
-      const updatedFavorites = prevFavorites.includes(facultyId)
-        ? prevFavorites.filter((id) => id !== facultyId)
-        : [...prevFavorites, facultyId];
+  const toggleBookmark = useCallback((facultyId) => {
+    setBookmarkedFaculties((prevBookmarks) => {
+      const updatedBookmarks = prevBookmarks.includes(facultyId)
+        ? prevBookmarks.filter((id) => id !== facultyId)
+        : [...prevBookmarks, facultyId];
 
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      return updatedFavorites;
+      localStorage.setItem(
+        "bookmarkedFaculty",
+        JSON.stringify(updatedBookmarks)
+      );
+      return updatedBookmarks;
     });
   }, []);
 
@@ -195,7 +199,7 @@ function Faculty() {
       faculty.job_info.department || "",
       faculty.job_info.course || "",
       faculty.job_info.stream || "",
-      favorites.includes(faculty._id) ? "Yes" : "No",
+      bookmarkedFaculties.includes(faculty._id) ? "Yes" : "No",
     ]);
 
     const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
@@ -208,7 +212,7 @@ function Faculty() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-  }, [filteredFaculties, favorites]);
+  }, [filteredFaculties, bookmarkedFaculties]);
 
   return (
     <Fragment>
@@ -276,10 +280,10 @@ function Faculty() {
             <label className="faculty-management__filters__favorites-toggle">
               <input
                 type="checkbox"
-                checked={showFavorites}
-                onChange={() => setShowFavorites((prev) => !prev)}
+                checked={showBookmarks}
+                onChange={() => setShowBookmarks((prev) => !prev)}
               />
-              Show Only Favorites
+              Show Only Bookmarked
             </label>
           </div>
 
@@ -289,8 +293,8 @@ function Faculty() {
                 <FacultyIdCard
                   key={faculty._id}
                   faculty={faculty}
-                  isFavorite={favorites.includes(faculty._id)}
-                  toggleFavorite={() => toggleFavorite(faculty._id)}
+                  onBookmarkToggle={toggleBookmark}
+                  isBookmarked={bookmarkedFaculties.includes(faculty._id)}
                   placeholderImage={placeholderImage}
                 />
               ))

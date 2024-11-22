@@ -107,7 +107,7 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
   };
 
   return (
-    <div className={`faculty-card`} role="button">
+    <div className="faculty-card" role="button">
       <FacultyImage
         image={faculty?.image}
         placeholderImage={placeholderImage}
