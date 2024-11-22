@@ -37,23 +37,12 @@ const FacultyIdCard = ({
   isFavorite,
   toggleFavorite,
 }) => {
-  const facultyId = faculty.user_id;
-
   const handleViewProfile = () => {
-    localStorage.setItem("selectedFacultyId", facultyId);
-    console.log(localStorage.getItem("selectedFacultyId"));
+    console.log("Viewing profile of:", faculty.personal_info?.first_name);
   };
 
-  const {
-    first_name,
-    last_name,
-    email,
-    present_address,
-    gender,
-    dob,
-    contact,
-  } = faculty.personal_info || {};
-  const { faculty_id, room, department } = faculty.job_info || {};
+  const { first_name, last_name, email, contact } = faculty.personal_info || {};
+  const { room, department } = faculty.job_info || {};
 
   return (
     <div className="faculty-card" role="button">
@@ -69,31 +58,13 @@ const FacultyIdCard = ({
       <div className="faculty-card__info">
         <div className="faculty-card__info-group">
           <FacultyDetails label="Email" value={email} />
-          <FacultyDetails label="User ID" value={faculty.user_id} />
         </div>
 
         <div className="faculty-card__info-group">
-          <FacultyDetails
-            label="Address"
-            value={`${present_address?.street || "N/A"}, ${
-              present_address?.city || "N/A"
-            }, ${present_address?.district || "N/A"}, ${
-              present_address?.state || "N/A"
-            }`}
-          />
-        </div>
-
-        <div className="faculty-card__info-group">
-          <FacultyDetails label="Gender" value={gender} />
-          <FacultyDetails
-            label="DOB"
-            value={dob ? new Date(dob).toLocaleDateString() : "N/A"}
-          />
           <FacultyDetails label="Contact" value={contact} />
         </div>
 
         <div className="faculty-card__info-group">
-          <FacultyDetails label="Faculty ID" value={faculty_id} />
           <FacultyDetails label="Room" value={room} />
           <FacultyDetails
             label="Department"
@@ -121,24 +92,14 @@ const FacultyIdCard = ({
 
 FacultyIdCard.propTypes = {
   faculty: PropTypes.shape({
-    user_id: PropTypes.string.isRequired,
     image: PropTypes.string,
     personal_info: PropTypes.shape({
       first_name: PropTypes.string,
       last_name: PropTypes.string,
       email: PropTypes.string,
-      present_address: PropTypes.shape({
-        street: PropTypes.string,
-        city: PropTypes.string,
-        district: PropTypes.string,
-        state: PropTypes.string,
-      }),
-      gender: PropTypes.string,
-      dob: PropTypes.string,
       contact: PropTypes.string,
     }),
     job_info: PropTypes.shape({
-      faculty_id: PropTypes.string,
       room: PropTypes.string,
       department: PropTypes.string,
     }),
