@@ -4,7 +4,7 @@ import { AllLoader } from "@/components";
 import { useAlert } from "@/contexts/AlertContext";
 import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
 import { FacultyIdCard } from "@/components";
-
+import jsPDF from "jspdf";
 function Faculty() {
   const [faculties, setFaculties] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,6 +19,7 @@ function Faculty() {
   const [showBookmarkedOnly, setShowBookmarkedOnly] = useState(false);
   const [sortByField, setSortByField] = useState("fullName");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [exportFormat, setExportFormat] = useState("csv");
   const { showAlert } = useAlert();
   const placeholderImage = "/user.png";
 
@@ -215,12 +216,28 @@ function Faculty() {
     return range;
   };
   const paginationRange = getPaginationRange(currentPage, totalPages);
-  const exportFacultyDataAsCSV = useCallback(() => {
+
+  // Handle export data based on selected format
+  const exportFacultyData = () => {
     if (filteredFaculties.length === 0) {
       showAlert("No data available for export.");
       return;
     }
 
+    if (exportFormat === "csv") {
+      exportFacultyDataAsCSV();
+    } else if (exportFormat === "excel") {
+      exportFacultyDataAsExcel();
+    } else if (exportFormat === "pdf") {
+      exportFacultyDataAsPDF();
+    } else if (exportFormat === "json") {
+      exportFacultyDataAsJSON();
+    } else if (exportFormat === "text") {
+      exportFacultyDataAsText();
+    }
+  };
+
+  const exportFacultyDataAsCSV = () => {
     const headers = [
       "First Name",
       "Last Name",
@@ -239,18 +256,105 @@ function Faculty() {
       `"${faculty?.job_info?.course || ""}"`,
       `"${faculty?.job_info?.stream || ""}"`,
     ]);
+    const csvContent = [headers.join(","), ...rows.map((row) => row.join(","))]
+      .join("\n")
+      .replace(/(\r\n|\n|\r)/g, "\r\n");
 
-    const csvContent = [headers, ...rows]
-      .map((row) => row.join(","))
-      .join("\n");
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const blob = new Blob([csvContent], { type: "text/csv" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `faculty_data_${new Date().toISOString()}.csv`;
-    document.body.appendChild(link);
+    link.download = "faculty_data.csv";
     link.click();
-    document.body.removeChild(link);
-  }, [filteredFaculties, showAlert]);
+  };
+
+  const exportFacultyDataAsExcel = () => {
+    const headers = [
+      [
+        "First Name",
+        "Last Name",
+        "Email",
+        "Gender",
+        "Department",
+        "Course",
+        "Stream",
+      ],
+    ];
+    const rows = filteredFaculties.map((faculty) => [
+      faculty?.personal_info?.first_name || "",
+      faculty?.personal_info?.last_name || "",
+      faculty?.personal_info?.email || "",
+      faculty?.personal_info?.gender || "",
+      faculty?.job_info?.department || "",
+      faculty?.job_info?.course || "",
+      faculty?.job_info?.stream || "",
+    ]);
+    let excelContent = headers.concat(rows);
+    let xls = "<table>";
+
+    excelContent.forEach((row) => {
+      xls += "<tr>";
+      row.forEach((cell) => {
+        xls += `<td>${cell}</td>`;
+      });
+      xls += "</tr>";
+    });
+    xls += "</table>";
+
+    const blob = new Blob([xls], { type: "application/vnd.ms-excel" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "faculty_data.xls";
+    link.click();
+  };
+
+  const exportFacultyDataAsPDF = () => {
+    const doc = new jsPDF();
+    doc.setFont("helvetica", "normal");
+
+    filteredFaculties.forEach((faculty, index) => {
+      doc.text(
+        `${faculty?.personal_info?.first_name} ${faculty?.personal_info?.last_name}`,
+        10,
+        10 + index * 10
+      );
+    });
+
+    doc.save("faculty_data.pdf");
+  };
+
+  const exportFacultyDataAsJSON = () => {
+    const data = filteredFaculties.map((faculty) => ({
+      firstName: faculty?.personal_info?.first_name || "",
+      lastName: faculty?.personal_info?.last_name || "",
+      email: faculty?.personal_info?.email || "",
+      gender: faculty?.personal_info?.gender || "",
+      department: faculty?.job_info?.department || "",
+      course: faculty?.job_info?.course || "",
+      stream: faculty?.job_info?.stream || "",
+    }));
+
+    const jsonContent = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonContent], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "faculty_data.json";
+    link.click();
+  };
+
+  const exportFacultyDataAsText = () => {
+    const textContent = filteredFaculties
+      .map(
+        (faculty) =>
+          `${faculty?.personal_info?.first_name} ${faculty?.personal_info?.last_name} - ${faculty?.personal_info?.email}`
+      )
+      .join("\n");
+
+    const blob = new Blob([textContent], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "faculty_data.txt";
+    link.click();
+  };
 
   const courses = collegeData?.college_courses || [];
   const streams = selectedCourse
@@ -273,12 +377,22 @@ function Faculty() {
               className="faculty-management__search-bar"
               aria-label="Search faculties"
             />
-            <button
-              onClick={exportFacultyDataAsCSV}
-              className="faculty-management__export-btn"
-            >
-              Export Data as CSV
-            </button>
+            <div>
+              <select
+                value={exportFormat}
+                onChange={(e) => setExportFormat(e.target.value)}
+              >
+                <option value="csv">CSV</option>
+                <option value="excel">Excel</option>
+                <option value="pdf">PDF</option>
+                <option value="json">JSON</option>
+                <option value="text">Text</option>
+              </select>
+
+              <button onClick={exportFacultyData}>
+                Export Data as {exportFormat.toUpperCase()}
+              </button>
+            </div>
           </div>
 
           <div className="faculty-management__filters">
