@@ -17,8 +17,8 @@ function Faculty() {
   const [pageSize, setPageSize] = useState(9);
   const [currentPage, setCurrentPage] = useState(1);
   const [showBookmarkedOnly, setShowBookmarkedOnly] = useState(false);
-  const [sortByField, setSortByField] = useState("name"); // Default sorting field
-  const [sortOrder, setSortOrder] = useState("asc"); // Default sorting order
+  const [sortByField, setSortByField] = useState("fullName");
+  const [sortOrder, setSortOrder] = useState("asc");
   const { showAlert } = useAlert();
   const collegeId = 304;
   const placeholderImage = "/user.png";
