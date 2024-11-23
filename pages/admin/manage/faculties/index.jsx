@@ -34,9 +34,9 @@ function Faculty() {
     selectedStream,
     selectedGender,
     debouncedQuery,
+    showBookmarkedOnly,
   ]);
 
-  // Fetch faculties and college data
   useEffect(() => {
     const fetchData = async () => {
       const authToken = localStorage.getItem("authToken");
