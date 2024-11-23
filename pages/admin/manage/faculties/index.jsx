@@ -23,9 +23,6 @@ function Faculty() {
   const [selectedGender, setSelectedGender] = useState("");
   const [pageSize, setPageSize] = useState(9);
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookmarkedFaculties, setBookmarkedFaculties] = useState([]);
-  const [cache, setCache] = useState({});
-  const [showBookmarks, setShowBookmarks] = useState(false);
   const { showAlert } = useAlert();
   const effectRun = useRef(false);
   const collegeId = 304;
@@ -67,10 +64,6 @@ function Faculty() {
           return;
         }
         setFaculties(response.data.data);
-        setCache((prevCache) => ({
-          ...prevCache,
-          faculties: response.data.data,
-        }));
       } catch (error) {
         devLog("Error in getting faculties:", error.response || error.message);
         showAlert(error.message || "Failed to fetch faculty data.");
@@ -107,26 +100,9 @@ function Faculty() {
       }
     };
 
-    const onLoadHandler = async () => {
-      if (cache.faculties) {
-        setFaculties(cache.faculties);
-      } else {
-        await getAllFaculty();
-        await getCollegeDetails();
-      }
-    };
-
-    onLoadHandler();
-
-    try {
-      const savedBookmarks =
-        JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
-      setBookmarkedFaculties(savedBookmarks);
-    } catch (error) {
-      devLog("Error loading bookmarks:", error);
-      showAlert("Unable to load bookmarked faculties. Please try again.");
-    }
-  }, [showAlert, cache]);
+    getAllFaculty();
+    getCollegeDetails();
+  }, [showAlert]);
 
   const filteredFaculties = useMemo(() => {
     return faculties.filter((faculty) => {
@@ -143,24 +119,10 @@ function Faculty() {
         selectedGender === "" || gender === selectedGender.toLowerCase();
       const matchesDepartment =
         selectedStream === "" || department === selectedStream.toLowerCase();
-      const matchesBookmarks =
-        !showBookmarks || bookmarkedFaculties.includes(faculty._id);
 
-      return (
-        (matchesName || matchesEmail) &&
-        matchesGender &&
-        matchesDepartment &&
-        matchesBookmarks
-      );
+      return matchesName || matchesEmail || matchesGender || matchesDepartment;
     });
-  }, [
-    faculties,
-    debouncedQuery,
-    selectedGender,
-    selectedStream,
-    showBookmarks,
-    bookmarkedFaculties,
-  ]);
+  }, [faculties, debouncedQuery, selectedGender, selectedStream]);
 
   const totalPages = Math.ceil(filteredFaculties.length / pageSize);
   const paginatedFaculties = filteredFaculties.slice(
@@ -186,28 +148,6 @@ function Faculty() {
     setCurrentPage(pageNumber);
   }, []);
 
-  const toggleBookmark = useCallback(
-    (facultyId) => {
-      setBookmarkedFaculties((prevBookmarks) => {
-        const updatedBookmarks = prevBookmarks.includes(facultyId)
-          ? prevBookmarks.filter((id) => id !== facultyId)
-          : [...prevBookmarks, facultyId];
-
-        try {
-          localStorage.setItem(
-            "bookmarkedFaculty",
-            JSON.stringify(updatedBookmarks)
-          );
-        } catch (error) {
-          devLog("Error saving bookmarks:", error);
-          showAlert("Unable to save bookmarks. Please try again.");
-        }
-        return updatedBookmarks;
-      });
-    },
-    [showAlert]
-  );
-
   const exportFacultyDataAsCSV = useCallback(() => {
     if (filteredFaculties.length === 0) {
       showAlert("No data available for export.");
@@ -222,7 +162,6 @@ function Faculty() {
       "Department",
       "Course",
       "Stream",
-      "Favorite",
     ];
     const rows = filteredFaculties.map((faculty) => [
       faculty?.personal_info?.first_name || "",
@@ -232,7 +171,6 @@ function Faculty() {
       faculty?.job_info?.department || "",
       faculty?.job_info?.course || "",
       faculty?.job_info?.stream || "",
-      bookmarkedFaculties.includes(faculty._id) ? "Yes" : "No",
     ]);
 
     const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
@@ -245,14 +183,14 @@ function Faculty() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-  }, [filteredFaculties, bookmarkedFaculties, showAlert]);
+  }, [filteredFaculties, showAlert]);
 
   return (
     <Fragment>
       <AdminLayout>
         {loading && <AllLoader />}
         <div className="faculty-management">
-          <h1 className="faculty-management__title">Faculties of Eduversa</h1>
+          <h1 className="faculty-management__title">Faculties</h1>
 
           <div className="faculty-management__actions">
             <input
@@ -272,56 +210,46 @@ function Faculty() {
           </div>
 
           <div className="faculty-management__filters">
-            <div className="faculty-management__filters__dropdowns">
-              <select
-                value={selectedCourse}
-                onChange={(e) => {
-                  setSelectedCourse(e.target.value);
-                  setSelectedStream("");
-                }}
-                aria-label="Filter by course"
-              >
-                <option value="">Select Course</option>
-                {courses.map((course) => (
-                  <option key={course.name} value={course.code}>
-                    {course.name}
-                  </option>
-                ))}
-              </select>
+            <select
+              value={selectedCourse}
+              onChange={(e) => {
+                setSelectedCourse(e.target.value);
+                setSelectedStream("");
+              }}
+              aria-label="Filter by course"
+            >
+              <option value="">Select Course</option>
+              {courses.map((course) => (
+                <option key={course.name} value={course.code}>
+                  {course.name}
+                </option>
+              ))}
+            </select>
 
-              <select
-                value={selectedStream}
-                onChange={(e) => setSelectedStream(e.target.value)}
-                disabled={!selectedCourse}
-                aria-label="Filter by stream"
-              >
-                <option value="">Select Stream</option>
-                {streams.map((stream) => (
-                  <option key={stream.name} value={stream.name}>
-                    {stream.name}
-                  </option>
-                ))}
-              </select>
+            <select
+              value={selectedStream}
+              onChange={(e) => setSelectedStream(e.target.value)}
+              disabled={!selectedCourse}
+              aria-label="Filter by stream"
+            >
+              <option value="">Select Stream</option>
+              {streams.map((stream) => (
+                <option key={stream.name} value={stream.name}>
+                  {stream.name}
+                </option>
+              ))}
+            </select>
 
-              <select
-                value={selectedGender}
-                onChange={(e) => setSelectedGender(e.target.value)}
-                aria-label="Filter by gender"
-              >
-                <option value="">All Genders</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <label className="faculty-management__filters__favorites-toggle">
-              <input
-                type="checkbox"
-                checked={showBookmarks}
-                onChange={() => setShowBookmarks((prev) => !prev)}
-              />
-              Show Only Bookmarked
-            </label>
+            <select
+              value={selectedGender}
+              onChange={(e) => setSelectedGender(e.target.value)}
+              aria-label="Filter by gender"
+            >
+              <option value="">All Genders</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
           </div>
 
           <div className="faculty-management__list">
@@ -330,8 +258,6 @@ function Faculty() {
                 <FacultyIdCard
                   key={faculty._id}
                   faculty={faculty}
-                  isBookmarked={bookmarkedFaculties.includes(faculty._id)}
-                  toggleBookmark={toggleBookmark}
                   placeholderImage={placeholderImage}
                 />
               ))
@@ -354,9 +280,8 @@ function Faculty() {
               <button
                 key={page}
                 onClick={() => paginate(page)}
-                className={`faculty-management__pagination-btn ${
-                  currentPage === page ? "active" : ""
-                }`}
+                className={currentPage === page ? "active" : ""}
+                aria-label={`Go to page ${page}`}
               >
                 {page}
               </button>
@@ -371,15 +296,17 @@ function Faculty() {
           </div>
 
           <div className="faculty-management__page-size">
-            <label>Items per page:</label>
+            <label htmlFor="page-size">Items per page: </label>
             <select
+              id="page-size"
               value={pageSize}
               onChange={handleChangePageSize}
-              className="faculty-management__page-size__dropdown"
             >
-              <option value={9}>9</option>
-              <option value={18}>18</option>
-              <option value={27}>27</option>
+              {[5, 9, 15, 25].map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
             </select>
           </div>
         </div>
