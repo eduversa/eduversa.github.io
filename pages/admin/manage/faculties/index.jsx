@@ -17,6 +17,8 @@ function Faculty() {
   const [pageSize, setPageSize] = useState(9);
   const [currentPage, setCurrentPage] = useState(1);
   const [showBookmarkedOnly, setShowBookmarkedOnly] = useState(false);
+  const [sortByField, setSortByField] = useState("name"); // Default sorting field
+  const [sortOrder, setSortOrder] = useState("asc"); // Default sorting order
   const { showAlert } = useAlert();
   const collegeId = 304;
   const placeholderImage = "/user.png";
@@ -85,10 +87,13 @@ function Faculty() {
   }, [showAlert]);
 
   const filteredFaculties = useMemo(() => {
-    const filtered = faculties.filter((faculty) => {
-      const fullName = `${faculty?.personal_info?.first_name || ""} ${
-        faculty?.personal_info?.last_name || ""
-      }`.toLowerCase();
+    let filtered = faculties.filter((faculty) => {
+      const firstName = (
+        faculty?.personal_info?.first_name || ""
+      ).toLowerCase();
+      const lastName = (faculty?.personal_info?.last_name || "").toLowerCase();
+      const fullName = `${firstName} ${lastName}`;
+
       const email = (faculty?.personal_info?.email || "").toLowerCase();
       const gender = (faculty?.personal_info?.gender || "").toLowerCase();
       const department = (faculty?.job_info?.department || "").toLowerCase();
@@ -119,12 +124,49 @@ function Faculty() {
     if (showBookmarkedOnly) {
       const bookmarks =
         JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
-      return filtered.filter((faculty) =>
+      filtered = filtered.filter((faculty) =>
         bookmarks.includes(faculty?.personal_info?.email)
       );
     }
+
+    // Sorting Logic
+    if (sortByField) {
+      filtered = filtered.sort((a, b) => {
+        let aValue = "";
+        let bValue = "";
+
+        // Determine the field to sort by and assign the appropriate values
+        if (sortByField === "fullName") {
+          aValue = `${a?.personal_info?.first_name || ""} ${
+            a?.personal_info?.last_name || ""
+          }`;
+          bValue = `${b?.personal_info?.first_name || ""} ${
+            b?.personal_info?.last_name || ""
+          }`;
+        } else {
+          aValue = a?.personal_info?.[sortByField] || "";
+          bValue = b?.personal_info?.[sortByField] || "";
+        }
+
+        // Ensure values are compared as strings
+        aValue = aValue.toString().toLowerCase();
+        bValue = bValue.toString().toLowerCase();
+
+        if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
+        if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
+        return 0;
+      });
+    }
+
     return filtered;
-  }, [faculties, debouncedQuery, selectedGender, showBookmarkedOnly]);
+  }, [
+    faculties,
+    debouncedQuery,
+    selectedGender,
+    showBookmarkedOnly,
+    sortByField,
+    sortOrder,
+  ]);
 
   const totalPages = Math.ceil(filteredFaculties.length / pageSize);
   const paginatedFaculties = filteredFaculties.slice(
@@ -214,6 +256,7 @@ function Faculty() {
           </div>
 
           <div className="faculty-management__filters">
+            {/* Existing Filters */}
             <select
               value={selectedCourse}
               onChange={(e) => {
@@ -224,7 +267,7 @@ function Faculty() {
             >
               <option value="">Select Course</option>
               {courses.map((course) => (
-                <option key={course.name} value={course.code}>
+                <option key={course.code} value={course.code}>
                   {course.name}
                 </option>
               ))}
@@ -233,13 +276,13 @@ function Faculty() {
             <select
               value={selectedStream}
               onChange={(e) => setSelectedStream(e.target.value)}
-              disabled={!selectedCourse}
               aria-label="Filter by stream"
+              disabled={!selectedCourse}
             >
               <option value="">Select Stream</option>
               {streams.map((stream) => (
-                <option key={stream.name} value={stream.name}>
-                  {stream.name}
+                <option key={stream} value={stream}>
+                  {stream}
                 </option>
               ))}
             </select>
@@ -254,7 +297,7 @@ function Faculty() {
               <option value="Female">Female</option>
             </select>
 
-            <label className="faculty-management__show-bookmarked">
+            <label>
               <input
                 type="checkbox"
                 checked={showBookmarkedOnly}
@@ -262,53 +305,70 @@ function Faculty() {
               />
               Show Bookmarked Only
             </label>
+
+            {/* Sort By Fields Dropdown */}
+            <select
+              value={sortByField}
+              onChange={(e) => setSortByField(e.target.value)}
+              aria-label="Sort by"
+            >
+              <option value="fullName">Name</option>
+              <option value="email">Email</option>
+              <option value="department">Department</option>
+              <option value="course">Course</option>
+              <option value="stream">Stream</option>
+            </select>
+
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              aria-label="Sort order"
+            >
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
+            </select>
           </div>
 
           <div className="faculty-management__list">
             {paginatedFaculties.map((faculty) => (
               <FacultyIdCard
-                key={faculty?.personal_info?.email}
+                key={faculty.personal_info.email}
                 faculty={faculty}
                 placeholderImage={placeholderImage}
               />
             ))}
           </div>
 
+          {/* Pagination Controls */}
           <div className="faculty-management__pagination">
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
+            <select
+              value={pageSize}
+              onChange={handlePageSizeChange}
+              aria-label="Page size"
             >
-              Previous
-            </button>
+              <option value="5">5 per page</option>
+              <option value="9">9 per page</option>
+              <option value="15">15 per page</option>
+              <option value="20">20 per page</option>
+            </select>
 
-            <span>
-              Page {currentPage} of {totalPages}
-            </span>
-
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </button>
-          </div>
-
-          <div className="faculty-management__page-size">
-            <label>
-              Items per page:
-              <select
-                value={pageSize}
-                onChange={handlePageSizeChange}
-                aria-label="Select number of items per page"
+            <div className="faculty-management__pagination-controls">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage <= 1}
               >
-                {[9, 18, 27].map((size) => (
-                  <option key={size} value={size}>
-                    {size}
-                  </option>
-                ))}
-              </select>
-            </label>
+                Previous
+              </button>
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage >= totalPages}
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </AdminLayout>
