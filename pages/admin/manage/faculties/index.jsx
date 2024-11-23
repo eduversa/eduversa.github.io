@@ -161,19 +161,21 @@ function Faculty() {
       "Course",
       "Stream",
     ];
+
     const rows = filteredFaculties.map((faculty) => [
-      faculty?.personal_info?.first_name || "",
-      faculty?.personal_info?.last_name || "",
-      faculty?.personal_info?.email || "",
-      faculty?.personal_info?.gender || "",
-      faculty?.job_info?.department || "",
-      faculty?.job_info?.course || "",
-      faculty?.job_info?.stream || "",
+      `"${faculty?.personal_info?.first_name || ""}"`,
+      `"${faculty?.personal_info?.last_name || ""}"`,
+      `"${faculty?.personal_info?.email || ""}"`,
+      `"${faculty?.personal_info?.gender || ""}"`,
+      `"${faculty?.job_info?.department || ""}"`,
+      `"${faculty?.job_info?.course || ""}"`,
+      `"${faculty?.job_info?.stream || ""}"`,
     ]);
 
     const csvContent = [headers, ...rows]
       .map((row) => row.join(","))
       .join("\n");
+
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
