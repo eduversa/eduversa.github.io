@@ -330,8 +330,8 @@ function Faculty() {
                 <FacultyIdCard
                   key={faculty._id}
                   faculty={faculty}
-                  onBookmarkToggle={toggleBookmark}
                   isBookmarked={bookmarkedFaculties.includes(faculty._id)}
+                  toggleBookmark={toggleBookmark}
                   placeholderImage={placeholderImage}
                 />
               ))
