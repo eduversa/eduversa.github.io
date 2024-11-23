@@ -1,11 +1,4 @@
-import {
-  useEffect,
-  useState,
-  Fragment,
-  useRef,
-  useCallback,
-  useMemo,
-} from "react";
+import { useEffect, useState, Fragment, useMemo, useCallback } from "react";
 import { AdminLayout } from "@/layout";
 import { AllLoader } from "@/components";
 import { useAlert } from "@/contexts/AlertContext";
@@ -24,86 +17,78 @@ function Faculty() {
   const [pageSize, setPageSize] = useState(9);
   const [currentPage, setCurrentPage] = useState(1);
   const { showAlert } = useAlert();
-  const effectRun = useRef(false);
   const collegeId = 304;
   const placeholderImage = "/user.png";
 
-  // Debounce search query updates
+  // Debounce the search query
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedQuery(searchQuery), 300);
     return () => clearTimeout(handler);
   }, [searchQuery]);
 
-  // Load faculty and college data
+  // Reset currentPage to 1 when faculties are updated or any filter changes
   useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    if (effectRun.current) return;
-    effectRun.current = true;
+    setCurrentPage(1);
+  }, [
+    faculties,
+    selectedCourse,
+    selectedStream,
+    selectedGender,
+    debouncedQuery,
+  ]);
 
-    const getAllFaculty = async () => {
+  // Fetch faculties and college data
+  useEffect(() => {
+    const fetchData = async () => {
+      const authToken = localStorage.getItem("authToken");
+
       const wrappedApiRequest = withLoading(
         apiRequest,
         setLoading,
         showAlert,
-        "GetAllFaculties"
+        "FetchData"
       );
 
       try {
-        const response = await wrappedApiRequest(
+        // Fetch faculties data
+        const facultyResponse = await wrappedApiRequest(
           `/faculty/all`,
           "GET",
           null,
-          authToken,
-          "GetAllFaculties"
+          authToken
         );
-        if (!response.success || !response.status) {
-          devLog("Error in getting faculties:", response.message);
-          showAlert(
-            response.message || "Error getting faculties. Please try again."
-          );
+        if (!facultyResponse.success) {
+          devLog("Error fetching faculties:", facultyResponse.message);
+          showAlert(facultyResponse.message || "Error fetching faculties.");
           return;
         }
-        setFaculties(response.data.data);
-      } catch (error) {
-        devLog("Error in getting faculties:", error.response || error.message);
-        showAlert(error.message || "Failed to fetch faculty data.");
-      }
-    };
+        setFaculties(facultyResponse.data.data);
 
-    const getCollegeDetails = async () => {
-      const wrappedApiRequest = withLoading(
-        apiRequest,
-        setLoading,
-        showAlert,
-        "GetCollegeDetails"
-      );
-      try {
-        const response = await wrappedApiRequest(
+        // Fetch college data
+        const collegeResponse = await wrappedApiRequest(
           `/college/?college_id=${collegeId}`,
           "GET",
           null,
-          authToken,
-          "GetCollegeDetails"
+          authToken
         );
-        if (!response.success || !response.status) {
-          devLog("Error in fetching college details:", response.message);
-          showAlert(response.message || "Failed to fetch college details");
+        if (!collegeResponse.success) {
+          devLog("Error fetching college details:", collegeResponse.message);
+          showAlert(
+            collegeResponse.message || "Error fetching college details."
+          );
           return;
         }
-        setCollegeData(response.data.data);
+        setCollegeData(collegeResponse.data.data);
       } catch (error) {
-        devLog(
-          "Error in fetching college details:",
-          error.response || error.message
-        );
-        showAlert(error.message || "Failed to fetch college details");
+        devLog("Error fetching data:", error.message);
+        showAlert(error.message || "Failed to fetch data.");
       }
     };
 
-    getAllFaculty();
-    getCollegeDetails();
+    fetchData();
   }, [showAlert]);
 
+  // Filter faculties based on search query and filters
   const filteredFaculties = useMemo(() => {
     return faculties.filter((faculty) => {
       const fullName = `${faculty?.personal_info?.first_name || ""} ${
@@ -115,39 +100,43 @@ function Faculty() {
 
       const matchesName = fullName.includes(debouncedQuery.toLowerCase());
       const matchesEmail = email.includes(debouncedQuery.toLowerCase());
-      const matchesGender =
-        selectedGender === "" || gender === selectedGender.toLowerCase();
-      const matchesDepartment =
-        selectedStream === "" || department === selectedStream.toLowerCase();
+      const matchesGender = selectedGender
+        ? gender === selectedGender.toLowerCase()
+        : true;
+      const matchesDepartment = selectedStream
+        ? department === selectedStream.toLowerCase()
+        : true;
 
-      return matchesName || matchesEmail || matchesGender || matchesDepartment;
+      return (
+        (matchesName || matchesEmail) && matchesGender && matchesDepartment
+      );
     });
   }, [faculties, debouncedQuery, selectedGender, selectedStream]);
 
+  // Pagination calculation
   const totalPages = Math.ceil(filteredFaculties.length / pageSize);
   const paginatedFaculties = filteredFaculties.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
 
+  // Update page when page size or total pages change
   useEffect(() => {
     if (currentPage > totalPages) setCurrentPage(totalPages);
   }, [totalPages, currentPage]);
 
-  const courses = collegeData?.college_courses || [];
-  const streams = selectedCourse
-    ? courses.find((course) => course.code === selectedCourse)?.streams || []
-    : [];
-
-  const handleChangePageSize = (e) => {
+  // Handle page size change
+  const handlePageSizeChange = (e) => {
     setPageSize(Number(e.target.value));
     setCurrentPage(1);
   };
 
-  const paginate = useCallback((pageNumber) => {
+  // Handle pagination click
+  const handlePageChange = useCallback((pageNumber) => {
     setCurrentPage(pageNumber);
   }, []);
 
+  // Export faculty data as CSV
   const exportFacultyDataAsCSV = useCallback(() => {
     if (filteredFaculties.length === 0) {
       showAlert("No data available for export.");
@@ -173,17 +162,22 @@ function Faculty() {
       faculty?.job_info?.stream || "",
     ]);
 
-    const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
+    const csvContent = [headers, ...rows]
+      .map((row) => row.join(","))
+      .join("\n");
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.href = url;
+    link.href = URL.createObjectURL(blob);
     link.download = `faculty_data_${new Date().toISOString()}.csv`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    URL.revokeObjectURL(url);
   }, [filteredFaculties, showAlert]);
+
+  const courses = collegeData?.college_courses || [];
+  const streams = selectedCourse
+    ? courses.find((course) => course.code === selectedCourse)?.streams || []
+    : [];
 
   return (
     <Fragment>
@@ -270,24 +264,27 @@ function Faculty() {
 
           <div className="faculty-management__pagination">
             <button
-              onClick={() => paginate(currentPage - 1)}
+              onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
               aria-label="Go to previous page"
             >
               Previous
             </button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => paginate(page)}
-                className={currentPage === page ? "active" : ""}
-                aria-label={`Go to page ${page}`}
-              >
-                {page}
-              </button>
-            ))}
+            {[...Array(totalPages)].map((_, i) => {
+              const page = i + 1;
+              return (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={currentPage === page ? "active" : ""}
+                  aria-label={`Go to page ${page}`}
+                >
+                  {page}
+                </button>
+              );
+            })}
             <button
-              onClick={() => paginate(currentPage + 1)}
+              onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
               aria-label="Go to next page"
             >
@@ -300,7 +297,7 @@ function Faculty() {
             <select
               id="page-size"
               value={pageSize}
-              onChange={handleChangePageSize}
+              onChange={handlePageSizeChange}
             >
               {[5, 9, 15, 25].map((size) => (
                 <option key={size} value={size}>
