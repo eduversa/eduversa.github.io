@@ -188,11 +188,33 @@ function Faculty() {
     setPageSize(Number(e.target.value));
     setCurrentPage(1);
   }, []);
+
   const handlePageChange = useCallback(
     (pageNumber) => setCurrentPage(pageNumber),
     []
   );
 
+  const getPaginationRange = (currentPage, totalPages, maxPages = 5) => {
+    const range = [];
+    range.push(1); // Always show the first page
+
+    if (currentPage - 2 > 2) range.push("...");
+
+    for (
+      let i = Math.max(2, currentPage - 2);
+      i <= Math.min(totalPages - 1, currentPage + 2);
+      i++
+    ) {
+      range.push(i);
+    }
+
+    if (currentPage + 2 < totalPages - 1) range.push("...");
+
+    if (totalPages > 1) range.push(totalPages); // Always show the last page
+
+    return range;
+  };
+  const paginationRange = getPaginationRange(currentPage, totalPages);
   const exportFacultyDataAsCSV = useCallback(() => {
     if (filteredFaculties.length === 0) {
       showAlert("No data available for export.");
@@ -341,6 +363,7 @@ function Faculty() {
             ))}
           </div>
 
+          {/* Pagination */}
           <div className="faculty-management__pagination">
             <select
               value={pageSize}
@@ -348,28 +371,34 @@ function Faculty() {
               aria-label="Page size"
             >
               <option value="5">5 per page</option>
-              <option value="9">9 per page</option>
+              <option value="10">10 per page</option>
               <option value="15">15 per page</option>
-              <option value="20">20 per page</option>
             </select>
 
-            <div className="faculty-management__pagination-controls">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+
+            {paginationRange.map((page, index) => (
               <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage <= 1}
+                key={index}
+                onClick={() => handlePageChange(page)}
+                disabled={page === currentPage || page === "..."}
+                aria-label={`Page ${page}`}
               >
-                Previous
+                {page}
               </button>
-              <span>
-                Page {currentPage} of {totalPages}
-              </span>
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage >= totalPages}
-              >
-                Next
-              </button>
-            </div>
+            ))}
+
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
           </div>
         </div>
       </AdminLayout>
