@@ -20,7 +20,6 @@ function Faculty() {
   const [sortByField, setSortByField] = useState("fullName");
   const [sortOrder, setSortOrder] = useState("asc");
   const { showAlert } = useAlert();
-  const collegeId = 304;
   const placeholderImage = "/user.png";
 
   useEffect(() => {
@@ -64,7 +63,7 @@ function Faculty() {
         setFaculties(facultyResponse.data.data);
 
         const collegeResponse = await wrappedApiRequest(
-          `/college/?college_id=${collegeId}`,
+          `/college/?college_id=304`,
           "GET",
           null,
           authToken
@@ -87,55 +86,53 @@ function Faculty() {
   }, [showAlert]);
 
   const filteredFaculties = useMemo(() => {
-    let filtered = faculties.filter((faculty) => {
-      const firstName = (
-        faculty?.personal_info?.first_name || ""
-      ).toLowerCase();
-      const lastName = (faculty?.personal_info?.last_name || "").toLowerCase();
-      const fullName = `${firstName} ${lastName}`;
+    return faculties
+      .filter((faculty) => {
+        const firstName = (
+          faculty?.personal_info?.first_name || ""
+        ).toLowerCase();
+        const lastName = (
+          faculty?.personal_info?.last_name || ""
+        ).toLowerCase();
+        const fullName = `${firstName} ${lastName}`;
+        const email = (faculty?.personal_info?.email || "").toLowerCase();
+        const gender = (faculty?.personal_info?.gender || "").toLowerCase();
+        const department = (faculty?.job_info?.department || "").toLowerCase();
+        const course = (faculty?.job_info?.course || "").toLowerCase();
+        const stream = (faculty?.job_info?.stream || "").toLowerCase();
 
-      const email = (faculty?.personal_info?.email || "").toLowerCase();
-      const gender = (faculty?.personal_info?.gender || "").toLowerCase();
-      const department = (faculty?.job_info?.department || "").toLowerCase();
-      const course = (faculty?.job_info?.course || "").toLowerCase();
-      const stream = (faculty?.job_info?.stream || "").toLowerCase();
+        const matchesName = fullName.includes(debouncedQuery.toLowerCase());
+        const matchesEmail = email.includes(debouncedQuery.toLowerCase());
+        const matchesGender = selectedGender
+          ? gender === selectedGender.toLowerCase()
+          : true;
+        const matchesDepartment = department.includes(
+          debouncedQuery.toLowerCase()
+        );
+        const matchesCourse = course.includes(debouncedQuery.toLowerCase());
+        const matchesStream = stream.includes(debouncedQuery.toLowerCase());
 
-      const matchesName = fullName.includes(debouncedQuery.toLowerCase());
-      const matchesEmail = email.includes(debouncedQuery.toLowerCase());
-      const matchesGender = selectedGender
-        ? gender === selectedGender.toLowerCase()
-        : true;
-      const matchesDepartment = department.includes(
-        debouncedQuery.toLowerCase()
-      );
-      const matchesCourse = course.includes(debouncedQuery.toLowerCase());
-      const matchesStream = stream.includes(debouncedQuery.toLowerCase());
-
-      return (
-        (matchesName ||
-          matchesEmail ||
-          matchesDepartment ||
-          matchesCourse ||
-          matchesStream) &&
-        matchesGender
-      );
-    });
-
-    if (showBookmarkedOnly) {
-      const bookmarks =
-        JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
-      filtered = filtered.filter((faculty) =>
-        bookmarks.includes(faculty?.personal_info?.email)
-      );
-    }
-
-    // Sorting Logic
-    if (sortByField) {
-      filtered = filtered.sort((a, b) => {
+        return (
+          (matchesName ||
+            matchesEmail ||
+            matchesDepartment ||
+            matchesCourse ||
+            matchesStream) &&
+          matchesGender
+        );
+      })
+      .filter((faculty) => {
+        if (showBookmarkedOnly) {
+          const bookmarks =
+            JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
+          return bookmarks.includes(faculty?.personal_info?.email);
+        }
+        return true;
+      })
+      .sort((a, b) => {
         let aValue = "";
         let bValue = "";
 
-        // Determine the field to sort by and assign the appropriate values
         if (sortByField === "fullName") {
           aValue = `${a?.personal_info?.first_name || ""} ${
             a?.personal_info?.last_name || ""
@@ -148,17 +145,13 @@ function Faculty() {
           bValue = b?.personal_info?.[sortByField] || "";
         }
 
-        // Ensure values are compared as strings
         aValue = aValue.toString().toLowerCase();
         bValue = bValue.toString().toLowerCase();
 
-        if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
-        if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
-        return 0;
+        return sortOrder === "asc"
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
       });
-    }
-
-    return filtered;
   }, [
     faculties,
     debouncedQuery,
@@ -182,10 +175,10 @@ function Faculty() {
     setPageSize(Number(e.target.value));
     setCurrentPage(1);
   }, []);
-
-  const handlePageChange = useCallback((pageNumber) => {
-    setCurrentPage(pageNumber);
-  }, []);
+  const handlePageChange = useCallback(
+    (pageNumber) => setCurrentPage(pageNumber),
+    []
+  );
 
   const exportFacultyDataAsCSV = useCallback(() => {
     if (filteredFaculties.length === 0) {
@@ -202,7 +195,6 @@ function Faculty() {
       "Course",
       "Stream",
     ];
-
     const rows = filteredFaculties.map((faculty) => [
       `"${faculty?.personal_info?.first_name || ""}"`,
       `"${faculty?.personal_info?.last_name || ""}"`,
@@ -216,7 +208,6 @@ function Faculty() {
     const csvContent = [headers, ...rows]
       .map((row) => row.join(","))
       .join("\n");
-
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
@@ -256,7 +247,6 @@ function Faculty() {
           </div>
 
           <div className="faculty-management__filters">
-            {/* Existing Filters */}
             <select
               value={selectedCourse}
               onChange={(e) => {
@@ -306,7 +296,6 @@ function Faculty() {
               Show Bookmarked Only
             </label>
 
-            {/* Sort By Fields Dropdown */}
             <select
               value={sortByField}
               onChange={(e) => setSortByField(e.target.value)}
@@ -339,7 +328,6 @@ function Faculty() {
             ))}
           </div>
 
-          {/* Pagination Controls */}
           <div className="faculty-management__pagination">
             <select
               value={pageSize}
