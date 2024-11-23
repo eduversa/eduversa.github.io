@@ -16,17 +16,16 @@ function Faculty() {
   const [selectedGender, setSelectedGender] = useState("");
   const [pageSize, setPageSize] = useState(9);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showBookmarkedOnly, setShowBookmarkedOnly] = useState(false);
   const { showAlert } = useAlert();
   const collegeId = 304;
   const placeholderImage = "/user.png";
 
-  // Debounce the search query
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedQuery(searchQuery), 300);
     return () => clearTimeout(handler);
   }, [searchQuery]);
 
-  // Reset currentPage to 1 when faculties are updated or any filter changes
   useEffect(() => {
     setCurrentPage(1);
   }, [
@@ -41,7 +40,6 @@ function Faculty() {
   useEffect(() => {
     const fetchData = async () => {
       const authToken = localStorage.getItem("authToken");
-
       const wrappedApiRequest = withLoading(
         apiRequest,
         setLoading,
@@ -50,7 +48,6 @@ function Faculty() {
       );
 
       try {
-        // Fetch faculties data
         const facultyResponse = await wrappedApiRequest(
           `/faculty/all`,
           "GET",
@@ -64,7 +61,6 @@ function Faculty() {
         }
         setFaculties(facultyResponse.data.data);
 
-        // Fetch college data
         const collegeResponse = await wrappedApiRequest(
           `/college/?college_id=${collegeId}`,
           "GET",
@@ -88,9 +84,8 @@ function Faculty() {
     fetchData();
   }, [showAlert]);
 
-  // Filter faculties based on search query and filters
   const filteredFaculties = useMemo(() => {
-    return faculties.filter((faculty) => {
+    const filtered = faculties.filter((faculty) => {
       const fullName = `${faculty?.personal_info?.first_name || ""} ${
         faculty?.personal_info?.last_name || ""
       }`.toLowerCase();
@@ -111,32 +106,42 @@ function Faculty() {
         (matchesName || matchesEmail) && matchesGender && matchesDepartment
       );
     });
-  }, [faculties, debouncedQuery, selectedGender, selectedStream]);
 
-  // Pagination calculation
+    if (showBookmarkedOnly) {
+      const bookmarks =
+        JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
+      return filtered.filter((faculty) =>
+        bookmarks.includes(faculty?.personal_info?.email)
+      );
+    }
+    return filtered;
+  }, [
+    faculties,
+    debouncedQuery,
+    selectedGender,
+    selectedStream,
+    showBookmarkedOnly,
+  ]);
+
   const totalPages = Math.ceil(filteredFaculties.length / pageSize);
   const paginatedFaculties = filteredFaculties.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
 
-  // Update page when page size or total pages change
   useEffect(() => {
     if (currentPage > totalPages) setCurrentPage(totalPages);
   }, [totalPages, currentPage]);
 
-  // Handle page size change
   const handlePageSizeChange = (e) => {
     setPageSize(Number(e.target.value));
     setCurrentPage(1);
   };
 
-  // Handle pagination click
   const handlePageChange = useCallback((pageNumber) => {
     setCurrentPage(pageNumber);
   }, []);
 
-  // Export faculty data as CSV
   const exportFacultyDataAsCSV = useCallback(() => {
     if (filteredFaculties.length === 0) {
       showAlert("No data available for export.");
@@ -246,6 +251,17 @@ function Faculty() {
             </select>
           </div>
 
+          <div className="faculty-management__filters">
+            <label>
+              <input
+                type="checkbox"
+                checked={showBookmarkedOnly}
+                onChange={() => setShowBookmarkedOnly((prev) => !prev)}
+              />
+              Show Bookmarked Only
+            </label>
+          </div>
+
           <div className="faculty-management__list">
             {paginatedFaculties.length > 0 ? (
               paginatedFaculties.map((faculty) => (
@@ -270,19 +286,9 @@ function Faculty() {
             >
               Previous
             </button>
-            {[...Array(totalPages)].map((_, i) => {
-              const page = i + 1;
-              return (
-                <button
-                  key={page}
-                  onClick={() => handlePageChange(page)}
-                  className={currentPage === page ? "active" : ""}
-                  aria-label={`Go to page ${page}`}
-                >
-                  {page}
-                </button>
-              );
-            })}
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
@@ -290,18 +296,14 @@ function Faculty() {
             >
               Next
             </button>
-          </div>
-
-          <div className="faculty-management__page-size">
-            <label htmlFor="page-size">Items per page: </label>
             <select
-              id="page-size"
               value={pageSize}
               onChange={handlePageSizeChange}
+              aria-label="Items per page"
             >
-              {[5, 9, 15, 25].map((size) => (
+              {[5, 10, 15, 20].map((size) => (
                 <option key={size} value={size}>
-                  {size}
+                  {size} per page
                 </option>
               ))}
             </select>
