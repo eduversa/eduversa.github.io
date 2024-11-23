@@ -72,10 +72,7 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
         const updatedBookmarks = bookmarks.filter(
           (email) => email !== faculty?.personal_info?.email
         );
-        localStorage.setItem(
-          "bookmarkedFaculty",
-          JSON.stringify(updatedBookmarks)
-        );
+        localStorage.setItem("c", JSON.stringify(updatedBookmarks));
         setIsBookmarked(false);
       } else {
         bookmarks.push(faculty?.personal_info?.email);
