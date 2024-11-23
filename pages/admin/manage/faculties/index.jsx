@@ -276,12 +276,6 @@ function Faculty() {
 
           <div className="faculty-management__pagination">
             <button
-              onClick={() => handlePageChange(1)}
-              disabled={currentPage === 1}
-            >
-              First
-            </button>
-            <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
@@ -295,12 +289,6 @@ function Faculty() {
               disabled={currentPage === totalPages}
             >
               Next
-            </button>
-            <button
-              onClick={() => handlePageChange(totalPages)}
-              disabled={currentPage === totalPages}
-            >
-              Last
             </button>
             <select
               value={pageSize}
