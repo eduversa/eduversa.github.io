@@ -196,7 +196,7 @@ function Faculty() {
 
   const getPaginationRange = (currentPage, totalPages, maxPages = 5) => {
     const range = [];
-    range.push(1); // Always show the first page
+    range.push(1);
 
     if (currentPage - 2 > 2) range.push("...");
 
@@ -210,7 +210,7 @@ function Faculty() {
 
     if (currentPage + 2 < totalPages - 1) range.push("...");
 
-    if (totalPages > 1) range.push(totalPages); // Always show the last page
+    if (totalPages > 1) range.push(totalPages);
 
     return range;
   };
@@ -363,7 +363,6 @@ function Faculty() {
             ))}
           </div>
 
-          {/* Pagination */}
           <div className="faculty-management__pagination">
             <select
               value={pageSize}
