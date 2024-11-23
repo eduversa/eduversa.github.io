@@ -92,18 +92,28 @@ function Faculty() {
       const email = (faculty?.personal_info?.email || "").toLowerCase();
       const gender = (faculty?.personal_info?.gender || "").toLowerCase();
       const department = (faculty?.job_info?.department || "").toLowerCase();
+      const course = (faculty?.job_info?.course || "").toLowerCase();
+      const stream = (faculty?.job_info?.stream || "").toLowerCase();
 
+      // Check if the search query matches any of the fields
       const matchesName = fullName.includes(debouncedQuery.toLowerCase());
       const matchesEmail = email.includes(debouncedQuery.toLowerCase());
       const matchesGender = selectedGender
         ? gender === selectedGender.toLowerCase()
         : true;
-      const matchesDepartment = selectedStream
-        ? department === selectedStream.toLowerCase()
-        : true;
+      const matchesDepartment = department.includes(
+        debouncedQuery.toLowerCase()
+      );
+      const matchesCourse = course.includes(debouncedQuery.toLowerCase());
+      const matchesStream = stream.includes(debouncedQuery.toLowerCase());
 
       return (
-        (matchesName || matchesEmail) && matchesGender && matchesDepartment
+        (matchesName ||
+          matchesEmail ||
+          matchesDepartment ||
+          matchesCourse ||
+          matchesStream) &&
+        matchesGender
       );
     });
 
@@ -115,13 +125,7 @@ function Faculty() {
       );
     }
     return filtered;
-  }, [
-    faculties,
-    debouncedQuery,
-    selectedGender,
-    selectedStream,
-    showBookmarkedOnly,
-  ]);
+  }, [faculties, debouncedQuery, selectedGender, showBookmarkedOnly]);
 
   const totalPages = Math.ceil(filteredFaculties.length / pageSize);
   const paginatedFaculties = filteredFaculties.slice(
@@ -194,7 +198,7 @@ function Faculty() {
           <div className="faculty-management__actions">
             <input
               type="text"
-              placeholder="Search by name or email..."
+              placeholder="Search by name, email, department, course, or stream..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="faculty-management__search-bar"
@@ -249,42 +253,39 @@ function Faculty() {
               <option value="female">Female</option>
               <option value="other">Other</option>
             </select>
-          </div>
 
-          <div className="faculty-management__filters">
             <label>
               <input
                 type="checkbox"
                 checked={showBookmarkedOnly}
-                onChange={() => setShowBookmarkedOnly((prev) => !prev)}
+                onChange={() => setShowBookmarkedOnly(!showBookmarkedOnly)}
               />
               Show Bookmarked Only
             </label>
           </div>
 
           <div className="faculty-management__list">
-            {paginatedFaculties.length > 0 ? (
-              paginatedFaculties.map((faculty) => (
-                <FacultyIdCard
-                  key={faculty._id}
-                  faculty={faculty}
-                  placeholderImage={placeholderImage}
-                />
-              ))
-            ) : (
-              <p className="faculty-management__list__empty">
-                No faculties found.
-              </p>
-            )}
+            {paginatedFaculties.map((faculty) => (
+              <FacultyIdCard
+                key={faculty?.personal_info?.email}
+                faculty={faculty}
+                placeholderImage={placeholderImage}
+              />
+            ))}
           </div>
 
           <div className="faculty-management__pagination">
             <button
+              onClick={() => handlePageChange(1)}
+              disabled={currentPage === 1}
+            >
+              First
+            </button>
+            <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              aria-label="Go to previous page"
             >
-              Previous
+              Prev
             </button>
             <span>
               Page {currentPage} of {totalPages}
@@ -292,20 +293,23 @@ function Faculty() {
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              aria-label="Go to next page"
             >
               Next
+            </button>
+            <button
+              onClick={() => handlePageChange(totalPages)}
+              disabled={currentPage === totalPages}
+            >
+              Last
             </button>
             <select
               value={pageSize}
               onChange={handlePageSizeChange}
-              aria-label="Items per page"
+              aria-label="Select number of items per page"
             >
-              {[5, 10, 15, 20].map((size) => (
-                <option key={size} value={size}>
-                  {size} per page
-                </option>
-              ))}
+              <option value="9">9</option>
+              <option value="18">18</option>
+              <option value="27">27</option>
             </select>
           </div>
         </div>
