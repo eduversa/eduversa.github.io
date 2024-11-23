@@ -217,27 +217,29 @@ function Faculty() {
   };
   const paginationRange = getPaginationRange(currentPage, totalPages);
 
-  // Handle export data based on selected format
   const exportFacultyData = () => {
-    if (filteredFaculties.length === 0) {
+    if (faculties.length === 0) {
       showAlert("No data available for export.");
       return;
     }
 
+    const dataToExport =
+      filteredFaculties.length > 0 ? filteredFaculties : faculties;
+
     if (exportFormat === "csv") {
-      exportFacultyDataAsCSV();
+      exportFacultyDataAsCSV(dataToExport);
     } else if (exportFormat === "excel") {
-      exportFacultyDataAsExcel();
+      exportFacultyDataAsExcel(dataToExport);
     } else if (exportFormat === "pdf") {
-      exportFacultyDataAsPDF();
+      exportFacultyDataAsPDF(dataToExport);
     } else if (exportFormat === "json") {
-      exportFacultyDataAsJSON();
+      exportFacultyDataAsJSON(dataToExport);
     } else if (exportFormat === "text") {
-      exportFacultyDataAsText();
+      exportFacultyDataAsText(dataToExport);
     }
   };
 
-  const exportFacultyDataAsCSV = () => {
+  const exportFacultyDataAsCSV = (data) => {
     const headers = [
       "First Name",
       "Last Name",
@@ -247,7 +249,7 @@ function Faculty() {
       "Course",
       "Stream",
     ];
-    const rows = filteredFaculties.map((faculty) => [
+    const rows = data.map((faculty) => [
       `"${faculty?.personal_info?.first_name || ""}"`,
       `"${faculty?.personal_info?.last_name || ""}"`,
       `"${faculty?.personal_info?.email || ""}"`,
@@ -267,7 +269,7 @@ function Faculty() {
     link.click();
   };
 
-  const exportFacultyDataAsExcel = () => {
+  const exportFacultyDataAsExcel = (data) => {
     const headers = [
       [
         "First Name",
@@ -279,7 +281,7 @@ function Faculty() {
         "Stream",
       ],
     ];
-    const rows = filteredFaculties.map((faculty) => [
+    const rows = data.map((faculty) => [
       faculty?.personal_info?.first_name || "",
       faculty?.personal_info?.last_name || "",
       faculty?.personal_info?.email || "",
@@ -311,29 +313,60 @@ function Faculty() {
     const doc = new jsPDF();
     doc.setFont("helvetica", "normal");
 
+    const marginTop = 10;
+    const lineHeight = 10;
+    const pageHeight = doc.internal.pageSize.height;
+
+    let yPosition = marginTop;
+
     filteredFaculties.forEach((faculty, index) => {
+      if (yPosition + lineHeight * 7 > pageHeight) {
+        doc.addPage();
+        yPosition = marginTop;
+      }
+
       doc.text(
-        `${faculty?.personal_info?.first_name} ${faculty?.personal_info?.last_name}`,
+        `Name: ${faculty?.personal_info?.first_name} ${faculty?.personal_info?.last_name}`,
         10,
-        10 + index * 10
+        yPosition
       );
+      yPosition += lineHeight;
+
+      doc.text(`Email: ${faculty?.personal_info?.email}`, 10, yPosition);
+      yPosition += lineHeight;
+
+      doc.text(`Gender: ${faculty?.personal_info?.gender}`, 10, yPosition);
+      yPosition += lineHeight;
+
+      doc.text(`Department: ${faculty?.job_info?.department}`, 10, yPosition);
+      yPosition += lineHeight;
+
+      doc.text(`Course: ${faculty?.job_info?.course}`, 10, yPosition);
+      yPosition += lineHeight;
+
+      doc.text(`Stream: ${faculty?.job_info?.stream}`, 10, yPosition);
+      yPosition += lineHeight;
+
+      yPosition += 5;
     });
 
     doc.save("faculty_data.pdf");
   };
 
-  const exportFacultyDataAsJSON = () => {
-    const data = filteredFaculties.map((faculty) => ({
-      firstName: faculty?.personal_info?.first_name || "",
-      lastName: faculty?.personal_info?.last_name || "",
-      email: faculty?.personal_info?.email || "",
-      gender: faculty?.personal_info?.gender || "",
-      department: faculty?.job_info?.department || "",
-      course: faculty?.job_info?.course || "",
-      stream: faculty?.job_info?.stream || "",
-    }));
-
-    const jsonContent = JSON.stringify(data, null, 2);
+  const exportFacultyDataAsJSON = (data) => {
+    const jsonContent = JSON.stringify(
+      data.map((faculty) => ({
+        firstName: faculty?.personal_info?.first_name || "",
+        lastName: faculty?.personal_info?.last_name || "",
+        email: faculty?.personal_info?.email || "",
+        gender: faculty?.personal_info?.gender || "",
+        department: faculty?.job_info?.department || "",
+        course: faculty?.job_info?.course || "",
+        stream: faculty?.job_info?.stream || "",
+      })),
+      null,
+      2
+    );
     const blob = new Blob([jsonContent], { type: "application/json" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
@@ -345,7 +378,11 @@ function Faculty() {
     const textContent = filteredFaculties
       .map(
         (faculty) =>
-          `${faculty?.personal_info?.first_name} ${faculty?.personal_info?.last_name} - ${faculty?.personal_info?.email}`
+          `${faculty?.personal_info?.first_name} ${faculty?.personal_info?.last_name} - ${faculty?.personal_info?.email}\n` +
+          `Gender: ${faculty?.personal_info?.gender}\n` +
+          `Department: ${faculty?.job_info?.department}\n` +
+          `Course: ${faculty?.job_info?.course}\n` +
+          `Stream: ${faculty?.job_info?.stream}\n`
       )
       .join("\n");
 
