@@ -86,7 +86,14 @@ function Faculty() {
   }, [showAlert]);
 
   const filteredFaculties = useMemo(() => {
-    return faculties
+    if (typeof window === "undefined") {
+      return faculties;
+    }
+
+    const bookmarks =
+      JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
+
+    const result = faculties
       .filter((faculty) => {
         const firstName = (
           faculty?.personal_info?.first_name || ""
@@ -123,13 +130,17 @@ function Faculty() {
       })
       .filter((faculty) => {
         if (showBookmarkedOnly) {
-          const bookmarks =
-            JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
           return bookmarks.includes(faculty?.personal_info?.email);
         }
         return true;
       })
       .sort((a, b) => {
+        const isBookmarkedA = bookmarks.includes(a?.personal_info?.email);
+        const isBookmarkedB = bookmarks.includes(b?.personal_info?.email);
+
+        if (isBookmarkedA && !isBookmarkedB) return -1;
+        if (!isBookmarkedA && isBookmarkedB) return 1;
+
         let aValue = "";
         let bValue = "";
 
@@ -152,6 +163,8 @@ function Faculty() {
           ? aValue.localeCompare(bValue)
           : bValue.localeCompare(aValue);
       });
+
+    return result;
   }, [
     faculties,
     debouncedQuery,
