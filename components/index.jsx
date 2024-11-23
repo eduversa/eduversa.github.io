@@ -4,6 +4,8 @@ export { default as AlertModal } from "./AlertModal";
 
 export { default as StudentUpdateReqForm } from "./StudentUpdateReqForm/StudentUpdateReqForm";
 
+export { default as StudentDashboard } from "./StudentDashboard/StudentDashboard";
+
 // Loading Components
 export { default as Circle } from "./Loading/Circle";
 export { default as Default } from "./Loading/Default";

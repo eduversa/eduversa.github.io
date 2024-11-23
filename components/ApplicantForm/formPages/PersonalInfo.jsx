@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { AllLoader } from "@/components";
 import {
   Name,
@@ -11,7 +11,7 @@ import {
   Dob,
 } from "../inputComponent/InputComponent";
 import AddressComponent from "../inputComponent/AddressComponent";
-import { withLoading, apiRequest } from "@/utils/apiUtils";
+import { withLoading, apiRequest, devLog } from "@/utils/apiUtils";
 import { useAlert } from "@/contexts/AlertContext";
 
 const PersonalInfo = ({
@@ -33,6 +33,10 @@ const PersonalInfo = ({
   const [loading, setLoading] = useState(false);
   const [areAddressesSame, setAreAddressesSame] = useState(formData.personal_info.are_addresses_same);
   const { showAlert } = useAlert();
+
+  useEffect(() => {
+    setAreAddressesSame(formData.personal_info.are_addresses_same);
+  }, [formData.personal_info.are_addresses_same]);
 
   const copyAddress = (e) => {
     const isChecked = e.target.checked;
@@ -57,7 +61,6 @@ const PersonalInfo = ({
     handleChange({ target: { name: "formData", value: updatedFormData } });
   };
 
-
   async function onSubmitHandler() {
     const type = "personal"; 
     const authToken = localStorage.getItem("authToken");
@@ -78,7 +81,11 @@ const PersonalInfo = ({
     if (initialFormData === JSON.stringify(formData)) {
       return true;
     }
-  
+    
+    if (areAddressesSame) {
+      formData.personal_info.permanent_address = { ...formData.personal_info.present_address };
+    }
+
     const data = JSON.stringify(formData.personal_info);
     
     const wrappedApiRequest = withLoading(

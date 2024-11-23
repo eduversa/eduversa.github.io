@@ -762,9 +762,9 @@ export const FormButtons = ({
   const handleSaveClick = () => {
     const userType = localStorage.getItem("userType");
     onSubmitHandler();
-    if (userType === "admin") {
-      router.push("/admin/manage/applicants/profile");
-    }
+    // if (userType === "admin") {
+    //   router.push("/admin/manage/applicants/profile");
+    // }
   };
 
   return (

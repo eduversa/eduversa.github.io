@@ -44,6 +44,15 @@ const FileUpload = ({
     }
   };
 
+  const handleClearImage = () => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      image: null
+    }));
+    setImagePreview(null);
+  };
+
+
   async function onSubmitHandler() {
     const type = "files";
     const authToken = localStorage.getItem("authToken");
@@ -174,7 +183,7 @@ const FileUpload = ({
         
         <FormButtons
           handlePreviousClick={handlePreviousClick}
-          clearFormData={() => clearFormData(currentStep)}
+          clearFormData={handleClearImage}
           onSubmitHandler={onSubmitHandler}
           currentStep={currentStep}
           totalSteps={totalSteps}
