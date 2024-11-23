@@ -95,7 +95,6 @@ function Faculty() {
       const course = (faculty?.job_info?.course || "").toLowerCase();
       const stream = (faculty?.job_info?.stream || "").toLowerCase();
 
-      // Check if the search query matches any of the fields
       const matchesName = fullName.includes(debouncedQuery.toLowerCase());
       const matchesEmail = email.includes(debouncedQuery.toLowerCase());
       const matchesGender = selectedGender
@@ -137,10 +136,10 @@ function Faculty() {
     if (currentPage > totalPages) setCurrentPage(totalPages);
   }, [totalPages, currentPage]);
 
-  const handlePageSizeChange = (e) => {
+  const handlePageSizeChange = useCallback((e) => {
     setPageSize(Number(e.target.value));
     setCurrentPage(1);
-  };
+  }, []);
 
   const handlePageChange = useCallback((pageNumber) => {
     setCurrentPage(pageNumber);
@@ -250,13 +249,12 @@ function Faculty() {
               onChange={(e) => setSelectedGender(e.target.value)}
               aria-label="Filter by gender"
             >
-              <option value="">All Genders</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
             </select>
 
-            <label>
+            <label className="faculty-management__show-bookmarked">
               <input
                 type="checkbox"
                 checked={showBookmarkedOnly}
@@ -281,26 +279,36 @@ function Faculty() {
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
-              Prev
+              Previous
             </button>
+
             <span>
               Page {currentPage} of {totalPages}
             </span>
+
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
             >
               Next
             </button>
-            <select
-              value={pageSize}
-              onChange={handlePageSizeChange}
-              aria-label="Select number of items per page"
-            >
-              <option value="9">9</option>
-              <option value="18">18</option>
-              <option value="27">27</option>
-            </select>
+          </div>
+
+          <div className="faculty-management__page-size">
+            <label>
+              Items per page:
+              <select
+                value={pageSize}
+                onChange={handlePageSizeChange}
+                aria-label="Select number of items per page"
+              >
+                {[9, 18, 27].map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
         </div>
       </AdminLayout>
