@@ -34,9 +34,11 @@ function Users() {
   };
 
   useEffect(() => {
-    const handler = setTimeout(() => setDebouncedQuery(searchQuery), 300);
-    return () => clearTimeout(handler);
-  }, [searchQuery]);
+    if (debouncedQuery !== searchQuery) {
+      const handler = setTimeout(() => setDebouncedQuery(searchQuery), 300);
+      return () => clearTimeout(handler);
+    }
+  }, [searchQuery, debouncedQuery]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -206,7 +208,9 @@ function Users() {
   );
 
   useEffect(() => {
-    if (currentPage > totalPages) setCurrentPage(totalPages);
+    if (totalPages > 0 && currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
   }, [totalPages, currentPage]);
 
   const handlePageSizeChange = useCallback((e) => {
