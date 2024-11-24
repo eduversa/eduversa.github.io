@@ -2,7 +2,8 @@ import React from "react";
 import Image from "next/image";
 const placeholderImage = "/user.png";
 const getApplicantInfo = (user) => {
-  const { email, createdAt } = user?.personal_info || {};
+  const { email } = user?.personal_info || {};
+  const { createdAt } = user || {};
   const { course_name, stream } = user?.course_info || {};
   return {
     email,
@@ -25,7 +26,7 @@ const getStudentInfo = (user) => {
 
 const UserCard = ({ user, userType }) => {
   const { first_name, last_name } = user?.personal_info || {};
-  const image = user.image || null;
+  const { image } = user || {};
   const userInfo =
     userType === "applicant" ? getApplicantInfo(user) : getStudentInfo(user);
 
