@@ -24,11 +24,26 @@ const getStudentInfo = (user) => {
   };
 };
 
+const getfacultyInfo = (user) => {
+  const { email } = user?.personal_info || {};
+  return {
+    email: email,
+  };
+};
+
 const UserCard = ({ user, userType }) => {
   const { first_name, last_name } = user?.personal_info || {};
   const { image } = user || {};
-  const userInfo =
-    userType === "applicant" ? getApplicantInfo(user) : getStudentInfo(user);
+  const userInfo = (() => {
+    if (userType === "applicant") {
+      return getApplicantInfo(user);
+    } else if (userType === "student") {
+      return getStudentInfo(user);
+    } else if (userType === "faculty") {
+      return getfacultyInfo(user);
+    }
+    return {};
+  })();
 
   const renderAdditionalInfo = () => {
     if (userType === "applicant") {
@@ -65,7 +80,16 @@ const UserCard = ({ user, userType }) => {
           </p>
         </div>
       );
+    } else if (userType === "faculty") {
+      return (
+        <div className="user-card__student-info">
+          <p>
+            <strong>Email:</strong> {userInfo.email}
+          </p>
+        </div>
+      );
     }
+
     return null;
   };
 
