@@ -559,16 +559,15 @@ function Users() {
             </select>
           </div>
 
-          <div className="user-management__list">
-            {paginatedUsers.map((user) => {
-              return (
-                <UserCard
-                  key={user.personal_info.email}
-                  user={user}
-                  placeholderImage={placeholderImage}
-                ></UserCard>
-              );
-            })}
+          <div className="user-management__user-cards">
+            {paginatedUsers.map((user) => (
+              <UserCard
+                key={user?.personal_info?.email}
+                user={user}
+                userType={userType}
+                placeholderImage={placeholderImage}
+              />
+            ))}
           </div>
 
           <div className="faculty-management__pagination">
