@@ -179,8 +179,10 @@ function Users() {
             b?.personal_info?.last_name || ""
           }`;
         } else {
-          aValue = a?.personal_info?.[sortByField] || "";
-          bValue = b?.personal_info?.[sortByField] || "";
+          const getField = (obj, field) =>
+            field.split(".").reduce((o, f) => o?.[f], obj);
+          aValue = getField(a, `personal_info.${sortByField}`) || "";
+          bValue = getField(b, `personal_info.${sortByField}`) || "";
         }
 
         aValue = aValue.toString().toLowerCase();
@@ -428,6 +430,9 @@ function Users() {
           <div
             className="user-management__heading"
             onClick={() => setDropdownVisible(!dropdownVisible)}
+            aria-expanded={dropdownVisible}
+            role="button"
+            tabIndex="0"
           >
             {userType.charAt(0).toUpperCase() + userType.slice(1)} Management
             <span className="user-management__arrow">
