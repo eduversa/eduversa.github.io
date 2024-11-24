@@ -1,31 +1,67 @@
 import React from "react";
 import Image from "next/image";
+const placeholderImage = "/user.png";
+const getApplicantInfo = (user) => {
+  const { email, createdAt } = user?.personal_info || {};
+  const { course_name, stream } = user?.course_info || {};
+  return {
+    email,
+    createdAt: new Date(createdAt).toLocaleDateString(),
+    courseName: course_name,
+    stream: stream,
+  };
+};
 
-const UserCard = ({ user, userType, placeholderImage }) => {
-  const { first_name, last_name, email } = user?.personal_info || {};
-  const { image, createdAt, user_id } = user; // Correctly pulling image, createdAt, and user_id from the top level
-  const courseName = user?.course_info?.course_name;
-  const stream = user?.course_info?.stream;
+const getStudentInfo = (user) => {
+  const { admission_year, course_name, stream } = user?.course_info || {};
+  const { user_id } = user || {};
+  return {
+    admissionYear: admission_year,
+    courseName: course_name,
+    stream,
+    userId: user_id,
+  };
+};
 
-  // Function to render additional data based on userType
+const UserCard = ({ user, userType }) => {
+  const { first_name, last_name } = user?.personal_info || {};
+  const image = user.image || null;
+  const userInfo =
+    userType === "applicant" ? getApplicantInfo(user) : getStudentInfo(user);
+
   const renderAdditionalInfo = () => {
     if (userType === "applicant") {
       return (
         <div className="user-card__applicant-info">
           <p>
-            <strong>Course:</strong> {courseName}
+            <strong>Email:</strong> {userInfo.email}
           </p>
           <p>
-            <strong>Stream:</strong> {stream}
+            <strong>Created At:</strong> {userInfo.createdAt}
           </p>
           <p>
-            <strong>Created At:</strong>{" "}
-            {new Date(createdAt).toLocaleDateString()}
+            <strong>Course:</strong> {userInfo.courseName}
           </p>
           <p>
-            <strong>User ID:</strong> {user_id}
-          </p>{" "}
-          {/* Displaying User ID */}
+            <strong>Stream:</strong> {userInfo.stream}
+          </p>
+        </div>
+      );
+    } else if (userType === "student") {
+      return (
+        <div className="user-card__student-info">
+          <p>
+            <strong>Admission Year:</strong> {userInfo.admissionYear}
+          </p>
+          <p>
+            <strong>Course:</strong> {userInfo.courseName}
+          </p>
+          <p>
+            <strong>Stream:</strong> {userInfo.stream}
+          </p>
+          <p>
+            <strong>User ID:</strong> {userInfo.userId}
+          </p>
         </div>
       );
     }
@@ -46,9 +82,6 @@ const UserCard = ({ user, userType, placeholderImage }) => {
         <h3>
           {first_name} {last_name}
         </h3>
-        <p>
-          <strong>Email:</strong> {email}
-        </p>
         {renderAdditionalInfo()}
       </div>
     </div>

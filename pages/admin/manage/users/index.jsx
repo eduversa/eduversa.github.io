@@ -23,7 +23,6 @@ function Users() {
   const [exportFormat, setExportFormat] = useState("csv");
   const { showAlert } = useAlert();
   const year = new Date().getFullYear();
-  const placeholderImage = "/user.png";
   const [userType, setUserType] = useState("applicant");
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const userTypes = ["applicant", "faculty", "student"];
@@ -565,7 +564,6 @@ function Users() {
                 key={user?.personal_info?.email}
                 user={user}
                 userType={userType}
-                placeholderImage={placeholderImage}
               />
             ))}
           </div>
