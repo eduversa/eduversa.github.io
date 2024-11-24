@@ -29,10 +29,12 @@ const getStudentInfo = (user) => {
 const getfacultyInfo = (user) => {
   const { email } = user?.personal_info || {};
   const { room, department } = user?.job_info || {};
+  const { user_id } = user || {};
   return {
     email: email,
     room: room,
     department: department,
+    userId: user_id,
   };
 };
 
