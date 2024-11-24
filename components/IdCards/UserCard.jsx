@@ -5,11 +5,13 @@ const getApplicantInfo = (user) => {
   const { email } = user?.personal_info || {};
   const { createdAt } = user || {};
   const { course_name, stream } = user?.course_info || {};
+  const { user_id } = user || {};
   return {
     email,
     createdAt: new Date(createdAt).toLocaleDateString(),
     courseName: course_name,
     stream: stream,
+    userId: user_id,
   };
 };
 
@@ -26,8 +28,11 @@ const getStudentInfo = (user) => {
 
 const getfacultyInfo = (user) => {
   const { email } = user?.personal_info || {};
+  const { room, department } = user?.job_info || {};
   return {
     email: email,
+    room: room,
+    department: department,
   };
 };
 
@@ -85,6 +90,12 @@ const UserCard = ({ user, userType }) => {
         <div className="user-card__student-info">
           <p>
             <strong>Email:</strong> {userInfo.email}
+          </p>
+          <p>
+            <strong>Department</strong>:{userInfo.department}
+          </p>
+          <p>
+            <strong>Room</strong> :{userInfo.room}
           </p>
         </div>
       );
