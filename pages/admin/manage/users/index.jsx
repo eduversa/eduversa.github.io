@@ -3,7 +3,7 @@ import { AdminLayout } from "@/layout";
 import { AllLoader } from "@/components";
 import { useAlert } from "@/contexts/AlertContext";
 import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
-import { FacultyIdCard, ApplicantIdCard, StudentIdCard } from "@/components";
+import { UserCard } from "@/components";
 import jsPDF from "jspdf";
 
 function Users() {
@@ -562,31 +562,13 @@ function Users() {
 
           <div className="user-management__list">
             {paginatedUsers.map((user) => {
-              if (userType === "faculty") {
-                return (
-                  <FacultyIdCard
-                    key={user.personal_info.email}
-                    faculty={user}
-                    placeholderImage={placeholderImage}
-                  />
-                );
-              } else if (userType === "applicant") {
-                return (
-                  <ApplicantIdCard
-                    key={user.personal_info.email}
-                    applicant={user}
-                    placeholderImage={placeholderImage}
-                  />
-                );
-              } else if (userType === "student") {
-                return (
-                  <StudentIdCard
-                    key={user.personal_info.email}
-                    student={user}
-                    placeholderImage={placeholderImage}
-                  />
-                );
-              }
+              return (
+                <UserCard
+                  key={user.personal_info.email}
+                  user={user}
+                  placeholderImage={placeholderImage}
+                ></UserCard>
+              );
             })}
           </div>
 
