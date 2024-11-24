@@ -461,6 +461,11 @@ function Users() {
               ))}
             </ul>
           )}
+          <div className="user-management__button">
+            <button>
+              Add {userType.charAt(0).toUpperCase() + userType.slice(1)}
+            </button>
+          </div>
 
           <div className="user-management__actions">
             <input
