@@ -25,7 +25,7 @@ function Users() {
   const year = new Date().getFullYear();
   const placeholderImage = "/user.png";
   const [userType, setUserType] = useState("applicant");
-
+  const userTypes = ["applicant", "faculty", "student"];
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedQuery(searchQuery), 300);
     return () => clearTimeout(handler);
@@ -86,7 +86,7 @@ function Users() {
           );
         } else if (userType === "student") {
           userResponse = await wrappedApiRequest(
-            `/student/all`,
+            `/student/find/all`,
             "GET",
             null,
             authToken
@@ -429,6 +429,18 @@ function Users() {
       <AdminLayout>
         {loading && <AllLoader />}
         <div className="user-management">
+          <select
+            className="user-management__dropdown"
+            value={userType}
+            onChange={(e) => setUserType(e.target.value)}
+          >
+            {userTypes.map((type) => (
+              <option key={type} value={type}>
+                {type.charAt(0).toUpperCase() + type.slice(1)}
+              </option>
+            ))}
+          </select>
+
           <h1 className="user-management__title">
             {userType.charAt(0).toUpperCase() + userType.slice(1)} Management
           </h1>
