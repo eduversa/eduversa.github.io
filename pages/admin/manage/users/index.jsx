@@ -50,17 +50,6 @@ function Users() {
   ]);
 
   useEffect(() => {
-    setCurrentPage(1);
-  }, [
-    users,
-    selectedCourse,
-    selectedStream,
-    selectedGender,
-    debouncedQuery,
-    showBookmarkedOnly,
-  ]);
-
-  useEffect(() => {
     const fetchData = async () => {
       const authToken = localStorage.getItem("authToken");
       const wrappedApiRequest = withLoading(
