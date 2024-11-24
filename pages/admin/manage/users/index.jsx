@@ -512,8 +512,8 @@ function Users() {
             >
               <option value="">Select Stream</option>
               {streams.map((stream) => (
-                <option key={stream} value={stream}>
-                  {stream}
+                <option key={stream._id} value={stream._id}>
+                  {stream.name}
                 </option>
               ))}
             </select>
