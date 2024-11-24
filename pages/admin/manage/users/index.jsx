@@ -48,10 +48,6 @@ function Users() {
     debouncedQuery,
     showBookmarkedOnly,
   ]);
-  useEffect(() => {
-    const handler = setTimeout(() => setDebouncedQuery(searchQuery), 300);
-    return () => clearTimeout(handler);
-  }, [searchQuery]);
 
   useEffect(() => {
     setCurrentPage(1);
