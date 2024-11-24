@@ -25,7 +25,14 @@ function Users() {
   const year = new Date().getFullYear();
   const placeholderImage = "/user.png";
   const [userType, setUserType] = useState("applicant");
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const userTypes = ["applicant", "faculty", "student"];
+
+  const handleUserTypeChange = (type) => {
+    setUserType(type);
+    setDropdownVisible(false);
+  };
+
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedQuery(searchQuery), 300);
     return () => clearTimeout(handler);
@@ -429,21 +436,31 @@ function Users() {
       <AdminLayout>
         {loading && <AllLoader />}
         <div className="user-management">
-          <select
-            className="user-management__dropdown"
-            value={userType}
-            onChange={(e) => setUserType(e.target.value)}
+          <div
+            className="user-management__heading"
+            onClick={() => setDropdownVisible(!dropdownVisible)}
           >
-            {userTypes.map((type) => (
-              <option key={type} value={type}>
-                {type.charAt(0).toUpperCase() + type.slice(1)}
-              </option>
-            ))}
-          </select>
-
-          <h1 className="user-management__title">
             {userType.charAt(0).toUpperCase() + userType.slice(1)} Management
-          </h1>
+            <span className="user-management__arrow">
+              {dropdownVisible ? "▲" : "▼"}
+            </span>
+          </div>
+
+          {dropdownVisible && (
+            <ul className="user-management__dropdown">
+              {userTypes.map((type) => (
+                <li
+                  key={type}
+                  className={`user-management__option ${
+                    type === userType ? "active" : ""
+                  }`}
+                  onClick={() => handleUserTypeChange(type)}
+                >
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </li>
+              ))}
+            </ul>
+          )}
 
           <div className="user-management__actions">
             <input
