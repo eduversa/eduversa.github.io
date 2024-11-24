@@ -24,16 +24,7 @@ function Users() {
   const { showAlert } = useAlert();
   const year = new Date().getFullYear();
   const placeholderImage = "/user.png";
-  const [userType, setUserType] = useState("faculty");
-
-  //   useEffect(() => {
-  //     if (typeof window !== "undefined") {
-  //       const storedUserType = localStorage.getItem("userType");
-  //       if (storedUserType && userType !== storedUserType) {
-  //         setUserType(storedUserType);
-  //       }
-  //     }
-  //   }, [userType]);
+  const [userType, setUserType] = useState("applicant");
 
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedQuery(searchQuery), 300);
@@ -137,9 +128,7 @@ function Users() {
       return users;
     }
 
-    // const bookmarks = JSON.parse(localStorage.getItem("bookmarkedUser")) || [];
-    const bookmarks =
-      JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
+    const bookmarks = JSON.parse(localStorage.getItem("bookmarkedUser")) || [];
 
     const result = users
       .filter((user) => {
