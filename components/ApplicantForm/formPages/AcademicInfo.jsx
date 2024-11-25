@@ -1,6 +1,5 @@
 import React, { useEffect, Fragment, useState } from "react";
 import { AllLoader } from "@/components";
-import { updateAppplicantData } from "@/functions";
 import {
   Text,
   Email,
@@ -13,6 +12,9 @@ import {
   SubjectMarks,
   TextNoNumber,
 } from "../inputComponent/InputComponent";
+import { withLoading, apiRequest } from "@/utils/apiUtils";
+import { useAlert } from "@/contexts/AlertContext";
+
 const AcademicInfo = ({
   formData,
   setFormData,
@@ -23,54 +25,86 @@ const AcademicInfo = ({
   currentStep,
   totalSteps,
   userid,
+  selected_user_type,
 }) => {
   let year = new Date().getFullYear().toString();
   const [loading, setLoading] = useState(false);
-  {
-    /*  #ff0000  marks input change */
-    // a commit to check if the changes are reflected
-  }
-  async function onSubmitHandler() {
+  const {showAlert} = useAlert();
 
-    // check to see if tehre are any changes to the form
-    const initialFormData = localStorage.getItem('applicant_profile');
+  async function onSubmitHandler() {
+    const type = "academic";
+    const authToken = localStorage.getItem("authToken");
+    let initialFormData;
+    let apiUrl;
+    let routeName;
+
+    if (selected_user_type === "applicant") {
+      initialFormData = localStorage.getItem('applicant_profile');
+      apiUrl = `/applicant/?user_id=${userid}&type=${type}`
+      routeName = "UpdateApplicantData"
+    } else if (selected_user_type === "student") {
+      initialFormData = localStorage.getItem('student_profile');
+      apiUrl = `/student/?user_id=${userid}&type=${type}`
+      routeName = "UpdateStudentData"
+    } 
+  
     if (initialFormData === JSON.stringify(formData)) {
       return true;
     }
-    const secondaryMarksObject = formData.academic_info.secondary.marks;
-    if (Object.keys(secondaryMarksObject).length === 0) {
-      alert("Please enter subject marks for Secondary Education");
-      setLoading(false);
-      return false; 
-    }
-    const higherSecondaryMarksObject = formData.academic_info.higher_secondary.marks;
-    if (Object.keys(higherSecondaryMarksObject).length === 0) {
-      alert("Please enter subject marks for Higher Secondary Education");
-      setLoading(false);
-      return false; 
-    }
-    setLoading(true);
+  
     const data = JSON.stringify(formData.academic_info);
-    const type = "academic";
-    // const userid = localStorage.getItem("userid");
+
+    const secondaryMarksObject = formData.academic_info?.secondary?.marks;
+    if (Object.keys(secondaryMarksObject || {}).length === 0) {
+      showAlert("Please enter subject marks for Secondary Education");
+      setLoading(false);
+      return false;
+    }
+  
+    const higherSecondaryMarksObject = formData.academic_info?.higher_secondary?.marks;
+    if (Object.keys(higherSecondaryMarksObject || {}).length === 0) {
+      showAlert("Please enter subject marks for Higher Secondary Education");
+      setLoading(false);
+      return false;
+    }
+  
+    // setLoading(true);
+  
+    const wrappedApiRequest = withLoading(
+      apiRequest, 
+      setLoading, 
+      showAlert, 
+      routeName
+    );
+  
     try {
-      const response = await updateAppplicantData(userid, type, data);
-      if (!response.status) {
-        alert(response.message);
+      const response = await wrappedApiRequest(
+        apiUrl, 
+        "PUT",
+        data, 
+        authToken, 
+        routeName
+      );
+  
+      if (!response.success || !response.status) {
+        showAlert(response.message || `Failed to update ${selected_user_type} data`);
         setLoading(false);
         return false;
       }
-      if (process.env.NODE_ENV === "development") {
-        console.log(response);
+
+      if (selected_user_type === "student") {
+        localStorage.setItem("student_profile", JSON.stringify(formData));
+      } else if (selected_user_type === "applicant") {
+        localStorage.setItem("applicant_profile", JSON.stringify(formData));
       }
-      localStorage.setItem("applicant_profile", JSON.stringify(formData));
-      alert(response.message);
+      showAlert(response.message);
       setLoading(false);
       return true;
+  
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.log(error);
-      }
+      console.error(`Error in updating ${selected_user_type} data:`, error);
+      showAlert(error.message || `Failed to update ${selected_user_type} data`);
+      setLoading(false);
       return false;
     }
   }

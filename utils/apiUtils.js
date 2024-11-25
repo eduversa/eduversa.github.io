@@ -3,11 +3,15 @@ export async function apiRequest(
   method,
   body = {},
   authToken = "",
-  routeName
+  routeName,
+  fileType
 ) {
   try {
     let requestBody;
-
+    let headers = {
+      "Content-Type": "application/json",
+      authorization: authToken,
+    };
     switch (routeName) {
       case "Registration":
         requestBody = JSON.stringify({ email: body.email });
@@ -57,14 +61,31 @@ export async function apiRequest(
       case "GetSinglefaculty":
         requestBody = null;
         break;
+      case "GetSingleStudent":
+        requestBody = null;
+        break;
+      case "UpdateApplicantData":
+        requestBody = body;
+        // if (body instanceof FormData) {
+        if (fileType == "image-file") {
+          delete headers["Content-Type"];
+        }
+        break;
+      case "UpdateStudentData":
+        requestBody = body;
+        // if (body instanceof FormData) {
+        if (fileType == "image-file") {
+          delete headers["Content-Type"];
+        }
+        break;
       default:
         requestBody = method !== "GET" ? JSON.stringify(body) : null;
     }
 
-    const headers = {
-      "Content-Type": "application/json",
-      authorization: authToken,
-    };
+    // let headers = {
+    //   "Content-Type": "application/json",
+    //   authorization: authToken,
+    // };
 
     if (isDevelopment()) {
       devLog(`API Request - ${method} ${endpoint}`, {
