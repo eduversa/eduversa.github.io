@@ -52,9 +52,9 @@
     "fs": "^0.0.1-security",
     "json2csv": "^6.0.0-alpha.2",
     "jspdf": "^2.5.2",
-    "lucide": "^0.454.0",
+    "lucide": "^0.456.0",
     "lucide-react": "^0.454.0",
-    "next": "^14.1.4",
+    "next": "^15.0.3",
     "next-auth": "^4.24.7",
     "qr-scanner": "^1.4.2",
     "react": "^18.2.0",
@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.5",
+    "eslint-config-next": "15.0.3",
     "sass": "^1.49.8"
   },
   "contributing": {
