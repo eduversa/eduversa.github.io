@@ -1,3 +1,5 @@
+@use "media-queries";
+
 :root {
   --font-oswald: "Oswald", sans-serif;
   --font-playfair: "Playfair Display", sans-serif;
@@ -28,7 +30,7 @@
   --font-14: clamp(9.4px, 1.175vw, 0.78rem);
   --font-15: clamp(7.8px, 0.975vw, 0.66rem);
 }
-@media screen and (max-width: $breakpoint-desktop-wide) {
+@media screen and (max-width: media-queries.$breakpoint-desktop-wide) {
   :root {
     --font-1: clamp(68px, 8.5vw, 5.4rem);
     --font-2: clamp(60px, 7.5vw, 4.8rem);
@@ -48,7 +50,7 @@
   }
 }
 
-@media screen and (max-width: $breakpoint-desktop) {
+@media screen and (max-width: media-queries.$breakpoint-desktop) {
   :root {
     --font-1: clamp(60px, 7vw, 4.8rem);
     --font-2: clamp(52px, 6.5vw, 4.3rem);
@@ -67,7 +69,7 @@
     --font-15: clamp(7px, 1.6vw, 0.7rem);
   }
 }
-@media screen and (max-width: $breakpoint-large-tablet) {
+@media screen and (max-width: media-queries.$breakpoint-large-tablet) {
   :root {
     --font-1: clamp(62px, 7.75vw, 4.95rem);
     --font-2: clamp(54px, 6.75vw, 4.35rem);
@@ -87,7 +89,7 @@
   }
 }
 
-@media screen and (max-width: $breakpoint-tablet) {
+@media screen and (max-width: media-queries.$breakpoint-tablet) {
   :root {
     --font-1: clamp(54px, 6.8vw, 4.4rem);
     --font-2: clamp(46px, 5.8vw, 3.9rem);
@@ -107,7 +109,7 @@
   }
 }
 
-@media screen and (max-width: $breakpoint-phone) {
+@media screen and (max-width: media-queries.$breakpoint-phone) {
   :root {
     --font-1: clamp(52px, 6.5vw, 4.2rem);
     --font-2: clamp(44px, 5.5vw, 3.7rem);

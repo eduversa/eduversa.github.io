@@ -1,3 +1,5 @@
+@use "media-queries";
+
 :root {
   html {
     scroll-behavior: smooth;
@@ -15,18 +17,18 @@
     max-width: max(900px, 60%);
     min-height: 100dvh;
     margin: 2.5% auto 2.5% auto;
-    @media (max-width: $breakpoint-desktop-wide) {
+    @media (max-width: media-queries.$breakpoint-desktop-wide) {
     }
-    @media (max-width: $breakpoint-desktop) {
+    @media (max-width: media-queries.$breakpoint-desktop) {
       max-width: max(800px, 60%);
     }
-    @media (max-width: $breakpoint-large-tablet) {
+    @media (max-width: media-queries.$breakpoint-large-tablet) {
       max-width: max(600px, 60%);
     }
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: media-queries.$breakpoint-tablet) {
       max-width: max(300px, 60%);
     }
-    @media (max-width: $breakpoint-phone) {
+    @media (max-width: media-queries.$breakpoint-phone) {
     }
   }
 }

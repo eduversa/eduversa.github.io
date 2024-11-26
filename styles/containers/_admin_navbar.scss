@@ -1,3 +1,6 @@
+@use "../base/media-queries";
+@use "../mixins/flex";
+
 .admin-nav {
   --landing-nav-height: 70px;
   --landing-nav-height-tab: 60px;
@@ -7,22 +10,22 @@
   color: var(--white);
   padding: 1rem 1.5rem;
   z-index: 100;
-  @include flex-container(row, nowrap, space-between, center);
+  @include flex.flex-container(row, nowrap, space-between, center);
   box-shadow: 0 8px 16px -5px var(--black-shadow-light-1);
   transition: box-shadow 0.5s ease-in-out;
-  @media (max-width: $breakpoint-desktop-wide) {
+  @media (max-width: media-queries.$breakpoint-desktop-wide) {
     padding: 0.8rem 1.2rem;
   }
-  @media (max-width: $breakpoint-desktop) {
+  @media (max-width: media-queries.$breakpoint-desktop) {
     padding: 0.7rem 1.1rem;
   }
-  @media (max-width: $breakpoint-large-tablet) {
+  @media (max-width: media-queries.$breakpoint-large-tablet) {
     padding: 0.5rem 1rem;
   }
-  @media (max-width: $breakpoint-tablet) {
+  @media (max-width: media-queries.$breakpoint-tablet) {
     height: var(--landing-nav-height-tab);
   }
-  @media (max-width: $breakpoint-phone) {
+  @media (max-width: media-queries.$breakpoint-phone) {
     height: var(--landing-nav-height-phone);
   }
   &:hover {
@@ -35,31 +38,31 @@
     font-size: var(--font-7);
     text-transform: uppercase;
     letter-spacing: 3px;
-    @media (max-width: $breakpoint-desktop-wide) {
+    @media (max-width: media-queries.$breakpoint-desktop-wide) {
     }
-    @media (max-width: $breakpoint-desktop) {
+    @media (max-width: media-queries.$breakpoint-desktop) {
     }
-    @media (max-width: $breakpoint-large-tablet) {
+    @media (max-width: media-queries.$breakpoint-large-tablet) {
     }
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: media-queries.$breakpoint-tablet) {
       font-size: var(--font-5);
     }
-    @media (max-width: $breakpoint-phone) {
+    @media (max-width: media-queries.$breakpoint-phone) {
     }
     .logo-text {
       cursor: pointer;
       color: var(--blue-4);
       text-decoration: none;
       transition: transform 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
       }
-      @media (max-width: $breakpoint-tablet) {
+      @media (max-width: media-queries.$breakpoint-tablet) {
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
       }
       &:hover {
         transform: scale(1.1);
@@ -91,30 +94,30 @@
   .menu {
     cursor: pointer;
 
-    @media (max-width: $breakpoint-desktop-wide) {
+    @media (max-width: media-queries.$breakpoint-desktop-wide) {
     }
-    @media (max-width: $breakpoint-desktop) {
+    @media (max-width: media-queries.$breakpoint-desktop) {
     }
-    @media (max-width: $breakpoint-large-tablet) {
+    @media (max-width: media-queries.$breakpoint-large-tablet) {
     }
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: media-queries.$breakpoint-tablet) {
     }
-    @media (max-width: $breakpoint-phone) {
+    @media (max-width: media-queries.$breakpoint-phone) {
     }
     .menu-line {
       height: 5px;
       width: 40px;
       background-color: var(--blue-4);
       transition: transform 0.3s ease-in-out;
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
       }
-      @media (max-width: $breakpoint-tablet) {
+      @media (max-width: media-queries.$breakpoint-tablet) {
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
       }
       &:not(:last-child) {
         margin-bottom: 5px;
@@ -178,30 +181,30 @@
     .menu {
       cursor: pointer;
 
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
       }
-      @media (max-width: $breakpoint-tablet) {
+      @media (max-width: media-queries.$breakpoint-tablet) {
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
       }
       .menu-line {
         height: 5px;
         width: 40px;
         background-color: var(--blue-4);
         transition: transform 0.3s ease-in-out;
-        @media (max-width: $breakpoint-desktop-wide) {
+        @media (max-width: media-queries.$breakpoint-desktop-wide) {
         }
-        @media (max-width: $breakpoint-desktop) {
+        @media (max-width: media-queries.$breakpoint-desktop) {
         }
-        @media (max-width: $breakpoint-large-tablet) {
+        @media (max-width: media-queries.$breakpoint-large-tablet) {
         }
-        @media (max-width: $breakpoint-tablet) {
+        @media (max-width: media-queries.$breakpoint-tablet) {
         }
-        @media (max-width: $breakpoint-phone) {
+        @media (max-width: media-queries.$breakpoint-phone) {
         }
         &:not(:last-child) {
           margin-bottom: 5px;

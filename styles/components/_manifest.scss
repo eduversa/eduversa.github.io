@@ -1,15 +1,16 @@
-@import "loading/circle";
-@import "loading/default";
-@import "loading/dualRing";
-@import "loading/ellipsis";
-@import "loading/facebook";
-@import "loading/grid";
-@import "loading/heart";
-@import "loading/hourGlass";
-@import "loading/ring";
-@import "loading/ripple";
-@import "loading/roller";
-@import "loading/spinner";
+@use "sass:meta";
+@use "loading/circle";
+@use "loading/default";
+@use "loading/dualRing";
+@use "loading/ellipsis";
+@use "loading/facebook";
+@use "loading/grid";
+@use "loading/heart";
+@use "loading/hourGlass";
+@use "loading/ring";
+@use "loading/ripple";
+@use "loading/roller";
+@use "loading/spinner";
 
 .loader-container {
   width: 100%;
@@ -26,7 +27,7 @@
   zoom: 2;
 }
 
-@import "id-card";
-@import "faculty-card";
-@import "chatbot";
-@import "modal";
+@include meta.load-css("id-card");
+@include meta.load-css("faculty-card");
+@include meta.load-css("chatbot");
+@include meta.load-css("modal");

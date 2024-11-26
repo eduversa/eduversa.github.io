@@ -1,3 +1,6 @@
+@use "../../base/media-queries";
+@use "../../mixins/flex";
+
 .manage-applicant-container {
   font-family: "Arial", sans-serif;
   background: linear-gradient(45deg, var(--white-1), var(--white-12));
@@ -5,18 +8,18 @@
   padding: 40px;
   box-shadow: 20px 20px 40px var(--black-shadow-light-1),
     -20px -20px 40px var(--white-shadow-0);
-  @media (max-width: $breakpoint-desktop-wide) {
+  @media (max-width: media-queries.$breakpoint-desktop-wide) {
   }
-  @media (max-width: $breakpoint-desktop) {
+  @media (max-width: media-queries.$breakpoint-desktop) {
   }
-  @media (max-width: $breakpoint-large-tablet) {
+  @media (max-width: media-queries.$breakpoint-large-tablet) {
   }
-  @media (max-width: $breakpoint-tablet) {
+  @media (max-width: media-queries.$breakpoint-tablet) {
     box-shadow: 5px 5px 10px var(--black-shadow-light-1),
       -5px -5px 10px var(--white-shadow-0);
     padding: 30px;
   }
-  @media (max-width: $breakpoint-phone) {
+  @media (max-width: media-queries.$breakpoint-phone) {
   }
 
   .title {
@@ -30,16 +33,16 @@
     letter-spacing: 3px;
     text-transform: uppercase;
     margin: 0 0 3% 0;
-    @media (max-width: $breakpoint-desktop-wide) {
+    @media (max-width: media-queries.$breakpoint-desktop-wide) {
     }
-    @media (max-width: $breakpoint-desktop) {
+    @media (max-width: media-queries.$breakpoint-desktop) {
     }
-    @media (max-width: $breakpoint-large-tablet) {
+    @media (max-width: media-queries.$breakpoint-large-tablet) {
     }
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: media-queries.$breakpoint-tablet) {
       font-size: var(--font-6);
     }
-    @media (max-width: $breakpoint-phone) {
+    @media (max-width: media-queries.$breakpoint-phone) {
     }
     &::before {
       content: "";
@@ -64,7 +67,7 @@
 
   .filters {
     position: relative;
-    @include flex-container(row, wrap, center, center);
+    @include flex.flex-container(row, wrap, center, center);
     margin: 0 0 2% 0;
     .search-input,
     .filter-select,
@@ -141,22 +144,22 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
-    @media (max-width: $breakpoint-desktop-wide) {
+    @media (max-width: media-queries.$breakpoint-desktop-wide) {
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
     }
-    @media (max-width: $breakpoint-desktop) {
+    @media (max-width: media-queries.$breakpoint-desktop) {
     }
-    @media (max-width: $breakpoint-large-tablet) {
+    @media (max-width: media-queries.$breakpoint-large-tablet) {
     }
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: media-queries.$breakpoint-tablet) {
     }
-    @media (max-width: $breakpoint-phone) {
+    @media (max-width: media-queries.$breakpoint-phone) {
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
     }
     .card {
-      @include flex-container(column, nowrap, flex-start, center);
+      @include flex.flex-container(column, nowrap, flex-start, center);
       position: relative;
       padding: 20px;
       background: linear-gradient(45deg, #ecf0f1, #dce1e3);
@@ -164,15 +167,15 @@
       box-shadow: 10px 10px 20px var(--black-shadow-light-1),
         -10px -10px 20px var(--white-shadow-0);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
       }
-      @media (max-width: $breakpoint-tablet) {
+      @media (max-width: media-queries.$breakpoint-tablet) {
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
       }
       &:hover {
         transform: translateY(-5px);
@@ -216,7 +219,7 @@
 
       .button-container {
         margin: 5% 0 0 0;
-        @include flex-container(row, nowrap, center, center);
+        @include flex.flex-container(row, nowrap, center, center);
         position: relative;
         z-index: 2;
         gap: 10px;
@@ -271,48 +274,48 @@
   }
 
   .page-management {
-    @include flex-container(row, nowrap, center, center);
+    @include flex.flex-container(row, nowrap, center, center);
     margin: 5% 0 0 0;
-    @media (max-width: $breakpoint-desktop-wide) {
+    @media (max-width: media-queries.$breakpoint-desktop-wide) {
     }
-    @media (max-width: $breakpoint-desktop) {
+    @media (max-width: media-queries.$breakpoint-desktop) {
     }
-    @media (max-width: $breakpoint-large-tablet) {
+    @media (max-width: media-queries.$breakpoint-large-tablet) {
     }
-    @media (max-width: $breakpoint-tablet) {
-      @include flex-container(column, nowrap, center, center);
+    @media (max-width: media-queries.$breakpoint-tablet) {
+      @include flex.flex-container(column, nowrap, center, center);
     }
-    @media (max-width: $breakpoint-phone) {
+    @media (max-width: media-queries.$breakpoint-phone) {
     }
     .page-size-select {
       margin: 0 3% 0 0;
       font-family: var(--font-roboto);
       font-size: var(--font-12);
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
       }
-      @media (max-width: $breakpoint-tablet) {
+      @media (max-width: media-queries.$breakpoint-tablet) {
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
         margin: 0 0 3% 0;
       }
     }
     .pagination-list {
-      @include flex-container(row, nowrap, center, center);
+      @include flex.flex-container(row, nowrap, center, center);
       gap: 10px;
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
       }
-      @media (max-width: $breakpoint-tablet) {
-        @include flex-container(column, nowrap, center, center);
+      @media (max-width: media-queries.$breakpoint-tablet) {
+        @include flex.flex-container(column, nowrap, center, center);
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
       }
       .pagination-item {
         margin-right: 5px;
