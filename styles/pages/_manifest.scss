@@ -20,16 +20,11 @@
 @use "admin/manageFaculties";
 // student
 @use "student/dashboard" as dashboard3;
-
-
-
 @use "routine/routineLayout";
 @use "createRoutine/main";
 @use "createRoutine/header";
 @use "createRoutine/periodCell";
-
 @use "createSubject/subject";
-@use "routine/routineLayout";
 @use "student/studentUpdateFormRequest";
 
 // faculty
