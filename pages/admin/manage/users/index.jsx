@@ -4,8 +4,8 @@ import { useAlert } from "@/contexts/AlertContext";
 import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
 
 const Users = () => {
-  const userTypes = ["Applicant", "Student", "Faculty"];
-  const [userType, setUserType] = useState(userTypes[0].toLowerCase());
+  const userTypes = ["applicant", "student", "faculty"];
+  const [userType, setUserType] = useState(userTypes[0]);
   const [loading, setLoading] = useState(true);
   const year = new Date().getFullYear();
   const { showAlert } = useAlert();
@@ -54,7 +54,8 @@ const Users = () => {
           showAlert(userResponse.message || "Error fetching users.");
           return;
         }
-        // setUsers(userResponse.data.data);
+        //  make a state here to load the data here
+        // setUserData(userResponse.data.data);
 
         const collegeResponse = await wrappedApiRequest(
           `/college/?college_id=304`,
@@ -69,6 +70,7 @@ const Users = () => {
           );
           return;
         }
+        //  make a state here to load the data here
         // setCollegeData(collegeResponse.data.data);
       } catch (error) {
         devLog("Error fetching data:", error.message);
