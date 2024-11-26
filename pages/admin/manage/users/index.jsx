@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const UserTypeDropdown = () => {
+const Users = () => {
   const userTypes = ["Applicant", "Student", "Faculty"];
   const [userType, setUserType] = useState(userTypes[0]);
 
@@ -23,4 +23,4 @@ const UserTypeDropdown = () => {
   );
 };
 
-export default UserTypeDropdown;
+export default Users;
