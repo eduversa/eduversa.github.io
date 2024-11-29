@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "../mixins/flex";
+
 .chat {
   position: fixed;
   bottom: 20px;
@@ -9,7 +12,7 @@
   background-color: #007bff;
   border-radius: 50%;
   cursor: pointer;
-  @include flex-container(row, wrap, column, center);
+  @include flex.flex-container(row, wrap, column, center);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s ease-in-out;
 
@@ -55,7 +58,7 @@
     .chat-title {
       background-color: #007bff;
       padding: 15px;
-      @include flex-container(row, wrap, space-between, center);
+      @include flex.flex-container(row, wrap, space-between, center);
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
 
@@ -149,7 +152,7 @@
         cursor: pointer;
 
         &:hover {
-          background-color: darken($color: #007bff, $amount: 20%);
+          background-color: color.adjust($color: #007bff, $lightness: -20%);
         }
       }
     }

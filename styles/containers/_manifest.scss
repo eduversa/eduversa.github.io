@@ -1,7 +1,7 @@
-@import "landing_navbar";
-@import "applicant_navbar";
-@import "footer";
-@import "admin_navbar";
-@import "navbar";
-@import "contact";
-@import "about";
+@use "landing_navbar";
+@use "applicant_navbar";
+@use "footer";
+@use "admin_navbar";
+@use "navbar";
+@use "contact";
+@use "about";

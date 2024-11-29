@@ -3,10 +3,11 @@ import { AdminLayout } from "@/layout";
 import { AllLoader } from "@/components";
 import { useAlert } from "@/contexts/AlertContext";
 import { withLoading, devLog, apiRequest } from "@/utils/apiUtils";
-import { FacultyIdCard } from "@/components";
+import { UserCard } from "@/components";
 import jsPDF from "jspdf";
-function Faculty() {
-  const [faculties, setFaculties] = useState([]);
+
+function User() {
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState(searchQuery);
@@ -21,17 +22,27 @@ function Faculty() {
   const [sortOrder, setSortOrder] = useState("asc");
   const [exportFormat, setExportFormat] = useState("csv");
   const { showAlert } = useAlert();
-  const placeholderImage = "/user.png";
+  const year = new Date().getFullYear();
+  const [userType, setUserType] = useState("applicant");
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const userTypes = ["applicant", "faculty", "student"];
+
+  const handleUserTypeChange = (type) => {
+    setUserType(type);
+    setDropdownVisible(false);
+  };
 
   useEffect(() => {
-    const handler = setTimeout(() => setDebouncedQuery(searchQuery), 300);
-    return () => clearTimeout(handler);
-  }, [searchQuery]);
+    if (debouncedQuery !== searchQuery) {
+      const handler = setTimeout(() => setDebouncedQuery(searchQuery), 300);
+      return () => clearTimeout(handler);
+    }
+  }, [searchQuery, debouncedQuery]);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [
-    faculties,
+    users,
     selectedCourse,
     selectedStream,
     selectedGender,
@@ -50,18 +61,37 @@ function Faculty() {
       );
 
       try {
-        const facultyResponse = await wrappedApiRequest(
-          `/faculty/all`,
-          "GET",
-          null,
-          authToken
-        );
-        if (!facultyResponse.success) {
-          devLog("Error fetching faculties:", facultyResponse.message);
-          showAlert(facultyResponse.message || "Error fetching faculties.");
+        let userResponse;
+
+        if (userType === "faculty") {
+          userResponse = await wrappedApiRequest(
+            `/faculty/all`,
+            "GET",
+            null,
+            authToken
+          );
+        } else if (userType === "applicant") {
+          userResponse = await wrappedApiRequest(
+            `/applicant/year?year=${year}`,
+            "GET",
+            null,
+            authToken
+          );
+        } else if (userType === "student") {
+          userResponse = await wrappedApiRequest(
+            `/student/find/all`,
+            "GET",
+            null,
+            authToken
+          );
+        }
+
+        if (!userResponse.success) {
+          devLog("Error fetching users:", userResponse.message);
+          showAlert(userResponse.message || "Error fetching users.");
           return;
         }
-        setFaculties(facultyResponse.data.data);
+        setUsers(userResponse.data.data);
 
         const collegeResponse = await wrappedApiRequest(
           `/college/?college_id=304`,
@@ -84,30 +114,25 @@ function Faculty() {
     };
 
     fetchData();
-  }, [showAlert]);
+  }, [userType, showAlert, year]);
 
-  const filteredFaculties = useMemo(() => {
+  const filteredUsers = useMemo(() => {
     if (typeof window === "undefined") {
-      return faculties;
+      return users;
     }
 
-    const bookmarks =
-      JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
+    const bookmarks = JSON.parse(localStorage.getItem("bookmarkedUser")) || [];
 
-    const result = faculties
-      .filter((faculty) => {
-        const firstName = (
-          faculty?.personal_info?.first_name || ""
-        ).toLowerCase();
-        const lastName = (
-          faculty?.personal_info?.last_name || ""
-        ).toLowerCase();
+    const result = users
+      .filter((user) => {
+        const firstName = (user?.personal_info?.first_name || "").toLowerCase();
+        const lastName = (user?.personal_info?.last_name || "").toLowerCase();
         const fullName = `${firstName} ${lastName}`;
-        const email = (faculty?.personal_info?.email || "").toLowerCase();
-        const gender = (faculty?.personal_info?.gender || "").toLowerCase();
-        const department = (faculty?.job_info?.department || "").toLowerCase();
-        const course = (faculty?.job_info?.course || "").toLowerCase();
-        const stream = (faculty?.job_info?.stream || "").toLowerCase();
+        const email = (user?.personal_info?.email || "").toLowerCase();
+        const gender = (user?.personal_info?.gender || "").toLowerCase();
+        const department = (user?.job_info?.department || "").toLowerCase();
+        const course = (user?.job_info?.course || "").toLowerCase();
+        const stream = (user?.job_info?.stream || "").toLowerCase();
 
         const matchesName = fullName.includes(debouncedQuery.toLowerCase());
         const matchesEmail = email.includes(debouncedQuery.toLowerCase());
@@ -129,9 +154,9 @@ function Faculty() {
           matchesGender
         );
       })
-      .filter((faculty) => {
+      .filter((user) => {
         if (showBookmarkedOnly) {
-          return bookmarks.includes(faculty?.personal_info?.email);
+          return bookmarks.includes(user?.personal_info?.email);
         }
         return true;
       })
@@ -153,8 +178,10 @@ function Faculty() {
             b?.personal_info?.last_name || ""
           }`;
         } else {
-          aValue = a?.personal_info?.[sortByField] || "";
-          bValue = b?.personal_info?.[sortByField] || "";
+          const getField = (obj, field) =>
+            field.split(".").reduce((o, f) => o?.[f], obj);
+          aValue = getField(a, `personal_info.${sortByField}`) || "";
+          bValue = getField(b, `personal_info.${sortByField}`) || "";
         }
 
         aValue = aValue.toString().toLowerCase();
@@ -167,7 +194,7 @@ function Faculty() {
 
     return result;
   }, [
-    faculties,
+    users,
     debouncedQuery,
     selectedGender,
     showBookmarkedOnly,
@@ -175,14 +202,16 @@ function Faculty() {
     sortOrder,
   ]);
 
-  const totalPages = Math.ceil(filteredFaculties.length / pageSize);
-  const paginatedFaculties = filteredFaculties.slice(
+  const totalPages = Math.ceil(filteredUsers.length / pageSize);
+  const paginatedUsers = filteredUsers.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
 
   useEffect(() => {
-    if (currentPage > totalPages) setCurrentPage(totalPages);
+    if (totalPages > 0 && currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
   }, [totalPages, currentPage]);
 
   const handlePageSizeChange = useCallback((e) => {
@@ -217,29 +246,28 @@ function Faculty() {
   };
   const paginationRange = getPaginationRange(currentPage, totalPages);
 
-  const exportFacultyData = () => {
-    if (faculties.length === 0) {
+  const exportUserData = () => {
+    if (users.length === 0) {
       showAlert("No data available for export.");
       return;
     }
 
-    const dataToExport =
-      filteredFaculties.length > 0 ? filteredFaculties : faculties;
+    const dataToExport = filteredUsers.length > 0 ? filteredUsers : users;
 
     if (exportFormat === "csv") {
-      exportFacultyDataAsCSV(dataToExport);
+      exportUserDataAsCSV(dataToExport);
     } else if (exportFormat === "excel") {
-      exportFacultyDataAsExcel(dataToExport);
+      exportUserDataAsExcel(dataToExport);
     } else if (exportFormat === "pdf") {
-      exportFacultyDataAsPDF(dataToExport);
+      exportUserDataAsPDF(dataToExport);
     } else if (exportFormat === "json") {
-      exportFacultyDataAsJSON(dataToExport);
+      exportUserDataAsJSON(dataToExport);
     } else if (exportFormat === "text") {
-      exportFacultyDataAsText(dataToExport);
+      exportUserDataAsText(dataToExport);
     }
   };
 
-  const exportFacultyDataAsCSV = (data) => {
+  const exportUserDataAsCSV = (data) => {
     const headers = [
       "First Name",
       "Last Name",
@@ -249,27 +277,29 @@ function Faculty() {
       "Course",
       "Stream",
     ];
-    const rows = data.map((faculty) => [
-      `"${faculty?.personal_info?.first_name || ""}"`,
-      `"${faculty?.personal_info?.last_name || ""}"`,
-      `"${faculty?.personal_info?.email || ""}"`,
-      `"${faculty?.personal_info?.gender || ""}"`,
-      `"${faculty?.job_info?.department || ""}"`,
-      `"${faculty?.job_info?.course || ""}"`,
-      `"${faculty?.job_info?.stream || ""}"`,
+    const rows = data.map((user) => [
+      `"${user?.personal_info?.first_name || ""}"`,
+      `"${user?.personal_info?.last_name || ""}"`,
+      `"${user?.personal_info?.email || ""}"`,
+      `"${user?.personal_info?.gender || ""}"`,
+      `"${user?.job_info?.department || ""}"`,
+      `"${user?.job_info?.course || ""}"`,
+      `"${user?.job_info?.stream || ""}"`,
     ]);
-    const csvContent = [headers.join(","), ...rows.map((row) => row.join(","))]
-      .join("\n")
-      .replace(/(\r\n|\n|\r)/g, "\r\n");
-
-    const blob = new Blob([csvContent], { type: "text/csv" });
+    const csvContent = [headers, ...rows]
+      .map((row) => row.join(","))
+      .join("\n");
+    const csvBlob = new Blob([csvContent], {
+      type: "text/csv;charset=utf-8;",
+    });
+    const csvUrl = URL.createObjectURL(csvBlob);
     const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "faculty_data.csv";
+    link.setAttribute("href", csvUrl);
+    link.setAttribute("download", `users_${Date.now()}.csv`);
     link.click();
   };
 
-  const exportFacultyDataAsExcel = (data) => {
+  const exportUserDataAsExcel = (data) => {
     const headers = [
       [
         "First Name",
@@ -281,14 +311,14 @@ function Faculty() {
         "Stream",
       ],
     ];
-    const rows = data.map((faculty) => [
-      faculty?.personal_info?.first_name || "",
-      faculty?.personal_info?.last_name || "",
-      faculty?.personal_info?.email || "",
-      faculty?.personal_info?.gender || "",
-      faculty?.job_info?.department || "",
-      faculty?.job_info?.course || "",
-      faculty?.job_info?.stream || "",
+    const rows = data.map((user) => [
+      user?.personal_info?.first_name || "",
+      user?.personal_info?.last_name || "",
+      user?.personal_info?.email || "",
+      user?.personal_info?.gender || "",
+      user?.job_info?.department || "",
+      user?.job_info?.course || "",
+      user?.job_info?.stream || "",
     ]);
     let excelContent = headers.concat(rows);
     let xls = "<table>";
@@ -305,91 +335,84 @@ function Faculty() {
     const blob = new Blob([xls], { type: "application/vnd.ms-excel" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "faculty_data.xls";
+    link.download = `${userType}_${Date.now()}.xlsx`;
     link.click();
   };
 
-  const exportFacultyDataAsPDF = () => {
-    const doc = new jsPDF();
-    doc.setFont("helvetica", "normal");
+  const exportUserDataAsPDF = (data) => {
+    const pdf = new jsPDF();
 
-    const marginTop = 10;
-    const lineHeight = 10;
-    const pageHeight = doc.internal.pageSize.height;
+    const headers = [
+      [
+        "First Name",
+        "Last Name",
+        "Email",
+        "Gender",
+        "Department",
+        "Course",
+        "Stream",
+      ],
+    ];
+    const rows = data.map((user) => [
+      user?.personal_info?.first_name || "",
+      user?.personal_info?.last_name || "",
+      user?.personal_info?.email || "",
+      user?.personal_info?.gender || "",
+      user?.job_info?.department || "",
+      user?.job_info?.course || "",
+      user?.job_info?.stream || "",
+    ]);
 
-    let yPosition = marginTop;
-
-    filteredFaculties.forEach((faculty, index) => {
-      if (yPosition + lineHeight * 7 > pageHeight) {
-        doc.addPage();
-        yPosition = marginTop;
-      }
-
-      doc.text(
-        `Name: ${faculty?.personal_info?.first_name} ${faculty?.personal_info?.last_name}`,
-        10,
-        yPosition
-      );
-      yPosition += lineHeight;
-
-      doc.text(`Email: ${faculty?.personal_info?.email}`, 10, yPosition);
-      yPosition += lineHeight;
-
-      doc.text(`Gender: ${faculty?.personal_info?.gender}`, 10, yPosition);
-      yPosition += lineHeight;
-
-      doc.text(`Department: ${faculty?.job_info?.department}`, 10, yPosition);
-      yPosition += lineHeight;
-
-      doc.text(`Course: ${faculty?.job_info?.course}`, 10, yPosition);
-      yPosition += lineHeight;
-
-      doc.text(`Stream: ${faculty?.job_info?.stream}`, 10, yPosition);
-      yPosition += lineHeight;
-
-      yPosition += 5;
+    pdf.text("User Data", 10, 10);
+    pdf.autoTable({
+      head: headers,
+      body: rows,
+      startY: 20,
+      theme: "striped",
     });
 
-    doc.save("faculty_data.pdf");
+    pdf.save(`users_${Date.now()}.pdf`);
   };
 
-  const exportFacultyDataAsJSON = (data) => {
-    const jsonContent = JSON.stringify(
-      data.map((faculty) => ({
-        firstName: faculty?.personal_info?.first_name || "",
-        lastName: faculty?.personal_info?.last_name || "",
-        email: faculty?.personal_info?.email || "",
-        gender: faculty?.personal_info?.gender || "",
-        department: faculty?.job_info?.department || "",
-        course: faculty?.job_info?.course || "",
-        stream: faculty?.job_info?.stream || "",
-      })),
-      null,
-      2
-    );
-    const blob = new Blob([jsonContent], { type: "application/json" });
+  const exportUserDataAsJSON = (data) => {
+    const jsonContent = JSON.stringify(data, null, 2);
+    const jsonBlob = new Blob([jsonContent], {
+      type: "application/json",
+    });
+    const jsonUrl = URL.createObjectURL(jsonBlob);
+
     const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "faculty_data.json";
+    link.href = jsonUrl;
+    link.download = `users_${Date.now()}.json`;
     link.click();
   };
 
-  const exportFacultyDataAsText = () => {
-    const textContent = filteredFaculties
-      .map(
-        (faculty) =>
-          `${faculty?.personal_info?.first_name} ${faculty?.personal_info?.last_name} - ${faculty?.personal_info?.email}\n` +
-          `Gender: ${faculty?.personal_info?.gender}\n` +
-          `Department: ${faculty?.job_info?.department}\n` +
-          `Course: ${faculty?.job_info?.course}\n` +
-          `Stream: ${faculty?.job_info?.stream}\n`
+  const exportUserDataAsText = (data) => {
+    const headers =
+      "First Name\tLast Name\tEmail\tGender\tDepartment\tCourse\tStream\n";
+    const rows = data
+      .map((user) =>
+        [
+          user?.personal_info?.first_name || "",
+          user?.personal_info?.last_name || "",
+          user?.personal_info?.email || "",
+          user?.personal_info?.gender || "",
+          user?.job_info?.department || "",
+          user?.job_info?.course || "",
+          user?.job_info?.stream || "",
+        ].join("\t")
       )
       .join("\n");
 
-    const blob = new Blob([textContent], { type: "text/plain" });
+    const textContent = headers + rows;
+    const textBlob = new Blob([textContent], {
+      type: "text/plain",
+    });
+    const textUrl = URL.createObjectURL(textBlob);
+
     const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "faculty_data.txt";
+    link.href = textUrl;
+    link.download = `users_${Date.now()}.txt`;
     link.click();
   };
 
@@ -402,17 +425,48 @@ function Faculty() {
     <Fragment>
       <AdminLayout>
         {loading && <AllLoader />}
-        <div className="faculty-management">
-          <h1 className="faculty-management__title">Faculties</h1>
+        <div className="user-management">
+          <div
+            className="user-management__heading"
+            onClick={() => setDropdownVisible(!dropdownVisible)}
+            aria-expanded={dropdownVisible}
+            role="button"
+            tabIndex="0"
+          >
+            {userType.charAt(0).toUpperCase() + userType.slice(1)} Management
+            <span className="user-management__arrow">
+              {dropdownVisible ? "▲" : "▼"}
+            </span>
+          </div>
 
-          <div className="faculty-management__actions">
+          {dropdownVisible && (
+            <ul className="user-management__dropdown">
+              {userTypes.map((type) => (
+                <li
+                  key={type}
+                  className={`user-management__option ${
+                    type === userType ? "active" : ""
+                  }`}
+                  onClick={() => handleUserTypeChange(type)}
+                >
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="user-management__button">
+            <button>
+              Add {userType.charAt(0).toUpperCase() + userType.slice(1)}
+            </button>
+          </div>
+
+          <div className="user-management__actions">
             <input
               type="text"
-              placeholder="Search by name, email, department, course, or stream..."
+              placeholder={`Search ${userType}s by name or email...`}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="faculty-management__search-bar"
-              aria-label="Search faculties"
+              className="user-management__search-bar"
             />
             <div>
               <select
@@ -426,20 +480,20 @@ function Faculty() {
                 <option value="text">Text</option>
               </select>
 
-              <button onClick={exportFacultyData}>
+              <button onClick={exportUserData}>
                 Export Data as {exportFormat.toUpperCase()}
               </button>
             </div>
           </div>
 
-          <div className="faculty-management__filters">
+          <div className="user-management__filters">
             <select
               value={selectedCourse}
               onChange={(e) => {
                 setSelectedCourse(e.target.value);
                 setSelectedStream("");
               }}
-              aria-label="Filter by course"
+              aria-label={`Filter ${userType}s by course`}
             >
               <option value="">Select Course</option>
               {courses.map((course) => (
@@ -452,13 +506,13 @@ function Faculty() {
             <select
               value={selectedStream}
               onChange={(e) => setSelectedStream(e.target.value)}
-              aria-label="Filter by stream"
+              aria-label={`Filter ${userType}s by stream`}
               disabled={!selectedCourse}
             >
               <option value="">Select Stream</option>
               {streams.map((stream) => (
-                <option key={stream} value={stream}>
-                  {stream}
+                <option key={stream._id} value={stream._id}>
+                  {stream.name}
                 </option>
               ))}
             </select>
@@ -466,7 +520,7 @@ function Faculty() {
             <select
               value={selectedGender}
               onChange={(e) => setSelectedGender(e.target.value)}
-              aria-label="Filter by gender"
+              aria-label={`Filter ${userType}s by gender`}
             >
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
@@ -485,7 +539,7 @@ function Faculty() {
             <select
               value={sortByField}
               onChange={(e) => setSortByField(e.target.value)}
-              aria-label="Sort by"
+              aria-label={`Sort ${userType}s by field`}
             >
               <option value="fullName">Name</option>
               <option value="email">Email</option>
@@ -497,19 +551,19 @@ function Faculty() {
             <select
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
-              aria-label="Sort order"
+              aria-label={`Sort ${userType}s in order`}
             >
               <option value="asc">Ascending</option>
               <option value="desc">Descending</option>
             </select>
           </div>
 
-          <div className="faculty-management__list">
-            {paginatedFaculties.map((faculty) => (
-              <FacultyIdCard
-                key={faculty.personal_info.email}
-                faculty={faculty}
-                placeholderImage={placeholderImage}
+          <div className="user-management__user-cards">
+            {paginatedUsers.map((user) => (
+              <UserCard
+                key={user?.personal_info?.email}
+                user={user}
+                userType={userType}
               />
             ))}
           </div>
@@ -556,4 +610,4 @@ function Faculty() {
   );
 }
 
-export default Faculty;
+export default User;

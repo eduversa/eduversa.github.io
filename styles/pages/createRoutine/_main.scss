@@ -1,3 +1,4 @@
+@use "sass:color";
 $primary-color: #1d4ed8;
 $secondary-color: #f3f4f6;
 $border-color: #e5e7eb;
@@ -77,7 +78,7 @@ $delete-color : #FF033E;
       box-shadow: 0 4px 6px $shadow-color;
 
       &:hover {
-        background: darken($primary-color, 5%);
+        background: color.adjust($primary-color, $lightness: -5%);
         box-shadow: 0 6px 8px $shadow-color;
       }
     }

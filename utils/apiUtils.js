@@ -40,6 +40,9 @@ export async function apiRequest(
       case "GetCollegeDetails":
         requestBody = null;
         break;
+      case "FetchData":
+        requestBody = null;
+        break;
       case "GetSingleApplicant":
         requestBody = null;
         break;

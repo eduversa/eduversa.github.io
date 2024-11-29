@@ -3,9 +3,9 @@ import "../styles/main.scss";
 import { SessionProvider } from "next-auth/react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { CommonMeta } from "@/components";
+import { CommonMeta, AlertModal } from "@/components";
 import { AlertProvider } from "@/contexts/AlertContext";
-import { AlertModal } from "@/components";
+import PulseKeeper from "@/utils/pulseKeeper";
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
@@ -13,6 +13,7 @@ export default function App({
   return (
     <Fragment>
       <SessionProvider session={session}>
+        <PulseKeeper />
         <AlertProvider>
           <Component {...pageProps} />
           <AlertModal />

@@ -1,14 +1,14 @@
-@import "homepage";
-@import "login";
-@import "register";
-@import "aboutLanding";
-@import "contactLanding";
-@import "forgetPass";
-@import "forgetUser";
+@use "homepage";
+@use "login";
+@use "register";
+@use "aboutLanding";
+@use "contactLanding";
+@use "forgetPass";
+@use "forgetUser";
 
 // applicant
-@import "applicant/update";
-@import "applicant/dashboard";
+@use "applicant/update";
+@use "applicant/dashboard";
 
 // admin
 // @import "admin/manageApplicants";
@@ -19,19 +19,19 @@
 @import "admin/manageStudent";
 @import "admin/manageFaculties";
 @import "admin/managePermissions";
+@use "admin/applicantManage";
+@use "admin/scanner";
+@use "admin/dashboard" as dashboard2;
+@use "admin/manageStudent";
+@use "admin/manageFaculties";
 // student
-@import "student/dashboard";
-
-
-
-@import "routine/routineLayout";
-@import "createRoutine/main";
-@import "createRoutine/header";
-@import "createRoutine/periodCell";
-
-@import "createSubject/subject";
-@import "routine/routineLayout";
-@import "student/studentUpdateFormRequest";
+@use "student/dashboard" as dashboard3;
+@use "routine/routineLayout";
+@use "createRoutine/main";
+@use "createRoutine/header";
+@use "createRoutine/periodCell";
+@use "createSubject/subject";
+@use "student/studentUpdateFormRequest";
 
 // faculty
-@import "faculty/faculty";
+@use "faculty/faculty";

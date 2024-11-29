@@ -5,7 +5,6 @@ import {
   deleteSingleStudent,
 } from "@/functions";
 import { AllLoader, IdCard } from "@/components";
-import Image from "next/image";
 import { AdminLayout } from "@/layout";
 import { useRouter } from "next/router";
 
