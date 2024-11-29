@@ -102,6 +102,11 @@ function Navbar() {
         src: "/admin/manage/faculties",
       },
       {
+        label: "Manage Permissions",
+        className: "nav-item",
+        src: "/admin/manage/permissions",
+      },
+      {
         label: "Contact Us",
         className: "nav-item",
         src: "/admin/contact",

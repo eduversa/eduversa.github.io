@@ -4,7 +4,7 @@ export async function apiRequest(
   body = {},
   authToken = "",
   routeName,
-  fileType
+  fileType = "json"
 ) {
   try {
     let requestBody;
