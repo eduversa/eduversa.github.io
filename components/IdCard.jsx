@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import { useRouter } from "next/router";
 import logoNoBG from "/public/icons/logo-no-bg.png";
 import { useEffect, useState } from "react";
 import { deleteSingleStudent } from "@/functions";
@@ -10,6 +10,7 @@ const IdCard = ({ profile, page }) => {
   //   alert("kc k wlk");
   const [qrCodeData, setQrCodeData] = useState(undefined);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     // alert("profile");
     const image = document.getElementById("id-card-body-image");

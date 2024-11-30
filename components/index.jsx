@@ -4,6 +4,8 @@ export { default as AlertModal } from "./AlertModal";
 
 export { default as StudentUpdateReqForm } from "./StudentUpdateReqForm/StudentUpdateReqForm";
 
+export { default as StudentDashboard } from "./StudentDashboard/StudentDashboard";
+
 // Loading Components
 export { default as Circle } from "./Loading/Circle";
 export { default as Default } from "./Loading/Default";
@@ -32,4 +34,7 @@ export { default as ManageApp } from "./ManageApp";
 export { default as CommonMeta } from "./CommonMeta";
 
 export { default as IdCard } from "./IdCard";
-export { default as FacultyIdCard } from "./FacultyIdCard";
+export { default as FacultyIdCard } from "./IdCards/FacultyIdCard";
+export { default as ApplicantIdCard } from "./IdCards/ApplicantIdCard";
+export { default as StudentIdCard } from "./IdCards/StudentIdCard";
+export { default as UserCard } from "./IdCards/UserCard";

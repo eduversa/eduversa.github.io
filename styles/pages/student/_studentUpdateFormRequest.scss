@@ -1,3 +1,5 @@
+@use "../../base/media-queries";
+
 .student_update_form {
   // max-width: 24rem;
   width: 100%;
@@ -95,17 +97,17 @@
       cursor: pointer;
       transition: all 0.2s ease;
       font-size: var(--font-12);
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
         padding: 0.75rem 1rem;
       }
-      @media (max-width: $breakpoint-tablet) {
+      @media (max-width: media-queries.$breakpoint-tablet) {
         padding: 0.5rem 1rem;
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
         padding: 0.3rem 0.7rem;
       }
 
@@ -160,16 +162,16 @@
     padding: 1.5rem;
     border-top: 2px solid var(--border-color);
 
-    @media (max-width: $breakpoint-desktop-wide) {
+    @media (max-width: media-queries.$breakpoint-desktop-wide) {
     }
-    @media (max-width: $breakpoint-desktop) {
+    @media (max-width: media-queries.$breakpoint-desktop) {
     }
-    @media (max-width: $breakpoint-large-tablet) {
+    @media (max-width: media-queries.$breakpoint-large-tablet) {
       justify-content: space-between;
     }
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: media-queries.$breakpoint-tablet) {
     }
-    @media (max-width: $breakpoint-phone) {
+    @media (max-width: media-queries.$breakpoint-phone) {
     }
     button {
       padding: 0.75rem 1.5rem;
@@ -180,17 +182,17 @@
       font-weight: 500;
       font-size: var(--font-12);
 
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
         padding: 0.75rem 1rem;
       }
-      @media (max-width: $breakpoint-tablet) {
+      @media (max-width: media-queries.$breakpoint-tablet) {
         padding: 0.5rem 1rem;
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
         padding: 0.3rem 0.7rem;
       }
       &[type="button"] {

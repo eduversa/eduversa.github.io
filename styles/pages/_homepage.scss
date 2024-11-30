@@ -1,3 +1,6 @@
+@use "../base/media-queries";
+@use "../mixins/flex";
+
 .homepage {
   // position: relative;
   overflow: hidden;
@@ -13,31 +16,31 @@
   );
   background-repeat: no-repeat;
   background-size: cover;
-  @media (max-width: $breakpoint-desktop-wide) {
+  @media (max-width: media-queries.$breakpoint-desktop-wide) {
   }
-  @media (max-width: $breakpoint-desktop) {
+  @media (max-width: media-queries.$breakpoint-desktop) {
   }
-  @media (max-width: $breakpoint-large-tablet) {
+  @media (max-width: media-queries.$breakpoint-large-tablet) {
   }
-  @media (max-width: $breakpoint-tablet) {
+  @media (max-width: media-queries.$breakpoint-tablet) {
     grid-template-columns: 1fr;
   }
-  @media (max-width: $breakpoint-phone) {
+  @media (max-width: media-queries.$breakpoint-phone) {
   }
   &-left {
-    @include flex-container(column, nowrap, center, flex-start);
+    @include flex.flex-container(column, nowrap, center, flex-start);
     z-index: 5;
     margin: 0 0 5% 5%;
-    @media (max-width: $breakpoint-desktop-wide) {
+    @media (max-width: media-queries.$breakpoint-desktop-wide) {
     }
-    @media (max-width: $breakpoint-desktop) {
+    @media (max-width: media-queries.$breakpoint-desktop) {
     }
-    @media (max-width: $breakpoint-large-tablet) {
+    @media (max-width: media-queries.$breakpoint-large-tablet) {
     }
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: media-queries.$breakpoint-tablet) {
       display: none;
     }
-    @media (max-width: $breakpoint-phone) {
+    @media (max-width: media-queries.$breakpoint-phone) {
     }
     .company-name {
       font-family: var(--font-elianto);
@@ -46,17 +49,17 @@
       color: var(--white);
       margin: 0 0 3% 0;
       text-transform: uppercase;
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
         font-size: var(--font-7);
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
         font-size: var(--font-7);
       }
-      @media (max-width: $breakpoint-tablet) {
+      @media (max-width: media-queries.$breakpoint-tablet) {
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
       }
     }
     .company-slogan {
@@ -70,17 +73,17 @@
       // background-clip: text;
       // color: transparent;
       color: var(--white);
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
         font-size: var(--font-8);
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
         font-size: var(--font-8);
       }
-      @media (max-width: $breakpoint-tablet) {
+      @media (max-width: media-queries.$breakpoint-tablet) {
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
       }
     }
 
@@ -96,17 +99,17 @@
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-        @media (max-width: $breakpoint-desktop-wide) {
+        @media (max-width: media-queries.$breakpoint-desktop-wide) {
         }
-        @media (max-width: $breakpoint-desktop) {
+        @media (max-width: media-queries.$breakpoint-desktop) {
           font-size: var(--font-9);
         }
-        @media (max-width: $breakpoint-large-tablet) {
+        @media (max-width: media-queries.$breakpoint-large-tablet) {
           font-size: var(--font-9);
         }
-        @media (max-width: $breakpoint-tablet) {
+        @media (max-width: media-queries.$breakpoint-tablet) {
         }
-        @media (max-width: $breakpoint-phone) {
+        @media (max-width: media-queries.$breakpoint-phone) {
         }
       }
       h3 {
@@ -116,17 +119,17 @@
         letter-spacing: 3px;
         text-transform: uppercase;
         color: var(--white);
-        @media (max-width: $breakpoint-desktop-wide) {
+        @media (max-width: media-queries.$breakpoint-desktop-wide) {
         }
-        @media (max-width: $breakpoint-desktop) {
+        @media (max-width: media-queries.$breakpoint-desktop) {
           font-size: var(--font-11);
         }
-        @media (max-width: $breakpoint-large-tablet) {
+        @media (max-width: media-queries.$breakpoint-large-tablet) {
           font-size: var(--font-11);
         }
-        @media (max-width: $breakpoint-tablet) {
+        @media (max-width: media-queries.$breakpoint-tablet) {
         }
-        @media (max-width: $breakpoint-phone) {
+        @media (max-width: media-queries.$breakpoint-phone) {
         }
       }
     }
@@ -140,7 +143,7 @@
     z-index: 3;
     background: var(--deepblue);
     opacity: 0.2;
-    @media (max-width: #{$breakpoint-phone}) {
+    @media (max-width: #{media-queries.$breakpoint-phone}) {
       opacity: 0.3;
     }
   }
@@ -159,7 +162,7 @@
     background-position-y: center;
     background-size: 100%;
     opacity: 0.8;
-    @media (max-width: #{$breakpoint-tablet}) {
+    @media (max-width: #{media-queries.$breakpoint-tablet}) {
       transform: rotate(0deg) translateX(0px) translateY(0px);
     }
   }
@@ -167,6 +170,6 @@
   &-right {
     height: 100%;
     width: 100%;
-    @include flex-container(column, nowrap, center, center);
+    @include flex.flex-container(column, nowrap, center, center);
   }
 }

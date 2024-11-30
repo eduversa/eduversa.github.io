@@ -1,12 +1,13 @@
+@use "sass:color";
 $size-color1: 35%;
 // $size-color1: %;
 $size-color2: $size-color1;
 // $size-color2: 45%;
 $color-blue: hsl(214, 100%, 50%);
 $color-blue: hsl(240, 100%, 50%);
-$color-blue-light: adjust-hue($color-blue, -30);
+$color-blue-light: color.adjust($color-blue, $hue: -30);
 $color-white: hsl(0, 0%, 90%);
-$color-white-light: lighten($color-white, 10);
+$color-white-light: color.adjust($color-white, $lightness: 10);
 
 .bg {
   &--white {

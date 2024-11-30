@@ -1,3 +1,6 @@
+@use "../base/media-queries";
+@use "../mixins/flex";
+
 .navbar {
   --landing-nav-height: 70px;
   --landing-nav-height-tab: 60px;
@@ -7,22 +10,22 @@
   color: var(--white);
   padding: 1rem 1.5rem;
   z-index: 100;
-  @include flex-container(row, nowrap, space-between, center);
+  @include flex.flex-container(row, nowrap, space-between, center);
   transition: box-shadow 1s ease-in-out;
   transition: background-color 0.3s ease;
-  @media (max-width: $breakpoint-desktop-wide) {
+  @media (max-width: media-queries.$breakpoint-desktop-wide) {
     padding: 0.8rem 1.2rem;
   }
-  @media (max-width: $breakpoint-desktop) {
+  @media (max-width: media-queries.$breakpoint-desktop) {
     padding: 0.7rem 1.1rem;
   }
-  @media (max-width: $breakpoint-large-tablet) {
+  @media (max-width: media-queries.$breakpoint-large-tablet) {
     padding: 0.5rem 1rem;
   }
-  @media (max-width: $breakpoint-tablet) {
+  @media (max-width: media-queries.$breakpoint-tablet) {
     height: var(--landing-nav-height-tab);
   }
-  @media (max-width: $breakpoint-phone) {
+  @media (max-width: media-queries.$breakpoint-phone) {
     height: var(--landing-nav-height-phone);
   }
 
@@ -34,31 +37,31 @@
     text-transform: uppercase;
     letter-spacing: 3px;
 
-    @media (max-width: $breakpoint-desktop-wide) {
+    @media (max-width: media-queries.$breakpoint-desktop-wide) {
     }
-    @media (max-width: $breakpoint-desktop) {
+    @media (max-width: media-queries.$breakpoint-desktop) {
     }
-    @media (max-width: $breakpoint-large-tablet) {
+    @media (max-width: media-queries.$breakpoint-large-tablet) {
     }
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: media-queries.$breakpoint-tablet) {
       font-size: var(--font-5);
     }
-    @media (max-width: $breakpoint-phone) {
+    @media (max-width: media-queries.$breakpoint-phone) {
     }
     .logo-text {
       cursor: pointer;
       color: var(--white);
       text-decoration: none;
       transition: transform 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
       }
-      @media (max-width: $breakpoint-tablet) {
+      @media (max-width: media-queries.$breakpoint-tablet) {
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
       }
       &:hover {
         transform: scale(1.1);
@@ -91,32 +94,32 @@
   .navbar-links {
     list-style: none;
     padding: 0;
-    @include flex-container(row, nowrap, flex-start, center);
-    @media (max-width: $breakpoint-desktop-wide) {
+    @include flex.flex-container(row, nowrap, flex-start, center);
+    @media (max-width: media-queries.$breakpoint-desktop-wide) {
     }
-    @media (max-width: $breakpoint-desktop) {
+    @media (max-width: media-queries.$breakpoint-desktop) {
     }
-    @media (max-width: $breakpoint-large-tablet) {
+    @media (max-width: media-queries.$breakpoint-large-tablet) {
     }
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: media-queries.$breakpoint-tablet) {
       display: none;
     }
-    @media (max-width: $breakpoint-phone) {
+    @media (max-width: media-queries.$breakpoint-phone) {
     }
     .nav-item {
       position: relative;
       display: block;
       margin: 0 2rem 0 0;
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
         margin: 0 1rem 0 0;
       }
-      @media (max-width: $breakpoint-tablet) {
+      @media (max-width: media-queries.$breakpoint-tablet) {
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
       }
 
       .nav-item-link {
@@ -131,16 +134,16 @@
         text-transform: capitalize;
         letter-spacing: 2px;
         transition: color 0.3s, transform 0.3s, background 0.3s, box-shadow 0.3s;
-        @media (max-width: $breakpoint-desktop-wide) {
+        @media (max-width: media-queries.$breakpoint-desktop-wide) {
         }
-        @media (max-width: $breakpoint-desktop) {
+        @media (max-width: media-queries.$breakpoint-desktop) {
         }
-        @media (max-width: $breakpoint-large-tablet) {
+        @media (max-width: media-queries.$breakpoint-large-tablet) {
           font-size: var(--font-12);
         }
-        @media (max-width: $breakpoint-tablet) {
+        @media (max-width: media-queries.$breakpoint-tablet) {
         }
-        @media (max-width: $breakpoint-phone) {
+        @media (max-width: media-queries.$breakpoint-phone) {
         }
         &:before {
           content: "";
@@ -194,16 +197,16 @@
   .menu {
     cursor: pointer;
     transition: all 3s ease-in-out;
-    @media (max-width: $breakpoint-desktop-wide) {
+    @media (max-width: media-queries.$breakpoint-desktop-wide) {
     }
-    @media (max-width: $breakpoint-desktop) {
+    @media (max-width: media-queries.$breakpoint-desktop) {
     }
-    @media (max-width: $breakpoint-large-tablet) {
+    @media (max-width: media-queries.$breakpoint-large-tablet) {
     }
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: media-queries.$breakpoint-tablet) {
       display: block;
     }
-    @media (max-width: $breakpoint-phone) {
+    @media (max-width: media-queries.$breakpoint-phone) {
     }
     &.open {
       .menu-line:nth-child(1) {
@@ -224,15 +227,15 @@
       width: 30px;
       background-color: var(--blue-4);
       transition: transform 0.3s ease-in-out;
-      @media (max-width: $breakpoint-desktop-wide) {
+      @media (max-width: media-queries.$breakpoint-desktop-wide) {
       }
-      @media (max-width: $breakpoint-desktop) {
+      @media (max-width: media-queries.$breakpoint-desktop) {
       }
-      @media (max-width: $breakpoint-large-tablet) {
+      @media (max-width: media-queries.$breakpoint-large-tablet) {
       }
-      @media (max-width: $breakpoint-tablet) {
+      @media (max-width: media-queries.$breakpoint-tablet) {
       }
-      @media (max-width: $breakpoint-phone) {
+      @media (max-width: media-queries.$breakpoint-phone) {
       }
       &:not(:last-child) {
         margin-bottom: 5px;
@@ -254,7 +257,7 @@
   transform: translateY(-10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
 
-  @include flex-container(column, nowrap, space-between, space-between);
+  @include flex.flex-container(column, nowrap, space-between, space-between);
 
   ul {
     list-style-type: none;
@@ -294,7 +297,7 @@
   .sidenavbar__container {
     padding: 20px;
     height: 100%;
-    @include flex-container(column, nowrap, space-between, center);
+    @include flex.flex-container(column, nowrap, space-between, center);
     .sidenavbar__brand {
       margin: 0 0 10% 0;
 
@@ -413,15 +416,15 @@
         border-radius: 12px;
         box-shadow: 0px 8px 20px -5px var(--black-shadow-medium);
         transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
-        @media (max-width: $breakpoint-desktop-wide) {
+        @media (max-width: media-queries.$breakpoint-desktop-wide) {
         }
-        @media (max-width: $breakpoint-desktop) {
+        @media (max-width: media-queries.$breakpoint-desktop) {
         }
-        @media (max-width: $breakpoint-large-tablet) {
+        @media (max-width: media-queries.$breakpoint-large-tablet) {
         }
-        @media (max-width: $breakpoint-tablet) {
+        @media (max-width: media-queries.$breakpoint-tablet) {
         }
-        @media (max-width: $breakpoint-phone) {
+        @media (max-width: media-queries.$breakpoint-phone) {
         }
         &:active {
           transform: scale(0.95);

@@ -1,5 +1,8 @@
+@use "sass:color";
+@use "../createRoutine/main";
+
 // Variables
-$primary-color: #010102;
+main.$primary-color: #010102;
 $primary-hover: #2563eb;
 $danger-color: #ef4444;
 $danger-hover: #dc2626;
@@ -101,7 +104,7 @@ $text-dark: #111827;
   @include button-base;
   
   &--primary {
-    background: $primary-color;
+    background: main.$primary-color;
     color: white;
     border: none;
     
@@ -413,10 +416,10 @@ $text-dark: #111827;
         }
 
         &.edit-btn {
-          color: $primary-color;
+          color: main.$primary-color;
 
           &:hover {
-            color: darken($primary-color, 1%);
+            color: color.adjust(main.$primary-color, $lightness: -1%);
           }
         }
 
@@ -424,7 +427,7 @@ $text-dark: #111827;
           color: $danger-color;
 
           &:hover {
-            color: darken($danger-color, 10%);
+            color: color.adjust($danger-color, $lightness: -10%);
           }
         }
       }
