@@ -13,6 +13,12 @@
 // admin
 // @import "admin/manageApplicants";
 // @import "admin/manageApplicant";
+@import "admin/applicantManage";
+@import "admin/scanner";
+@import "admin/dashboard";
+@import "admin/manageStudent";
+@import "admin/manageFaculties";
+@import "admin/managePermissions";
 @use "admin/applicantManage";
 @use "admin/scanner";
 @use "admin/dashboard" as dashboard2;
