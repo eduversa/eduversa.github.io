@@ -9,7 +9,7 @@ import {
 import { devLog } from "@/utils/apiUtils";
 import { useAlert } from "@/contexts/AlertContext";
 
-const ApplicantForm = ({userid, userData, selected_user_type}) => {
+const ApplicantForm = ({ userid, userData, selected_user_type }) => {
   let currYear = new Date().getFullYear().toString();
   const { showAlert } = useAlert();
 
@@ -100,7 +100,7 @@ const ApplicantForm = ({userid, userData, selected_user_type}) => {
         course_name: "",
         duration: "",
         stream: "",
-        admission_year: currYear ,
+        admission_year: currYear,
       },
       image: null,
     }),
@@ -164,7 +164,8 @@ const ApplicantForm = ({userid, userData, selected_user_type}) => {
       if (!savedFormData.family_info) {
         savedFormData.family_info = initialFormData.family_info;
       } else if (!savedFormData.family_info.guardian) {
-        savedFormData.family_info.guardian = initialFormData.family_info.guardian;
+        savedFormData.family_info.guardian =
+          initialFormData.family_info.guardian;
       } else if (!savedFormData.family_info.guardian.office_address) {
         savedFormData.family_info.guardian.office_address =
           initialFormData.family_info.guardian.office_address;
@@ -176,43 +177,43 @@ const ApplicantForm = ({userid, userData, selected_user_type}) => {
 
   const processFormData = useCallback((savedFormData) => {
     const fullName = savedFormData.personal_info
-      ? savedFormData.personal_info.name?
-      savedFormData.personal_info.name :
-      concatenateNames(
-          savedFormData.personal_info.first_name,
-          savedFormData.personal_info.middle_name,
-          savedFormData.personal_info.last_name
-        )
+      ? savedFormData.personal_info.name
+        ? savedFormData.personal_info.name
+        : concatenateNames(
+            savedFormData.personal_info.first_name,
+            savedFormData.personal_info.middle_name,
+            savedFormData.personal_info.last_name
+          )
       : "";
     const fatherFullName =
       savedFormData.family_info && savedFormData.family_info.father
-        ? savedFormData.family_info.father.name?
-        savedFormData.family_info.father.name:
-        concatenateNames(
-            savedFormData.family_info.father.first_name,
-            savedFormData.family_info.father.middle_name,
-            savedFormData.family_info.father.last_name
-          )
+        ? savedFormData.family_info.father.name
+          ? savedFormData.family_info.father.name
+          : concatenateNames(
+              savedFormData.family_info.father.first_name,
+              savedFormData.family_info.father.middle_name,
+              savedFormData.family_info.father.last_name
+            )
         : "";
     const motherFullName =
       savedFormData.family_info && savedFormData.family_info.mother
-        ? savedFormData.family_info.mother.name?
-        savedFormData.family_info.mother.name:
-        concatenateNames(
-            savedFormData.family_info.mother.first_name,
-            savedFormData.family_info.mother.middle_name,
-            savedFormData.family_info.mother.last_name
-          )
+        ? savedFormData.family_info.mother.name
+          ? savedFormData.family_info.mother.name
+          : concatenateNames(
+              savedFormData.family_info.mother.first_name,
+              savedFormData.family_info.mother.middle_name,
+              savedFormData.family_info.mother.last_name
+            )
         : "";
     const guardianFullName =
       savedFormData.family_info && savedFormData.family_info.guardian
-        ? savedFormData.family_info.guardian.name?
-        savedFormData.family_info.guardian.name:
-        concatenateNames(
-            savedFormData.family_info.guardian.first_name,
-            savedFormData.family_info.guardian.middle_name,
-            savedFormData.family_info.guardian.last_name
-          )
+        ? savedFormData.family_info.guardian.name
+          ? savedFormData.family_info.guardian.name
+          : concatenateNames(
+              savedFormData.family_info.guardian.first_name,
+              savedFormData.family_info.guardian.middle_name,
+              savedFormData.family_info.guardian.last_name
+            )
         : "";
 
     const dob =
@@ -308,7 +309,7 @@ const ApplicantForm = ({userid, userData, selected_user_type}) => {
   //         }
   //       }
   //     };
-  
+
   //     fetchData();
   //   }
   // }, [userid]);
@@ -317,10 +318,13 @@ const ApplicantForm = ({userid, userData, selected_user_type}) => {
     const savedFormData = loadSavedFormData();
     if (savedFormData) {
       const processedFormData = processFormData(savedFormData);
-      const mergedFormData = deepMergeObject(initialFormData, processedFormData);
+      const mergedFormData = deepMergeObject(
+        initialFormData,
+        processedFormData
+      );
       setFormData(mergedFormData);
     }
-  
+
     const savedCurrentStep = JSON.parse(localStorage.getItem("currentStep"));
     if (savedCurrentStep) {
       setCurrentStep(savedCurrentStep);
@@ -336,18 +340,18 @@ const ApplicantForm = ({userid, userData, selected_user_type}) => {
     const nameParts = name.split(".");
 
     if (nameParts[nameParts.length - 1] === "aadhar_number") {
-        const newValue = value.replace(/\s/g, ''); 
-        const formattedValue = newValue.replace(/(.{4})/g, '$1 '); 
-        setFormData((prevFormData) => {
-          const updatedData = { ...prevFormData };
-          let currentLevel = updatedData;
-          for (let i = 0; i < nameParts.length - 1; i++) {
-            currentLevel = currentLevel[nameParts[i]];
-          }
-          currentLevel[nameParts[nameParts.length - 1]] = formattedValue.trim(); 
-          return updatedData;
-        }, callback);
-        return;
+      const newValue = value.replace(/\s/g, "");
+      const formattedValue = newValue.replace(/(.{4})/g, "$1 ");
+      setFormData((prevFormData) => {
+        const updatedData = { ...prevFormData };
+        let currentLevel = updatedData;
+        for (let i = 0; i < nameParts.length - 1; i++) {
+          currentLevel = currentLevel[nameParts[i]];
+        }
+        currentLevel[nameParts[nameParts.length - 1]] = formattedValue.trim();
+        return updatedData;
+      }, callback);
+      return;
     }
 
     if (name === "formData") {
@@ -357,15 +361,17 @@ const ApplicantForm = ({userid, userData, selected_user_type}) => {
 
     if (name === "personal_info.email") {
       if (value && value === formData.family_info.father.email) {
-        (`Student's email should not be same as Father's email. ${value}`);
+        `Student's email should not be same as Father's email. ${value}`;
         return;
-      }
-      else if (value && value === formData.family_info.mother.email) {
-        showAlert(`Student's email should not be same as Mother's email. ${value}`);
+      } else if (value && value === formData.family_info.mother.email) {
+        showAlert(
+          `Student's email should not be same as Mother's email. ${value}`
+        );
         return;
-      }
-      else if (value && value === formData.family_info.guardian.email) {
-        showAlert(`Student's email should not be same as Guardian's email. ${value}`);
+      } else if (value && value === formData.family_info.guardian.email) {
+        showAlert(
+          `Student's email should not be same as Guardian's email. ${value}`
+        );
         return;
       }
     }
@@ -375,7 +381,9 @@ const ApplicantForm = ({userid, userData, selected_user_type}) => {
       name === "family_info.guardian.email"
     ) {
       if (value && value === formData.personal_info.email) {
-        showAlert(`Father's, mother's or guardian's email should not be same as student's email. ${formData.personal_info.email}`);
+        showAlert(
+          `Father's, mother's or guardian's email should not be same as student's email. ${formData.personal_info.email}`
+        );
         return;
       }
     }
@@ -490,13 +498,16 @@ const ApplicantForm = ({userid, userData, selected_user_type}) => {
       setPermanentPincodeError={setPermanentPincodeError}
       officePincodeError={officePincodeError}
       setOfficePincodeError={setOfficePincodeError}
-      selected_user_type = {selected_user_type}
+      selected_user_type={selected_user_type}
     />
   ));
 
   const progress = (currentStep / formSteps.length) * 100;
 
   function capitalize(string) {
+    if (typeof string !== "string" || !string) {
+      return "";
+    }
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   }
 
@@ -505,9 +516,7 @@ const ApplicantForm = ({userid, userData, selected_user_type}) => {
       className="form"
       // style={{ background: `hsl(${(currentStep - 1) * 62.5}, 40% , 85%)` }}
     >
-      <h1 className="form--heading">
-        {capitalize(selected_user_type)} Form
-      </h1>
+      <h1 className="form--heading">{capitalize(selected_user_type)} Form</h1>
 
       <div className="form--content">
         <div
