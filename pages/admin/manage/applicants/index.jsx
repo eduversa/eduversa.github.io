@@ -139,6 +139,7 @@ function Index() {
   };
 
   const handleCheckboxChange = (event) => {
+    const authToken = localStorage.getItem("authToken");
     setSubmitted(event.target.checked);
     if (event.target.checked) {
       const filteredApplicants = applicants.filter(
