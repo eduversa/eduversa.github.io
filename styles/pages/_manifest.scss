@@ -18,6 +18,8 @@
 @use "admin/dashboard" as dashboard2;
 @use "admin/manageStudent";
 @use "admin/manageFaculties";
+@use "admin/manageStudents";
+
 // student
 @use "student/dashboard" as dashboard3;
 @use "routine/routineLayout";
