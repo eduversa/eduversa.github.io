@@ -1,0 +1,442 @@
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$success-color: #28a745;
+$info-color: #17a2b8;
+$warning-color: #ffc107;
+$danger-color: #dc3545;
+$light-gray: #f8f9fa;
+$medium-gray: #dee2e6;
+$dark-gray: #343a40;
+$text-color: #212529;
+$white: #ffffff;
+
+$spacing-unit: 8px;
+$border-radius: 6px; // Using softer radius from previous refinements
+$transition-speed: 0.2s;
+$input-focus-shadow: 0 0 0 3px rgba($primary-color, 0.25);
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+@mixin base-input-styles {
+  padding: ($spacing-unit * 1.2) ($spacing-unit * 1.5);
+  border: 1px solid $medium-gray;
+  border-radius: $border-radius;
+  background-color: $white;
+  color: $text-color;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  width: 100%;
+  transition: border-color $transition-speed ease-in-out,
+    box-shadow $transition-speed ease-in-out;
+
+  &:focus {
+    outline: none;
+    border-color: lighten($primary-color, 15%);
+    box-shadow: $input-focus-shadow;
+  }
+
+  &:disabled,
+  &[readonly] {
+    background-color: darken($light-gray, 3%);
+    border-color: darken($medium-gray, 3%);
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  &[data-is-select="true"] {
+    background-color: lighten($light-gray, 2%);
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right ($spacing-unit * 1.5) center;
+    background-size: 16px 12px;
+    padding-right: ($spacing-unit * 5);
+  }
+}
+
+@mixin button-variant(
+  $bg-color,
+  $text-color: $white,
+  $border-color: $bg-color
+) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: 1px solid $border-color;
+  padding: ($spacing-unit * 1) ($spacing-unit * 1.5);
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: all $transition-speed ease;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  display: inline-block;
+
+  &:hover:not(:disabled) {
+    background-color: darken($bg-color, 8%);
+    border-color: darken($border-color, 10%);
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &:focus:not(:disabled) {
+    outline: none;
+    outline: 2px solid $bg-color;
+    outline-offset: 2px;
+  }
+
+  &:active:not(:disabled) {
+    background-color: darken($bg-color, 12%);
+    border-color: darken($border-color, 15%);
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.15);
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+.faculty-management {
+  padding: ($spacing-unit * 3);
+  background-color: $white;
+  border-radius: $border-radius * 1.5;
+  box-shadow: 0 4px 15px rgba($dark-gray, 0.07);
+  margin: ($spacing-unit * 3) 0;
+
+  @media (min-width: $breakpoint-md) {
+    padding: ($spacing-unit * 4);
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: $dark-gray;
+    margin: 0 0 ($spacing-unit * 3) 0;
+    padding-bottom: ($spacing-unit * 2);
+    border-bottom: 1px solid $medium-gray;
+
+    @media (min-width: $breakpoint-md) {
+      font-size: 2rem;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: ($spacing-unit * 2.5);
+    margin-bottom: ($spacing-unit * 3);
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-unit;
+      width: 100%;
+    }
+
+    &__search-bar {
+      @include base-input-styles;
+      font-size: 1rem;
+    }
+
+    > div {
+      select {
+        @include base-input-styles;
+        &[data-is-select="true"] {
+        }
+        min-width: 150px;
+      }
+
+      button {
+        @include base-input-styles;
+        @include button-variant($info-color);
+        font-weight: 500;
+        cursor: pointer;
+        white-space: nowrap;
+        width: 100%;
+
+        &:disabled {
+          @include button-variant(
+            lighten($secondary-color, 20%),
+            $secondary-color,
+            darken($medium-gray, 5%)
+          );
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    @media (min-width: $breakpoint-md) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: ($spacing-unit * 3);
+
+      > div {
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+      }
+
+      &__search-bar {
+        flex-grow: 1;
+        min-width: 280px;
+        width: auto;
+      }
+
+      > div {
+        button {
+          width: auto;
+        }
+      }
+    }
+  }
+
+  &__filters {
+    display: flex;
+    flex-direction: column;
+    gap: ($spacing-unit * 2);
+    margin-bottom: ($spacing-unit * 4);
+    padding: ($spacing-unit * 2.5);
+    background-color: $light-gray;
+    border: 1px solid darken($light-gray, 5%);
+    border-radius: $border-radius;
+
+    select {
+      @include base-input-styles;
+      &[data-is-select="true"] {
+      }
+      cursor: pointer;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: $spacing-unit;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.9rem;
+      color: $secondary-color;
+      padding: ($spacing-unit * 1) 0;
+
+      input[type="checkbox"] {
+        width: 1.1em;
+        height: 1.1em;
+        margin: 0;
+        cursor: pointer;
+        accent-color: $primary-color;
+        flex-shrink: 0;
+      }
+    }
+
+    @media (min-width: $breakpoint-lg) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: ($spacing-unit * 2) ($spacing-unit * 2.5);
+      padding: ($spacing-unit * 3);
+
+      select {
+        min-width: 160px;
+        width: auto;
+      }
+      label {
+        width: auto; // Prevent label taking full width if wrapped weirdly
+      }
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: ($spacing-unit * 3);
+    margin-bottom: ($spacing-unit * 4);
+    min-height: 150px;
+
+    @media (min-width: $breakpoint-md) {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: ($spacing-unit * 3.5);
+    }
+    @media (min-width: $breakpoint-xl) {
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+
+    .faculty-id-card {
+      border: 1px solid $medium-gray;
+      border-radius: $border-radius;
+      overflow: hidden;
+      background-color: $white;
+      box-shadow: 0 1px 3px rgba($dark-gray, 0.08);
+      transition: box-shadow $transition-speed ease,
+        transform $transition-speed ease;
+
+      &:hover {
+        box-shadow: 0 5px 15px rgba($dark-gray, 0.12);
+        transform: translateY(-3px);
+      }
+    }
+
+    &:empty {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: ($spacing-unit * 6) ($spacing-unit * 3);
+      color: $secondary-color;
+      font-style: italic;
+      border: 2px dashed $medium-gray;
+      border-radius: $border-radius;
+      background-color: $light-gray;
+      min-height: 200px;
+
+      &::after {
+        content: "No faculties found matching your criteria.";
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: ($spacing-unit * 2.5);
+    padding-top: ($spacing-unit * 3);
+    margin-top: ($spacing-unit * 3);
+    border-top: 1px solid $medium-gray;
+
+    select {
+      @include base-input-styles;
+      &[data-is-select="true"] {
+      }
+      cursor: pointer;
+      max-width: 200px;
+      width: 100%;
+    }
+
+    > div {
+      // Container for buttons
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: $spacing-unit;
+    }
+
+    button {
+      @include base-input-styles;
+      @include button-variant($white, $primary-color, $medium-gray);
+      min-width: 40px;
+      height: 40px;
+      padding: ($spacing-unit * 0.5);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 500;
+      cursor: pointer;
+      line-height: 1;
+      width: auto; // Override base input width
+
+      &:hover:not(:disabled) {
+        background-color: lighten($medium-gray, 6%);
+        border-color: darken($medium-gray, 6%);
+        color: darken($primary-color, 12%);
+      }
+
+      &[disabled][aria-label^="Page"] {
+        @include button-variant($primary-color, $white);
+        cursor: default;
+        font-weight: bold;
+        opacity: 1;
+        box-shadow: none;
+        &:hover {
+          transform: none;
+          box-shadow: none;
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+
+      &[disabled]:not([aria-label^="Page"]) {
+        background-color: $light-gray;
+        color: $secondary-color;
+        border-color: $medium-gray;
+        cursor: not-allowed;
+        opacity: 0.6;
+        box-shadow: none;
+        transform: none;
+        &:hover {
+          transform: none;
+          box-shadow: none;
+        }
+      }
+
+      &[disabled]:not([aria-label^="Page"]):not(:first-of-type):not(
+          :last-of-type
+        ) {
+        border: none;
+        background: none;
+        box-shadow: none;
+        color: $secondary-color;
+        cursor: default;
+        opacity: 1;
+        padding-left: $spacing-unit / 2;
+        padding-right: $spacing-unit / 2;
+        font-weight: normal;
+        min-width: auto;
+        height: auto;
+      }
+    }
+
+    @media (min-width: $breakpoint-md) {
+      flex-direction: row;
+      justify-content: space-between;
+
+      select {
+        max-width: none;
+        min-width: 150px;
+        width: auto;
+      }
+      > div {
+        // Button container
+        justify-content: flex-end;
+      }
+    }
+  }
+}
+
+.all-loader-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba($white, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  backdrop-filter: blur(3px);
+
+  .loader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba($primary-color, 0.2);
+    border-top-color: $primary-color;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
