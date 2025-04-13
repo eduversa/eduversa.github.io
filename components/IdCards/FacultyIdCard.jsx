@@ -103,62 +103,24 @@ BookmarkButton.propTypes = {
   toggleBookmark: PropTypes.func.isRequired,
 };
 
-const FacultyIdCard = ({ faculty, placeholderImage }) => {
-  const [isBookmarked, setIsBookmarked] = useState(false);
+const FacultyIdCard = ({
+  faculty,
+  placeholderImage,
+  bookmarkedEmails,
+  onToggleBookmark,
+}) => {
   const router = useRouter();
   const facultyEmail = faculty?.personal_info?.email;
 
-  useEffect(() => {
-    if (!facultyEmail || typeof window === "undefined") return;
-    let currentBookmarks = [];
-    try {
-      const storedBookmarks = localStorage.getItem("bookmarkedFaculty");
-      if (storedBookmarks) {
-        currentBookmarks = JSON.parse(storedBookmarks);
-      }
-    } catch (error) {
-      console.error("Error reading bookmarks from localStorage:", error);
+  const isCurrentlyBookmarked = useMemo(() => {
+    return facultyEmail ? bookmarkedEmails.includes(facultyEmail) : false;
+  }, [bookmarkedEmails, facultyEmail]);
+
+  const handleBookmarkClick = useCallback(() => {
+    if (facultyEmail) {
+      onToggleBookmark(facultyEmail);
     }
-    setIsBookmarked(currentBookmarks.includes(facultyEmail));
-  }, [facultyEmail]);
-
-  const toggleBookmark = useCallback(() => {
-    if (!facultyEmail || typeof window === "undefined") return;
-
-    let currentBookmarks = [];
-    try {
-      const storedBookmarks = localStorage.getItem("bookmarkedFaculty");
-      if (storedBookmarks) {
-        currentBookmarks = JSON.parse(storedBookmarks);
-      }
-    } catch (error) {
-      console.error("Error reading bookmarks from localStorage:", error);
-      return;
-    }
-
-    let updatedBookmarks;
-    const currentlyBookmarked = currentBookmarks.includes(facultyEmail);
-
-    if (currentlyBookmarked) {
-      updatedBookmarks = currentBookmarks.filter(
-        (email) => email !== facultyEmail
-      );
-      setIsBookmarked(false);
-    } else {
-      updatedBookmarks = [...currentBookmarks, facultyEmail];
-      setIsBookmarked(true);
-    }
-
-    try {
-      localStorage.setItem(
-        "bookmarkedFaculty",
-        JSON.stringify(updatedBookmarks)
-      );
-    } catch (error) {
-      console.error("Error saving bookmarks to localStorage:", error);
-      setIsBookmarked(currentlyBookmarked);
-    }
-  }, [facultyEmail]);
+  }, [facultyEmail, onToggleBookmark]);
 
   const handleShare = useCallback(async () => {
     if (!faculty?.personal_info) return;
@@ -282,8 +244,8 @@ const FacultyIdCard = ({ faculty, placeholderImage }) => {
       <div className="faculty-card__actions">
         {facultyEmail && (
           <BookmarkButton
-            isBookmarked={isBookmarked}
-            toggleBookmark={toggleBookmark}
+            isBookmarked={isCurrentlyBookmarked}
+            toggleBookmark={handleBookmarkClick}
           />
         )}
         <button
@@ -324,6 +286,8 @@ FacultyIdCard.propTypes = {
     }),
   }).isRequired,
   placeholderImage: PropTypes.string.isRequired,
+  bookmarkedEmails: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onToggleBookmark: PropTypes.func.isRequired,
 };
 
 FacultyIdCard.defaultProps = {
@@ -331,6 +295,7 @@ FacultyIdCard.defaultProps = {
     personal_info: {},
     job_info: {},
   },
+  bookmarkedEmails: [],
 };
 
 export default FacultyIdCard;

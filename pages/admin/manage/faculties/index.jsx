@@ -23,8 +23,57 @@ function Faculty() {
   const [sortOrder, setSortOrder] = useState("asc");
   const [exportFormat, setExportFormat] = useState("csv");
   const [refetchTrigger, setRefetchTrigger] = useState(0);
+  const [bookmarkedEmails, setBookmarkedEmails] = useState([]);
   const { showAlert } = useAlert();
   const placeholderImage = "/user.png";
+
+  useEffect(() => {
+    let initialBookmarks = [];
+    if (typeof window !== "undefined") {
+      try {
+        const stored = localStorage.getItem("bookmarkedFaculty");
+        if (stored) {
+          initialBookmarks = JSON.parse(stored);
+        }
+      } catch (error) {
+        console.error(
+          "Failed to parse bookmarks from localStorage on mount:",
+          error
+        );
+      }
+    }
+    setBookmarkedEmails(initialBookmarks);
+  }, []);
+
+  const handleToggleBookmark = useCallback(
+    (emailToToggle) => {
+      if (!emailToToggle) return;
+
+      let updatedBookmarks;
+      const isCurrentlyBookmarked = bookmarkedEmails.includes(emailToToggle);
+
+      if (isCurrentlyBookmarked) {
+        updatedBookmarks = bookmarkedEmails.filter(
+          (email) => email !== emailToToggle
+        );
+      } else {
+        updatedBookmarks = [...bookmarkedEmails, emailToToggle];
+      }
+
+      setBookmarkedEmails(updatedBookmarks);
+
+      try {
+        localStorage.setItem(
+          "bookmarkedFaculty",
+          JSON.stringify(updatedBookmarks)
+        );
+      } catch (error) {
+        console.error("Failed to save bookmarks to localStorage:", error);
+        showAlert("Could not update bookmark status.", "error");
+      }
+    },
+    [bookmarkedEmails, showAlert]
+  );
 
   const triggerRefetch = useCallback(() => {
     setRefetchTrigger((count) => count + 1);
@@ -46,6 +95,7 @@ function Faculty() {
     pageSize,
     sortByField,
     sortOrder,
+    bookmarkedEmails,
   ]);
 
   useEffect(() => {
@@ -99,21 +149,6 @@ function Faculty() {
     fetchData();
   }, [showAlert, refetchTrigger]);
 
-  const bookmarks = useMemo(() => {
-    if (typeof window === "undefined") {
-      return [];
-    }
-    try {
-      return JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
-    } catch (error) {
-      console.error(
-        "Failed to parse bookmarkedFaculty from localStorage",
-        error
-      );
-      return [];
-    }
-  }, []);
-
   const getFacultyValue = useCallback((faculty, field) => {
     if (!faculty) return "";
 
@@ -134,15 +169,15 @@ function Faculty() {
   const filteredFaculties = useMemo(() => {
     const result = faculties
       .filter((faculty) => {
-        if (!faculty) return false;
+        if (!faculty?.personal_info) return false;
 
         const firstName = (
-          faculty.personal_info?.first_name || ""
+          faculty.personal_info.first_name || ""
         ).toLowerCase();
-        const lastName = (faculty.personal_info?.last_name || "").toLowerCase();
+        const lastName = (faculty.personal_info.last_name || "").toLowerCase();
         const fullName = `${firstName} ${lastName}`.trim();
-        const email = (faculty.personal_info?.email || "").toLowerCase();
-        const gender = (faculty.personal_info?.gender || "").toLowerCase();
+        const email = (faculty.personal_info.email || "").toLowerCase();
+        const gender = (faculty.personal_info.gender || "").toLowerCase();
         const department = (faculty.job_info?.department || "").toLowerCase();
         const course = (faculty.job_info?.course || "").toLowerCase();
         const stream = (faculty.job_info?.stream || "").toLowerCase();
@@ -150,6 +185,7 @@ function Faculty() {
         const lowerDebouncedQuery = debouncedQuery.toLowerCase();
 
         const matchesSearch =
+          !lowerDebouncedQuery ||
           fullName.includes(lowerDebouncedQuery) ||
           email.includes(lowerDebouncedQuery) ||
           department.includes(lowerDebouncedQuery) ||
@@ -160,21 +196,20 @@ function Faculty() {
           ? gender === selectedGender.toLowerCase()
           : true;
 
-        const matchesCourse = selectedCourse
-          ? course ===
-            (
-              collegeData?.college_courses?.find(
-                (c) => c.code === selectedCourse
-              )?.name || ""
-            ).toLowerCase()
-          : true;
+        const selectedCourseData = collegeData?.college_courses?.find(
+          (c) => c.code === selectedCourse
+        );
+        const matchesCourse =
+          selectedCourse && selectedCourseData
+            ? course === (selectedCourseData.name || "").toLowerCase()
+            : true;
 
         const matchesStream = selectedStream
           ? stream === selectedStream.toLowerCase()
           : true;
 
-        const isBookmarked = showBookmarkedOnly
-          ? bookmarks.includes(faculty.personal_info?.email)
+        const isBookmarkedCheck = showBookmarkedOnly
+          ? bookmarkedEmails.includes(faculty.personal_info.email)
           : true;
 
         return (
@@ -182,15 +217,22 @@ function Faculty() {
           matchesGender &&
           matchesCourse &&
           matchesStream &&
-          isBookmarked
+          isBookmarkedCheck
         );
       })
       .sort((a, b) => {
-        const isBookmarkedA = bookmarks.includes(a?.personal_info?.email);
-        const isBookmarkedB = bookmarks.includes(b?.personal_info?.email);
+        const isBookmarkedA = bookmarkedEmails.includes(
+          a?.personal_info?.email
+        );
+        const isBookmarkedB = bookmarkedEmails.includes(
+          b?.personal_info?.email
+        );
 
-        if (isBookmarkedA && !isBookmarkedB) return -1;
-        if (!isBookmarkedA && isBookmarkedB) return 1;
+        if (showBookmarkedOnly) {
+        } else {
+          if (isBookmarkedA && !isBookmarkedB) return -1;
+          if (!isBookmarkedA && isBookmarkedB) return 1;
+        }
 
         let aValue = getFacultyValue(a, sortByField);
         let bValue = getFacultyValue(b, sortByField);
@@ -217,7 +259,7 @@ function Faculty() {
     showBookmarkedOnly,
     sortByField,
     sortOrder,
-    bookmarks,
+    bookmarkedEmails,
     getFacultyValue,
     collegeData,
   ]);
@@ -234,10 +276,10 @@ function Faculty() {
 
   useEffect(() => {
     const newTotalPages = Math.ceil(filteredFaculties.length / pageSize);
-    if (currentPage > newTotalPages && newTotalPages > 0) {
-      setCurrentPage(newTotalPages);
-    } else if (newTotalPages === 0 && currentPage !== 1) {
+    if (newTotalPages === 0 && currentPage !== 1) {
       setCurrentPage(1);
+    } else if (currentPage > newTotalPages && newTotalPages > 0) {
+      setCurrentPage(newTotalPages);
     }
   }, [filteredFaculties.length, pageSize, currentPage]);
 
@@ -247,11 +289,16 @@ function Faculty() {
 
   const handlePageChange = useCallback(
     (pageNumber) => {
-      if (pageNumber >= 1 && pageNumber <= totalPages) {
+      const newTotalPages = Math.ceil(filteredFaculties.length / pageSize);
+      if (pageNumber >= 1 && pageNumber <= newTotalPages) {
         setCurrentPage(pageNumber);
+      } else if (pageNumber < 1 && newTotalPages > 0) {
+        setCurrentPage(1);
+      } else if (pageNumber > newTotalPages && newTotalPages > 0) {
+        setCurrentPage(newTotalPages);
       }
     },
-    [totalPages]
+    [filteredFaculties.length, pageSize]
   );
 
   const getPaginationRange = (currentPage, totalPages, maxPages = 5) => {
@@ -311,7 +358,7 @@ function Faculty() {
 
   const exportFacultyData = useCallback(() => {
     if (filteredFaculties.length === 0) {
-      showAlert("No data available for export.");
+      showAlert("No data available for export.", "warning");
       return;
     }
 
@@ -467,9 +514,15 @@ function Faculty() {
         `Stream: ${faculty?.job_info?.stream || ""}`,
       ];
 
-      const blockHeight = blockContent.length * lineHeight + 5;
+      let blockHeightEst = blockContent.length * lineHeight + 5;
+      blockContent.forEach((line) => {
+        const splitLines = doc.splitTextToSize(line, contentWidth);
+        if (splitLines.length > 1) {
+          blockHeightEst += (splitLines.length - 1) * lineHeight;
+        }
+      });
 
-      if (yPosition + blockHeight > pageHeight - marginBottom) {
+      if (yPosition + blockHeightEst > pageHeight - marginBottom) {
         doc.addPage();
         yPosition = marginTop;
         doc.setFontSize(10);
@@ -696,6 +749,8 @@ function Faculty() {
                     key={faculty.personal_info.email}
                     faculty={faculty}
                     placeholderImage={placeholderImage}
+                    bookmarkedEmails={bookmarkedEmails}
+                    onToggleBookmark={handleToggleBookmark}
                   />
                 ) : null
               )
