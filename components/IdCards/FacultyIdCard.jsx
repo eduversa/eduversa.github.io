@@ -1,38 +1,81 @@
 import PropTypes from "prop-types";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { useRouter } from "next/router";
 
 const FacultyImage = ({ image, placeholderImage, altText }) => {
-  const [src, setSrc] = useState(image || placeholderImage);
+  const [src, setSrc] = useState(placeholderImage);
+
+  useEffect(() => {
+    setSrc(image || placeholderImage);
+  }, [image, placeholderImage]);
+
+  const handleError = useCallback(() => {
+    if (src !== placeholderImage) {
+      setSrc(placeholderImage);
+    }
+  }, [src, placeholderImage]);
 
   return (
     <Image
       src={src}
-      alt={altText || "Faculty's profile picture"}
+      alt={altText || "Faculty profile picture"}
       className="faculty-card__image"
       width={100}
       height={100}
-      style={{ objectFit: "cover" }}
-      onError={() => setSrc(placeholderImage)}
+      style={{ objectFit: "cover", borderRadius: "50%" }}
+      onError={handleError}
+      priority={false}
     />
   );
 };
 
-const FacultyDetails = ({ icon, value, onClick, tooltipText }) => {
+FacultyImage.propTypes = {
+  image: PropTypes.string,
+  placeholderImage: PropTypes.string.isRequired,
+  altText: PropTypes.string,
+};
+
+const FacultyDetails = ({ icon, value, onClick, tooltipText, ariaLabel }) => {
   const [showTooltip, setShowTooltip] = useState(false);
+  const Tag = onClick ? "button" : "p";
+
+  const handleMouseEnter = useCallback(() => setShowTooltip(true), []);
+  const handleMouseLeave = useCallback(() => setShowTooltip(false), []);
+  const handleFocus = useCallback(() => setShowTooltip(true), []);
+  const handleBlur = useCallback(() => setShowTooltip(false), []);
 
   return (
-    <p
-      className="faculty-card__info-item"
+    <Tag
+      className={`faculty-card__info-item ${onClick ? "clickable" : ""}`}
       onClick={onClick}
-      onMouseEnter={() => setShowTooltip(true)}
-      onMouseLeave={() => setShowTooltip(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      aria-label={ariaLabel || tooltipText}
+      title={tooltipText}
+      type={Tag === "button" ? "button" : undefined}
     >
-      <span className="faculty-card__icon">{icon}</span>
+      <span className="faculty-card__icon" aria-hidden="true">
+        {icon}
+      </span>
       {value || "N/A"}
-      {showTooltip && <span className="tooltip">{tooltipText}</span>}
-    </p>
+      {showTooltip && tooltipText && (
+        <span className="tooltip" role="tooltip">
+          {tooltipText}
+        </span>
+      )}
+    </Tag>
   );
+};
+
+FacultyDetails.propTypes = {
+  icon: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  onClick: PropTypes.func,
+  tooltipText: PropTypes.string,
+  ariaLabel: PropTypes.string,
 };
 
 const BookmarkButton = ({ isBookmarked, toggleBookmark }) => (
@@ -41,160 +84,226 @@ const BookmarkButton = ({ isBookmarked, toggleBookmark }) => (
     className={`faculty-card__bookmark-button ${
       isBookmarked ? "bookmarked" : ""
     }`}
-    aria-label={isBookmarked ? "Remove Bookmark" : "Bookmark"}
+    aria-label={isBookmarked ? "Remove Bookmark" : "Add Bookmark"}
+    aria-pressed={isBookmarked}
+    type="button"
   >
-    <span className={`bookmark-icon ${isBookmarked ? "filled" : "hollow"}`}>
+    <span
+      className={`bookmark-icon ${isBookmarked ? "filled" : "hollow"}`}
+      aria-hidden="true"
+    >
       &#9733;
     </span>
-    {isBookmarked ? "Unbookmark" : "Bookmark"}
+    {isBookmarked ? "Bookmarked" : "Bookmark"}
   </button>
 );
 
+BookmarkButton.propTypes = {
+  isBookmarked: PropTypes.bool.isRequired,
+  toggleBookmark: PropTypes.func.isRequired,
+};
+
 const FacultyIdCard = ({ faculty, placeholderImage }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const router = useRouter();
+  const facultyEmail = faculty?.personal_info?.email;
 
   useEffect(() => {
-    if (!faculty?.personal_info?.email) return;
+    if (!facultyEmail || typeof window === "undefined") return;
+    let currentBookmarks = [];
     try {
-      const bookmarks =
-        JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
-      setIsBookmarked(bookmarks.includes(faculty.personal_info.email));
-    } catch (error) {
-      console.error("Error reading from localStorage:", error);
-    }
-  }, [faculty?.personal_info?.email]);
-
-  const toggleBookmark = () => {
-    try {
-      const bookmarks =
-        JSON.parse(localStorage.getItem("bookmarkedFaculty")) || [];
-      if (isBookmarked) {
-        const updatedBookmarks = bookmarks.filter(
-          (email) => email !== faculty?.personal_info?.email
-        );
-        localStorage.setItem("c", JSON.stringify(updatedBookmarks));
-        setIsBookmarked(false);
-      } else {
-        bookmarks.push(faculty?.personal_info?.email);
-        localStorage.setItem("bookmarkedFaculty", JSON.stringify(bookmarks));
-        setIsBookmarked(true);
+      const storedBookmarks = localStorage.getItem("bookmarkedFaculty");
+      if (storedBookmarks) {
+        currentBookmarks = JSON.parse(storedBookmarks);
       }
     } catch (error) {
-      console.error("Error interacting with localStorage:", error);
+      console.error("Error reading bookmarks from localStorage:", error);
     }
-  };
+    setIsBookmarked(currentBookmarks.includes(facultyEmail));
+  }, [facultyEmail]);
 
-  const handleShare = () => {
-    const shareText = `Check out this faculty profile: ${faculty?.personal_info?.first_name} ${faculty?.personal_info?.last_name}`;
-    const shareUrl = window.location.href;
+  const toggleBookmark = useCallback(() => {
+    if (!facultyEmail || typeof window === "undefined") return;
+
+    let currentBookmarks = [];
+    try {
+      const storedBookmarks = localStorage.getItem("bookmarkedFaculty");
+      if (storedBookmarks) {
+        currentBookmarks = JSON.parse(storedBookmarks);
+      }
+    } catch (error) {
+      console.error("Error reading bookmarks from localStorage:", error);
+      return;
+    }
+
+    let updatedBookmarks;
+    const currentlyBookmarked = currentBookmarks.includes(facultyEmail);
+
+    if (currentlyBookmarked) {
+      updatedBookmarks = currentBookmarks.filter(
+        (email) => email !== facultyEmail
+      );
+      setIsBookmarked(false);
+    } else {
+      updatedBookmarks = [...currentBookmarks, facultyEmail];
+      setIsBookmarked(true);
+    }
+
+    try {
+      localStorage.setItem(
+        "bookmarkedFaculty",
+        JSON.stringify(updatedBookmarks)
+      );
+    } catch (error) {
+      console.error("Error saving bookmarks to localStorage:", error);
+      setIsBookmarked(currentlyBookmarked);
+    }
+  }, [facultyEmail]);
+
+  const handleShare = useCallback(async () => {
+    if (!faculty?.personal_info) return;
+    const { first_name = "", last_name = "" } = faculty.personal_info;
+    const name = `${first_name} ${last_name}`.trim() || "Faculty";
+    const shareText = `Check out ${name}'s profile.`;
+
+    const profilePath = facultyEmail
+      ? `/faculty/${encodeURIComponent(facultyEmail)}`
+      : window.location.pathname;
+    const shareUrl = `${window.location.origin}${profilePath}`;
 
     if (navigator.share) {
-      navigator
-        .share({
-          title: "Faculty Profile",
+      try {
+        await navigator.share({
+          title: `${name} - Faculty Profile`,
           text: shareText,
           url: shareUrl,
-        })
-        .catch((error) => console.error("Sharing failed:", error));
-    } else {
-      navigator.clipboard
-        .writeText(`${shareText}\n${shareUrl}`)
-        .then(() => {
-          alert("Profile link copied to clipboard!");
-        })
-        .catch(() => {
-          alert("Unable to copy profile link.");
         });
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Sharing failed:", error);
+        }
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
+        alert("Profile link copied to clipboard!");
+      } catch (error) {
+        console.error("Clipboard write failed:", error);
+        alert("Unable to copy profile link.");
+      }
     }
-  };
+  }, [faculty, facultyEmail]);
 
-  const handleViewProfile = () => {
-    const profileUrl = `/faculty/${faculty?.personal_info?.email}`;
-    window.location.href = profileUrl;
-  };
+  const handleViewProfile = useCallback(() => {
+    if (facultyEmail) {
+      router.push(`/faculty/${encodeURIComponent(facultyEmail)}`);
+    } else {
+      console.warn("Cannot view profile, faculty email is missing.");
+    }
+  }, [facultyEmail, router]);
 
-  const { first_name, last_name, email, contact, room, department } =
+  const { first_name, last_name, email, contact } =
     faculty?.personal_info || {};
+  const { room, department } = faculty?.job_info || {};
 
-  const handleEmailClick = () => {
+  const handleEmailClick = useCallback(() => {
+    if (!email) return;
+    const name = `${first_name || ""} ${last_name || ""}`.trim();
     if (
       window.confirm(
-        `Are you sure you want to send an email to ${first_name} ${last_name}?`
+        `Are you sure you want to send an email to ${name || "this faculty"}?`
       )
     ) {
       window.location.href = `mailto:${email}`;
     }
-  };
+  }, [email, first_name, last_name]);
 
-  const handleCallClick = () => {
+  const handleCallClick = useCallback(() => {
+    if (!contact) return;
+    const name = `${first_name || ""} ${last_name || ""}`.trim();
     if (
-      window.confirm(
-        `Are you sure you want to call ${first_name} ${last_name}?`
-      )
+      window.confirm(`Are you sure you want to call ${name || "this faculty"}?`)
     ) {
       window.location.href = `tel:${contact}`;
     }
-  };
+  }, [contact, first_name, last_name]);
+
+  const fullName = useMemo(
+    () => `${first_name || ""} ${last_name || ""}`.trim() || "Faculty Member",
+    [first_name, last_name]
+  );
 
   return (
-    <div className="faculty-card" role="button">
+    <div className="faculty-card">
       <FacultyImage
         image={faculty?.image}
         placeholderImage={placeholderImage}
-        altText={`${first_name || "No Name"}'s profile picture`}
+        altText={`${fullName}'s profile picture`}
       />
-      <h2 className="faculty-card__name">
-        {first_name || "No Name"} {last_name || ""}
-      </h2>
+      <h2 className="faculty-card__name">{fullName}</h2>
 
       <div className="faculty-card__info">
-        <div className="faculty-card__info-group">
+        {email && (
           <FacultyDetails
             icon="📧"
             value={email}
             onClick={handleEmailClick}
-            tooltipText="Click to send email"
+            tooltipText={`Send email to ${fullName}`}
+            ariaLabel={`Send email to ${fullName} (${email})`}
           />
-        </div>
-
-        <div className="faculty-card__info-group">
+        )}
+        {contact && (
           <FacultyDetails
             icon="📞"
             value={contact}
             onClick={handleCallClick}
-            tooltipText="Click to call"
+            tooltipText={`Call ${fullName}`}
+            ariaLabel={`Call ${fullName} (${contact})`}
           />
-        </div>
-
-        <div className="faculty-card__info-group">
-          <FacultyDetails icon="📍" value={room} tooltipText="Room" />
+        )}
+        {room && (
+          <FacultyDetails
+            icon="📍"
+            value={room}
+            tooltipText="Room Number"
+            ariaLabel={`Room number ${room}`}
+          />
+        )}
+        {department && (
           <FacultyDetails
             icon="🏛️"
-            value={department || "Not Assigned"}
+            value={department}
             tooltipText="Department"
+            ariaLabel={`Department ${department}`}
           />
-        </div>
+        )}
       </div>
 
       <div className="faculty-card__actions">
-        <BookmarkButton
-          isBookmarked={isBookmarked}
-          toggleBookmark={toggleBookmark}
-        />
+        {facultyEmail && (
+          <BookmarkButton
+            isBookmarked={isBookmarked}
+            toggleBookmark={toggleBookmark}
+          />
+        )}
         <button
           onClick={handleShare}
           className="faculty-card__share-button"
-          aria-label="Share Profile"
+          aria-label={`Share ${fullName}'s Profile`}
+          type="button"
         >
-          Share Profile
+          Share
         </button>
-        <button
-          onClick={handleViewProfile}
-          className="faculty-card__view-profile-button"
-          aria-label="View Profile"
-        >
-          View Profile
-        </button>
+        {facultyEmail && (
+          <button
+            onClick={handleViewProfile}
+            className="faculty-card__view-profile-button"
+            aria-label={`View ${fullName}'s Profile`}
+            type="button"
+          >
+            View Profile
+          </button>
+        )}
       </div>
     </div>
   );
@@ -208,8 +317,6 @@ FacultyIdCard.propTypes = {
       last_name: PropTypes.string,
       email: PropTypes.string,
       contact: PropTypes.string,
-      room: PropTypes.string,
-      department: PropTypes.string,
     }).isRequired,
     job_info: PropTypes.shape({
       room: PropTypes.string,
@@ -217,6 +324,13 @@ FacultyIdCard.propTypes = {
     }),
   }).isRequired,
   placeholderImage: PropTypes.string.isRequired,
+};
+
+FacultyIdCard.defaultProps = {
+  faculty: {
+    personal_info: {},
+    job_info: {},
+  },
 };
 
 export default FacultyIdCard;
