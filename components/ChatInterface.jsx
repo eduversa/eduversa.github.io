@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import Chatbot from "./Chatbot";
+import Chatbot from "./Chatbot/Chatbot";
 
 function ChatInterface() {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
+    if (isChatOpen && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
   };
 
   const iconStyle = {

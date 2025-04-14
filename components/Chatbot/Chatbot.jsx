@@ -1,4 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import ChatBody from "./ChatBody";
+import ChatInputForm from "./ChatInputForm";
 
 function Chatbot() {
   const [userInput, setUserInput] = useState("");
@@ -7,15 +9,130 @@ function Chatbot() {
   const [error, setError] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
-  const fileInputRef = useRef(null);
-  const chatBodyRef = useRef(null); // Ref for scrolling
 
-  // Scroll to bottom effect
-  React.useEffect(() => {
+  const fileInputRef = useRef(null);
+  const chatBodyRef = useRef(null);
+
+  const [isListening, setIsListening] = useState(false);
+  const [sttError, setSttError] = useState(null);
+  const recognitionRef = useRef(null);
+
+  const [isTtsEnabled, setIsTtsEnabled] = useState(true);
+  const [ttsError, setTtsError] = useState(null);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognitionSupported = !!SpeechRecognition;
+  const synthesisSupported = "speechSynthesis" in window;
+
+  useEffect(() => {
     if (chatBodyRef.current) {
       chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
     }
-  }, [chatHistory, isLoading, error, imagePreviewUrl]);
+  }, [
+    chatHistory,
+    isLoading,
+    error,
+    imagePreviewUrl,
+    sttError,
+    ttsError,
+    isSpeaking,
+  ]);
+
+  const speakText = useCallback(
+    (text) => {
+      if (!synthesisSupported || !isTtsEnabled || isSpeaking || !text) {
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.onstart = () => {
+        setIsSpeaking(true);
+        setTtsError(null);
+      };
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = (event) => {
+        console.error("SpeechSynthesis Error:", event.error);
+        setTtsError(`Speech error: ${event.error}`);
+        setIsSpeaking(false);
+      };
+      window.speechSynthesis.speak(utterance);
+    },
+    [synthesisSupported, isTtsEnabled, isSpeaking]
+  );
+
+  const toggleTts = () => {
+    if (!synthesisSupported) {
+      setTtsError("Text-to-Speech is not supported in your browser.");
+      return;
+    }
+    setIsTtsEnabled((prev) => {
+      const newState = !prev;
+      if (!newState) {
+        window.speechSynthesis.cancel();
+        setIsSpeaking(false);
+      }
+      return newState;
+    });
+    setTtsError(null);
+  };
+
+  const handleListen = () => {
+    if (!recognitionSupported) {
+      setSttError("Speech Recognition is not supported.");
+      return;
+    }
+    if (isListening) {
+      recognitionRef.current?.stop();
+    } else {
+      try {
+        setSttError(null);
+        if (synthesisSupported) window.speechSynthesis.cancel();
+        setIsSpeaking(false);
+
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        recognition.onstart = () => setIsListening(true);
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          setUserInput(transcript);
+        };
+        recognition.onerror = (event) => {
+          console.error("SpeechRecognition Error:", event.error);
+          let errorMessage = `Speech error: ${event.error}`;
+          if (event.error === "not-allowed") {
+            errorMessage = "Microphone access denied.";
+          } else if (event.error === "no-speech") {
+            errorMessage = "No speech detected.";
+          }
+          setSttError(errorMessage);
+          setIsListening(false);
+        };
+        recognition.onend = () => {
+          setIsListening(false);
+          recognitionRef.current = null;
+        };
+        recognition.start();
+        recognitionRef.current = recognition;
+      } catch (err) {
+        console.error("Failed to start recognition:", err);
+        setSttError("Failed to start microphone.");
+        setIsListening(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      recognitionRef.current?.abort();
+      if (synthesisSupported) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, [synthesisSupported]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -25,7 +142,6 @@ function Chatbot() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreviewUrl(reader.result);
-        setError("Image selected. Ready to send.");
       };
       reader.onerror = () => {
         console.error("Error reading file");
@@ -56,7 +172,12 @@ function Chatbot() {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    if ((!userInput.trim() && !imageFile) || isLoading) return;
+    if ((!userInput.trim() && !imageFile) || isLoading || isListening) return;
+
+    recognitionRef.current?.abort();
+    if (synthesisSupported) window.speechSynthesis.cancel();
+    setIsListening(false);
+    setIsSpeaking(false);
 
     const userMessageText = userInput;
     const attachedImageDataUrl = imagePreviewUrl;
@@ -66,10 +187,10 @@ function Chatbot() {
       parts: [{ text: userMessageText || "(Image attached)" }],
       ...(attachedImageDataUrl && { imagePreview: attachedImageDataUrl }),
     };
-    // Use functional update to get latest history for API call
+
     let historyForApi = [];
     setChatHistory((prev) => {
-      historyForApi = prev; // Capture history *before* adding new user message
+      historyForApi = prev;
       return [...prev, newUserMessage];
     });
 
@@ -77,6 +198,8 @@ function Chatbot() {
     setImageFile(null);
     setImagePreviewUrl(null);
     setError(null);
+    setSttError(null);
+    setTtsError(null);
     setIsLoading(true);
 
     try {
@@ -87,7 +210,7 @@ function Chatbot() {
         },
         body: JSON.stringify({
           question: userMessageText,
-          history: historyForApi, // Send history *before* new user message
+          history: historyForApi,
           imageDataUrl: attachedImageDataUrl,
         }),
       });
@@ -99,13 +222,12 @@ function Chatbot() {
 
       const data = await response.json();
       const modelMessage = { role: "model", parts: [{ text: data.answer }] };
-      setChatHistory((prev) => [...prev, modelMessage]); // Add model response
+      setChatHistory((prev) => [...prev, modelMessage]);
+
+      speakText(data.answer);
     } catch (err) {
+      console.error("Send Message Error:", err);
       setError(err.message);
-      setChatHistory((prev) => [
-        ...prev,
-        { role: "model", parts: [{ text: `Error: ${err.message}` }] },
-      ]);
     } finally {
       setIsLoading(false);
     }
@@ -116,201 +238,45 @@ function Chatbot() {
       style={{
         display: "flex",
         flexDirection: "column",
-        height: "100%", // Fill the modal container
+        height: "100%",
         backgroundColor: "#fff",
       }}
     >
-      {/* Removed fixed sizing, relies on modalStyle now */}
-      <div
-        ref={chatBodyRef}
-        style={{
-          flexGrow: 1,
-          overflowY: "auto",
-          padding: "10px 10px 20px 10px",
-          marginTop: "40px",
-        }} // Added margin top for close button
-      >
-        {chatHistory.map((message, index) => (
-          <div
-            key={index}
-            style={{
-              marginBottom: "10px",
-              textAlign: message.role === "user" ? "right" : "left",
-              display: "flex", // Use flex for alignment
-              justifyContent:
-                message.role === "user" ? "flex-end" : "flex-start",
-            }}
-          >
-            <span
-              style={{
-                background: message.role === "user" ? "#007bff" : "#e9ecef", // Adjusted colors
-                color: message.role === "user" ? "white" : "black",
-                padding: "8px 12px",
-                borderRadius: "15px", // More rounded
-                display: "inline-block",
-                maxWidth: "80%",
-                wordWrap: "break-word",
-                textAlign: "left",
-              }}
-            >
-              {message.imagePreview && (
-                <img
-                  src={message.imagePreview}
-                  alt="Attached"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    display: "block",
-                    marginBottom:
-                      message.parts[0].text &&
-                      message.parts[0].text !== "(Image attached)"
-                        ? "5px"
-                        : "0",
-                    borderRadius: "8px",
-                  }}
-                /> // Rounded image corners
-              )}
-              {message.parts[0].text !== "(Image attached)" &&
-                message.parts[0].text}
-            </span>
-          </div>
-        ))}
-        {isLoading && (
-          <div style={{ textAlign: "center", color: "#888", padding: "10px" }}>
-            Thinking...
-          </div>
-        )}
-        {error && !isLoading && (
-          <div
-            style={{
-              color: "red",
-              textAlign: "center",
-              padding: "5px 10px",
-              fontSize: "0.9em",
-            }}
-          >
-            {error}
-          </div>
-        )}
-        {imagePreviewUrl &&
-          !isLoading &&
-          !error && ( // Show preview only if no error after selection
-            <div
-              style={{
-                textAlign: "center",
-                padding: "10px",
-                position: "relative",
-                background: "#f8f9fa",
-                margin: "10px 0",
-                borderRadius: "8px",
-              }}
-            >
-              <img
-                src={imagePreviewUrl}
-                alt="Selected Preview"
-                style={{
-                  maxWidth: "50%",
-                  maxHeight: "100px",
-                  height: "auto",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                }}
-              />
-              <button
-                onClick={removeImage}
-                style={{
-                  position: "absolute",
-                  top: "5px",
-                  right: "5px",
-                  background: "rgba(0,0,0,0.5)",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "50%",
-                  width: "20px",
-                  height: "20px",
-                  cursor: "pointer",
-                  lineHeight: "20px",
-                  fontSize: "12px",
-                  padding: 0,
-                }}
-              >
-                X
-              </button>
-              <div
-                style={{ fontSize: "0.8em", color: "green", marginTop: "5px" }}
-              >
-                Image ready to send
-              </div>
-            </div>
-          )}
-      </div>
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleImageChange}
+        style={{ display: "none" }}
+        accept="image/*"
+      />
 
-      <form
-        onSubmit={handleSendMessage}
-        style={{
-          display: "flex",
-          padding: "10px",
-          borderTop: "1px solid #ccc",
-          alignItems: "center",
-          background: "#f8f9fa",
-        }}
-      >
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleImageChange}
-          style={{ display: "none" }}
-          accept="image/*"
-        />
-        <button
-          type="button"
-          onClick={triggerFileInput}
-          disabled={isLoading}
-          title="Attach Image"
-          style={{
-            padding: "8px",
-            marginRight: "8px",
-            background: imageFile ? "#28a745" : "#6c757d",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            lineHeight: "1",
-            fontSize: "1.2em",
-          }}
-        >
-          📎
-        </button>
-        <input
-          type="text"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          placeholder="Ask a question or describe image..."
-          style={{
-            flexGrow: 1,
-            padding: "10px",
-            border: "1px solid #ccc",
-            borderRadius: "20px", // Pill shape
-            marginRight: "8px",
-          }}
-          disabled={isLoading}
-        />
-        <button
-          type="submit"
-          disabled={isLoading || (!userInput.trim() && !imageFile)}
-          style={{
-            padding: "10px 15px",
-            background: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "20px", // Pill shape
-            cursor: "pointer",
-            opacity: isLoading || (!userInput.trim() && !imageFile) ? 0.6 : 1,
-          }}
-        >
-          {isLoading ? "..." : "Send"}
-        </button>
-      </form>
+      <ChatBody
+        chatHistory={chatHistory}
+        isLoading={isLoading}
+        isSpeaking={isSpeaking}
+        error={error}
+        sttError={sttError}
+        ttsError={ttsError}
+        imagePreviewUrl={imagePreviewUrl}
+        removeImage={removeImage}
+        chatBodyRef={chatBodyRef}
+      />
+
+      <ChatInputForm
+        userInput={userInput}
+        setUserInput={setUserInput}
+        handleSendMessage={handleSendMessage}
+        isLoading={isLoading}
+        isListening={isListening}
+        isSpeaking={isSpeaking}
+        isTtsEnabled={isTtsEnabled}
+        imageFile={imageFile}
+        triggerFileInput={triggerFileInput}
+        handleListen={handleListen}
+        toggleTts={toggleTts}
+        recognitionSupported={recognitionSupported}
+        synthesisSupported={synthesisSupported}
+      />
     </div>
   );
 }
