@@ -38,3 +38,6 @@ export { default as FacultyIdCard } from "./IdCards/FacultyIdCard";
 export { default as ApplicantIdCard } from "./IdCards/ApplicantIdCard";
 export { default as StudentIdCard } from "./IdCards/StudentIdCard";
 export { default as UserCard } from "./IdCards/UserCard";
+
+// Chatbot Components
+export { default as ChatInterface } from "./ChatInterface";

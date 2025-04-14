@@ -2,7 +2,7 @@ import { Fragment, useEffect, useRef } from "react";
 import { LandingNavbar, LandingPage, ChatBot } from "@/containers";
 import { useRouter } from "next/router";
 // import Chatbot from "@/components/Chatbot/Chatbot";
-import ChatInterface from "@/components/Chatbot/ChatInterface";
+import { ChatInterface } from "@/components";
 function LandingLayout({ children }) {
   const router = useRouter();
   const hasLogged = useRef(false);
