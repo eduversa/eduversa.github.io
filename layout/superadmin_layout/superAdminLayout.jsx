@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { Navbar, Footer, ChatBot } from "@/containers";
-
+import { Navbar, Footer } from "@/containers";
+import ChatBot from "../../components/ChatBot/index";
 function SuperAdminLayout({ children }) {
   const router = useRouter();
   const hasLogged = useRef(false);

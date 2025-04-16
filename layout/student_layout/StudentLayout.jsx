@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { Footer, Navbar, ChatBot } from "@/containers";
-
+import { Footer, Navbar } from "@/containers";
+import ChatBot from "../../components/ChatBot/index";
 function StudentLayout({ children }) {
   const router = useRouter();
 
