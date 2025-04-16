@@ -54,6 +54,12 @@ const AcademicInfo = ({
   
     const data = JSON.stringify(formData.academic_info);
 
+    if (selected_user_type === "student") {
+      localStorage.setItem("student_profile", JSON.stringify(formData));
+      showAlert("Student data updated");
+      return true;
+    }
+
     const secondaryMarksObject = formData.academic_info?.secondary?.marks;
     if (Object.keys(secondaryMarksObject || {}).length === 0) {
       showAlert("Please enter subject marks for Secondary Education");

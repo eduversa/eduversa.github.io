@@ -91,6 +91,13 @@ const FileUpload = ({
     //   data.append("image", formData.image);
     // }
     data.append("image", formData.image);
+
+    if (selected_user_type === "student") {
+      localStorage.setItem("student_profile", JSON.stringify(formData));
+      showAlert("Student data updated");
+      return true;
+    }
+
     const fileType = 'image-file';
     const wrappedApiRequest = withLoading(
       apiRequest, 
