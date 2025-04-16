@@ -4,7 +4,7 @@ import {
   HarmBlockThreshold,
 } from "@google/generative-ai";
 import { SPECIAL_ACTIONS } from "../../components/ChatBot/lib/constants";
-import systemInstructionData from "../../data/systemInstruction.json";
+import systemInstructionData from "../../data/systemInstruction.json"; // Using your specified import path
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
@@ -65,12 +65,15 @@ export default async function handler(req, res) {
             .json({ error: "Cannot summarize empty history." });
         }
         console.log("Executing Summarize Action");
-        const summaryPrompt = `Based *only* on the provided Eduversa project context (if relevant to the conversation, context provided separately), summarize the following chat history concisely:\n\n${JSON.stringify(
+        // The summary prompt might still benefit from the overall context,
+        // including the strict boundaries defined in baseSystemInstruction.
+        const summaryPrompt = `Summarize the following chat history concisely, focusing only on topics related to the Eduversa project if mentioned:\n\n${JSON.stringify(
           history,
           null,
           2
         )}`;
         const model = genAI.getGenerativeModel(modelConfig);
+        // Prepend base instruction to ensure summary also respects context boundaries if needed
         const result = await model.generateContent(
           `${baseSystemInstruction}\n${summaryPrompt}`
         );
@@ -80,7 +83,7 @@ export default async function handler(req, res) {
           const blockReason = response.promptFeedback.blockReason;
           console.warn("Summarization blocked:", blockReason);
           return res.status(400).json({
-            error: `Summarization blocked due to safety settings: ${blockReason}`,
+            error: `Sorry, I couldn't generate the summary due to safety constraints (${blockReason}).`,
           });
         }
 
@@ -95,13 +98,14 @@ export default async function handler(req, res) {
       console.warn("Missing question and image data.");
       return res
         .status(400)
-        .json({ error: "Question or Image is required for Q&A." });
+        .json({ error: "Please provide a question or an image." });
     }
 
     console.log("Processing Q&A Request");
     let specificInstruction = "";
     const userQueryText = question || "";
 
+    // These specific instructions remain relevant for guiding the analysis *within* scope
     if (userQueryText && imageDataUrl) {
       specificInstruction = `INSTRUCTION: Analyze the user's query: "${userQueryText}". Use the attached image ONLY for visual context or details *directly relevant* to this query and the Eduversa project context. Synthesize this information, ensuring statements about Eduversa features, processes, data, or policies strictly adhere ONLY to the Eduversa Project Text Context provided above. Do NOT infer Eduversa functionality solely from the image if it contradicts or isn't mentioned in the text context. If the image is irrelevant, state that and focus on the text query based on the context.`;
     } else if (!userQueryText && imageDataUrl) {
@@ -110,6 +114,7 @@ export default async function handler(req, res) {
       specificInstruction = `INSTRUCTION: Answer the following user query based *only* on the Eduversa Project Text Context provided above: "${userQueryText}"`;
     }
 
+    // Combine the strict base instructions with the specific task instruction
     const finalPromptText = `${baseSystemInstruction}\n${specificInstruction}`;
     const promptParts = [{ text: finalPromptText }];
 
@@ -156,29 +161,42 @@ export default async function handler(req, res) {
 
       try {
         const result = await chat.sendMessageStream(promptParts);
+        let blocked = false;
 
         for await (const chunk of result.stream) {
-          const chunkText = chunk.text();
-          if (chunkText) {
-            res.write(`${chunkText}`);
-            if (typeof res.flush === "function") {
-              res.flush();
-            }
-          }
-
           if (chunk.promptFeedback?.blockReason) {
             const blockReason = chunk.promptFeedback.blockReason;
             console.warn("Stream blocked mid-way:", blockReason);
-            res.write(`\n[STREAM BLOCKED: ${blockReason}]`);
-            if (typeof res.flush === "function") res.flush();
+            if (!blocked) {
+              res.write(
+                `\n[My apologies, I couldn't complete the response due to safety guidelines (${blockReason}). Please try rephrasing.]`
+              );
+              if (typeof res.flush === "function") res.flush();
+              blocked = true;
+            }
+            continue;
+          }
+
+          if (!blocked) {
+            const chunkText = chunk.text();
+            if (chunkText) {
+              res.write(`${chunkText}`);
+              if (typeof res.flush === "function") {
+                res.flush();
+              }
+            }
           }
         }
 
-        const finalResponse = await result.response;
-        if (finalResponse.promptFeedback?.blockReason) {
-          const blockReason = finalResponse.promptFeedback.blockReason;
-          console.warn("Final response blocked:", blockReason);
-          res.write(`\n[RESPONSE BLOCKED: ${blockReason}]`);
+        if (!blocked) {
+          const finalResponse = await result.response;
+          if (finalResponse.promptFeedback?.blockReason) {
+            const blockReason = finalResponse.promptFeedback.blockReason;
+            console.warn("Final response blocked:", blockReason);
+            res.write(
+              `\n[My apologies, the final response was blocked due to safety guidelines (${blockReason}). Please try rephrasing.]`
+            );
+          }
         }
 
         console.log("Stream finished.");
@@ -188,7 +206,7 @@ export default async function handler(req, res) {
         if (!res.writableEnded) {
           const errorMessage =
             error.message || "Failed to generate streaming response";
-          res.write(`\n[ERROR: ${errorMessage}]`);
+          res.write(`\n[An error occurred: ${errorMessage}]`);
           res.end();
         }
       }
@@ -201,11 +219,13 @@ export default async function handler(req, res) {
         const blockReason = response.promptFeedback.blockReason;
         console.warn("Request blocked:", blockReason);
         return res.status(400).json({
-          error: `Request blocked due to safety settings: ${blockReason}. Please rephrase or remove potentially harmful content/image.`,
+          error: `I'm sorry, but I cannot provide a response due to safety guidelines (${blockReason}). Could you please rephrase your request?`,
         });
       }
 
       const text = response.text();
+      // With the strictest instructions, the 'text' variable should now contain
+      // refusals that align with the examples, avoiding mention of the source document.
       console.log("Non-streaming response successful.");
       return res.status(200).json({ answer: text });
     }
@@ -220,20 +240,10 @@ export default async function handler(req, res) {
         .status(500)
         .json({ error: "Server configuration error: Invalid API Key." });
     }
-    if (error.response && error.response.promptFeedback) {
-      const blockReason = error.response.promptFeedback.blockReason;
-      console.error(
-        "Safety Feedback Error on non-stream generateContent:",
-        error.response.promptFeedback
-      );
-      return res.status(400).json({
-        error: `Request blocked due to safety settings: ${blockReason}.`,
-        details: JSON.stringify(error.response.promptFeedback),
-      });
-    }
-
     return res
       .status(500)
-      .json({ error: `Internal Server Error. Please check server logs.` });
+      .json({
+        error: `An internal server error occurred. Please check server logs.`,
+      });
   }
 }
