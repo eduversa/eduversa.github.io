@@ -1,0 +1,39 @@
+.iconButtonWrapper {
+  display: inline-block;
+}
+
+.iconButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  margin: 0 4px;
+  border-radius: 50rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white-13);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  height: 100%;
+  width: 100%;
+
+  &:hover:not(:disabled) {
+    background-color: var(--white-8);
+    color: var(--light-black-5);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--blue-1);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.iconButtonWrapper.active > .iconButton {
+  color: var(--blue-1);
+  background-color: var(--white-shadow-light);
+}

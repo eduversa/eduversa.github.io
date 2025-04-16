@@ -112,7 +112,13 @@ const CourseInfo = ({
     }
   
     const data = JSON.stringify(formData.course_info);
-    
+
+    if (selected_user_type === "student") {
+      localStorage.setItem("student_profile", JSON.stringify(formData));
+      showAlert("Student data updated");
+      return true;
+    }
+
     const wrappedApiRequest = withLoading(
       apiRequest, 
       setLoading, 

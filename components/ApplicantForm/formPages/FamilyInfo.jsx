@@ -66,7 +66,11 @@ const FamilyInfo = ({
             handleChange({ target: { name: "family_info.guardian", value: updatedGuardianInfo } });
         }
     }
-  }, [formData.family_info, handleChange]);
+    if (selected_user_type === "student") {
+      handleChange({ target: { name: "family_info.guardian.email", value: "guardian@mail.com"}});
+      handleChange({ target: { name: "family_info.guardian.contact", value: "8485468546"}});
+    }
+  }, [formData.family_info, handleChange, selected_user_type]);
   
 
   async function onSubmitHandler() {
@@ -91,7 +95,13 @@ const FamilyInfo = ({
     }
   
     const data = JSON.stringify(formData.family_info);
-    
+
+    if (selected_user_type === "student") {
+      localStorage.setItem("student_profile", JSON.stringify(formData));
+      showAlert("Student data updated");
+      return true;
+    }
+
     const wrappedApiRequest = withLoading(
       apiRequest, 
       setLoading, 
