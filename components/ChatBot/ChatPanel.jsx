@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
-import { flushSync } from "react-dom"; // Only needed if using flushSync debug
+import { flushSync } from "react-dom";
 import styles from "./ChatBot.module.scss";
 
 import ChatHeader from "./components/ChatHeader/ChatHeader";
@@ -13,6 +13,87 @@ import useSpeechSynthesis from "./hooks/useSpeechSynthesis";
 import { sendMessageToApi, sendActionToApi } from "./lib/apiClient";
 import { formatChatForExport, generateMessageId } from "./lib/chatUtils";
 import { SPECIAL_ACTIONS } from "./lib/constants";
+
+function generateQuickReplies(responseText) {
+  const replies = [];
+  const lowerText = responseText.toLowerCase();
+
+  if (
+    lowerText.includes("register") ||
+    lowerText.includes("sign up") ||
+    lowerText.includes("applicant portal")
+  ) {
+    replies.push({
+      label: "How do I recover my password?",
+      action: "query",
+      value: "How do I recover my password?",
+    });
+    replies.push({
+      label: "Where do I update my profile?",
+      action: "query",
+      value: "Where do I update my profile?",
+    });
+  } else if (
+    lowerText.includes("password recovery") ||
+    lowerText.includes("forgot password")
+  ) {
+    replies.push({
+      label: "How do I recover my username?",
+      action: "query",
+      value: "How do I recover my username?",
+    });
+    replies.push({
+      label: "Take me to the login page",
+      action: "query",
+      value: "Where is the login page?",
+    }); // Assuming 'link' action isn't implemented yet
+  } else if (
+    lowerText.includes("update profile") ||
+    lowerText.includes("applicant dashboard")
+  ) {
+    replies.push({
+      label: "What details can I update?",
+      action: "query",
+      value: "What details can I update in my profile?",
+    });
+    replies.push({
+      label: "How long does verification take?",
+      action: "query",
+      value: "How long does applicant verification take?",
+    });
+  } else if (
+    lowerText.includes("routine management") ||
+    lowerText.includes("class schedule")
+  ) {
+    replies.push({
+      label: "Who can manage routines?",
+      action: "query",
+      value: "Who can manage routines?",
+    });
+    replies.push({
+      label: "How do students view routines?",
+      action: "query",
+      value: "How do students view routines?",
+    });
+  } else if (
+    lowerText.includes("cannot answer") ||
+    lowerText.includes("outside my scope") ||
+    lowerText.includes("my focus is strictly")
+  ) {
+    replies.push({
+      label: "What topics can you help with?",
+      action: "query",
+      value: "What topics can you help with?",
+    });
+    replies.push({
+      label: "Summarize the chat",
+      action: "summarize",
+      value: "Summarize",
+    }); // Example of a different action type
+  }
+
+  return replies.slice(0, 3); // Limit to max 3 replies for UI
+}
 
 function ChatPanel({ isOpen, onClose }) {
   const [userInput, setUserInput] = useState("");
@@ -124,115 +205,164 @@ function ChatPanel({ isOpen, onClose }) {
     }
   };
 
+  const processAndSendMessage = useCallback(
+    async (messageText, imagePreviewDataUrl = null) => {
+      if (
+        (!messageText.trim() && !imagePreviewDataUrl) ||
+        isLoading ||
+        isListening
+      )
+        return;
+
+      cancelCurrentRequest();
+      stopListening();
+      cancelSpeech();
+      setApiError(null);
+      setSttError(null);
+      setTtsError(null);
+
+      const historyForApi = historyRef.current.map(({ role, parts }) => ({
+        role,
+        parts,
+      }));
+
+      const newUserMessage = {
+        id: generateMessageId(),
+        role: "user",
+        parts: [
+          {
+            text:
+              messageText || (imagePreviewDataUrl ? "(Image attached)" : ""),
+          },
+        ],
+        ...(imagePreviewDataUrl && { imagePreview: imagePreviewDataUrl }),
+        timestamp: new Date().toISOString(),
+      };
+
+      setIsLoading(true);
+      setLoadingMessage("Connecting to EduversaBot...");
+
+      setUserInput("");
+      setImageFile(null);
+      setImagePreviewUrl(null);
+
+      currentAbortController.current = new AbortController();
+      const signal = currentAbortController.current.signal;
+
+      let accumulatedResponse = "";
+      let hasReceivedData = false;
+
+      await sendMessageToApi({
+        question: messageText,
+        history: historyForApi,
+        imageDataUrl: imagePreviewDataUrl,
+        signal: signal,
+        onStreamData: (chunk) => {
+          setLoadingMessage("Receiving response...");
+          accumulatedResponse += chunk;
+          hasReceivedData = true;
+        },
+        onStreamEnd: (finalAccumulatedText, aborted = false) => {
+          setIsLoading(false);
+          setLoadingMessage("");
+          currentAbortController.current = null;
+
+          const responseText = aborted
+            ? accumulatedResponse + " [Aborted]"
+            : accumulatedResponse;
+          const finalMessageText =
+            responseText || (aborted ? "[Response aborted]" : "[No response]");
+
+          if (hasReceivedData || !aborted) {
+            const modelMessageId = generateMessageId();
+            const quickReplies = generateQuickReplies(finalMessageText); // Generate quick replies
+            const newModelMessage = {
+              id: modelMessageId,
+              role: "model",
+              parts: [{ text: finalMessageText }],
+              timestamp: new Date().toISOString(),
+              feedback: null,
+              ...(quickReplies.length > 0 && { quickReplies }), // Add quick replies if any
+            };
+            setChatHistory((prev) => [
+              ...prev,
+              newUserMessage,
+              newModelMessage,
+            ]);
+
+            if (
+              !aborted &&
+              isTtsEnabled &&
+              finalMessageText &&
+              finalMessageText !== "[No response]" &&
+              finalMessageText !== "[Response aborted]"
+            ) {
+              speakText(finalMessageText);
+            }
+          } else {
+            setChatHistory((prev) => [...prev, newUserMessage]);
+          }
+        },
+        onStreamError: (error) => {
+          setIsLoading(false);
+          setLoadingMessage("");
+          currentAbortController.current = null;
+          setApiError(`Error: ${error.message || "Failed to get response"}`);
+
+          const errorMsgId = generateMessageId();
+          const errorModelMessage = {
+            id: errorMsgId,
+            role: "model",
+            parts: [{ text: `Sorry, an error occurred: ${error.message}` }],
+            timestamp: new Date().toISOString(),
+            isError: true,
+          };
+          setChatHistory((prev) => [
+            ...prev,
+            newUserMessage,
+            errorModelMessage,
+          ]);
+        },
+      });
+    },
+    [
+      isLoading,
+      isListening,
+      historyRef,
+      isTtsEnabled,
+      cancelCurrentRequest,
+      stopListening,
+      cancelSpeech,
+      speakText,
+      setChatHistory,
+    ]
+  ); // Added dependencies
+
   const handleSendMessage = async (e) => {
     if (e) e.preventDefault();
-    if ((!userInput.trim() && !imageFile) || isLoading || isListening) return;
-
-    cancelCurrentRequest();
-    stopListening();
-    cancelSpeech();
-    setApiError(null);
-    setSttError(null);
-    setTtsError(null);
-
-    const userMessageText = userInput;
-    const attachedImageDataUrl = imagePreviewUrl;
-
-    const historyForApi = historyRef.current.map(({ role, parts }) => ({
-      role,
-      parts,
-    }));
-
-    const newUserMessage = {
-      id: generateMessageId(),
-      role: "user",
-      parts: [
-        {
-          text:
-            userMessageText || (attachedImageDataUrl ? "(Image attached)" : ""),
-        },
-      ],
-      ...(attachedImageDataUrl && { imagePreview: attachedImageDataUrl }),
-      timestamp: new Date().toISOString(),
-    };
-
-    setIsLoading(true);
-    setLoadingMessage("Connecting to EduversaBot...");
-
-    setUserInput("");
-    setImageFile(null);
-    setImagePreviewUrl(null);
-
-    currentAbortController.current = new AbortController();
-    const signal = currentAbortController.current.signal;
-
-    let accumulatedResponse = "";
-    let hasReceivedData = false;
-
-    await sendMessageToApi({
-      question: userMessageText,
-      history: historyForApi,
-      imageDataUrl: attachedImageDataUrl,
-      signal: signal,
-      onStreamData: (chunk) => {
-        setLoadingMessage("Receiving response...");
-        accumulatedResponse += chunk;
-        hasReceivedData = true;
-      },
-      onStreamEnd: (finalAccumulatedText, aborted = false) => {
-        setIsLoading(false);
-        setLoadingMessage("");
-        currentAbortController.current = null;
-
-        const responseText = aborted
-          ? accumulatedResponse + " [Aborted]"
-          : accumulatedResponse;
-        const finalMessageText =
-          responseText || (aborted ? "[Response aborted]" : "[No response]");
-
-        if (hasReceivedData || !aborted) {
-          const modelMessageId = generateMessageId();
-          const newModelMessage = {
-            id: modelMessageId,
-            role: "model",
-            parts: [{ text: finalMessageText }],
-            timestamp: new Date().toISOString(),
-            feedback: null,
-          };
-          setChatHistory((prev) => [...prev, newUserMessage, newModelMessage]);
-
-          if (
-            !aborted &&
-            isTtsEnabled &&
-            finalMessageText &&
-            finalMessageText !== "[No response]" &&
-            finalMessageText !== "[Response aborted]"
-          ) {
-            speakText(finalMessageText);
-          }
-        } else {
-          // Only add user message if aborted before response
-          setChatHistory((prev) => [...prev, newUserMessage]);
-        }
-      },
-      onStreamError: (error) => {
-        setIsLoading(false);
-        setLoadingMessage("");
-        currentAbortController.current = null;
-        setApiError(`Error: ${error.message || "Failed to get response"}`);
-
-        const errorMsgId = generateMessageId();
-        const errorModelMessage = {
-          id: errorMsgId,
-          role: "model",
-          parts: [{ text: `Sorry, an error occurred: ${error.message}` }],
-          timestamp: new Date().toISOString(),
-          isError: true,
-        };
-        setChatHistory((prev) => [...prev, newUserMessage, errorModelMessage]);
-      },
-    });
+    await processAndSendMessage(userInput, imagePreviewUrl); // Use the processing function
   };
+
+  // Handler for quick reply button clicks
+  const handleQuickReplyClick = useCallback(
+    (reply) => {
+      if (reply.action === "query") {
+        // Simulate sending the reply value as a new message
+        flushSync(() => {
+          // Use flushSync to ensure state updates synchronously before API call if needed, though often not strictly necessary here
+          processAndSendMessage(reply.value);
+        });
+      } else if (reply.action === "summarize") {
+        // Handle summarize action specifically if needed, or trigger existing handler
+        handleSummarizeChat();
+      }
+      // Add other actions like 'link' later if needed
+      // else if (reply.action === 'link') {
+      //   window.open(reply.value, '_blank'); // Example for link action
+      // }
+    },
+    [processAndSendMessage]
+  ); // processAndSendMessage is now a dependency
 
   const handleClearHistory = () => {
     cancelCurrentRequest();
@@ -257,7 +387,8 @@ function ChatPanel({ isOpen, onClose }) {
     URL.revokeObjectURL(link.href);
   };
 
-  const handleSummarizeChat = async () => {
+  const handleSummarizeChat = useCallback(async () => {
+    // Make it useCallback
     if (isLoading || historyRef.current.length < 2) {
       return;
     }
@@ -286,13 +417,19 @@ function ChatPanel({ isOpen, onClose }) {
         signal: signal,
       });
       const summaryMsgId = generateMessageId();
+      const quickReplies = generateQuickReplies(result.answer); // Also add replies to summary if applicable
       addMessage({
         id: summaryMsgId,
         role: "model",
         parts: [{ text: `**Summary:**\n${result.answer}` }],
         timestamp: new Date().toISOString(),
         isSummary: true,
+        ...(quickReplies.length > 0 && { quickReplies }),
       });
+      // Optionally speak the summary
+      if (isTtsEnabled && result.answer) {
+        speakText("Summary: " + result.answer);
+      }
     } catch (error) {
       if (error.name !== "AbortError") {
         console.error("Summarize Error:", error);
@@ -315,7 +452,19 @@ function ChatPanel({ isOpen, onClose }) {
       setLoadingMessage("");
       currentAbortController.current = null;
     }
-  };
+  }, [
+    isLoading,
+    historyRef,
+    addMessage,
+    cancelCurrentRequest,
+    stopListening,
+    cancelSpeech,
+    setApiError,
+    setSttError,
+    setTtsError,
+    isTtsEnabled,
+    speakText,
+  ]); // Added dependencies
 
   const handleFeedback = (messageId, feedbackType) => {
     updateMessageFeedback(messageId, feedbackType);
@@ -355,6 +504,7 @@ function ChatPanel({ isOpen, onClose }) {
         imagePreviewUrl={imagePreviewUrl}
         removeImage={removeImage}
         onFeedback={handleFeedback}
+        onQuickReplyClick={handleQuickReplyClick} // Pass down the handler
       />
       <ChatInputForm
         userInput={userInput}

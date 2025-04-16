@@ -1,11 +1,18 @@
 .messageRow {
   display: flex;
-  margin-bottom: 16px;
+  margin-bottom: 8px; // Reduced margin between full rows
   max-width: 90%;
 
   @media (min-width: 769px) {
     max-width: 75%;
   }
+}
+
+// Wrapper for bubble + quick replies
+.messageColumn {
+  display: flex;
+  flex-direction: column;
+  width: 100%; // Allow column to take width
 }
 
 .avatar {
@@ -18,6 +25,7 @@
   flex-shrink: 0;
   margin-right: 8px;
   color: var(--white);
+  align-self: flex-start; // Align avatar to the top
 }
 
 .messageBubble {
@@ -27,6 +35,9 @@
   position: relative;
   box-shadow: 0 1px 2px var(--black-shadow-light);
   font-size: var(--font-13);
+  width: fit-content; // Make bubble only as wide as content
+  max-width: 100%; // Prevent overflow from column
+  margin-bottom: 4px; // Space between bubble and quick replies
 }
 
 .userRow {
@@ -39,6 +50,10 @@
     background-color: var(--blue-1);
   }
 
+  .messageColumn {
+    align-items: flex-end; // Align content to the right
+  }
+
   .messageBubble {
     background: var(--blue-1);
     color: var(--white);
@@ -48,6 +63,10 @@
 
 .modelRow {
   margin-right: auto;
+
+  .messageColumn {
+    align-items: flex-start; // Align content to the left
+  }
 
   .avatar {
     background-color: var(--white-13);
@@ -69,10 +88,18 @@
 }
 
 .messageContent {
+  // Ensure paragraphs inside markdown have margin if needed
+  p {
+    margin-bottom: 0.5em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
   a {
     color: inherit;
     text-decoration: underline;
     font-weight: 500;
+    word-break: break-all; // Break long links
   }
   code {
     background-color: var(--black-shadow-light);
@@ -80,6 +107,7 @@
     border-radius: 4px;
     font-size: var(--font-14);
     font-family: var(--font-source);
+    word-break: break-all;
   }
   pre {
     background-color: var(--black-shadow-light);
@@ -90,6 +118,7 @@
     code {
       background: none;
       padding: 0;
+      word-break: normal; // Don't break inside code blocks usually
     }
   }
   ul,
@@ -143,5 +172,50 @@
   }
   &.negativeFeedback > button {
     color: var(--red) !important;
+  }
+}
+
+// Styles for Quick Replies
+.quickRepliesContainer {
+  display: flex;
+  flex-wrap: wrap; // Allow buttons to wrap to next line
+  gap: 6px; // Spacing between buttons
+  margin-top: 4px; // Space above the buttons
+  padding-left: 0; // Align with the start of the bubble in modelRow
+  // For userRow, alignment is handled by messageColumn align-items: flex-end
+  width: 100%; // Take available width
+  justify-content: flex-start; // Align buttons left for modelRow
+
+  .userRow & {
+    justify-content: flex-end; // Align buttons right for userRow (though usually model has replies)
+  }
+}
+
+.quickReplyButton {
+  background-color: var(--white);
+  border: 1px solid var(--blue-8);
+  color: var(--blue-1);
+  border-radius: 50rem; // Pill shape
+  padding: 4px 10px;
+  font-size: var(--font-13);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  text-align: left;
+  line-height: 1.3;
+
+  &:hover {
+    background-color: var(--blue-10);
+    border-color: var(--blue-1);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--blue-6);
+  }
+
+  &:disabled {
+    // If you add disabled logic later
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }

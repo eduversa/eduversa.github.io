@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import styles from "./ChatMessage.module.scss";
@@ -11,7 +10,8 @@ import {
   FaCopy,
 } from "react-icons/fa";
 
-const ChatMessage = ({ message, onFeedback }) => {
+const ChatMessage = ({ message, onFeedback, onQuickReplyClick }) => {
+  // Accept prop
   const isUser = message.role === "user";
   const [feedbackSent, setFeedbackSent] = useState(message.feedback || null);
 
@@ -24,7 +24,7 @@ const ChatMessage = ({ message, onFeedback }) => {
     }
   };
 
-  const handleFeedback = (feedbackType) => {
+  const handleFeedbackInternal = (feedbackType) => {
     if (feedbackSent === feedbackType) {
       setFeedbackSent(null);
       onFeedback(message.id, null);
@@ -34,9 +34,17 @@ const ChatMessage = ({ message, onFeedback }) => {
     }
   };
 
+  const handleQuickReplyBtnClick = (reply) => {
+    if (onQuickReplyClick) {
+      onQuickReplyClick(reply);
+    }
+  };
+
   const Icon = isUser ? FaUser : FaRobot;
   const hasText =
     message.parts[0]?.text && message.parts[0].text !== "(Image attached)";
+  const hasQuickReplies =
+    message.quickReplies && message.quickReplies.length > 0;
 
   return (
     <div
@@ -47,65 +55,84 @@ const ChatMessage = ({ message, onFeedback }) => {
       <div className={styles.avatar}>
         <Icon aria-hidden="true" />
       </div>
-      <div
-        className={`${styles.messageBubble} ${
-          isUser ? styles.userBubble : styles.modelBubble
-        }`}
-      >
-        {message.imagePreview && (
-          <img
-            src={message.imagePreview}
-            alt="User attachment"
-            className={styles.messageImage}
-            style={{ marginBottom: hasText ? "12px" : 0 }}
-          />
-        )}
-        {hasText && (
-          <div className={styles.messageContent}>
-            <ReactMarkdown
-              components={{
-                a: ({ node, ...props }) => (
-                  <a {...props} target="_blank" rel="noopener noreferrer" />
-                ),
-                p: React.Fragment,
-              }}
-            >
-              {message.parts[0].text}
-            </ReactMarkdown>
-          </div>
-        )}
-        {!isUser && hasText && (
-          <div className={styles.messageActions}>
-            <IconButton
-              icon={FaCopy}
-              onClick={handleCopy}
-              title="Copy message"
-              aria-label="Copy message text"
-              size="0.9em"
-              className={styles.actionButtonWrapper}
+      <div className={styles.messageColumn}>
+        {" "}
+        {/* Added wrapper */}
+        <div
+          className={`${styles.messageBubble} ${
+            isUser ? styles.userBubble : styles.modelBubble
+          }`}
+        >
+          {message.imagePreview && (
+            <img
+              src={message.imagePreview}
+              alt="User attachment"
+              className={styles.messageImage}
+              style={{ marginBottom: hasText ? "12px" : 0 }}
             />
-            <IconButton
-              icon={FaThumbsUp}
-              onClick={() => handleFeedback("positive")}
-              title="Good response"
-              aria-label="Mark response as good"
-              size="0.9em"
-              active={feedbackSent === "positive"}
-              className={`${styles.actionButtonWrapper} ${
-                feedbackSent === "positive" ? styles.positiveFeedback : ""
-              }`}
-            />
-            <IconButton
-              icon={FaThumbsDown}
-              onClick={() => handleFeedback("negative")}
-              title="Bad response"
-              aria-label="Mark response as bad"
-              size="0.9em"
-              active={feedbackSent === "negative"}
-              className={`${styles.actionButtonWrapper} ${
-                feedbackSent === "negative" ? styles.negativeFeedback : ""
-              }`}
-            />
+          )}
+          {hasText && (
+            <div className={styles.messageContent}>
+              <ReactMarkdown
+                components={{
+                  a: ({ node, ...props }) => (
+                    <a {...props} target="_blank" rel="noopener noreferrer" />
+                  ),
+                  // Keep p rendering for structure if needed, or use Fragment if causing issues
+                  // p: React.Fragment,
+                }}
+              >
+                {message.parts[0].text}
+              </ReactMarkdown>
+            </div>
+          )}
+          {!isUser && hasText && (
+            <div className={styles.messageActions}>
+              <IconButton
+                icon={FaCopy}
+                onClick={handleCopy}
+                title="Copy message"
+                aria-label="Copy message text"
+                size="0.9em"
+                className={styles.actionButtonWrapper}
+              />
+              <IconButton
+                icon={FaThumbsUp}
+                onClick={() => handleFeedbackInternal("positive")}
+                title="Good response"
+                aria-label="Mark response as good"
+                size="0.9em"
+                active={feedbackSent === "positive"}
+                className={`${styles.actionButtonWrapper} ${
+                  feedbackSent === "positive" ? styles.positiveFeedback : ""
+                }`}
+              />
+              <IconButton
+                icon={FaThumbsDown}
+                onClick={() => handleFeedbackInternal("negative")}
+                title="Bad response"
+                aria-label="Mark response as bad"
+                size="0.9em"
+                active={feedbackSent === "negative"}
+                className={`${styles.actionButtonWrapper} ${
+                  feedbackSent === "negative" ? styles.negativeFeedback : ""
+                }`}
+              />
+            </div>
+          )}
+        </div>
+        {/* Render Quick Replies below the bubble */}
+        {!isUser && hasQuickReplies && (
+          <div className={styles.quickRepliesContainer}>
+            {message.quickReplies.map((reply, index) => (
+              <button
+                key={index}
+                className={styles.quickReplyButton}
+                onClick={() => handleQuickReplyBtnClick(reply)}
+              >
+                {reply.label}
+              </button>
+            ))}
           </div>
         )}
       </div>

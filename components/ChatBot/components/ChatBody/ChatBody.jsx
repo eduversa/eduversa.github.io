@@ -18,13 +18,21 @@ const ChatBody = ({
   imagePreviewUrl,
   removeImage,
   onFeedback,
+  onQuickReplyClick, // Accept prop
 }) => {
   const chatBodyRef = useRef(null);
   const hasMounted = useHasMounted();
 
   useEffect(() => {
     if (chatBodyRef.current) {
-      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+      // Debounce or check if user has scrolled up? For now, always scroll down.
+      const scrollTimeout = setTimeout(() => {
+        if (chatBodyRef.current) {
+          chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+        }
+      }, 100); // Small delay to allow rendering
+
+      return () => clearTimeout(scrollTimeout);
     }
   }, [
     chatHistory,
@@ -49,6 +57,7 @@ const ChatBody = ({
             key={message.id}
             message={message}
             onFeedback={onFeedback}
+            onQuickReplyClick={onQuickReplyClick} // Pass prop down
           />
         ))}
 
