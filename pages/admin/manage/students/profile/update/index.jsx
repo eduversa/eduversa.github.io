@@ -7,7 +7,7 @@ function StudentProfileUpdate() {
   const [userData, setUserData] = useState({});
   
   useEffect(() => {
-    const studentId = JSON.parse(localStorage.getItem("userid"));
+    const studentId = JSON.parse(localStorage.getItem("selected-studentId"));
     setUserid(studentId);
     const data = JSON.parse(localStorage.getItem('student_profile'));
     setUserData(data);
