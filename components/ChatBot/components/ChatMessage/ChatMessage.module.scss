@@ -1,0 +1,147 @@
+.messageRow {
+  display: flex;
+  margin-bottom: 16px;
+  max-width: 90%;
+
+  @media (min-width: 769px) {
+    max-width: 75%;
+  }
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 8px;
+  color: var(--white);
+}
+
+.messageBubble {
+  padding: 8px 12px;
+  border-radius: 8px;
+  word-wrap: break-word;
+  position: relative;
+  box-shadow: 0 1px 2px var(--black-shadow-light);
+  font-size: var(--font-13);
+}
+
+.userRow {
+  margin-left: auto;
+  flex-direction: row-reverse;
+
+  .avatar {
+    margin-right: 0;
+    margin-left: 8px;
+    background-color: var(--blue-1);
+  }
+
+  .messageBubble {
+    background: var(--blue-1);
+    color: var(--white);
+    border-bottom-right-radius: 4px;
+  }
+}
+
+.modelRow {
+  margin-right: auto;
+
+  .avatar {
+    background-color: var(--white-13);
+  }
+
+  .messageBubble {
+    background: var(--white-3);
+    color: var(--light-black-1);
+    border-bottom-left-radius: 4px;
+  }
+}
+
+.messageImage {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  border: 1px solid var(--black-shadow-light);
+}
+
+.messageContent {
+  a {
+    color: inherit;
+    text-decoration: underline;
+    font-weight: 500;
+  }
+  code {
+    background-color: var(--black-shadow-light);
+    padding: 0.1em 0.3em;
+    border-radius: 4px;
+    font-size: var(--font-14);
+    font-family: var(--font-source);
+  }
+  pre {
+    background-color: var(--black-shadow-light);
+    padding: 8px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: var(--font-source);
+    code {
+      background: none;
+      padding: 0;
+    }
+  }
+  ul,
+  ol {
+    padding-left: 16px;
+    list-style: revert;
+    margin: 8px 0;
+  }
+  li {
+    list-style-type: revert;
+    margin-bottom: 4px;
+  }
+}
+
+.messageActions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 8px;
+  border-top: 1px solid var(--white-7);
+  padding-top: 4px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+
+  .messageBubble:hover & {
+    opacity: 1;
+  }
+}
+
+.actionButtonWrapper {
+  height: auto;
+  width: auto;
+  border-radius: 50%;
+  overflow: hidden;
+
+  > button {
+    padding: 4px !important;
+    margin-left: 4px !important;
+    color: var(--light-black-7) !important;
+    border-radius: 50% !important;
+    background: none !important;
+
+    &:hover:not(:disabled) {
+      color: var(--light-black-1) !important;
+      background-color: var(--white-7) !important;
+    }
+  }
+
+  &.positiveFeedback > button {
+    color: var(--green) !important;
+  }
+  &.negativeFeedback > button {
+    color: var(--red) !important;
+  }
+}

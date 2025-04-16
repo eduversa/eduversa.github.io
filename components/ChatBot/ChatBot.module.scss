@@ -1,0 +1,105 @@
+.chatBotWrapper {
+  position: relative;
+  height: 0;
+  width: 0;
+}
+
+.chatIcon {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--blue-1);
+  color: var(--white);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px var(--black-shadow-light-1);
+  cursor: pointer;
+  z-index: 999;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    background-color: var(--blue-3);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--blue-8);
+  }
+}
+
+.chatPanel {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 400px;
+  height: 70vh;
+  max-height: 600px;
+  background-color: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 5px 15px var(--black-shadow-light-1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+
+  &.closed {
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &.open {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (max-width: 450px) {
+    width: calc(100vw - 30px);
+    height: calc(80vh - 30px);
+    max-height: 85vh;
+    bottom: 15px;
+    right: 15px;
+    left: 15px;
+    transform-origin: bottom center;
+  }
+}
+
+.cancelButton {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--yellow-1);
+  color: var(--orange-6);
+  border: 1px solid var(--yellow-2);
+  border-radius: 50rem;
+  padding: 4px 12px;
+  font-size: var(--font-14);
+  font-weight: 500;
+  box-shadow: 0 2px 4px var(--black-shadow-light);
+  z-index: 10;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--yellow-2);
+  }
+  &:focus {
+    box-shadow: 0 0 0 3px var(--yellow-6);
+    outline: none;
+  }
+
+  @media (max-width: 450px) {
+    bottom: 70px;
+    font-size: var(--font-15);
+    padding: 4px 8px;
+  }
+}

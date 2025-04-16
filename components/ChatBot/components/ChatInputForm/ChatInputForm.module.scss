@@ -1,0 +1,124 @@
+.chatInputForm {
+  display: flex;
+  padding: 8px 12px;
+  border-top: 1px solid var(--white-7);
+  align-items: flex-end;
+  background: var(--white);
+  gap: 8px;
+  transition: box-shadow 0.2s ease;
+
+  &.focused {
+    box-shadow: 0 -2px 5px var(--black-shadow-light);
+    border-top-color: var(--blue-8);
+  }
+}
+
+.textInput {
+  flex-grow: 1;
+  border: 1px solid var(--white-7);
+  border-radius: 50rem;
+  padding: 8px 12px;
+  resize: none;
+  min-height: 40px;
+  max-height: 150px;
+  overflow-y: auto !important;
+  line-height: 1.4;
+  background-color: var(--white-4);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  font-family: var(--font-roboto);
+  font-size: var(--font-13);
+
+  &:focus {
+    background-color: var(--white);
+    border-color: var(--blue-1);
+    box-shadow: none;
+  }
+
+  &::placeholder {
+    color: var(--light-black-7);
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    background-color: var(--white-8);
+  }
+}
+
+.attachButtonWrapper,
+.micButtonWrapper,
+.sendButtonWrapper {
+  flex-shrink: 0;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  > button {
+    height: 100%;
+    width: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+}
+
+.attachButtonWrapper {
+  &.active > button {
+    background-color: var(--green-10) !important;
+    color: var(--green-9) !important;
+  }
+  &:hover:not(:disabled):not(.active) > button {
+    background-color: var(--white-8) !important;
+  }
+}
+
+.micButtonWrapper {
+  &.micActive > button {
+    background-color: var(--red-3) !important;
+    color: var(--red-5) !important;
+  }
+  &:hover:not(:disabled):not(.micActive) > button {
+    background-color: var(--white-8) !important;
+  }
+}
+
+.sendButtonWrapper {
+  > button {
+    background-color: var(--blue-1) !important;
+    color: var(--white) !important;
+    border: none !important;
+
+    &:hover:not(:disabled) {
+      background-color: var(--blue-3) !important;
+    }
+
+    &:disabled {
+      background-color: var(--blue-8) !important;
+      opacity: 0.6 !important;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .chatInputForm {
+    padding: 8px;
+    gap: 4px;
+  }
+
+  .textInput {
+    padding: 8px;
+    min-height: 38px;
+    font-size: var(--font-14);
+  }
+
+  .attachButtonWrapper,
+  .micButtonWrapper,
+  .sendButtonWrapper {
+    height: 38px;
+    width: 38px;
+  }
+}

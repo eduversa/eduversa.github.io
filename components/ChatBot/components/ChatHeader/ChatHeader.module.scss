@@ -1,0 +1,70 @@
+.chatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: var(--white-4);
+  border-bottom: 1px solid var(--white-7);
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: var(--font-10);
+  font-weight: 500;
+  color: var(--light-black-1);
+  font-family: var(--font-oswald);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 16px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.actionButtonWrapper {
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  > button {
+    color: var(--light-black-7) !important;
+    height: 100%;
+    width: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+
+    &:hover:not(:disabled) {
+      color: var(--light-black-1) !important;
+      background-color: var(--white-8) !important;
+    }
+  }
+
+  &.ttsActive > button {
+    color: var(--blue-7) !important;
+    background-color: var(--white-shadow-light) !important;
+  }
+}
+
+@media (max-width: 450px) {
+  .chatHeader {
+    padding: 8px;
+  }
+  .title {
+    font-size: var(--font-11);
+    margin-right: 8px;
+  }
+  .actions {
+    gap: 0;
+  }
+  .actionButtonWrapper {
+    height: 32px;
+    width: 32px;
+  }
+}
