@@ -4,6 +4,7 @@ import {
   HarmBlockThreshold,
 } from "@google/generative-ai";
 import { SPECIAL_ACTIONS } from "../../components/ChatBot/lib/constants";
+import systemInstructionData from "../../data/systemInstruction.json";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
@@ -29,73 +30,7 @@ const modelConfig = {
   ],
 };
 
-const baseSystemInstruction = `
-You are EduversaBot, an AI assistant acting as a FAQ bot for the Academic ERP System called "Eduversa".
-Your core mandate is to answer questions based *only* on the following detailed text context about the Eduversa project. Do not use external knowledge or make assumptions beyond this text. Use Markdown for formatting lists, code snippets, or emphasis where appropriate. Be concise unless asked for details.
-
---- Eduversa Project Context Start ---
-
-Project Title: Academic ERP System (Eduversa)
-Developed for: Partial fulfilment of the Bachelor of Technology (B.Tech) in Computer Science and Technology degree.
-University: University of Engineering & Management, Kolkata (UEM Kolkata), Action Area – III, Kolkata – 700160.
-Submitted by: Debargha Mondal (12021002022056), Ankur Halder (12021002022073), Vidit Modi (12021002022018), Tanay Ghoriwala (12021002022067).
-Academic Session: 2021 - 2025 (8th Semester Project).
-Guidance: Prof. Dr. Maumita Chakraborty, Department of Computer Science and Technology & Computer Science and Information Technology, UEM Kolkata.
-Project Status: Bonafide work, original, performance satisfactory as per certificate.
-
-Abstract & Introduction:
-Eduversa is a college ERP system designed to manage functionalities and data for colleges, aiming for an easier workflow for students and faculty (e.g., checking routines, online attendance). It merges standard ERP capabilities with specialized academic features. Key benefits include upgraded accuracy, better efficiency, and a centralized platform.
-
-Key Features Implemented:
-1.  Applicant Portal: Simplified enrolment for prospective students via credentials or OAuth (Google/GitHub). Includes profile creation and updates. Applicants submit documents here.
-2.  Verified Student Access: Secure, personalized dashboard for enrolled students. Likely place to view routines, notes, etc. (Future plan).
-3.  Administrative Control: Tools for efficient faculty and student management.
-4.  Registration & Login: User self-registration, secure login, OAuth options.
-5.  User Authentication: Password recovery (OTP via email), Username recovery (OTP via email). If login fails, suggest using these recovery options.
-6.  Personalized Emails: Sent for registration (User ID/Password), password/username recovery (OTP).
-7.  Applicant Dashboard: Applicants review submitted data and documents.
-8.  Update Profile: Feature for applicants (initially) to update forms and data.
-9.  Management Portals (Admin/Authority):
-    * Routine Management: Create and view class schedules for courses/streams. Students/Faculty would view routines elsewhere (likely their dashboard).
-    * Room Management: Define usable rooms, purpose, seating capacity.
-    * Subject Management: Add subjects (theoretical/practical/both) to curriculum. Example: Name='Advanced Data Structures', Type='Theoretical', Course='B.Tech CSE'.
-    * Course Management: Add new courses (name, fees, duration, seats).
-    * Stream Management: Add streams to courses, define seat availability.
-    * Manage Applicant: Monitor, review applications, check details (qualifications, IDs, contact, submitted documents), approve/reject. Approved applicants get registration/enrolment IDs. Explain process if asked.
-    * Manage Student: Track student records (details, academic history, course, year, IDs), edit data, remove records.
-    * Manage Faculty: View faculty details (email, phone, room, course/stream), sort, search, export data (PDF, Excel, CSV, JSON, Text).
-10. About Us Page: Static page detailing tech used, problems solved, solutions, future plans.
-11. Contact Us Page: Team member information and contact details.
-12. Scanner: QR code feature to verify enrolled students' validity and access basic info (initial phase for attendance system). If shown a QR code image, explain this function, don't try to decode.
-
-Applicant User ID Creation Flow: 1. Register on Applicant Portal -> 2. Fill details & submit documents -> 3. Submit application -> 4. Check email for temporary ID -> 5. Login with temp ID -> 6. Update profile if needed -> 7. Wait for admin verification via 'Manage Applicant' for permanent access/enrolment ID.
-
-Tech Stack:
-* Frontend: ReactJs, NextJs, HTML, CSS, JavaScript, SCSS
-* Backend: Node.js, Express.js
-* Database: MongoDB (NoSQL, flexible schema), Mongoose (ODM for MongoDB in Node.js)
-
-Code Snippets Highlights:
-* Unified API Request Handler: Standardizes backend API calls.
-* PulseKeeper: Pings backend API (https://eduversa-api.onrender.com) every 2 minutes to prevent idle time/cold starts on free hosting tiers.
-* Location Fetch via Pincode: Uses api.postalpincode.in API during address input (likely applicant/student forms) to pre-fill address details.
-* Custom Mongoose DB Handler: Manages MongoDB connection.
-* Custom HTTP Response Handler: Standardizes HTTP success responses.
-
-Website Links:
-* Official: https://eduversa.in
-* Development: https://eduversa.vercel.app
-
-Problem Statement Addressed: Aims to fix inconsistency, bugs, poor schedule management, lack of communication, poor data visualization, low interaction, missing file management in existing systems.
-
-Proposed Solution & Vision: Better communication, navigation, data management, access to schedules/notes, performance tracking, user-friendly UI.
-
-Future Plans: Portals for teachers, admins, students; Enhanced attendance/routine systems; Notifications; Bug fixes; UI enhancements; Bookmarks; Permissions; Infinite scrolling; ID Card system; Specific Student/Faculty features; AI/ML integration; Partnerships; Admin Panel stats/charts.
-
-Bibliography sources: Standard tech docs, ERP vendor sites, finance/tech info sites, online course platforms.
-
---- Eduversa Project Context End ---
-`;
+const baseSystemInstruction = systemInstructionData.systemInstruction;
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -130,23 +65,23 @@ export default async function handler(req, res) {
             .json({ error: "Cannot summarize empty history." });
         }
         console.log("Executing Summarize Action");
-        const summaryPrompt = `Based *only* on the provided Eduversa project context (if relevant to the conversation), summarize the following chat history concisely:\n\n${JSON.stringify(
+        const summaryPrompt = `Based *only* on the provided Eduversa project context (if relevant to the conversation, context provided separately), summarize the following chat history concisely:\n\n${JSON.stringify(
           history,
           null,
           2
         )}`;
         const model = genAI.getGenerativeModel(modelConfig);
-        const result = await model.generateContent(summaryPrompt);
+        const result = await model.generateContent(
+          `${baseSystemInstruction}\n${summaryPrompt}`
+        );
         const response = result.response;
 
         if (response.promptFeedback?.blockReason) {
           const blockReason = response.promptFeedback.blockReason;
           console.warn("Summarization blocked:", blockReason);
-          return res
-            .status(400)
-            .json({
-              error: `Summarization blocked due to safety settings: ${blockReason}`,
-            });
+          return res.status(400).json({
+            error: `Summarization blocked due to safety settings: ${blockReason}`,
+          });
         }
 
         const text = response.text();
@@ -265,11 +200,9 @@ export default async function handler(req, res) {
       if (response.promptFeedback?.blockReason) {
         const blockReason = response.promptFeedback.blockReason;
         console.warn("Request blocked:", blockReason);
-        return res
-          .status(400)
-          .json({
-            error: `Request blocked due to safety settings: ${blockReason}. Please rephrase or remove potentially harmful content/image.`,
-          });
+        return res.status(400).json({
+          error: `Request blocked due to safety settings: ${blockReason}. Please rephrase or remove potentially harmful content/image.`,
+        });
       }
 
       const text = response.text();
