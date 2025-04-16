@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { ApplicantNavbar, Footer, ChatBot } from "@/containers";
-
+import { ApplicantNavbar, Footer } from "@/containers";
+import ChatBot from "../../components/ChatBot/index";
 function ApplicantLayout({ children }) {
   const router = useRouter();
   const hasLogged = useRef(false);
