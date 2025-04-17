@@ -67,6 +67,7 @@ function ForgetUsername() {
   };
 
   const handleVerifyOtp = async () => {
+    const authToken = localStorage.getItem("authToken");
     const wrappedApiRequest = withLoading(
       apiRequest,
       setLoading,

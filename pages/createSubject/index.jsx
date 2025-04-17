@@ -32,7 +32,7 @@
 //       setTotalSubjects([...totalSubjects,{
 //         ...data
 //       }])
-      
+
 //       devLog("data is",data);
 //     } catch (err) {
 //       console.error(err);
@@ -88,15 +88,16 @@
 import SubjectList from "@/components/AdminForms/Subject/SubjectList";
 import { AllLoader } from "@/components";
 import { PlusCircle } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { getCollegeDetailsApi } from "@/functions";
 import SubjectForm from "@/components/AdminForms/Subject/SubjectForm";
 import { useAlert } from "@/contexts/AlertContext";
 import { devLog } from "@/utils/apiUtils";
+import { Navbar } from "@/containers";
 
 export default function Subject() {
-  const {showAlert} = useAlert();
-  const [id,setId] = useState(1);
+  const { showAlert } = useAlert();
+  const [id, setId] = useState(1);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [totalSubjects, setTotalSubjects] = useState([]);
   const [collegeDetails, setCollegeDetails] = useState();
@@ -133,14 +134,13 @@ export default function Subject() {
       } else {
         // Create new subject
         setTotalSubjects([...totalSubjects, { ...data, _id: id }]);
-        setId(i => i+1);
+        setId((i) => i + 1);
       }
       devLog("Submitted data:", data);
       showAlert("Task completed");
       setEditingSubject(null);
       setIsFormVisible(false);
       setCurrentData(null);
-
     } catch (err) {
       console.error(err);
     }
@@ -164,50 +164,53 @@ export default function Subject() {
   };
 
   if (loading) {
-    return <AllLoader/>
+    return <AllLoader />;
   }
 
   return (
-    <div className="container">
-      <div className="content">
-        <div className="card">
-          <div className="card__body">
-            <header className="header">
-              <div>
-                <h1 className="header__title">Subject Management</h1>
-                <p className="header__subtitle">
-                  Manage all the curriculum subjects
-                </p>
-              </div>
-              <button
-                onClick={() => {
-                  setIsFormVisible(true);
-                  setEditingSubject(null); 
-                  setIsEditing(false);
-                }}
-                className="button button--primary button--icon"
-              >
-                <PlusCircle size={16} />
-                Add New Subject
-              </button>
-            </header>
-            {isFormVisible ? (
-              <SubjectForm
-                onSubmit={handleSubmit}
-                onCancel={onCancel}
-                currentData={editingSubject} 
-                dropDownData={collegeDetails}
-              />
-            ) : (
-              <SubjectList
-                totalSubjects={totalSubjects}
-                onEdit={onEdit}
-                onDelete={onDelete}
-              />
-            )}
+    <Fragment>
+      <Navbar />
+      <div className="container">
+        <div className="content">
+          <div className="card">
+            <div className="card__body">
+              <header className="header">
+                <div>
+                  <h1 className="header__title">Subject Management</h1>
+                  <p className="header__subtitle">
+                    Manage all the curriculum subjects
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setIsFormVisible(true);
+                    setEditingSubject(null);
+                    setIsEditing(false);
+                  }}
+                  className="button button--primary button--icon"
+                >
+                  <PlusCircle size={16} />
+                  Add New Subject
+                </button>
+              </header>
+              {isFormVisible ? (
+                <SubjectForm
+                  onSubmit={handleSubmit}
+                  onCancel={onCancel}
+                  currentData={editingSubject}
+                  dropDownData={collegeDetails}
+                />
+              ) : (
+                <SubjectList
+                  totalSubjects={totalSubjects}
+                  onEdit={onEdit}
+                  onDelete={onDelete}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 }

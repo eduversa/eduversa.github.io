@@ -1,9 +1,10 @@
 import StreamForm from "@/components/AdminForms/Stream/StreamForm";
 import StreamList from "@/components/AdminForms/Stream/StreamList";
+import { Navbar } from "@/containers";
 import { useAlert } from "@/contexts/AlertContext";
 import { devLog } from "@/utils/apiUtils";
 import { PlusCircle } from "lucide-react";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 export default function CreateStream() {
   const { showAlert } = useAlert();
@@ -17,7 +18,7 @@ export default function CreateStream() {
     if (isEditing) {
       // Update existing stream data
       setStreams(
-        streams.map((stream) => 
+        streams.map((stream) =>
           stream._id === data._id ? { ...data } : stream
         )
       );
@@ -26,7 +27,7 @@ export default function CreateStream() {
       setStreams([...streams, { ...data, _id: id }]);
       setId((i) => i + 1);
     }
-    
+
     // Reset form states after submission
     showAlert("Task completed");
     setIsFormVisible(false);
@@ -56,44 +57,47 @@ export default function CreateStream() {
   };
 
   return (
-    <div className="container">
-      <div className="content">
-        <div className="card">
-          <div className="card__body">
-            <header className="header">
-              <div>
-                <h1 className="header__title">Stream Management</h1>
-                <p className="header__subtitle">Manage all the streams</p>
-              </div>
-              <button
-                onClick={() => {
-                  setIsFormVisible(true);
-                  setIsEditing(false);
-                  setCurrentData(null);
-                }}
-                className="button button--primary button--icon"
-              >
-                <PlusCircle size={16} />
-                Add new stream
-              </button>
-            </header>
+    <Fragment>
+      <Navbar />
+      <div className="container">
+        <div className="content">
+          <div className="card">
+            <div className="card__body">
+              <header className="header">
+                <div>
+                  <h1 className="header__title">Stream Management</h1>
+                  <p className="header__subtitle">Manage all the streams</p>
+                </div>
+                <button
+                  onClick={() => {
+                    setIsFormVisible(true);
+                    setIsEditing(false);
+                    setCurrentData(null);
+                  }}
+                  className="button button--primary button--icon"
+                >
+                  <PlusCircle size={16} />
+                  Add new stream
+                </button>
+              </header>
 
-            {isFormVisible ? (
-              <StreamForm
-                onSubmit={handleSubmit}
-                onCancel={onCancel}
-                currentData={currentData} 
-              />
-            ) : (
-              <StreamList
-                streams={streams}
-                onDelete={onDelete}
-                onEdit={onEdit}
-              />
-            )}
+              {isFormVisible ? (
+                <StreamForm
+                  onSubmit={handleSubmit}
+                  onCancel={onCancel}
+                  currentData={currentData}
+                />
+              ) : (
+                <StreamList
+                  streams={streams}
+                  onDelete={onDelete}
+                  onEdit={onEdit}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 }
