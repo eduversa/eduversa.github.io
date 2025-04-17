@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Save, Minus, Plus } from "lucide-react";
 
@@ -6,6 +6,7 @@ import { Header } from "@/components/RoutineForm/Header";
 import { PeriodCell } from "@/components/RoutineForm/PeriodCell";
 import { devLog } from "@/utils/apiUtils";
 import { useAlert } from "@/contexts/AlertContext";
+import { Navbar } from "@/containers";
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 export const subjects = [
@@ -29,8 +30,6 @@ export const allTeachers = [
   "Dr. Rachel Kumar (Geography)",
   "Mr. Alex Turner (CS)",
 ];
-
-
 
 export const timeSlots = [
   "08:00 AM - 09:00 AM",
@@ -107,7 +106,6 @@ function App() {
     name: "periods",
   });
 
- 
   useEffect(() => {
     reset({
       periods: Array(periodCount).fill({
@@ -173,89 +171,91 @@ function App() {
       }));
       return acc;
     }, {});
-    devLog("transformed data",transformedData);
+    devLog("transformed data", transformedData);
     showAlert("Routine making success");
     reset();
   };
 
   return (
-    <div className="routine-container">
-      <div className="routine-wrapper">
-        <Header
-          selectedClass={selectedClass}
-          setSelectedClass={setSelectedClass}
-        />
+    <Fragment>
+      <Navbar />
+      <div className="routine-container">
+        <div className="routine-wrapper">
+          <Header
+            selectedClass={selectedClass}
+            setSelectedClass={setSelectedClass}
+          />
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="routine-form"
-          noValidate
-        >
-          <div className="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Period</th>
-                  {days.map((day) => (
-                    <th key={day}>{day}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {fields.map((field, periodIndex) => (
-                  <tr key={field.id}>
-                    <td className="period-number">{periodIndex + 1}</td>
-                    {days.map((day) => {
-                      const dayLower = day.toLowerCase();
-                      const { availableTeachers, availableRooms } =
-                        getAvailableResources(periodIndex, day);
-
-                      return (
-                        <PeriodCell
-                          key={`${field.id}-${day}`}
-                          periodIndex={periodIndex}
-                          day={day}
-                          dayLower={dayLower}
-                          register={register}
-                          errors={errors}
-                          availableTeachers={availableTeachers}
-                          availableRooms={availableRooms}
-                          subjects={subjects}
-                          timeSlots={timeSlots}
-                        />
-                      );
-                    })}
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="routine-form"
+            noValidate
+          >
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Period</th>
+                    {days.map((day) => (
+                      <th key={day}>{day}</th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {fields.map((field, periodIndex) => (
+                    <tr key={field.id}>
+                      <td className="period-number">{periodIndex + 1}</td>
+                      {days.map((day) => {
+                        const dayLower = day.toLowerCase();
+                        const { availableTeachers, availableRooms } =
+                          getAvailableResources(periodIndex, day);
 
-          <div className="submit-container">
-            <button type="submit" className="submit-button">
-              <Save size={20} />
-              Save Class Schedule
+                        return (
+                          <PeriodCell
+                            key={`${field.id}-${day}`}
+                            periodIndex={periodIndex}
+                            day={day}
+                            dayLower={dayLower}
+                            register={register}
+                            errors={errors}
+                            availableTeachers={availableTeachers}
+                            availableRooms={availableRooms}
+                            subjects={subjects}
+                            timeSlots={timeSlots}
+                          />
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="submit-container">
+              <button type="submit" className="submit-button">
+                <Save size={20} />
+                Save Class Schedule
+              </button>
+            </div>
+          </form>
+          <div className="adds-buttons">
+            <button
+              className="append-remove-button"
+              onClick={() => setPeriodCount((prev) => prev + 1)}
+            >
+              <Plus size={16} />
+            </button>
+            <button
+              className="append-remove-button remove"
+              onClick={() => setPeriodCount((prev) => Math.max(1, prev - 1))}
+            >
+              <Minus size={16} />
             </button>
           </div>
-        </form>
-        <div className="adds-buttons">
-          <button
-            className="append-remove-button"
-            onClick={() => setPeriodCount((prev) => prev + 1)}
-          >
-            <Plus size={16} />
-          </button>
-          <button
-            className="append-remove-button remove"
-            onClick={() => setPeriodCount((prev) => Math.max(1, prev - 1))}
-          >
-            <Minus size={16} />
-          </button>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 }
 
 export default App;
-

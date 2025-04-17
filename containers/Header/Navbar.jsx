@@ -116,6 +116,31 @@ function Navbar() {
         className: "nav-item",
         src: "/admin/scanner",
       },
+      {
+        label: "Create Room",
+        className: "nav-item",
+        src: "/createRoom",
+      },
+      {
+        label: "Create Course",
+        className: "nav-item",
+        src: "/createCourse",
+      },
+      {
+        label: "Create Routine",
+        className: "nav-item",
+        src: "/createRoutine",
+      },
+      {
+        label: "Create Stream",
+        className: "nav-item",
+        src: "/createStream",
+      },
+      {
+        label: "Create Subject",
+        className: "nav-item",
+        src: "/createSubject",
+      },
     ],
     faculty: [
       { label: "Dashboard", className: "nav-item", src: "/faculty" },

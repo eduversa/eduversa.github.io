@@ -107,6 +107,7 @@ function ForgetPassword() {
   };
 
   const handleNewPasswordSubmit = async (e) => {
+    const authToken = localStorage.getItem("authToken");
     e.preventDefault();
 
     if (!passwordMatch) {
